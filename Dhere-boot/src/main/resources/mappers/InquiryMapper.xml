@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springstudy.dhere.mappers.InquiryMapper">
+
+    <insert id="insertInquiry" parameterType="Inquiry">
+        INSERT INTO inquiry(
+            inquiry_title, inquiry_content, inquiry_file, reg_date, inquiry_email)
+        VALUES(#{inquiryTitle}, #{inquiryContent}, #{inquiryFile}, SYSDATE(), #{inquiryEmail})
+    </insert>
+    
+    <select id="iList" resultType="Inquiry">
+		SELECT 
+			inquiry_no as inquiryNo,
+			inquiry_title as inquiryTitle
+		FROM inquiry
+		WHERE inquiry_email = #{email}
+		ORDER BY inquiry_no DESC
+	</select>
+	
+	<select id="inquiryDetail" resultType="Inquiry" >
+		SELECT 
+			inquiry_no as inquiryNo,
+			inquiry_title as inquiryTitle,
+			inquiry_content as inquiryContent,
+			inquiry_file as inquiryFile,
+			reg_date as regDate,
+			inquiry_email as inquiryEmail
+		FROM inquiry
+		WHERE inquiry_no = #{inquiryNo}
+	</select>
+	
+	<select id="inquiryList" resultType="Inquiry">
+		SELECT 
+			inquiry_no as inquiryNo,
+			inquiry_title as inquiryTitle,
+			inquiry_content as inquiryContent,
+			inquiry_file as inquiryFile,
+			reg_date as regDate,
+			inquiry_email as inquiryEmail
+		FROM inquiry
+		ORDER BY inquiryNo DESC
+	</select>
+
+</mapper>

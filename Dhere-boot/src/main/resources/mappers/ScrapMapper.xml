@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.springstudy.dhere.mappers.ScrapMapper">
+
+	
+<!-- 프로필 -->
+	<select id="getScrap" resultType="Scrap">
+			SELECT 
+				email,
+				nickname,
+				picture,
+				job
+				FROM member
+			WHERE email = #{email}
+	</select>
+	
+	<select id="isPassCheck" resultType="String">
+			SELECT
+				pass
+			FROM member
+			WHERE no = #{no}
+	</select>
+	
+	
+	
+<!-- 스크랩 -->
+ <!-- 	<select id="ScrapList" resultType="Scrap" resultMap="ScrapResultMap">
+		 	SELECT 
+				sc.scrap_no,
+			    sc.scrap_date,
+			    m.email,
+			    m.nickname,
+			    m.job,
+			    m.pass
+			FROM scrap
+			<Where>
+				<if test="scrapCategory == 'Others' and ScrapCategory != 'All'">
+					not (scrap_category = 'My-Post' or scrap_category = 'My-Scrap' or scrap_category = 'Following-List')
+				</if>
+				<if test="scrapCategory != 'others' and ScrapCategory != 'All'">
+					scrap_category = #{scrapCategory}
+				</if>
+			</Where>
+			ORDER by scrap_no
+ 	</select> -->
+ 		 
+	 <!-- 이메일에 해당하는 비밀번호를 가져오는 맵핑 구문 -->
+<!-- 	<select id="memberPassCheck" resultType="String">
+		SELECT
+			pass
+		FROM member
+		WHERE email = #{email}
+	</select>
+	
+	회원정보를 수정하는 맵핑구문
+	<update id="updateMember" parameterType="Member">
+		UPDATE member
+			UPDATE member
+			SET pass=#{pass}, email=#{email}, phone=#{phone},
+			name=#{name}, nickname=#{nickname}, zipcode=#{zipcode},
+			address1=#{address1}, address2=#{address2}
+			job=#{job}, phone=#{phone}, picture=#{picture}
+		WHERE email=#{email}
+	</update> -->
+	
+	<resultMap id="ScrapResultMap" type="Scrap">
+		<id property="email" column="email" />
+		<result property="scrap_no" column="scrap_no" />
+		<result property="storyNo" column="story_no" />
+		<result property="scrap_date" column="scrap_date" />
+		<result property="nickname" column="nickname" />
+		<result property="job" column="job" />		
+		<result property="picture" column="picture" />
+	</resultMap>
+</mapper>

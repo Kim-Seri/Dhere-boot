@@ -1,0 +1,152 @@
+@charset "UTF-8";
+/* 스토리 디테일 */
+
+#category_view_btn {
+	margin-top: 130px;
+}
+
+#icon_tag_category_view_btn {
+	width: 30px; 
+	height: 30px;
+}
+
+#title {
+	font-size: 60px;
+}
+
+#profile {
+	width: 100px; 
+	height: 100px; 
+	object-fit: cover; 
+	border-radius: 70%;
+	border: 0px solid #5E5E5E;
+	box-shadow: 0 0 5px 1px #5E5E5E;
+	cursor: pointer;
+}
+
+#title {
+	font-weight: 700;
+}
+
+#nickname {
+	font-size: 40px;
+	font-weight: 700;
+	color: #5E5E5E;
+}
+
+#regDate {
+	font-size: 22px;
+	color: #5E5E5E;
+	width: 55%; 
+}
+
+#count_num {
+	font-size: 30px;
+	font-weight: 500;
+	color: #5E5E5E;
+}
+
+#icon_count, #icon_heart {
+	width: 40px; 
+	height: 40px;
+}
+
+#followBtn, #scrapBtn, #deleteBtn, #updateBtn {
+	width: 110px; 
+	height: 50px; 
+}
+
+#fileName {
+	width: 1000px; 
+	height: 800px; 
+	margin-top: 40px;
+	object-fit: contain;
+}
+/* 사진 끝 */
+
+#Q_text {
+	color: #4370FF;
+	margin-top: 150px;
+	font-size: 47px;
+	font-weight: 600;
+}
+
+#A-text {
+	margin-top: 20px;
+	border-left: 10px solid #4370FF;
+	margin-left: 10px;
+	padding-left: 40px;
+	padding-right: 60px;
+	color: #5E5E5E;
+	font-size: 35px;
+}
+
+#share_heart_siren_btn {
+	margin-top: 250px;
+}
+
+#icon_share_btn, #icon_heart_btn, #icon_siren_btn {
+	width: 40px; 
+	height: 40px;
+	padding: 5px;
+}
+
+#tag {
+	margin-top: 100px;
+	font-size: 35px;
+	color: #A8A8A8;
+}
+
+#icon_tag {
+	width: 60px; 
+	height: 60px;
+}
+
+#storyDetaile_products_area {
+	border-top: 2px solid #4370FF;
+	border-bottom: 2px solid #4370FF;
+	margin-top: 80px;
+	margin-bottom: 80px;
+	padding-top: 80px;
+	padding-bottom: 80px;
+}
+#storyDetail_reply_area {
+	padding-left: 150px;
+	padding-right: 150px;
+}
+
+#storyDetail_reply_content {
+	border: 5px solid #4370FF;
+	padding: 20px;
+	border-radius: 20px;
+	font-size: 25px;
+}
+
+#storyDetail_reply_regDate {
+	color: #5E5E5E;
+}
+
+#storyDetail_reply_siren {
+	width: 30px; 
+	height: 30px;
+}
+
+#storyDetail_reply_write_area {
+	background-color: #EFEFEF;
+	width: 100%; 
+	height: 250px;
+	padding: 20px;
+}
+
+#storyDetail_reply_write_content {
+	border: 5px solid #4370FF;
+	padding: 20px;
+	margin-right: 10px;
+	border-radius: 20px;
+	font-size: 25px;
+}
+
+
+.custom-tooltip {
+  —bs-tooltip-bg: var(—bs-primary);
+}

@@ -1,0 +1,16 @@
+@charset "UTF-8";
+/*회원가입 폼*/
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url("../images/joinBackground.png");
+  background-size: cover;
+}
+
+#header {
+    display: none;
+}
+
+#footer_container {
+	display: none;
+}

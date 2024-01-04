@@ -1,0 +1,108 @@
+@charset "UTF-8";
+/* main */
+
+/* 글쓰기 버튼 고정 */
+.fixed-write-button {
+	display: none;
+	position: fixed;
+	width: 400px;
+	bottom: 15px;
+	left: 50%;
+ 	transform: translateX(-50%);
+}
+
+/* 카테고리 */
+input[type="checkbox"] {
+	display: none;
+}
+
+/* .jobs label {
+	z-index: -1;
+}
+ */
+.jobs {
+	width: 130px;
+	height: 45px;
+	border: 3px solid #4370FF;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: bold;
+}
+
+.job-categories-container {
+    display: flex;
+}
+
+.jobs {
+    margin-right: 10px;
+}
+
+/* 추가 */
+.jobs.selected {
+    background-color: #4370FF;
+}
+
+.close-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+
+
+/* 검색창 */
+.TagSearchBox {
+	width: 300px;
+}
+
+/* 게시글 타이틀, 필터, 정렬 */
+/* 셀렉트박스 */
+.selectBox {
+	width: 130px;
+	border: none;
+}
+
+#main_picture {
+	width: 50px; 
+	height: 50px; 
+	object-fit: cover; 
+	border-radius: 70%; 
+	border: 1px solid #5E5E5E; 
+	cursor: pointer;
+}
+
+.close-btn {
+	color: white;
+}
+
+.goToTopBtn {
+	position: fixed;
+	width: 400px;
+	bottom: 15px;
+	right: 10%;
+ 	transform: translateX(120%);
+}
+
+#moreBtn {
+	width: 150px;
+	height: 30px;
+	border: 1px solid blue;
+	background-color: #4370FF;
+	color: white;
+	border-radius: 10px;
+}
+
+
+#main_story_category_area{
+	position: relative;
+}
+
+#main_story_category_btn {
+	position: absolute;
+	top: 0;
+	left: 10%;
+	width: 70px; 
+	height: 50px;
+}

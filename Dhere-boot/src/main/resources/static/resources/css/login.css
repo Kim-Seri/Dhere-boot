@@ -1,0 +1,12 @@
+@charset "UTF-8";
+/*로그인 폼*/
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url("../images/loginBackground.png");
+  background-size: cover;
+}
+
+#header {
+    display: none;
+}

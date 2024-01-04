@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="com.springstudy.dhere.mappers.MemberMapper">
+
+	<!-- 회원 정보 가져오기 쿼리 -->
+	<select id="getMember" resultType="Member">
+			SELECT * FROM member WHERE email=#{email}
+	</select>
+
+	<!-- 회원가입 쿼리 -->
+	<insert id="addMember" parameterType="Member">
+	    INSERT INTO member (email, name, nickname, pass, zipcode, address1, address2, job, phone, picture, role)
+	    VALUES (#{email}, #{name}, #{nickname}, #{pass}, #{zipcode}, #{address1}, #{address2}, #{job}, #{phone}, #{picture},
+	    <choose>
+	        <when test="role != null">
+	            #{role}
+	        </when>
+	        <otherwise>
+	            'user'
+	        </otherwise>
+	    </choose>
+	    )
+	</insert>
+
+	<!-- 회원테이블에서 id에 해당하는 비밀번호를 가져오는 맵핑 구문 -->
+ 	<select id="memberPassCheck" resultType="String">
+		SELECT
+			pass
+		FROM member
+		WHERE email = #{email}
+	</select> 
+	
+	<!-- 회원정보를 수정하는 맵핑구문 -->
+	<update id="updateMember" parameterType="Member">
+		UPDATE member
+			SET pass=#{pass}, email=#{email}, phone=#{phone},
+			name=#{name}, nickname=#{nickname}, zipcode=#{zipcode},
+			address1=#{address1}, address2=#{address2}
+			job=#{job}, phone=#{phone}, picture=#{picture}
+		WHERE email=#{email}
+	</update> 
+	
+	</mapper>

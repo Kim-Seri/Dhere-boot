@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.springstudy.dhere.mappers.ProductMapper" >
+
+	<!-- 카테고리 별 제품 리스트 출력 -->
+	<select id="productList" resultType="Product" parameterType="String">
+		SELECT 
+		product_no as productNo,
+		product_name as productName,
+		brand_name as brandName,
+		product_content as productContent,
+		product_category as productCategory,
+		product_link as productLink,
+		product_image as productImage 
+		FROM product 
+		<where>
+			<if test="productCategory == 'Others' and productCategory != 'All'">
+				not (product_category ='Lap-top' or product_category ='Monitor' or product_category ='Mouse' or product_category ='Keyboard')
+			</if>
+			<if test="productCategory != 'Others' and productCategory != 'All'">
+				product_category = #{productCategory}
+			</if>
+		</where>
+		ORDER BY product_no
+	</select>
+	
+	<select id="productDetail" resultType="Product" >
+		SELECT 
+		product_no as productNo,
+		product_name as productName,
+		brand_name as brandName,
+		product_content as productContent,
+		product_category as productCategory,
+		product_link as productLink,
+		product_image as productImage 
+		FROM product WHERE product_no = #{productNo}
+	</select>
+	
+	<resultMap id="productResultMap" type="Product" >
+		<id property="no" column="no" />
+		<result property="productNo" column="product_no" />
+		<result property="productName" column="product_name" />
+		<result property="productContent" column="product_content" />
+		<result property="productCategory" column="product_category" />		
+		<result property="productLink" column="product_link" />
+		<result property="productImage" column="product_image" />
+	</resultMap>
+	
+</mapper>

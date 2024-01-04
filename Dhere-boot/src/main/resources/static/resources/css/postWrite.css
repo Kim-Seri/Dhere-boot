@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+
+ .swiper-container {
+      width: 100%;
+    }
+    .swiper-slide {
+      display: flex;
+      overflow:hidden;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #postImg{
+    	max-width:100%; 
+    	height:auto;
+  		width: 900px;
+  		
+    }
+    
+     #deleteImageButton{
+    
+    	position: absolute;
+  		top: 3px;
+ 	 	left : 977px; 
+    }
+    
+    #addMarkerButton,#finishMarkerButton{
+    	position: absolute;
+  		top: 3px;
+  		left : 860px;
+    } 
+   
+    
+    /* #marker-container{
+    	position:relative;
+    } */
+    
+    
+    

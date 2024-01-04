@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+	<!--/* header  */-->
+	<!--/* 아래와 같이 block으로 한 번 깜싸도 괜찮음  
+	<th:block th:fragment="header">
+	*/-->
+	<div th:fragment="header" class="row border-bottom border-primary">
+		<div class="col-4">
+			<p><img src="https://via.placeholder.com/200x100"></p>
+		</div>
+		<div class="col-8">
+			<div class="row">
+				<div class="col">
+					<ul class="nav justify-content-end">
+						<li class="nav-item">
+							<a class="nav-link" href="#">로그인</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">게시 글 리스트</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">회원가입</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">주문/배송조회</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">고객센터</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col text-end">로그인시 인사말 출력</div>
+			</div>
+		</div>
+	</div>
+</html>
