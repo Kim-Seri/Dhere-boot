@@ -1,6 +1,8 @@
 package com.springbootstudy.dhere.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.springbootstudy.dhere.dao.StoryDao;
 import com.springbootstudy.dhere.domain.Image;
 import com.springbootstudy.dhere.domain.Job;
+import com.springbootstudy.dhere.domain.Image;
 import com.springbootstudy.dhere.domain.Story;
 import com.springbootstudy.dhere.domain.Tag;
 
@@ -17,6 +20,8 @@ public class StoryServiceImpl implements StoryService {
 	
 	@Autowired
 	private StoryDao storyDao;
+	
+
 	
 	// 게시물 리스트 가져오기
 	@Override
@@ -53,6 +58,12 @@ public class StoryServiceImpl implements StoryService {
 	public void increaseReadCount(int storyNo) {
 	    storyDao.increaseReadCount(storyNo);
 	}
+	
+	// 게시물 좋아요 증가시키기(syj)
+	@Override
+    public int increaseThank(int storyNo) {
+        return storyDao.increaseThank(storyNo);
+    }
 	
 	// 게시물 삭제하기(syj)
 	@Transactional

@@ -69,7 +69,7 @@ public class MemberController {
 	}
 	
 	// 로그아웃
-	@GetMapping("/logoutResult")
+	@GetMapping(value ="/logoutResult")
 	public String logout(HttpSession session) {
 		log.info("logout");
 		session.invalidate();

@@ -40,12 +40,12 @@
 	        </li>
 	        <li class="nav-item"  style="width: 140px; font-size: 18px">
 	            <a class="nav-link text-center" id="tab3-tab" data-bs-toggle="pill" href="inquiry" 
-	            onclick="location.href='inquiryWrite'" 
+	            onclick="location.href='inquiryWrite'"
 	            role="tab" aria-controls="tab3" aria-selected="false">1:1문의하기</a>
 	        </li>
 	        <li class="nav-item"  style="width: 140px; font-size: 18px">
-	            <a class="nav-link text-center" id="tab4-tab" data-bs-toggle="pill" href="#tab4" 
-	            onclick="location.href='logoutResult'"
+	            <a class="nav-link text-center" id="tab4-tab" data-bs-toggle="pill" 
+	            href="#tab4"
 	            role="tab" aria-controls="tab4" aria-selected="false">로그아웃</a>
 	        </li>
 	    </ul>
@@ -112,7 +112,7 @@
          <ul class="nav nav-underline offset">
             <li class="nav-item text-center" style="width: 170px">
               <a class="nav-link categoryBtn"  style="font-size: 25px; color: gray" data-bs-toggle="pill">
-            	
+            	나의 게시물
               </a>
             </li>
             <li class="nav-item text-center" style="width: 170px">

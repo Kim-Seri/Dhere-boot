@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.springstudy.dhere.mappers.StoryMapper">
+<mapper namespace="com.springbootstudy.dhere.mappers.StoryMapper">
 
 	<!-- 스토리 게시물 출력 (스토리, 이미지, 프로필) / seri02 수정 -->
 	<select id="getStoryList" resultMap="StoryResultMap">
@@ -146,6 +146,20 @@
 	    SET		read_count = read_count + 1 
 	    WHERE	story_no = #{storyNo}
 	</update>
+	
+	<!-- storyDetail_좋아요 증가 쿼리(syj) -->
+	<update id="increaseThank" parameterType="Story">
+	    UPDATE	story 
+	    SET		thank = thank + 1
+	    WHERE	story_no = #{storyNo}
+	</update>
+
+	<!-- storyDetail_좋아요 증가를 조회하는 쿼리(syj) -->
+	<select id="selectThankCount" resultType="int" parameterType="int">
+	    SELECT thank 
+	    FROM story 
+	    WHERE story_no = #{storyNo}
+	</select>
 	
 	<!-- storyDetail_삭제 쿼리 추가(syj) -->
 	<delete id="deleteStory">

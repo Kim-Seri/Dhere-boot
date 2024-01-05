@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" href="resources/css/storyDetail.css">
 <link rel="stylesheet" href="resources/css/main.css">
 <%@ page session="true" %>
@@ -8,7 +9,6 @@
     <title>Story Detail</title>
 </head>
 <body>
-						
 <div class="container">
 	<div class="row">
 		<div class="col">
@@ -17,7 +17,6 @@
 				 <a href="#" class="goToTopBtn">
 				 	<img src="resources/images/icon/topbar.png" style="width: 35px;">
 				 </a>
-		
 		
 					<input type="hidden" value="${sessionScope.member.email}">
 					<!-- 직무 카테고리 시작 -->
@@ -50,7 +49,6 @@
 							data-bs-trigger="focus"
 							data-bs-title="${storyDetail.nickname}"
 							data-bs-content="
-							
 							<a href='otherScrap?email=${storyDetail.email}&nickname=${storyDetail.nickname}&picture=${storyDetail.picture}&job=${storyDetail.categoryName}'class='text-decoration-none text-dark'>프로필 보러가기</a>
 							<br>
 						    <br>
@@ -61,7 +59,6 @@
 							<br>
 						    <br>
 						    <a href='scrap' class='text-decoration-none text-dark'>신고하기</a>
-						    
 						    " >
 						</div>
 						<!-- 프로필 사진 끝 -->
@@ -72,23 +69,25 @@
 						<!-- 닉네임 끝 -->
 						<!-- 날짜 시작 -->
 						<div class="col-7 text-end" id="regDate">
-							${ storyDetail.regDate }
+							<fmt:formatDate value="${storyDetail.regDate}" pattern="yyyy년 MM월 dd일" var="formattedAAA"/>
+							<fmt:formatDate value="${storyDetail.regDate}" pattern="HH시 mm분 ss초" var="formattedBBB"/>
+							${formattedAAA}
+							<br>
+							${formattedBBB}
 						</div>
 						<!-- 날짜 끝 -->
 						<!-- 조회수, 좋아요 시작 -->
 						<div class="col-2 text-end justify-content-end" id="count_num">
-						<img src="resources/images/icon/eye_eyes_view_count.png" id="icon_count">
-							${ storyDetail.readCount }
-							<img src="resources/images/icon/heart.png" id="icon_heart">
-							${ storyDetail.thank }
+						    <img src="resources/images/icon/eye_eyes_view_count.png" id="icon_count">
+						    ${storyDetail.readCount}
+						    <img src="resources/images/icon/heart.png" id="icon_heart">
+						    <span class="likes-count">${storyDetail.thank}</span>
 						</div>
 						<!-- 좋아요 끝 -->
 					</div>
 					<!-- 팔로우, 스크랩 버튼 시작 -->
 					<div class="row text text-end mb-5">
 						<div class="col">
-						
-						
 							<c:choose>
 							    <c:when test="${storyDetail.email eq sessionScope.member.email}">
 							    <button type="button" class="btn btn-outline-primary fs-5" id="updateBtn" 
@@ -102,10 +101,6 @@
 							        </button>
 							    </c:otherwise>
 							</c:choose>
-							
-							
-							
-							
 							<c:choose>
 							    <c:when test="${storyDetail.email eq sessionScope.member.email}">
 							    <form action="deleteStory" method="post" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
@@ -121,41 +116,7 @@
 							        </button>
 							    </c:otherwise>
 							</c:choose>
-
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							
-							</div>
+						</div>
 					</div>
 					<!-- 팔로우, 스크랩 버튼 끝 -->
 	<!--################################## 사진 출력 영역 시작 ##################################-->
@@ -258,8 +219,9 @@
 								<img src="resources/images/icon/shara_export.png" id="icon_share_btn">
 							</button>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<button type="button" class="btn btn-outline-primary fs-4">
-								+<img src="resources/images/icon/heart.png" id="icon_heart_btn">
+							<button type="button" class="btn btn-outline-primary fs-4 increaseThankBtn" data-story-id="${storyDetail.storyNo}">
+							    +<img src="resources/images/icon/heart.png" id="icon_heart_btn">
+							    <span class="likes-count">${storyDetail.thank}</span>
 							</button>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<button type="button" class="btn btn-outline-primary">
@@ -288,100 +250,204 @@
 						</div>
 					</div>
 	<!--############################# 구분 선, products list 끝 ############################-->						
-	<!--############################# 댓글 출력 영역 시작 ############################-->						
-					<div class="row" id="storyDetail_reply_area">
-						<div class="col-3">
-							<div class="row">
-								<div class="col text-center">
-									<img src="" alt="다른 유저의 사진">
+	<!--############################# 댓글 출력 영역 시작 ############################-->	
+					<c:choose>
+					    <c:when test="${not empty rList}">
+					        <c:forEach items="${rList}" var="r">
+						        <fmt:formatDate value="${r.replyDate}" pattern="yyyy년 MM월 dd일" var="formattedDate"/>
+						        <fmt:formatDate value="${r.replyDate}" pattern="HH시 mm분 ss초" var="formattedTime"/>
+								<div class="row mb-5" id="storyDetail_reply_area">
+									<div class="col-3">
+										<div class="row">
+											<div class="col text-center">
+												<img src="resources/images/profile/${r.picture}" 
+												id="replyOtherUserPicture"
+												tabindex="0" 
+												data-bs-html="true" 
+												data-bs-placement="left" 
+												data-bs-toggle="popover" 
+												data-bs-trigger="focus"
+												data-bs-title="${r.nickname}"
+												data-bs-content="
+												<a href='otherScrap?email=${r.email}&nickname=${r.nickname}&picture=${r.picture}&job=${storyDetail.categoryName}'class='text-decoration-none text-dark'>프로필 보러가기</a>
+												<br>
+											    <br>
+											    <a href='scrap' class='text-decoration-none text-dark'>쪽지 보내기</a>
+												<br>
+											    <br>
+											    <a href='scrap' class='text-decoration-none text-dark'>1:1 대화</a>
+												<br>
+											    <br>
+											    <a href='scrap' class='text-decoration-none text-dark'>신고하기</a>
+											    " >
+											</div>
+										</div>
+										<div class="row">
+											<div class="col text-center">
+												${r.nickname}
+											</div>
+										</div>
+									</div>
+									<div class="col-8">
+										<div class="row">
+											<div class="col" id="storyDetail_reply_content">
+												${r.replyContent}
+											</div>
+										</div>
+										<div class="row">
+											<div class="col text-end" id="storyDetail_reply_regDate">
+												${formattedDate}<br>${formattedTime}
+											</div>
+										</div>
+									</div>
+									<div class="col-1">
+									<c:choose>
+									    <c:when test="${sessionScope.member.email eq 'admin' or r.email eq sessionScope.member.email}">
+											<img src="resources/images/icon/cancel.png" id="storyDetail_reply_delete"
+														onclick="deleteReply(${r.replyNo})">
+										</c:when>
+								    	<c:otherwise>
+								    		<img src="resources/images/icon/siren_police.png" id="storyDetail_reply_siren">
+									    </c:otherwise>
+									</c:choose>
+									</div>
 								</div>
-							</div>
-							<div class="row">
-								<div class="col text-center">
-									닉네임
-								</div>
-							</div>
-						</div>
-						<div class="col-8">
-							<div class="row">
-								<div class="col" id="storyDetail_reply_content">
-									너무 유익한 내잉용입ㄴ디
-									<br>
-									앞으로도 자주 글 올려주세요!!!
-									<br>
-									좋아요 남기고 갈게요~~~ ㅎㅎ
-									<br>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col text-end" id="storyDetail_reply_regDate">
-									2013-22-12 55:52
-								</div>
-							</div>
-						</div>
-						<div class="col-1">
-							<img src="resources/images/icon/siren_police.png" id="storyDetail_reply_siren">
-						</div>
-					</div>
-					<!--  -->
-					<div class="row" id="storyDetail_reply_area">
-						<div class="col-3">
-							<div class="row">
-								<div class="col text-center">
-									<img src="" alt="다른 유저의 사진">
-								</div>
-							</div>
-							<div class="row">
-								<div class="col text-center">
-									닉네임
-								</div>
-							</div>
-						</div>
-						<div class="col-8">
-							<div class="row">
-								<div class="col" id="storyDetail_reply_content">
-									너무 유익한 내잉용입ㄴ디... 앞으로도 자주 글 올려주세요!!!
-									<br>
-									날씨가 많이 추워졌죠?? 항상 따뜻하게 입고 다니세요 ㅜㅠㅜ 감기 걸리지 마셔요 ㅠㅜㅠㅜㅠ
-									<br>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col text-end" id="storyDetail_reply_regDate">
-									2013-22-12 55:52
-								</div>
-							</div>
-						</div>
-						<div class="col-1">
-							<img src="resources/images/icon/siren_police.png" id="storyDetail_reply_siren">
-						</div>
-					</div>
+					        </c:forEach>
+					    </c:when>
+					    <c:otherwise>
+					        <h1 class="text-center mb-5">
+					        	등록 된 댓글이 없습니다.
+					        </h1>
+					    </c:otherwise>
+					</c:choose>
 	<!--############################# 댓글 출력 영역 끝 ############################-->						
 	<!--############################# 댓글 작성 영역 끝 ############################-->		
-					<form class="row" id="storyDetail_reply_write_area">
+					<form class="row" action="replyWrite" method="post" id="storyDetail_reply_write_area">
+					<input type="hidden" name="storyNo" value="${storyDetail.storyNo}">
 						<div class="col-3">
 							<div class="row">
 								<div class="col text-center">
-									<img src="resources/images/profile/${ storyDetail.picture }" id="profile">
+									<c:choose>
+									    <c:when test="${not empty sessionScope.member.email}">
+											<img src="resources/images/profile/${sessionScope.member.picture}" id="profile">
+										</c:when>
+								    	<c:otherwise>
+									    </c:otherwise>
+									</c:choose>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col text-center" id="nickname">
-									${ storyDetail.nickname }
+									${sessionScope.member.nickname}
 								</div>
 							</div>
 						</div>
 						<div class="col-7 text-center">
-							<textarea rows="4" cols="40" id="storyDetail_reply_write_content">test</textarea>
+						
+						<c:choose>
+						    <c:when test="${not empty sessionScope.member.email}">
+								<textarea rows="4" cols="40" name="replyContent" 
+											id="storyDetail_reply_write_content" 
+											placeholder="무분별한 욕설/비방은 제재 대상이므로 삭제 및 이용정지 대상이 될 수 있습니다."></textarea>
+							</c:when>
+					    	<c:otherwise>
+					    		<textarea rows="4" cols="40" name="replyContent" 
+											id="storyDetail_reply_write_content" 
+											class="text-center"
+											placeholder="댓글 기능은 회원만 이용 가능합니다."></textarea>
+						    </c:otherwise>
+						</c:choose>
 						</div>
 						<div class="col-2 text-center text-bottom">
-							<input type="submit">
+						<c:if test="${not empty sessionScope.member}">
+						        <input type="submit" class="btn btn-warning" value="댓글 작성">
+						    </c:if>
 						</div>
 					</form>
 	<!--############################# 댓글 작성 영역 끝 ############################-->				
 		</div>
 	</div>
 </div>
+
+
+<script>
+$(document).ready(function() {
+    $('#storyDetail_reply_write_area').submit(function(event) {
+        event.preventDefault(); // 폼 기본 제출 방지
+
+        var formData = $(this).serialize(); // 폼 데이터 직렬화
+
+        $.ajax({
+            url: '/replyWrite', // 서버의 URL
+            type: 'POST',
+            data: formData,
+            success: function(response) {
+                // 댓글 목록을 업데이트하는 로직
+                // 예를 들어, 댓글 목록 컨테이너에 새로운 댓글 요소를 추가
+                $('#commentsContainer').append('<div>' + response.replyContent + '</div>');
+                // 폼 초기화
+                $('#storyDetail_reply_write_area').find('textarea').val('');
+            },
+            error: function(xhr, status, error) {
+                // 오류 처리
+                console.log("Error: ", error);
+            }
+        });
+    });
+});
+</script>
+
+
+
+<!-- 좋아요 클릭 시 실시간 증가시키기 -->
+<script>
+$(document).ready(function() {
+    $('.increaseThankBtn').click(function() {
+        var storyId = $(this).data('story-id'); // 게시물 ID를 가져옵니다.
+
+        console.log("storyId 값 : ", storyId); // 수정된 부분
+        
+        $.ajax({
+            url: 'increaseThank', // 서버의 URL로 요청을 보냅니다.
+            type: 'POST',
+            data: { storyNo: storyId },
+            success: function(response) {
+                // 성공적으로 좋아요가 반영되었다면 페이지의 모든 좋아요 수를 업데이트합니다.
+                $('.likes-count').text(response.likes);
+            },
+            error: function(xhr, status, error) {
+                // 오류 처리
+                console.log("Error: ", error); // 오류 메시지를 더 명확하게 출력하도록 수정
+            }
+        });
+    });
+});
+</script>
+
+<!-- 댓글 삭제 시 실시간 삭제하기 -->
+<script>
+// 댓글 삭제 함수
+function deleteReply(replyNo) {
+    if (!confirm('댓글을 삭제하시겠습니까?')) return;
+    
+    $.ajax({
+        url: '/deleteReply',
+        type: 'POST',
+        data: { 'replyNo': replyNo },
+        success: function(response) {
+            // 삭제 성공 후 페이지 새로고침 또는 목록 업데이트
+            location.reload();
+        },
+        error: function(xhr, status, error) {
+            // 오류 처리
+            alert('댓글 삭제에 실패했습니다.');
+        }
+    });
+}
+</script>
+
+
+
 
 
 </body>

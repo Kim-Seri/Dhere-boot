@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +15,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.springbootstudy.dhere.domain.Image;
 import com.springbootstudy.dhere.domain.Job;
 import com.springbootstudy.dhere.domain.Member;
 import com.springbootstudy.dhere.domain.Product;
+import com.springbootstudy.dhere.domain.Reply;
 import com.springbootstudy.dhere.domain.Story;
 import com.springbootstudy.dhere.domain.Tag;
 import com.springbootstudy.dhere.service.ProductService;
+import com.springbootstudy.dhere.service.ReplyService;
 import com.springbootstudy.dhere.service.StoryService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,6 +44,9 @@ public class StoryController {
 	
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private ReplyService replyService;
 	
 	private static final String DEFAULT_PATH = "/resources/images/desk/";
 	
@@ -69,6 +79,10 @@ public class StoryController {
 	public String storyDetail(Model model, HttpSession session,
 			@RequestParam("storyNo") int storyNo) {
 		
+		// 댓글 출력 로직 추가
+		List<Reply> rList = replyService.getReply(storyNo);
+		model.addAttribute("rList", rList);
+		
 		// 조회수 증가 로직 추가
 		storyService.increaseReadCount(storyNo);
 	    
@@ -84,9 +98,23 @@ public class StoryController {
 		
 	    return "storyDetail";
 	}
+///////////////////////////////////////////////////////////////////	
+	// 게시물 좋아요 증가시키기(syj)
+	@PostMapping("/increaseThank")
+	@ResponseBody
+	public Map<String, Object> increaseThank(
+			@RequestParam("storyNo") int storyNo) {
+	
+		// 여기서 storyService.increaseThank(storyNo) 메서드는 데이터베이스에서 storyNo에 해당하는 게시물의 좋아요 수를 증가시키는 로직을 수행합니다.
+		int newLikes = storyService.increaseThank(storyNo);
+		Map<String, Object> response = new HashMap<>();
+		response.put("likes", newLikes);
+		
+		return response;
+	}
 ///////////////////////////////////////////////////////////////////
 	// 게시물 삭제(syj)
-	@GetMapping("/deleteStory")
+	@PostMapping("/deleteStory")
 	public String deleteStory(HttpServletResponse response, 
 			@RequestParam("storyNo") int storyNo) {
 		
@@ -108,7 +136,7 @@ public class StoryController {
 	}
 ///////////////////////////////////////////////////////////////////
 	// 게시물 수정하기(syj)
-	@PostMapping(value="updateStoryProcess")
+	@GetMapping("updateStoryProcess")
 	public String updateStoryProcess(
 			HttpServletResponse response, PrintWriter out, 
 			@ModelAttribute Story story) {

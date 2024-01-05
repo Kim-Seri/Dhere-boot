@@ -126,7 +126,7 @@
 	color: #5E5E5E;
 }
 
-#storyDetail_reply_siren {
+#storyDetail_reply_siren, #storyDetail_reply_delete {
 	width: 30px; 
 	height: 30px;
 }
@@ -146,7 +146,15 @@
 	font-size: 25px;
 }
 
-
 .custom-tooltip {
   —bs-tooltip-bg: var(—bs-primary);
+}
+
+#replyOtherUserPicture {
+	width: 100px; 
+	height: 100px; 
+	object-fit: cover; 
+	border-radius: 70%;
+	border: 1px solid #5E5E5E;
+	cursor: pointer;
 }

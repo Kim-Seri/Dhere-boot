@@ -24,7 +24,7 @@
                         <div class="swiper-wrapper">
                             <c:forEach var="jList" items="${jList}">
                                 <div class="swiper-slide">
-                                    <input type="checkbox" class="btn-check" name="categoryNo" id="category${jList.categoryNo}" value="${jList.categoryNo}">
+                                    <input type="checkbox" class="btn-check" name="category" id="category${jList.categoryNo}" value="${jList.categoryNo}">
                                     <label class="btn btn-outline-primary" for="category${jList.categoryNo}">${jList.categoryName}</label>
                                 </div>
                             </c:forEach>

@@ -1,9 +1,12 @@
 package com.springbootstudy.dhere.service;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import com.springbootstudy.dhere.domain.Image;
 import com.springbootstudy.dhere.domain.Job;
+import com.springbootstudy.dhere.domain.Image;
 import com.springbootstudy.dhere.domain.Story;
 import com.springbootstudy.dhere.domain.Tag;
 
@@ -26,6 +29,9 @@ public interface StoryService {
     
     // 게시물 조회 수 증가시키기(syj)
     public abstract void increaseReadCount(int storyNo);
+    
+    // 게시물 좋아요 증가시키기(syj)
+    public int increaseThank(int storyNo);
     
     // 게시물 삭제하기(syj)
     public abstract void deleteStory(int storyNo);

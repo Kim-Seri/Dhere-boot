@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.springbootstudy.dhere.domain.Image;
 import com.springbootstudy.dhere.domain.Job;
+import com.springbootstudy.dhere.domain.Image;
 import com.springbootstudy.dhere.domain.Story;
 import com.springbootstudy.dhere.domain.Tag;
 
@@ -16,7 +17,7 @@ public class StoryDaoImpl implements StoryDao {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	private static final String NAME_SPACE = "com.springstudy.dhere.mappers.StoryMapper";
+	private static final String NAME_SPACE = "com.springbootstudy.dhere.mappers.StoryMapper";
 	
 	@Override
 	public void postWrite (Story story) {
@@ -52,6 +53,13 @@ public class StoryDaoImpl implements StoryDao {
 	@Override
 	public void increaseReadCount(int storyNo) {
 	    sqlSession.update(NAME_SPACE + ".increaseReadCount", storyNo);
+	}
+	
+	// 게시물 좋아요 증가시키기(syj)
+	@Override
+	public int increaseThank(int storyNo) {
+	    sqlSession.update(NAME_SPACE + ".increaseThank", storyNo);
+	    return sqlSession.selectOne(NAME_SPACE + ".selectThankCount", storyNo);
 	}
 	
 	// 게시물 삭제하기(syj)
