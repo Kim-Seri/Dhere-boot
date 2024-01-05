@@ -43,17 +43,17 @@ function addMarker(x, y) {
     const markerContainer = $("<div class='marker-container'></div>");
     const marker = $(`<div class='marker' id='marker'><button type='button' class='btn btn-primary rounded-circle' id='markerBtn'>+</button></div>`);
     const searchBox = $(`
-    							<div class='row search-box bg-white border border-primary-subtle rounded ' id='search-box '>
+    							<div class='row search-box  bg-white border border-primary-subtle rounded ' id='search-box ' >
 	    							<div class='col'>
 		    							<div class='row my-3'>
-			    							<div class='col-8'>
+			    							<div class='col-9'>
 			    								<input type='text' id='searchInput'  class='form-control'>
 			    							</div>
-			    							<div class='col text-end'>
-			    								<button type='button' class='btn btn-danger' id='deleteMaker'>삭제</button> 
+			    							<div class='col-3 text-end'>
+			    								<button type='button' class='btn btn-danger' id='deleteMaker'>X</button> 
 			    							</div>
 			    						</div>
-			    						<div class='row my-2'>
+			    						<div class='row my-2 overflow-scroll' style='height:500px;'>
 			    							<div class='col' id='autoCompleteResults'>
 			    							</div>
 			    						</div>
@@ -276,7 +276,7 @@ $(function () {
 
         // 일치하는 결과를 UI에 추가
         results.forEach(result => {
-            const resultItem = $(`<div class='row my-2 p-3'>
+            const resultItem = $(`<div class='row my-2 p-3 '>
             						<button type='button' class='btn btn-outline-primary'>
             						<div class='row my-3'>
 	            						<div class='col-4'>
