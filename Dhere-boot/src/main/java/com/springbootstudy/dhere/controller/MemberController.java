@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.springbootstudy.dhere.domain.Member;
@@ -117,26 +118,5 @@ public class MemberController {
     }
 	
 	
-	// 회원 정보 수정 폼 요청을 처리하는 메서드
-	@GetMapping(value="/mypageUpdateProcess")
-	public String updateForm(HttpSession session, 
-			@RequestParam(value="email", defaultValue="admin@naver.com") String email) {
-		
-		return "member/mypageUpdateProcess";
-	}
-	
-
-	// 회원 수정폼에서 들어오는 요청을 처리하는 메서드
-//	@RequestMapping("/mypageUpdateResult")
-//	public String mypageUpdateInfo(Model model, Member member, 
-//			String pass1, String phone) {
-//		member.setPass(pass1);
-//		member.setPhone(phone);
-//		
-//		memberService.updateMember(member);
-//		model.addAttribute("member", member);
-//		
-//		return "redirect:scrap";
-//	}
 
 }

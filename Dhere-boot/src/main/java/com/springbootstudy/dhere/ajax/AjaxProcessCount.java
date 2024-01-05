@@ -45,20 +45,7 @@ public class AjaxProcessCount {
 		return map;
 	}
 	
-	// 회원 정보 수정하는 ajax 요청을 처리하는 컨트롤러
-	@GetMapping("/passCheck.ajax")
-	@ResponseBody
-	public Map<String, Boolean> memberPassCheck(
-			@RequestParam("email") String email, 
-			@RequestParam("pass") String pass) {
-		
-		
-		boolean result = memberService.memberPassCheck(email, pass);
-		Map<String, Boolean> map = new HashMap<String, Boolean>();
-		map.put("result", result);
-		
-		return map;
-	}
+
 	
 }
 
