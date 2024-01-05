@@ -4,7 +4,6 @@ public class Answer {
 	private int answerNo;
 	private int no;
 	private String answerContent;
-	private String answerEmail;
 	
 	public Answer() {}
 
@@ -31,13 +30,6 @@ public class Answer {
 	public void setAnswerContent(String answerContent) {
 		this.answerContent = answerContent;
 	}
-
-	public String getAnswerEmail() {
-		return answerEmail;
-	}
-
-	public void setAnswerEmail(String answerEmail) {
-		this.answerEmail = answerEmail;
-	}
 	
 }
+

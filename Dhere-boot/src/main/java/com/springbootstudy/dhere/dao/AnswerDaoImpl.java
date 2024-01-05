@@ -1,5 +1,7 @@
 package com.springbootstudy.dhere.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,6 +19,11 @@ public class AnswerDaoImpl implements AnswerDao {
 	@Override
 	public void insertAnswer(Answer answer) {
 		sqlSession.insert(NAME_SPACE + ".insertAnswer", answer);
+	}
+	
+	@Override
+	public List<Answer> answerList(int inquiryNo) {
+		return sqlSession.selectList(NAME_SPACE + ".answerList", inquiryNo);
 	}
 
 }

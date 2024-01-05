@@ -5,9 +5,15 @@
 <mapper namespace="com.springstudy.dhere.mappers.AnswerMapper">
 
     <insert id="insertAnswer" parameterType="Answer">
-        INSERT INTO inquiry(
-            answer_no, no, answer_content, answer_email)
-        VALUES(#{answerNo}, #{no}, #{answerContent}, #{answerEmail})
+        INSERT INTO answer(no, answer_content)
+        VALUES(#{no}, #{answerContent})
     </insert>
+    
+    <select id="answerList" resultType="Answer">
+		SELECT
+			answer_content as answerContent
+		FROM answer
+		WHERE no = #{inquiryNo}
+	</select>
 
 </mapper>

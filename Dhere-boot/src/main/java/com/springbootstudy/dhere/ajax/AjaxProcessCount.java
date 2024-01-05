@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,7 +24,7 @@ public class AjaxProcessCount {
 	@Autowired
 	private ProductService productService;
 	
-	@GetMapping("/ConfirmId")
+	@PostMapping("/ConfirmId")
 	@ResponseBody
 	public Map<String, Boolean> overIdCheck(@RequestParam("id") String id){
 		
@@ -34,7 +35,7 @@ public class AjaxProcessCount {
 	}
 	
 	// 카테고리 별 제품 리스트 출력
-	@GetMapping("/categoryList")
+	@PostMapping("/categoryList")
 	@ResponseBody
 	public Map<String, List<Product>> productList(
 			@RequestParam("productCategory") String productCategory) {

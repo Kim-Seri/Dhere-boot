@@ -36,7 +36,20 @@ function copyToClipboard() {
 
 
 
+
+
 $(function() {
+	
+	// 삭제하기
+	$("#deleteInquiry").off().on("click", function() {
+		const no = $("#inquiryNo").val();
+		console.log("클라이언트에서 no : " , no);
+		
+		if(confirm("정말로 삭제하시겠습니까?")){	
+			location.href="/deleteInquiry?inquiryNo=" + no;
+		};
+		
+	});
 			
 	 
 

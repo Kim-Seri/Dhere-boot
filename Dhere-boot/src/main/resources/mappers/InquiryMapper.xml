@@ -42,5 +42,10 @@
 		FROM inquiry
 		ORDER BY inquiryNo DESC
 	</select>
+	
+	<delete id="deleteInquiry">
+		DELETE FROM inquiry
+		WHERE inquiry_no = #{inquiryNo}
+	</delete>
 
 </mapper>
