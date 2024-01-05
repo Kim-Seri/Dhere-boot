@@ -3,10 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 	<!-- content 영역 -->
 	<div class="row justify-content-center">
-<<<<<<< HEAD
-	
-	
-	
 
 	<c:choose>
     <c:when test="${sessionScope.member.role eq 'admin'}">
@@ -38,9 +34,7 @@
         모르겠다 너는 누구냐?
     </c:otherwise>
 </c:choose>
-    	
-    	
-=======
+
 		<c:forEach var="i" items="${inquiryList}">
 			<div class="col-3 border border-3 m-3 p-3">
 				<div class="row">
@@ -50,5 +44,5 @@
 				</div>
 			</div>
 		</c:forEach>
->>>>>>> kyungjin01
+
 	</div>	
