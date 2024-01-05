@@ -17,4 +17,7 @@ public interface InquiryDao {
 	
 	// 관리자용 전체 문의 리스트
 	public abstract List<Inquiry> inquiryList();
+	
+	// 문의 삭제
+	public abstract void deleteInquiry(int inquiryNo);
 }

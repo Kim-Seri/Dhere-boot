@@ -12,29 +12,35 @@ import com.springbootstudy.dhere.domain.Inquiry;
 public class InquiryServiceImpl implements InquiryService {
 	
 	@Autowired
-	private InquiryDao inquirydao;
+	private InquiryDao inquiryDao;
 
 	@Override
 	public void insertInquiry(Inquiry inquiry) {
-		inquirydao.insertInquiry(inquiry);
+		inquiryDao.insertInquiry(inquiry);
 
 	}
 	
 	@Override
 	public List<Inquiry> iList(String email) {
 		
-		return inquirydao.iList(email);
+		return inquiryDao.iList(email);
 	}
 	
 	@Override
 	public Inquiry getInquiry(int inquiryNo) {
-		return inquirydao.getInquiry(inquiryNo);
+		return inquiryDao.getInquiry(inquiryNo);
 	}
 	
 	@Override
 	public List<Inquiry> inquiryList() {
 		
-		return inquirydao.inquiryList();
+		return inquiryDao.inquiryList();
+	}
+	
+	@Override
+	public void deleteInquiry(int inquiryNo) {
+		
+		inquiryDao.deleteInquiry(inquiryNo);
 	}
 
 }

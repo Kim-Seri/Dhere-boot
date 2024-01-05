@@ -13,4 +13,6 @@ public interface InquiryService {
 	public abstract Inquiry getInquiry(int inquiryNo);
 	
 	public abstract List<Inquiry> inquiryList();
+	
+	public abstract void deleteInquiry(int inquiryNo);
 }

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<script src="resources/js/formcheck.js"></script>  
+<input type="hidden" id="inquiryNo" value="${inquiry.inquiryNo}">
 	<!-- content 영역 -->
 	<div class="row my-5" id="global-content">		
 		<div class="offset-1 col-10">
@@ -27,8 +29,19 @@
 					<img src="resources/images/inquiry/${inquiry.inquiryFile}" style="max-width: 200%; height: auto;">
 				  </div>
 				  <c:if test="${sessionScope.member.role eq 'admin'}">
-				 	 <input type="button" class="btn btn-primary" value="답변하기">
+				 	 <input type="button" class="btn btn-primary" value="답변하기" onclick="location.href='answerWrite?no=${inquiry.inquiryNo}'">
+				 	 <input type="button" class="btn btn-warning" value="삭제하기" id="deleteInquiry">
 				  </c:if>
 			</form>
+			
+			<c:forEach var="answer" items="${answerList}">
+			    <div class="col-10 offset-1">
+			        <label for="answerContent" class="form-label">답변 내용</label>
+			        <textarea name="answerContent" id="answerContent" class="form-control" rows="5" readonly>${answer.answerContent}</textarea>
+			    </div>
+			</c:forEach>
+
+
+			
 		</div>
 	</div>		

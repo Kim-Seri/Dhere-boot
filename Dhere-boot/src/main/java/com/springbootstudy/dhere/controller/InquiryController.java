@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.springbootstudy.dhere.domain.Answer;
 import com.springbootstudy.dhere.domain.Inquiry;
 import com.springbootstudy.dhere.domain.Member;
+import com.springbootstudy.dhere.service.AnswerService;
 import com.springbootstudy.dhere.service.InquiryService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,7 +29,15 @@ public class InquiryController {
 	
 	@Autowired
 	private InquiryService service;
+	
+	@Autowired
+	private AnswerService answerService;
 
+	
+
+	
+	
+	
 	@PostMapping(value = "/inquiryWriteForm")
     public String insertInquiry(Inquiry i, HttpServletRequest request, 
     		@RequestParam(value="imgFile", required=false) MultipartFile multipartFile,
@@ -61,9 +71,10 @@ public class InquiryController {
         return "redirect:main";
     }
 	
-	@GetMapping("iList")
+	
+	@GetMapping("/iList")
 	public String iList(Model model, HttpSession session) {
-		
+		System.out.println("aaaaaaaaaaaaa");
 		Member member = (Member)session.getAttribute("member");
 		
 		List<Inquiry> iList = service.iList(member.getEmail());
@@ -71,15 +82,34 @@ public class InquiryController {
 		model.addAttribute("iList", iList);
 		
 		return "iList";
-	}
+	}	
+	
+	
+	
+	
+	 @GetMapping("/deleteInquiry") 
+	 public String deleteInquiry(@RequestParam(value="inquiryNo", required = false) int inquiryNo) {
+		 
+		 service.deleteInquiry(inquiryNo);
+		 
+		 return "redirect:/"; 
+	 }
+	 
+	 
+	 
+
 	
 	@GetMapping("/inquiryDetail")
-	public String inquiryDetail(Model model, 
-			@RequestParam("inquiryNo") int inquiryNo) {
+	public String inquiryDetail(Model model, @RequestParam("inquiryNo") int inquiryNo) {
+		
+		System.out.println();
 		
 		Inquiry inquiry = service.getInquiry(inquiryNo);
 		
 		model.addAttribute("inquiry", inquiry);
+		
+		List<Answer> answerList = answerService.answerList(inquiryNo);
+		model.addAttribute("answerList", answerList);
 		
 		return "inquiryDetail";
 	}

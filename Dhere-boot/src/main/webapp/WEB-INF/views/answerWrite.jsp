@@ -9,11 +9,12 @@
 					<h2 class="fs-3 fw-bold text-center">답변하기</h2>
 				</div>
 			</div>
-			<form name="inquiryWrite" id="inquiryWrite" action="inquiryWriteForm"
-				class="row g-3" method="post" enctype="multipart/form-data">
+			<form name="answerWrite" id="answerWrite" action="answerWriteForm"
+				class="row g-3" method="post">
+				<input type="hidden" name="no" value="${no}">
 				  <div class="col-10 offset-1">
-				    <label for="inquiryContent" class="form-label">내 용</label>
-				    <textarea name="inquiryContent" id="inquiryContent" class="form-control" rows="10"></textarea>
+				    <label for="answerContent" class="form-label">내 용</label>
+				    <textarea name="answerContent" id="answerContent" class="form-control" rows="10"></textarea>
 				  </div>
 				  <div class="col-10 offset-1 mt-5 text-center">
 					<input type="submit" value="답변하기" class="btn btn-primary">				    

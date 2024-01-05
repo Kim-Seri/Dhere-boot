@@ -40,4 +40,10 @@ public class InquiryDaoImpl implements InquiryDao {
 		return sqlSession.selectList(NAME_SPACE + ".inquiryList");
 	}
 
+	// 문의 삭제
+	@Override
+	public void deleteInquiry(int inquiryNo) {
+		System.out.println("dao에서 : " + inquiryNo);
+		sqlSession.delete(NAME_SPACE + ".deleteInquiry", inquiryNo);
+	}
 }
