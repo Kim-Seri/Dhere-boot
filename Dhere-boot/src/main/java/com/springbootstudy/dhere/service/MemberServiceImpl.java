@@ -65,26 +65,5 @@ public class MemberServiceImpl implements MemberService {
 			return result;
 		}
 	
-	
-		
-	// 회원 정보 수정시에 기존 비밀번호가 맞는지 체크하는 메서드
-	public boolean memberPassCheck(String email, String pass) {
-		String dbPass = memberDao.memberPassCheck(email, pass);
-		boolean result = false;
-		
-		if(passwordEncoder.matches(pass, dbPass)) {
-			result = true;
-		}
-		
-		return result;
-	}
-	
-	//회원정보를 DAO를 이용해 회원테이블에서 수정하는 메서드
-	public void updateMember(Member member) {
-		
-		member.setPass(passwordEncoder.encode(member.getPass()));
-		System.out.println(member.getPass());
-		
-		memberDao.updateMember(member);
-	}
+
 }

@@ -56,7 +56,7 @@
 					<div class="row my-3">
 						<div class="col-6 offset-2">
 							<label for="pass" class="form-label" style="color:white">비밀번호 </label>
-							<input type="password" class="form-control border border-3" name="oldPass" id="oldPass1" 
+							<input type="password" class="form-control border border-3" name="Pass" id="Pass1" 
 							style="background: transparent; border-radius: 15px; color: white;">
 						</div>
 					</div>

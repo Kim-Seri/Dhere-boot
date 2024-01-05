@@ -2,19 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link rel="stylesheet" href="resources/css/login.css">
+<script src="resources/js/jquery-3.2.1.min.js"></script>
+<script src="resources/js/member.js"></script>
 <style>
 #ballon {
-margin: 100px 0 10px 0;
+margin: auto;
 }
 </style>
 <div class="row align-items-center h-100">
 	<div class="col">
-				<form name="checkForm" id="checkForm" method="post" >
-					<input type="hidden" name="email" id="eamil" value="${ member.email }" />
-					<input type="hidden" class="form-control rounded" name="rPass" id="rPass" />
-				</form>
 				<div class="row mx-5">
-					<div class="col-8 text-center" id="ballon">
+					<div class="col-5 text-center" id="ballon">
 						<div class="position-relative py-2 px-4 text-bg-secondary 
 						border border-secondary rounded-pill">
   							개인정보 보호를 위해 비밀번호를 입력해주세요
@@ -42,7 +40,7 @@ margin: 100px 0 10px 0;
 			<div class="row" >
 				<div class="col-4 mx-auto my-3" >
 				
-					<input type="hidden" name="email" id="email" value="${ sessionScope.member.pass }" />
+					<input type="hidden" name="email" id="email" value="${ sessionScope.member.email }" />
 					<input type="password" class="form-control rounded" name="pass10" id="pass10" 
 					size="10" />
 				</div>

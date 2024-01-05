@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.springbootstudy.dhere.domain.Member;
 import com.springbootstudy.dhere.domain.Scrap;
@@ -45,23 +46,5 @@ public class ScrapController {
 		return "scrap";
 	}
 	
-	@PostMapping(value="/mypageupdateProcess")
-	public String updateMember(HttpServletResponse response, PrintWriter out, 
-			Member member) {
-		
-		boolean result = memberService.memberPassCheck(member.getEmail(), member.getPass());
-		
-		if(! result) {
-			response.setContentType("text/html; charset=utf-8");
-			out.println("<script>");
-			out.println("alert('비밀번호가 맞지 않습니다.')");
-			out.println("history.back()");
-			out.println("</script>");
-			
-			return null;
-		}
-		memberService.updateMember(member);
-		return "redirect:scrap";
-	}
-
+	
 }
