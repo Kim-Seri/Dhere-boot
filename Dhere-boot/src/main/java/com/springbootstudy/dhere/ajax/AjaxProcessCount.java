@@ -7,14 +7,19 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.springbootstudy.dhere.controller.MemberController;
 import com.springbootstudy.dhere.domain.Product;
 import com.springbootstudy.dhere.service.MemberService;
 import com.springbootstudy.dhere.service.ProductService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class AjaxProcessCount {
 	
 	@Autowired
@@ -23,7 +28,7 @@ public class AjaxProcessCount {
 	@Autowired
 	private ProductService productService;
 	
-	@GetMapping("/ConfirmId")
+	@PostMapping("/joinCheck")
 	@ResponseBody
 	public Map<String, Boolean> overIdCheck(@RequestParam("id") String id){
 		
@@ -58,6 +63,16 @@ public class AjaxProcessCount {
 		map.put("result", result);
 		
 		return map;
+	}
+	
+	//제품정보 전체 데이터 가져오기 (마커 검색 비교용)
+	@GetMapping("/productList")
+	@ResponseBody
+	public List<Product> productListAll(){
+		List<Product> product =productService.productListAll();
+		log.info(product.get(0).getBrandName());
+		
+		return product;
 	}
 	
 }

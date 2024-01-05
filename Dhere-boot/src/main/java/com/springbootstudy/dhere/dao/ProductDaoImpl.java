@@ -27,5 +27,10 @@ public class ProductDaoImpl implements ProductDao {
 	public Product getProduct(int productNo) {
 		return sqlSession.selectOne(NAME_SPACE + ".productDetail", productNo);
 	}
+	
+	@Override
+	public List<Product> productListAll(){
+		return sqlSession.selectList(NAME_SPACE+".productListAll");
+	}
 
 }

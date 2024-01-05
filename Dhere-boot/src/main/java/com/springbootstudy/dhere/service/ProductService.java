@@ -11,4 +11,7 @@ public interface ProductService {
 	
 	public abstract Product getProduct(int productNo);
 
+	//제품 전체 리스트 출력
+	public abstract List<Product> productListAll();
+
 }

@@ -25,5 +25,11 @@ public class ProductServiceImpl implements ProductService {
 	public Product getProduct(int productNo) {
 		return productDao.getProduct(productNo);
 	}
+	
+	//전체 제품 리스트 출력
+	@Override
+	public List<Product> productListAll(){
+		return productDao.productListAll();
+	}
 
 }
