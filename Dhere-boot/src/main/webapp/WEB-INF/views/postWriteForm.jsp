@@ -19,24 +19,21 @@
 			</div>
 
 			<div class="row">
-                <div class="col-6 offset-3 text-center">
-                    <div class="swiper-container">
-                        <div class="swiper-wrapper">
-                            <c:forEach var="jList" items="${jList}">
-                                <div class="swiper-slide">
-                                    <input type="checkbox" class="btn-check" name="category" id="category${jList.categoryNo}" value="${jList.categoryNo}">
-                                    <label class="btn btn-outline-primary" for="category${jList.categoryNo}">${jList.categoryName}</label>
-                                </div>
-                            </c:forEach>
-                        </div>
-                        <!-- 이전/다음 버튼 -->
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
-                    </div>
-                </div>
-            </div>
-            
-            
+				<div class="col-6 offset-3 text-center">
+					<div class="job-categories-container justify-content-center">
+						<c:forEach var="jList" items="${jList}" varStatus="status">
+
+							<input type="checkbox" class="btn-check jobs" name="categoryNo" id="category" value="${jList.categoryNo} style="cursor: pointer; position: relative; background-color: white;">
+                            <label class="btn btn-outline-primary" for="category${jList.categoryNo}">${jList.categoryName}</label>
+							
+
+						</c:forEach>
+
+					</div>
+				</div>
+			</div>
+
+
 
 			<div class="row my-5">
 				<div class="col text-center ">
@@ -46,7 +43,7 @@
 						name="postTitle" style="height: 100px">
 				</div>
 			</div>
-			
+
 			<div class="my-5">
 				<div class="col">
 					<div class="row my-3">
@@ -78,9 +75,7 @@
 			</div>
 
 			<div class="row">
-				<div class="col" id="imageContainer" >
-					
-				</div>
+				<div class="col" id="imageContainer"></div>
 			</div>
 			<div class="row my-5">
 				<div class="col text-center">
@@ -150,7 +145,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="row my-5">
 				<div class="col text-center ">
 					<input type="submit" class="btn btn-outline-primary" value="작성하기"

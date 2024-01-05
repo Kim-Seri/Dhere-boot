@@ -8,14 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.springbootstudy.dhere.controller.MemberController;
 import com.springbootstudy.dhere.domain.Product;
 import com.springbootstudy.dhere.service.MemberService;
 import com.springbootstudy.dhere.service.ProductService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class AjaxProcessCount {
 	
 	@Autowired
@@ -24,7 +29,7 @@ public class AjaxProcessCount {
 	@Autowired
 	private ProductService productService;
 	
-	@PostMapping("/ConfirmId")
+	@PostMapping("/joinCheck")
 	@ResponseBody
 	public Map<String, Boolean> overIdCheck(@RequestParam("id") String id){
 		
@@ -46,7 +51,30 @@ public class AjaxProcessCount {
 		return map;
 	}
 	
-
+	// 회원 정보 수정하는 ajax 요청을 처리하는 컨트롤러
+	@GetMapping("/passCheck.ajax")
+	@ResponseBody
+	public Map<String, Boolean> memberPassCheck(
+			@RequestParam("email") String email, 
+			@RequestParam("pass") String pass) {
+		
+		
+		boolean result = memberService.memberPassCheck(email, pass);
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		map.put("result", result);
+		
+		return map;
+	}
+	
+	//제품정보 전체 데이터 가져오기 (마커 검색 비교용)
+	@GetMapping("/productList")
+	@ResponseBody
+	public List<Product> productListAll(){
+		List<Product> product =productService.productListAll();
+		log.info(product.get(0).getBrandName());
+		
+		return product;
+	}
 	
 }
 

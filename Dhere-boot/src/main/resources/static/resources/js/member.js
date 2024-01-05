@@ -131,7 +131,7 @@ $(function() {
 		
 		//Ajax로 전송
 		$.ajax({
-			url:"ConfirmId",
+			url:"joinCheck",
 			data:{id : id},
 			type:"POST",
 			dataType:"json",

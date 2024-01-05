@@ -1,40 +1,65 @@
 @charset "UTF-8";
 
+.swiper-container {
+	width: 100%;
+}
 
- .swiper-container {
-      width: 100%;
-    }
-    .swiper-slide {
-      display: flex;
-      overflow:hidden;
-      justify-content: center;
-      align-items: center;
-    }
+.swiper-slide {
+	display: flex;
+	overflow: hidden;
+	justify-content: center;
+	align-items: center;
+}
 
-    #postImg{
-    	max-width:100%; 
-    	height:auto;
-  		width: 900px;
-  		
-    }
-    
-     #deleteImageButton{
-    
-    	position: absolute;
-  		top: 3px;
- 	 	left : 977px; 
-    }
-    
-    #addMarkerButton,#finishMarkerButton{
-    	position: absolute;
-  		top: 3px;
-  		left : 860px;
-    } 
-   
-    
-    /* #marker-container{
+#postImg {
+	max-width: 100%;
+	height: auto;
+	width: 900px;
+}
+
+#deleteImageButton {
+	position: absolute;
+	top: 3px;
+	left: 977px;
+}
+
+#addMarkerButton, #finishMarkerButton {
+	position: absolute;
+	top: 3px;
+	left: 860px;
+}
+
+.jobs {
+	width: 130px;
+	height: 45px;
+	border: 3px solid #4370FF;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: bold;
+}
+
+.job-categories-container {
+	display: flex;
+}
+
+.jobs {
+	margin-right: 10px;
+}
+
+/* 추가 */
+.jobs.selected {
+	background-color: #4370FF;
+}
+
+.close-btn {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	cursor: pointer;
+}
+
+/* #marker-container{
     	position:relative;
     } */
-    
-    
-    

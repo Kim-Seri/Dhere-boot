@@ -38,6 +38,18 @@
 		FROM product WHERE product_no = #{productNo}
 	</select>
 	
+	<select id="productListAll" resultType="Product">
+		SELECT 
+		product_no as productNo,
+		product_name as productName,
+		brand_name as brandName,
+		product_content as productContent,
+		product_category as productCategory,
+		product_link as productLink,
+		product_image as productImage 
+		FROM product 
+	</select>
+	
 	<resultMap id="productResultMap" type="Product" >
 		<id property="no" column="no" />
 		<result property="productNo" column="product_no" />
