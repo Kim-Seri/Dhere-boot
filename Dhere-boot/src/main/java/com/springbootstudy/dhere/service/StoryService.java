@@ -50,4 +50,10 @@ public interface StoryService {
 	
 	// 직종별 게시물 리스트 출력
 	public abstract List<Story> storyList(String selectedJob);
+	
+	// 검색 결과 리스트 출력
+	public abstract List<Story> searchList(String searchKeyword);
+	
+	// 정렬 리스트 출력
+	public abstract List<Story> sortList(String sort);
 }

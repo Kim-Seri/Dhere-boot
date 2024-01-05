@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link rel="stylesheet" href="resources/css/storyDetail.css">
+<link rel="stylesheet" href="resources/css/main.css">
 <%@ page session="true" %>
 <html>
 <head>
@@ -11,7 +12,11 @@
 <div class="container">
 	<div class="row">
 		<div class="col">
-		
+				
+				 <!-- 상단바 이동 버튼 -->
+				 <a href="#" class="goToTopBtn">
+				 	<img src="resources/images/icon/topbar.png" style="width: 35px;">
+				 </a>
 		
 		
 					<input type="hidden" value="${sessionScope.member.email}">

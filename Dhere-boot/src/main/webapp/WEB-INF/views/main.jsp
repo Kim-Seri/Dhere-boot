@@ -5,6 +5,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <link rel="stylesheet" href="resources/css/main.css">
  <script src="resources/js/main.js"></script>
+ <script src="resources/js/mainSearch.js"></script>
+ <script src="resources/js/mainSorting.js"></script>
 <%@ page session="true" %>
 
 <html>
@@ -59,39 +61,32 @@
 		<div class="row">
 		<div class="col">
 			
-			
-			<!-- 여기서 체크박스를 지우고, 라벨도 지우고, -->
 			<div class="job-categories-container justify-content-center">
 			    <c:forEach var="jList" items="${jList}" varStatus="status">
-			    
-			        <div class="jobs" data-category="${jList.categoryName}" style="cursor: pointer; position:relative; background-color: white;">
-			        	
+			        <div class="jobs" data-category="${jList.categoryName}" style="cursor: pointer; position:relative; background-color: white;">		        	
 			        	<span >${jList.categoryName}</span>
-
 			            <span class="close-btn" onclick="clearSelection(${status.index})"></span>
-			        </div>
-			    
-			    </c:forEach>
-			    
+			        </div>			    
+			    </c:forEach>		    
 			</div>
 
-				
 		</div>
 		</div>
 
-
-
-
-		
 		<!-- 검색창 -->
 		<div class="row">
 		<div class="col d-flex justify-content-center">
-			<form class="row my-5 " action="#">
-			<div class="col">
-				<input type="text" placeholder=" &nbsp;#데스크셋업" class="border border-primary border-3 rounded-4 TagSearchBox"> &nbsp;&nbsp;
-				<img src="resources/images/icon/search.png" style="width: 35px;">
+			
+			<div class="row mt-4">
+			<div class="col mt-5 mb-5 pt-1">
+				<input type="text" placeholder=" &nbsp;#데스크셋업" class="border border-primary border-3 rounded-4" id="TagSearchBox"> 
 			</div>
-			</form>
+			<div class="col mt-5 mb-5">
+				<img src="resources/images/icon/search.png" style="width: 40px;" id="TagSearchBtn">
+			</div>
+			</div>
+
+
 		</div>
 		</div>
 		
@@ -101,9 +96,9 @@
 			 ⎸ 전체 게시글
 		</div>
 		<div class="col text-end">
-			<select class="selectBox" onchange="">
-				<option value="">최신순 정렬</option>
-				<option value="">인기순 정렬</option>
+			<select id="selectBox" onchange="sortingList()">
+				<option value="recent">최신순 정렬</option>
+				<option value="view">인기순 정렬</option>
 			</select>
 		</div>
 		</div>
@@ -129,7 +124,7 @@
 			
 			
 				<!-- 데스크셋업 썸네일 -->
-				<a href="storyDetail?storyNo=${s.storyNo }">
+				<a href="storyDetail?storyNo=${s.storyNo}">
 					<div class="row rounded-top-4" style="height: 200px; background-size: cover; background-position: center; background-image: url('resources/images/desk/${s.fileName}');">
 					<div class="col">				
 					</div>
@@ -148,7 +143,7 @@
 							data-bs-trigger="focus"
 							data-bs-title="${s.nickname}"
 							data-bs-content="
-										<a href='otherScrap?email=${s.email}&nickname=${s.nickname}&picture=${s.picture}'class='text-decoration-none text-dark'>프로필 보러가기</a>
+										<a href='otherScrap?email=${s.email}&nickname=${s.nickname}&picture=${s.picture}&categoryName=${s.categoryName}'class='text-decoration-none text-dark'>프로필 보러가기</a>
 										<br>
 									    <br>
 									    <a href='scrap' class='text-decoration-none text-dark'>쪽지 보내기</a>
@@ -192,13 +187,14 @@
 				<!-- 조회수, 좋아요 -->
 				<div class="row">
 					<div class="col py-3" id="main_story_category_area">
+						&nbsp;
 						<img src="resources/images/icon/name_tag_full.png" id="main_story_category_btn">
-						
-							${s.categoryName}
+						&nbsp;
+						${s.categoryName}
 					</div>
 					<div class="col text-end py-3" style="color:#5E5E5E; font-size: smaller;">
 						<img src="resources/images/icon/eye_eyes_view_count.png" id="icon_count" style="width: 20px;">
-						${s.readCount} &nbsp;&nbsp;
+						${s.readCount}&nbsp;&nbsp;
 						<img src="resources/images/icon/heart.png" id="icon_heart" style="width: 20px;">
 						${s.thank}
 					</div>
@@ -224,7 +220,11 @@
 		</div>
 		</div>
 		
-
+	<div class="row mt-5 mb-5">
+	<div class="col"> 
+		&nbsp;
+	</div>
+	</div>
 		
 		<!-- 경진 -->
 		<div class="row">

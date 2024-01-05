@@ -128,6 +128,18 @@ public class StoryDaoImpl implements StoryDao {
 		return sqlSession.selectList(NAME_SPACE + ".storyList", selectedJob);
 	}
 
+	// 검색 결과 리스트 출력
+	@Override
+	public List<Story> searchList(String searchKeyword) {
+		return sqlSession.selectList(NAME_SPACE + ".searchList", searchKeyword);
+	}
+
+	// 정렬 리스트 출력
+	@Override
+	public List<Story> sortList(String sort) {
+		return sqlSession.selectList(NAME_SPACE  + ".sortList", sort);
+	}
+	
 
 
 

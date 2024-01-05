@@ -112,6 +112,18 @@ public class StoryServiceImpl implements StoryService {
 		return storyDao.storyList(selectedJob);
 	}
 
+	// 검색 결과 리스트 출력
+	@Override
+	public List<Story> searchList(String searchKeyword) {
+		return storyDao.searchList(searchKeyword);
+	}
+
+	// 정렬 리스트 출력
+	@Override
+	public List<Story> sortList(String sort) {
+		return storyDao.sortList(sort);
+	}
+
 	
 	
 }
