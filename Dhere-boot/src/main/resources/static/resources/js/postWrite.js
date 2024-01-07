@@ -43,7 +43,7 @@ function addMarker(x, y) {
     const markerContainer = $("<div class='marker-container'></div>");
     const marker = $(`<div class='marker' id='marker'><button type='button' class='btn btn-primary rounded-circle' id='markerBtn'>+</button></div>`);
     const searchBox = $(`
-    							<div class='row search-box  bg-white border border-primary-subtle rounded ' id='search-box ' >
+    							<div class='row search-box  bg-white border border-primary-subtle rounded ' id='searchBox ' >
 	    							<div class='col'>
 		    							<div class='row my-3'>
 			    							<div class='col-9'>
@@ -143,6 +143,9 @@ function getHashtagItem(hashtag) {
 
 $(function () {
 	
+	var deleteBtnNum=0;
+	var imageDivNum=0;
+	
 	//ajax로 페이지 로딩 시에 제품 데이터 가져오기
 	$.ajax({
 		url: "productList",
@@ -186,11 +189,15 @@ $(function () {
   });
 
   $("#categoryCarousel").carousel();
-
+  
+	
+	
   $("#addImageButton").on("click", function () {
     // 새로운 이미지 입력 필드를 생성하고 파일 선택 다이얼로그를 띄웁니다.
-	var postNumber=0;
-	postNumber=postNumber+1;
+	
+	deleteBtnNum++;
+	imageDivNum++;
+	console.log(deleteBtnNum);
     var imageInput = $(
       "<input type='file' class='form-control' name='additionalImages' style='display:none'>"
     );
@@ -208,22 +215,36 @@ $(function () {
 //      var changeButton = $(
 //        "<button type='button' class='btn btn-outline-primary' id='changeImageButton'>사진 수정하기</button>"
 //      );
-      var imageDivRow = $("<div class='row my-3'></div>");
-      var imageDivCol = $("<div class='col my-3 position-relative'></div>");
-      var imageDivRow2 = $("<div class='row my-3'></div>");
-      var imageDivCol2 = $( "<div class='col text-center position-relative' id='ImgDiv'></div>");
-      var imageDivRow3 = $("<div class='row my-3'></div>");
-      var imageDivCol3 = $( "<div class='col text-center '></div>");
-      var deleteButton = $("<button type='button' class='btn btn-secondary' id='deleteImageButton'>삭제하기</button>");
-      var markerButton = $("<button type='button' class='btn btn-secondary' id='addMarkerButton'>마커 편집</button>");
+      var imageDivRow = $(`<div class='row my-3'></div>`);
+      var imageDivCol = $(`<div class='col my-3 position-relative'></div>`);
+      var imageDivRow2 = $(`<div class='row my-3'></div>`);
+      var imageDivCol2 = $( `<div class='col text-center position-relative' id='ImgDiv${imageDivNum}'></div>`);
+      var imageDivRow3 = $(`<div class='row my-3'></div>`);
+      var imageDivCol3 = $( `<div class='col text-center '></div>`);
+      var deleteButton = $(`<button type='button' class='btn btn-secondary deleteBtn' id='deleteImageButton${deleteBtnNum}'>삭제하기</button>`);
+      
 
       imageDivRow.append(imageDivCol);
       imageDivCol.append(imageDivRow2);
       imageDivRow2.append(imageDivCol2);
 
       imageDivCol2.append(imagePreview);
-      imageDivCol2.append(markerButton);
       imageDivCol2.append(deleteButton);
+      
+      if(imageDivNum === 1){
+		var markerButton = $(`<button type='button' class='btn btn-secondary' id='addMarkerButton'>마커 편집</button>`);
+      	imageDivCol2.append(markerButton);
+      }
+      
+      $(".deleteBtn").css({
+		  
+	  });
+	  
+	  $("#addMarkerButton").css({
+		  
+	  });
+      
+     
 
       imageDivCol.append(imageDivRow3);
       imageDivRow3.append(imageDivCol3);
@@ -237,9 +258,26 @@ $(function () {
   });
 
   //이미지 삭제하기 버튼 눌렸을 때
-  $("#imageContainer").on("click", "#deleteImageButton", function () {
+  $("#imageContainer").on("click", ".deleteBtn", function () {
     $(this).parent().parent().parent().parent().prev().remove();
     $(this).parent().parent().parent().parent().remove();
+    
+	imageDivNum--;
+	deleteBtnNum--;
+    
+    
+    isAddingMarker=false;
+    console.log(isAddingMarker);
+  });
+  
+  // 첫번째 (마커추가가능한) 이미지 삭제하기 버튼 눌렸을 때
+  $("#imageContainer").on("click", "#deleteImageButton1", function () {
+    $(this).parent().parent().parent().parent().prev().remove();
+    $(this).parent().parent().parent().parent().remove();
+    
+    $(".marker-container").remove();
+    
+    
     isAddingMarker=false;
     console.log(isAddingMarker);
   });
