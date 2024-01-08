@@ -158,14 +158,14 @@ $(function() {
 	
 	
 	$("#btnOverlapPass").on("click",function(){
-		var pass1=$("#pass1").val()
-		var pass2=$("#pass2").val()
-			if(pass1 == pass2) {
-	    		$("#label2").css("color", "black").text("비밀번호가 일치합니다.");
-	    		return false;
-	    	} else {
-	    		$("#label2").css("color", "red").text("비밀번호가 일치하지 않습니다.");
-	    	}
+		var pass1=$("#pass1").val();
+		var pass2=$("#pass2").val();
+		if(pass1 == pass2) {
+	    	$("#label2").css("color", "black").text("비밀번호가 일치합니다.");
+	    	return false;
+	    } else {
+	    	$("#label2").css("color", "red").text("비밀번호가 일치하지 않습니다.");
+	    }
 	});
 	
 });

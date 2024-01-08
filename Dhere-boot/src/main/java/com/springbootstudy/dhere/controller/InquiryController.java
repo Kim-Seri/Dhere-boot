@@ -32,11 +32,6 @@ public class InquiryController {
 	
 	@Autowired
 	private AnswerService answerService;
-
-	
-
-	
-	
 	
 	@PostMapping(value = "/inquiryWriteForm")
     public String insertInquiry(Inquiry i, HttpServletRequest request, 
@@ -74,15 +69,22 @@ public class InquiryController {
 	
 	@GetMapping("/iList")
 	public String iList(Model model, HttpSession session) {
-		System.out.println("aaaaaaaaaaaaa");
-		Member member = (Member)session.getAttribute("member");
-		
-		List<Inquiry> iList = service.iList(member.getEmail());
-		
-		model.addAttribute("iList", iList);
-		
-		return "iList";
-	}	
+	    Member member = (Member) session.getAttribute("member");
+
+	    List<Inquiry> iList = service.iList(member.getEmail());
+
+	    // 각 Inquiry에 대한 답변 목록을 검색하여 모델에 추가
+	    for (Inquiry inquiry : iList) {
+	        int inquiryNo = inquiry.getInquiryNo();
+	        List<Answer> answerList = service.getAnswerList(inquiryNo);
+	        inquiry.setAnswerList(answerList);
+	    }
+
+	    model.addAttribute("iList", iList);
+
+	    return "iList";
+	}
+
 	
 	
 	

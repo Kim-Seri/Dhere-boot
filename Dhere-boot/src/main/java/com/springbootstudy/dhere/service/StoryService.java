@@ -57,6 +57,8 @@ public interface StoryService {
 	// 직종별 게시물 리스트 출력
 	public abstract List<Story> storyList(String selectedJob);
 	
+	public abstract List<Story> sList(String email);
+	
 	// 검색 결과 리스트 출력
 	public abstract List<Story> searchList(String searchKeyword);
 	
