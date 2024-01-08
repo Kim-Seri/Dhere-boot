@@ -1,14 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <link rel="stylesheet" href="resources/css/login.css">
-<script src="resources/js/jquery-3.2.1.min.js"></script>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width">
+   <head>
+ <title>회원정보 수정 전 비밀번호 확인하기</title>
+<link href="resources/bootstrap/bootstrap.min.css" rel="stylesheet">
 <script src="resources/js/member.js"></script>
-<style>
-#ballon {
-margin: auto;
-}
-</style>
+<script src="resources/js/jquery-3.2.1.min.js"></script>
+<script src="resources/js/scrap.js"></script>
+	</head>
+<body>
 <div class="row align-items-center h-100">
 	<div class="col">
 				<div class="row mx-5">
@@ -54,3 +62,6 @@ margin: auto;
 		
 	</div>
 
+
+</body>
+</html>

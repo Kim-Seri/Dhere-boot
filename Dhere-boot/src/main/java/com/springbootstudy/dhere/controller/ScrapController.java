@@ -46,5 +46,15 @@ public class ScrapController {
 		return "scrap";
 	}
 	
-	
+	   @GetMapping("/mypageUpdateProcess")
+	    public String mypageUpdateProcess() {
+	        return "member/mypageUpdateProcess";
+	    }
+	  
+	   @GetMapping("/mypageUpdateForm")
+	   public String updateForm(Model model, HttpSession session) {
+		   return "member/mypageUpdateForm"; 
+	   }
+
+	  
 }

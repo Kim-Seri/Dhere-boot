@@ -23,55 +23,34 @@
 			WHERE no = #{no}
 	</select>
 	
-	
-	
-<!-- 스크랩 -->
- <!-- 	<select id="ScrapList" resultType="Scrap" resultMap="ScrapResultMap">
-		 	SELECT 
-				sc.scrap_no,
-			    sc.scrap_date,
-			    m.email,
-			    m.nickname,
-			    m.job,
-			    m.pass
-			FROM scrap
-			<Where>
-				<if test="scrapCategory == 'Others' and ScrapCategory != 'All'">
-					not (scrap_category = 'My-Post' or scrap_category = 'My-Scrap' or scrap_category = 'Following-List')
-				</if>
-				<if test="scrapCategory != 'others' and ScrapCategory != 'All'">
-					scrap_category = #{scrapCategory}
-				</if>
-			</Where>
-			ORDER by scrap_no
- 	</select> -->
- 		 
-	 <!-- 이메일에 해당하는 비밀번호를 가져오는 맵핑 구문 -->
-<!-- 	<select id="memberPassCheck" resultType="String">
-		SELECT
-			pass
-		FROM member
-		WHERE email = #{email}
+	<!-- 내 게시물 보기 -->
+	<select id="getScrapList" resultMap="ScrapResultMap">
+			SELECT
+				email,
+				scrap_no AS scrapNo,
+				story_no AS storyNo,
+				scrap_date AS ScrapNo,
+				
+				story_no AS storyNo,				
+				title,
+				content,
+				reg_date AS regDate,
+				category_id
+				thank
+			FROM scrap_no
 	</select>
 	
-	회원정보를 수정하는 맵핑구문
-	<update id="updateMember" parameterType="Member">
-		UPDATE member
-			UPDATE member
-			SET pass=#{pass}, email=#{email}, phone=#{phone},
-			name=#{name}, nickname=#{nickname}, zipcode=#{zipcode},
-			address1=#{address1}, address2=#{address2}
-			job=#{job}, phone=#{phone}, picture=#{picture}
-		WHERE email=#{email}
-	</update> -->
 	
 	<resultMap id="ScrapResultMap" type="Scrap">
 		<id property="email" column="email" />
 		<result property="scrap_no" column="scrap_no" />
 		<result property="storyNo" column="story_no" />
 		<result property="scrap_date" column="scrap_date" />
+		
 		<result property="nickname" column="nickname" />
 		<result property="job" column="job" />		
 		<result property="picture" column="picture" />
+		
 	</resultMap>
+	
 </mapper>

@@ -1,5 +1,7 @@
 package com.springbootstudy.dhere.dao;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -32,8 +34,10 @@ public class ScrapDaoImpl implements ScrapDao {
 	public String memberPassCheck(String email, String Pass) {
 		return sqlSession.selectOne(NAME_SPACE + ".memberPassCheck", email);
 	}
-//	}
-//		
+	
+	// 스크랩한 데이터 처리할 DAO
+	
+	
 //	// 회원 정보 DAO를 이용해 회원 테이블에서 수정하는 메서드
 //	public void updateMember(Member member) {
 //		sqlSession.update(NAME_SPACE + ".updateMember", member);

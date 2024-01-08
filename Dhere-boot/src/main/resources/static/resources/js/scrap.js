@@ -1,93 +1,50 @@
+window.onload = function() {
+	showInfo(0);
+}
+ 
+ function showInfo(index) {
+   var contentBoxes = document.querySelectorAll('.infoContent');
+   
+   // Hide all content boxes
+   contentBoxes.forEach(function(box) {
+     box.classList.remove('active');
+   });
 
-	// 개인정보 관련 탭바
-/*	
-<script>
-let key = "${param.key}";
-console.log(key);
-if(key === "tab1"){
-	
-	$("#tab2-tab").removeClass("active");
-	$("#tab3-tab").removeClass("active");
-	$("#tab1-tab").addClass("active");
-	
-	$("#tab2-tab").removeClass("show active");
-	$("#tab3-tab").removeClass("show active");
-	$("#tab1-tab").addClass("show active");
-	
-}else if(key === "tab2"){
-	
-	$("#tab2-tab").removeClass("active");
-	$("#tab1-tab").removeClass("active");
-	$("#tab3-tab").addClass("active");
-	
-	$("#tab1-tab").removeClass("show active");
-	$("#tab3-tab").removeClass("show active");
-	$("#tab2-tab").addClass("show active");
-	
-}else if(key === "tab3"){
-	
-	$("#tab1-tab").removeClass("active");
-	$("#tab2-tab").removeClass("active");
-	$("#tab3-tab").addClass("active");
-	
-	$("#tab2-tab").removeClass("show active");
-	$("#tab1-tab").removeClass("show active");
-	$("#tab3-tab").addClass("show active");
-	
-}*/
-	
-
-/*</script>
+   // Show the selected content box
+   contentBoxes[index].classList.add('active');
+ }
+ 
+ $("#btnPassCheck").click(function() {
+	 var passCheckEmail = $("email").val();
+	 var passCheckPass = $("pass").val();
+	 
+	 if($.trim(passCheckPass).length == 0) {
+		 alert("개인정보를 수정하기 위해 비밀번호를 입력해주세요");
+		 return false;
+	 }
+	 
+	 var data = passCheckEmail + passCheckPass;
+	 console.log(data);
+	 
+	 $.ajax({
+		 "url" : "PassCheck.ajax",
+		 "type" : "method",
+		 "data" : data,
+		 "dataType" : "json",
+		 "success" : function(resData) {
+			 if(resData.result) {
+				 alert("비밀번호가 확인되었습니다.");
+				 window.location.href = "scrap.jsp";
+			 } else {
+				 alert("비밀번호가 다릅니다. 비밀번호를 확인해주세요");
+				 $("#passCheckPass").val("").focus();
+			 }
+		 },
+		 "error" : function() {
+			 console.log("error");
+		 }
+	 })
+ })
+ 
 
 
-    // 나의 게시물/ 나의 스크랩/ 팔로잉 목록
-	    $(".scrapBtn").on("click", function() {
-	    	let scrapCategory = $(this).text();
-	    	console.log(scrapCategory);
-	    	$.ajax({
-	    		url: "categoryList",
-	    		data: "productCategory=" + productCategory,
-	    		type: "POST",
-	    		dataType: "json",
-	    		success: function(res) {
-	    		$("#categoryList").empty();
-	    		console.log(res.category);
-	    		$(res.category).each(function(v, i) {
-	    			$("#categoryList").append(`
-<div class="col-3 m-3 p-1 rounded-4" style="width: 350px; height: 380px; background: #F3F3F3; cursor: pointer" onclick="location.href='productDetail?productNo=`+i.productNo+`'">
-			<div class="row">
-			    <div class="col d-flex justify-content-center align-items-center" style="height: 200px; overflow: hidden;">
-			        <img src="resources/images/products/`+i.productImage+`" id="preview" class="img-fluid rounded-top-4" alt="`+i.productImage+`" style="width: 100%; height: 100%;">
-			    </div>
-			</div>
-
-			<div class="row">
-				<div class="col p-3">
-					<div class="row">
-					    <div class="col-10 offset-1 py-3" style="font-weight: bold; border-bottom: 2px solid #bfbfbf; color: #bfbfbf">
-					        `+i.brandName+`
-					    </div>
-					</div>	
-
-			
-			<div style="width: 100%; height: 2px; color: black"></div>
-			
-			<div class="row">
-			    <div class="col-10 offset-1 py-3" style="overflow: hidden; font-size: 23px">
-			        <b>`+i.productName+`</b>
-			    </div>
-			</div>
-				</div>
-			</div>
-		</div>
-`)
-	    		})
-	    	}, error: function() {
-	    		console.log("err");
-	    	}
-	    	})
-	    })
-
-	    
-	
-} */
