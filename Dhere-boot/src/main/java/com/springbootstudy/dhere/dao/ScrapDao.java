@@ -10,6 +10,9 @@ public interface ScrapDao {
 	// 프로필 가져오기
 	public abstract Scrap getScrap(String email);
 
+	// 스크랩 리스트 가져오기
+//	public List<Scrap> getScrapList(String email);
+	
 	// 게시물 리스트 가져오기
 //	public abstract List<Scrap> getScrapList();
 	

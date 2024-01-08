@@ -1,19 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+   pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<link rel="stylesheet" href="resources/css/scrap.css">
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width">
+   <head>
+         <title>마이페이지</title>
+<link href="resources/bootstrap/bootstrap.min.css" rel="stylesheet">
+<script src="resources/js/member.js"></script>
+<script src="resources/js/jquery-3.2.1.min.js"></script>
+<script src="resources/js/formcheck.js"></script>
+<script src="resources/js/scrap.js"></script>
 <link rel="stylesheet" href="resources/css/joinForm.css">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="resources/js/member.js"></script>
-<style>
-	body {
-		background-image: url('resources/images/join_background.png');
-		background-size: cover;
-		background-repeat: no-repeat;
-		background-position: center;
-	}
-</style>
-
-
+	</head>
+<body>
+	<!-- 전체 컨테이너 시작 -->
+<div class="container mt-5 row justify-content-center">
+<div class="col-auto">
+	<!-- 탭바 (프로필/정보수정/1:1문의하기/로그아웃) 시작 -->
+	
+	<div class="col justify-content-center" id="infobox">
+		<div class="infoTab_box">
+			<button type="button" class="btn btn-outline-primary" id="infoTab_btn" onclick="showInfo(0)">회원정보</button>
+			<button type="button" class="btn btn-outline-primary" id="infoTab_btn" onclick="location.href='${pageContext.request.contextPath}/member/mypageUpdateProcess'">회원정보수정</button>
+			<button type="button" class="btn btn-outline-primary" id="infoTab_btn" onclick="showInfo(2)">1:1문의하기</button>
+			<button type="button" class="btn btn-outline-primary" id="infoTab_btn" onclick="showInfo(3)">로그아웃</button>
+		</div>
 <div class="row my-5 container" id="global-content">
 	<div class="offset-3 col-6">
 		<form action="mypageUpdateResult" name="mypageUpdateForm" id="mypageUpdateForm" method="post" enctype="multipart/form-data">
@@ -154,3 +172,8 @@
 		</form>
 	</div>
 </div>
+</div>
+</div>
+</div>
+</body>
+</html>

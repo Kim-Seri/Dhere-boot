@@ -1,17 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <link rel="stylesheet" href="resources/css/login.css">
-<script src="resources/js/jquery-3.2.1.min.js"></script>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width">
+   <head>
+ <title>회원정보 수정 전 비밀번호 확인하기</title>
+<link href="resources/bootstrap/bootstrap.min.css" rel="stylesheet">
 <script src="resources/js/member.js"></script>
-<style>
-#ballon {
-margin: auto;
-}
-</style>
+<script src="resources/js/jquery-3.2.1.min.js"></script>
+<script src="resources/js/mypageUpdateProcess.js"></script>
+	</head>
+<body>
 <div class="row align-items-center h-100">
 	<div class="col">
-				<div class="row mx-5">
+				<div class="d-flex justify-content-center">
 					<div class="col-5 text-center" id="ballon">
 						<div class="position-relative py-2 px-4 text-bg-secondary 
 						border border-secondary rounded-pill">
@@ -26,7 +34,7 @@ margin: auto;
 					</div>
 				</div>
 				<div class="row">
-				<div class="col text-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
+				<div class="col mt-2 text-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
                     <c:if test="${ empty sessionScope.member.picture }"><!-- 귀여운그림 -->
                     <img src="resources/images/icon/86683729.png" alt="150*150" style="width:150px; height:150px; object-fit: cover; border-radius: 70%; border: 3px solid blue" />
                     </c:if>
@@ -47,10 +55,13 @@ margin: auto;
 				</div>
 				<div class="row">
 				<div class="col text-center">
-					<input type="button" id="btnPassCheck" value="확인">
+					<input type="button" class="btn btn-light" id="btnPassCheck" value="확인">
 				</div>
 				</div>
 			</div>
 		
 	</div>
 
+
+</body>
+</html>
