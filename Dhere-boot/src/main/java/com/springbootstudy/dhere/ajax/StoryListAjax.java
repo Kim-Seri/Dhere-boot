@@ -1,5 +1,6 @@
 package com.springbootstudy.dhere.ajax;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,14 +15,51 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.springbootstudy.dhere.domain.Story;
 import com.springbootstudy.dhere.service.StoryService;
-/*
+
 @Controller
 public class StoryListAjax {
 	
 	@Autowired
 	private StoryService storyService;
 	
+	@PostMapping("/storyList")
+	@ResponseBody
+	public Map<String, List<Story>> storyList(
+			@RequestParam(value="selectedJob", required = false) String selectedJob,
+			@RequestParam(value="searchKeyword", required = false) String searchKeyword,
+			@RequestParam(value="sortList", required = false) String sortList) {
+		
+		Map<String, List<Story>> map = new HashMap<>();
+		List<Story> resultList = new ArrayList<>();
+		
+		if (selectedJob != null) {
+	        // 직무 카테고리 별 리스트 출력
+	        List<Story> categoryList = storyService.storyList(selectedJob);
+	        resultList.addAll(categoryList);
+	    }
+
+	    if (searchKeyword != null) {
+	        // 태그 검색 결과 리스트 출력
+	        List<Story> searchList = storyService.searchList(searchKeyword);
+	        resultList.addAll(searchList);
+	    }
+
+	    if (sortList != null) {
+	        // 최신순/인기순 정렬 리스트 출력
+	        List<Story> sortingList = storyService.sortList(sortList);
+	        resultList.addAll(sortingList);
+	    }
+
+	    // 중복을 허용한 리스트를 전달
+	    map.put("resultList", resultList);
+
+
+		return map;
+		
+	}
 	
+	
+	/*	
 	@PostMapping("/jobSelectedCategory")
 	@ResponseBody
 	public Map<String, List<Story>> categoryStoryList(@RequestParam("selectedJob") String selectedJob) {
@@ -72,7 +110,7 @@ public class StoryListAjax {
 //		
 //		return map;
 //	}
-	
+	*/
 }
 
-*/
+

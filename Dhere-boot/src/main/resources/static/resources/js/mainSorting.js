@@ -6,9 +6,9 @@ document.addEventListener("DOMContentLoaded", function () {
 			// console.log(sort);
 			
 			$.ajax({
-				url: "sorting",
+				url: "storyList",
 				data: "sortList=" + sort,
-				type: "GET",
+				type: "POST",
 				dataType: "json",
 				success: function(res) {
 					
