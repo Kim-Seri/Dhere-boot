@@ -38,6 +38,7 @@ public interface StoryDao {
     void deleteReplyByStoryNo(int storyNo);
     void deleteMarkerByStoryNo(int storyNo);
     void deleteTagPostByStoryNo(int storyNo);
+    void deleteTagByStoryNo(int storyNo);
     void deleteImageByStoryNo(int storyNo);
     
     // 게시물 수정하기 읽어오기(syj)

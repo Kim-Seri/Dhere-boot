@@ -23,9 +23,8 @@ public class StoryDaoImpl implements StoryDao {
 	
 	@Override
 	public void postWrite (Story story) {
-		sqlSession.insert(NAME_SPACE+".postWrite",story);
+		sqlSession.insert(NAME_SPACE+".postWrite", story);
 	}
-	
 
 	// 게시물 리스트 가져오기
 //	@Override
@@ -51,6 +50,15 @@ public class StoryDaoImpl implements StoryDao {
 		params.put("limit", limit);
 		return sqlSession.selectList(NAME_SPACE + ".getStoryListPaged", params);
 	}
+	
+	//	페이징 처리를 위한 게시물 리스트 가져오기(syj)
+    @Override
+    public List<Story> getStoryListPaged(int offset, int limit) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("offset", offset);
+        params.put("limit", limit);
+        return sqlSession.selectList(NAME_SPACE + ".getStoryListPaged", params);
+    }
 
 	// 게시물 디테일 가져오기(syj)
 	@Override
@@ -103,6 +111,10 @@ public class StoryDaoImpl implements StoryDao {
 	@Override
 	public void deleteTagPostByStoryNo(int storyNo) {
 		sqlSession.delete(NAME_SPACE + ".deleteTagPostByStoryNo", storyNo);
+	}
+	@Override
+	public void deleteTagByStoryNo(int storyNo) {
+		sqlSession.delete(NAME_SPACE + ".deleteTagByStoryNo", storyNo);
 	}
 	@Override
 	public void deleteImageByStoryNo(int storyNo) {
@@ -168,9 +180,6 @@ public class StoryDaoImpl implements StoryDao {
 	public List<Story> sortList(String sort) {
 		return sqlSession.selectList(NAME_SPACE  + ".sortList", sort);
 	}
-	
-
-
 
 
 

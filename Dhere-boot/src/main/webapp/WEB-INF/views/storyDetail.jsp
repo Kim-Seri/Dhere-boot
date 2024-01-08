@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="resources/css/main.css">
 <%@ page session="true" %>
 <%@ page import="com.springbootstudy.dhere.domain.Member"%>
+<script src="resources/js/storyDetail.js"></script>
 <% 
     Member member = (Member)session.getAttribute("member");
     boolean isLoggedIn = member != null;
@@ -220,7 +221,7 @@
 	<!--############################# 공유, 하트, 신고 버튼 영역 시작 ############################-->
 					<div class="row" id="share_heart_siren_btn">
 						<div class="col text text-center">
-							<button type="button" class="btn btn-outline-primary">
+							<button type="button" class="btn btn-outline-primary" id="icon_siren_btn2">
 								<img src="resources/images/icon/shara_export.png" id="icon_share_btn">
 							</button>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -274,7 +275,7 @@
 												data-bs-trigger="focus"
 												data-bs-title="${r.nickname}"
 												data-bs-content="
-												<a href='otherScrap?email=${r.email}&nickname=${r.nickname}&picture=${r.picture}&job=${storyDetail.categoryName}'class='text-decoration-none text-dark'>프로필 보러가기</a>
+												<a href='otherScrap?email=${r.email}&nickname=${r.nickname}&picture=${r.picture}&categoryName=${storyDetail.categoryName}'class='text-decoration-none text-dark'>프로필 보러가기</a>
 												<br>
 											    <br>
 											    <a href='scrap' class='text-decoration-none text-dark'>쪽지 보내기</a>
@@ -312,7 +313,7 @@
 														onclick="deleteReply(${r.replyNo})" style="cursor: pointer;">
 										</c:when>
 								    	<c:otherwise>
-								    		<img src="resources/images/icon/siren_police.png" id="storyDetail_reply_siren">
+								    		<img src="resources/images/icon/siren_police.png" id="storyDetail_reply_siren" >
 									    </c:otherwise>
 									</c:choose>
 									</div>
@@ -435,14 +436,30 @@ function deleteReply(replyNo) {
     // 로그인 상태를 JavaScript 변수로 설정
     var isLoggedIn = <%= isLoggedIn %>;
 
-    document.getElementById('icon_siren_btn1').onclick = function() {
-        if (!isLoggedIn) {
-            alert('로그인을 먼저 진행해주세요');
-            window.location.href = 'loginForm'; // 로그인 페이지로 이동
-        } else {
-            window.location.href = 'inquiryWriteForm'; // 문의 작성 페이지로 이동
-        }
-    };
+    document.addEventListener("DOMContentLoaded", function() {
+        // 버튼의 ID로 각 버튼을 가져옵니다.
+        var iconSirenBtn1 = document.getElementById('icon_siren_btn1');
+        var iconSirenBtn2 = document.getElementById('icon_siren_btn2');
+
+        // 각 버튼에 대한 클릭 이벤트 리스너를 설정합니다.
+        var buttons = [iconSirenBtn1, iconSirenBtn2];
+        buttons.forEach(function(button) {
+            if (button) {
+                button.onclick = function() {
+                    if (!isLoggedIn) {
+                        alert('로그인을 먼저 진행해주세요');
+                        window.location.href = 'loginForm'; // 로그인 페이지로 이동
+                    } else {
+                        // 로그인 상태일 때 확인창을 띄웁니다.
+                        if (confirm('해당 댓글을 신고하시겠습니까?')) {
+                            window.location.href = 'inquiryWrite'; // 문의 작성 페이지로 이동
+                        }
+                        // '취소'를 누르면 아무 일도 일어나지 않습니다.
+                    }
+                };
+            }
+        });
+    });
 </script>
 
 

@@ -200,8 +200,6 @@ document.addEventListener("DOMContentLoaded", function () {
 					} else {
 			
 					categoryList(res.category);
-			
-
 					};
 				}, error: function() {
 					console.log("err");
@@ -306,11 +304,6 @@ function categoryList(items) {
 						`+i.thank+`
 					</div>
 				</div>
-
-			
-			</div>
-
-								`) 
-					});
-	
+			</div>`) 
+	});
 }

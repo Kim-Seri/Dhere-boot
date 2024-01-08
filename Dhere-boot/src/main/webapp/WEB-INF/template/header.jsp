@@ -17,8 +17,6 @@
     </c:choose>
 
     <div class="col justify-content-end d-flex align-items-center">
-        <a href="main" class="text-decoration-none text-white" id="header_menu">Home</a>
-        <a href="mainProduct" class="text-decoration-none text-white" id="header_menu">Product</a>
         <a href="mainAbout" class="text-decoration-none text-white" id="header_menu">About</a>
         <a href="mainNotice" class="text-decoration-none text-white" id="header_menu">Notice</a>
         
@@ -39,36 +37,36 @@
 			data-bs-toggle="popover" 
 			data-bs-trigger="focus" 
 			data-bs-title="<c:choose>
-						        <c:when test='${not empty sessionScope.member}'>
-						            ${sessionScope.member.email}
-						        </c:when>
-						        <c:otherwise>
-						            로그인이
-						            <br>
-						            <br>
-						            필요합니다
-						        </c:otherwise>
-						    </c:choose>" 
+							        <c:when test='${not empty sessionScope.member}'>
+							            ${sessionScope.member.email}
+							        </c:when>
+							        <c:otherwise>
+							            로그인이
+							            <br>
+							            <br>
+							            필요합니다
+							        </c:otherwise>
+							    </c:choose>" 
 			data-bs-content="<c:choose>
-						        <c:when test='${empty sessionScope.member}'>
-						            <a href='loginForm' class='text-decoration-none text-dark'>로그인</a>
-						            <br>
-						            <br>
-						            <a href='joinForm' class='text-decoration-none text-dark'>가입</a>
-						        </c:when>
-						        <c:otherwise>
-						            <!-- 로그인 성공한 경우 -->
-						            <a href='scrap' class='text-decoration-none text-dark'>마이페이지</a>
-						            <br>
-						            <br>
-						            <a href='logoutResult' class='text-decoration-none text-dark'>로그아웃</a>
-						        </c:otherwise>
-						    </c:choose>
-						    	<c:if test="${sessionScope.member.role eq 'admin'}">
-							    	<br>
-							    	<br>
-						            <a href='adminInquiry' class='text-decoration-none text-dark'>전체 문의내역</a>
-						        </c:if>
+								        <c:when test='${empty sessionScope.member}'>
+								            <a href='loginForm' class='text-decoration-none text-dark'>로그인</a>
+								            <br>
+								            <br>
+								            <a href='joinForm' class='text-decoration-none text-dark'>회원가입</a>
+								        </c:when>
+								        <c:otherwise>
+								            <!-- 로그인 성공한 경우 -->
+								            <a href='scrap' class='text-decoration-none text-dark'>마이페이지</a>
+								            <br>
+								            <br>
+								            <a href='logoutResult' class='text-decoration-none text-dark'>로그아웃</a>
+								        </c:otherwise>
+								    </c:choose>
+								    	<c:if test="${sessionScope.member.role eq 'admin'}">
+									    	<br>
+									    	<br>
+								            <a href='adminInquiry' class='text-decoration-none text-dark'>전체 문의내역</a>
+								        </c:if>
 	    	">
     </div>
 </div>

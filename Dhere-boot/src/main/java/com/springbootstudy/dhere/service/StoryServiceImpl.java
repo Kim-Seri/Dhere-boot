@@ -22,7 +22,6 @@ public class StoryServiceImpl implements StoryService {
 	private StoryDao storyDao;
 	
 
-	
 	// 게시물 리스트 가져오기
 //	@Override
 //	public List<Story> getStoryList() {
@@ -85,6 +84,7 @@ public class StoryServiceImpl implements StoryService {
 		storyDao.deleteReplyByStoryNo(storyNo);
 		storyDao.deleteMarkerByStoryNo(storyNo);
 		storyDao.deleteTagPostByStoryNo(storyNo);
+		storyDao.deleteTagByStoryNo(storyNo);
 		storyDao.deleteImageByStoryNo(storyNo);
 		
 		//	마지막으로 story 삭제하자
@@ -148,5 +148,5 @@ public class StoryServiceImpl implements StoryService {
 	}
 
 	
-	
+
 }

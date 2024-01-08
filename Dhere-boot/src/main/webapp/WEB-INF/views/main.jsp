@@ -3,11 +3,58 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.net.URL" %>
+<%@ page import="java.net.HttpURLConnection" %>
+<%@ page import="java.io.BufferedReader" %>
+<%@ page import="java.io.InputStreamReader" %>
+
+
 <link rel="stylesheet" href="resources/css/main.css">
  <script src="resources/js/main.js"></script>
  <script src="resources/js/mainSearch.js"></script>
  <script src="resources/js/mainSorting.js"></script>
 <%@ page session="true" %>
+
+<%
+    String clientId = "1VaS1gkFztuW3nMdEM8H";//애플리케이션 클라이언트 아이디값";
+    String clientSecret = "hIztw5hdsQ";//애플리케이션 클라이언트 시크릿값";
+    String code = request.getParameter("code");
+    String state = request.getParameter("state");
+    String redirectURI = URLEncoder.encode("http://localhost:8088/main", "UTF-8");
+    String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code"
+        + "&client_id=" + clientId
+        + "&client_secret=" + clientSecret
+        + "&redirect_uri=" + redirectURI
+        + "&code=" + code
+        + "&state=" + state;
+    String accessToken = "";
+    String refresh_token = "";
+    try {
+      URL url = new URL(apiURL);
+      HttpURLConnection con = (HttpURLConnection)url.openConnection();
+      con.setRequestMethod("GET");
+      int responseCode = con.getResponseCode();
+      BufferedReader br;
+      if (responseCode == 200) { // 정상 호출
+        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+      } else {  // 에러 발생
+        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+      }
+      String inputLine;
+      StringBuilder res = new StringBuilder();
+      while ((inputLine = br.readLine()) != null) {
+        res.append(inputLine);
+      }
+      br.close();
+      if (responseCode == 200) {
+        out.println(res.toString());
+      }
+    } catch (Exception e) {
+      // Exception 로깅
+    }
+  %>
 
 <html>
 <head>
@@ -19,7 +66,7 @@
 	<div class="col">
 	
 		 <!-- 글쓰기 버튼 -->
-		 <input type="button" class="btn btn-primary fixed-write-button" onclick="location.href='postWriteForm'" value="글쓰기" />
+		 <input type="button" id="main_writeBtn" class="btn btn-primary fixed-write-button" value="글쓰기" />
 		 
 		 <!-- 상단바 이동 버튼 -->
 		 <a href="#" class="goToTopBtn">
@@ -201,8 +248,6 @@
 						${s.thank}
 					</div>
 				</div>
-
-			
 			</div>
 			</c:if>
 			</c:forEach>
@@ -261,49 +306,55 @@
 			</li>
 		</ul>
 		<div class="row justify-content-center" id="categoryList">
-		<c:forEach var="p" items="${pList}">
-		<div class="col-3 m-3 p-1 rounded-4" style="width: 290px; height: 380px; background: #F3F3F3; cursor: pointer" onclick="location.href='productDetail?productNo=${p.productNo}'">
-			<div class="row">
-			    <div class="col d-flex justify-content-center align-items-center" style="height: 200px; overflow: hidden;">
-			        <img src="resources/images/products/${p.productImage}" id="preview" class="img-fluid rounded-top-4" alt="${p.productImage}" style="width: 100%; height: 100%;">
-			    </div>
-			</div>
-
-			<div class="row">
-				<div class="col p-3">
-					<div class="row">
-					    <div class="col-10 offset-1 py-3" style="font-weight: bold; border-bottom: 2px solid #bfbfbf; color: #bfbfbf">
-					        ${p.brandName}
-					    </div>
-					</div>	
-
-			
-			<div style="width: 100%; height: 2px; color: black"></div>
-			
-			
-			
-			
-			<div class="row">
-			    <div class="col-10 offset-1 mt-2" style="overflow: hidden; font-size: 23px">
-			        <b>${p.productName}</b>
-			    </div>
-			</div>
-			
-			
+			<c:forEach var="p" items="${pList}" begin="0" end="7">
+			<div class="col-3 m-3 p-1 rounded-4" style="width: 290px; height: 380px; background: #F3F3F3; cursor: pointer" onclick="location.href='productDetail?productNo=${p.productNo}'">
+				<div class="row">
+				    <div class="col d-flex justify-content-center align-items-center" style="height: 200px; overflow: hidden;">
+				        <img src="resources/images/products/${p.productImage}" id="preview" class="img-fluid rounded-top-4" alt="${p.productImage}" style="width: 100%; height: 100%;">
+				    </div>
+				</div>
+				<div class="row">
+					<div class="col p-3">
+						<div class="row">
+						    <div class="col-10 offset-1 py-3" style="font-weight: bold; border-bottom: 2px solid #bfbfbf; color: #bfbfbf">
+						        ${p.brandName}
+						    </div>
+						</div>	
+						<div style="width: 100%; height: 2px; color: black"></div>
+						<div class="row">
+						    <div class="col-10 offset-1 mt-2" style="overflow: hidden; font-size: 23px">
+						        <b>${p.productName}</b>
+						    </div>
+						</div>
+					</div>
 				</div>
 			</div>
+			</c:forEach>
 		</div>
-		</c:forEach>
-		</div>
 		
-		
-		
-		
+<!-- dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd -->		
+		<div class="row">
+			    <div class="col text-center">
+			        <button id="addProductBtn">더보기</button>
+			    </div>
+			</div>
+<!-- dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd -->				
 
 	</div>
 </div>
 	
 
 </div>
+
+
 </body>
 </html>
+
+
+
+<script>
+    var isLogin2 = <% out.print(session.getAttribute("isLogin") != null ? "true" : "false"); %>;
+</script>
+
+
+
