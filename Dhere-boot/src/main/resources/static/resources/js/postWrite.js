@@ -1,4 +1,5 @@
 let isAddingMarker = false; // 마커를 추가 중인지 여부를 나타내는 변수
+let searchBox;
 
 
 // 마커 추가 시작
@@ -371,12 +372,13 @@ function displayAutoCompleteResults(results) {
 			// 결과를 클릭하면 자동으로 검색 상자에 입력되도록 이벤트 처리
 			resultItem.on("click", function() {
 				// 텍스트 창 아래에 제품 정보 표시
-				
+				console.log($("#searchBox").length);
 				// 선택 후 자동 완성 결과 지우기
     			autoCompleteDiv.empty();
 				
-				$("#searchBoxCol").remove();
+				
 				$("#searchBox").hide();
+				
 				
 				displayProductInfo(result.productImage, result.brandName, result.productName);
 			});
@@ -395,41 +397,42 @@ function displayAutoCompleteResults(results) {
 		console.log(productName);
 		
 
-		const searchBox=$("#searchBox");
-		console.log(searchBox.length); // 콘솔에 출력하여 길이 확인
+		const searchBox1=$("#searchBox");
+		console.log(searchBox1.length); // 콘솔에 출력하여 길이 확인
 		
 
 		// 브랜드와 제품 이름을 표시할 UI 엘리먼트 생성
-		const productElement = (`<div class='col' id='productEle'>
-									<button type='button' class='btn btn-outline-primary'>
-									<div class='row my-3'>
-	            						<div class='col-4'>
-	            							<img src="resources/images/products/${productImage}" style='width:70px; height:70px;'>
-	            						</div>
-	            						<div class='col-4'>
-	            							<div class='row mt-2'>
-	            								<div class='col text-start'>
-	            									${brandName}
-	            								</div>
-	            							</div>
-	            							<div class='row'>
-	            								<div class='col text-start'>
-	            									${productName}
-	            								</div>
-	            							</div>
-	            						</div>
-	            						<div class='col-4'>
-	            		
-	            						</div>	
-	            					</div>
-	            					</button>
-								</div>`)
+		const productElement = (`
+									<div class='col' id='productEle'>
+										<button type='button' class='btn btn-outline-primary'>
+										<div class='row my-3'>
+		            						<div class='col-4'>
+		            							<img src="resources/images/products/${productImage}" style='width:70px; height:70px;'>
+		            						</div>
+		            						<div class='col-4'>
+		            							<div class='row mt-2'>
+		            								<div class='col text-start'>
+		            									${brandName}
+		            								</div>
+		            							</div>
+		            							<div class='row'>
+		            								<div class='col text-start'>
+		            									${productName}
+		            								</div>
+		            							</div>
+		            						</div>
+		            						<div class='col-4'>
+		            		
+		            						</div>	
+		            					</div>
+		            					</button>
+									</div>`);
 								
 		console.log(productElement);
 
 		// UI 엘리먼트를 컨테이너에 추가
-		searchBox.html(productElement);
+		searchBox1.html(productElement);
 
 		// 추가된 정보가 화면에 표시되도록 보여줌
-		searchBox.show();
+		searchBox1.show();
 }

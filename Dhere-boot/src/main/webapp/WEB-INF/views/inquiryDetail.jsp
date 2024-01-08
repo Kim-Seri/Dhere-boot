@@ -30,7 +30,7 @@
 				<c:if test="${sessionScope.member.role eq 'user'}">
 			    	<div class="row mt-3 text-center">
 			    		<div class="col my-5">
-				 	 		<input type="button" class="btn border-3 border-primary" style="width: 90px; height: 45px; font-weight: bold; color:rgb(49, 108, 244)" value="돌아가기">
+				 	 		<input type="button" class="btn border-3 border-primary" style="width: 90px; height: 45px; font-weight: bold; color:rgb(49, 108, 244)" value="돌아가기" onclick="goBack()">
 				 	 	</div>
 			 	 	</div>
 			    </c:if>

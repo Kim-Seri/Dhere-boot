@@ -26,13 +26,10 @@
 								<input type="radio" class="btn-check"  name="categoryNo" id="category${jList.categoryNo}" value="${jList.categoryNo} ">
 	                            <label class="btn btn-outline-primary" for="category${jList.categoryNo}">${jList.categoryName}</label>
 							
-								<input type="radio" class="btn-check"  name="categoryNo" id="category${jList.categoryNo}" value="${jList.categoryNo} ">
-	                            <label class="btn btn-outline-primary" for="category${jList.categoryNo}">${jList.categoryName}</label>
-							
-							
 							
 						</c:forEach>
-					</div>
+
+					
 				</div>
 			</div>
 

@@ -12,6 +12,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,8 +36,10 @@ import com.springbootstudy.dhere.service.StoryService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 public class StoryController {
 
 	@Autowired
@@ -48,7 +51,8 @@ public class StoryController {
 	@Autowired
 	private ReplyService replyService;
 	
-	private static final String DEFAULT_PATH = "/resources/images/desk/";
+	// src/main/resources/static/resources/images/desk/** 정적경로 파일 업로드 테스트
+	private static final String DEFAULT_PATH = "src/main/resources/static/resources/images/desk/";		
 	
 	
 	// #######################################################
@@ -199,26 +203,167 @@ public class StoryController {
 		}
 		
 		// 이미지 리스트 추가
-		if (multipartFile != null && !multipartFile.isEmpty()) {
-			 
-			for (MultipartFile imageFile : multipartFile) {
-				Image image = new Image();
-				 // Request 객체를 이용해 파일이 저장될 실제 경로를 구한다.
-	            String filePath = request.getServletContext().getRealPath(DEFAULT_PATH);
-	          
-	            UUID uid = UUID.randomUUID();
-	            
-	            String saveName = uid.toString() + "_" + imageFile.getOriginalFilename();
-	            String encodedFileName = URLEncoder.encode(saveName, "UTF-8");
-	            File file = new File(filePath, encodedFileName);         
-	            
-	            // 업로드 되는 파일을 upload 폴더로 저장한다.
-	            imageFile.transferTo(file);
-	            image.setFileName(encodedFileName);
-				image.setStoryNo(story.getStoryNo());
-				storyService.insertImage(image);
-			}
-		}
+				if (multipartFile != null && !multipartFile.isEmpty()) {
+					 
+					for (MultipartFile imageFile : multipartFile) {
+						Image image = new Image();
+						
+						// ##################################################################
+						// 	프로젝트 외부 폴더를 이미지 저장소로 사용 - 프로젝트가 실행되는 최상위 루트부터 참조
+						// /resources/images/desk/** 절대경로 방식 참조				
+						/*
+						File parent = new File(DEFAULT_PATH);				
+						log.info("parent abs path : " + parent.getAbsolutePath());
+						log.info("parent path : " + parent.getPath());		
+						log.info("exist : " + parent.exists() + ", dir : " + parent.isDirectory());
+						
+						// 존재하지 않으면 filePath의 경로에 있는 모든 폴더를 생성한다.
+						if(!parent.exists()) {
+							parent.mkdirs();
+						}	          
+			            
+			            UUID uid = UUID.randomUUID();
+			            
+			            // UUID + 원본 파일 
+			            // String saveName = uid.toString() + "_" + imageFile.getOriginalFilename();
+			            
+			            // UUID만 사용
+			            // 원본 파일에서 확장자만 추출
+			            String extension = StringUtils.getFilenameExtension(imageFile.getOriginalFilename());
+			            String saveName = uid.toString() + "." + extension;           
+			            File file = new File(parent.getAbsolutePath(), saveName);
+			            log.info("file abs path : " + file.getAbsolutePath());
+			            log.info("file path : " + file.getPath());
+			            
+			            // 업로드 되는 파일을 upload 폴더로 저장한다.
+			            imageFile.transferTo(file);
+			            image.setFileName(file.getName());
+						image.setStoryNo(story.getStoryNo());
+						storyService.insertImage(image);
+						*/
+
+						// END 프로젝트 외부 폴더를 이미지 저장소로 사용 - 프로젝트가 실행되는 최상위 루트부터 참조
+						// ##################################################################				
+						
+						
+						// ##################################################################
+						// src/main/resources/resources/images/desk/** 스프링 부트 기본 리소스 경로 파일 업로드 테스트				
+						
+						/*
+						File parent = new File(DEFAULT_PATH);				
+						log.info("parent abs path : " + parent.getAbsolutePath());
+						log.info("parent path : " + parent.getPath());		
+						log.info("exist : " + parent.exists() + ", dir : " + parent.isDirectory());
+						
+						// 존재하지 않으면 filePath의 경로에 있는 모든 폴더를 생성한다.
+						if(!parent.exists()) {
+							parent.mkdirs();
+						}	          
+			            
+			            UUID uid = UUID.randomUUID();
+			            
+			            // UUID + 원본 파일 
+			            // String saveName = uid.toString() + "_" + imageFile.getOriginalFilename();
+			            
+			            // UUID만 사용
+			            // 원본 파일에서 확장자만 추출
+			            String extension = StringUtils.getFilenameExtension(imageFile.getOriginalFilename());
+			            String saveName = uid.toString() + "." + extension;           
+			            File file = new File(parent.getAbsolutePath(), saveName);
+			            log.info("file abs path : " + file.getAbsolutePath());
+			            log.info("file path : " + file.getPath());
+			            
+			            // 업로드 되는 파일을 upload 폴더로 저장한다.
+			            imageFile.transferTo(file);
+			            image.setFileName(file.getName());
+						image.setStoryNo(story.getStoryNo());
+						storyService.insertImage(image);
+						*/
+
+						// END src/main/resources/resources/images/desk/** 스프링 부트 기본 리소스 경로 파일 업로드 테스트
+						// ##################################################################
+
+						
+
+						// ##################################################################
+						// src/main/resources/static/resources/images/desk/** 정적경로 파일 업로드 테스트				
+						
+						File parent = new File(DEFAULT_PATH);				
+						log.info("parent abs path : " + parent.getAbsolutePath());
+						log.info("parent path : " + parent.getPath());		
+						log.info("exist : " + parent.exists() + ", dir : " + parent.isDirectory());
+						
+						// 존재하지 않으면 filePath의 경로에 있는 모든 폴더를 생성한다.
+						if(!parent.exists()) {
+							parent.mkdirs();
+						}	          
+			            
+			            UUID uid = UUID.randomUUID();
+			            
+			            // UUID + 원본 파일 
+			            // String saveName = uid.toString() + "_" + imageFile.getOriginalFilename();
+			            
+			            // UUID만 사용
+			            // 원본 파일에서 확장자만 추출
+			            String extension = StringUtils.getFilenameExtension(imageFile.getOriginalFilename());
+			            String saveName = uid.toString() + "." + extension;           
+			            File file = new File(parent.getAbsolutePath(), saveName);
+			            log.info("file abs path : " + file.getAbsolutePath());
+			            log.info("file path : " + file.getPath());
+			            
+			            // 업로드 되는 파일을 upload 폴더로 저장한다.
+			            imageFile.transferTo(file);
+			            image.setFileName(file.getName());
+						image.setStoryNo(story.getStoryNo());
+						storyService.insertImage(image);
+						
+
+						// END src/main/resources/static/resources/images/desk/** 정적경로 파일 업로드 테스트
+						// ##################################################################
+						
+						
+					
+						// ##################################################################
+						// src/main/webapp/resources/images/desk/** 상대경로 방식 파일 업로드 테스트			
+						
+						/*
+		 				// Request 객체를 이용해 파일이 저장될 실제 경로를 구한다.
+		 				// getRealPath()는 "src/main/webapp" 아래에서 지정한 경로를 찾는다 - 상대경로 방식
+						String filePath = request.getServletContext().getRealPath(DEFAULT_PATH);
+						File parent = new File(filePath);
+						log.info("parent abs path : " + parent.getAbsolutePath());
+						log.info("parent path : " + parent.getPath());		
+						log.info("exist : " + parent.exists() + ", dir : " + parent.isDirectory());
+						
+						// 존재하지 않으면 filePath의 경로에 있는 모든 폴더를 생성한다.
+						if(!parent.exists()) {
+							parent.mkdirs();
+						}
+			          
+			            UUID uid = UUID.randomUUID();	
+			            
+			            // UUID + 원본 파일 
+			            String saveName = uid.toString() + "_" + imageFile.getOriginalFilename();
+			            
+			            // UUID만 사용
+			            // 원본 파일에서 확장자만 추출
+			            //String extension = StringUtils.getFilenameExtension(imageFile.getOriginalFilename());
+			            //String saveName = uid.toString() + "." + extension;
+			            File file = new File(parent, saveName);
+			            log.info("file abs path : " + file.getAbsolutePath());
+			            log.info("file path : " + file.getPath());
+			            
+			            // 업로드 되는 파일을 upload 폴더로 저장한다.
+			            imageFile.transferTo(file);
+			            image.setFileName(file.getName());
+						image.setStoryNo(story.getStoryNo());
+						storyService.insertImage(image);
+						*/
+						
+						// END src/main/webapp/resources/images/desk/** 상대경로 방식 파일 업로드 테스트	
+						// ##################################################################
+					}
+				}
 		return "redirect:main";
 	}
 

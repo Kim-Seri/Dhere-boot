@@ -25,9 +25,6 @@
 		 <a href="#" class="goToTopBtn">
 		 	<img src="resources/images/icon/topbar.png" id="goToTopBtnIcon" style="width: 35px;">
 		 </a>
-		 
-		<!-- 마이페이지 -->
-		<input type="button" class="btn btn-primary" onclick="location.href='scrap'" value="마이페이지" />
 		
 		<!-- 캐러셀 시작 -->
 		<div class="row">
