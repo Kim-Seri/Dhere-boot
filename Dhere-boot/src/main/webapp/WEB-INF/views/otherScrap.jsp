@@ -55,11 +55,6 @@
 		                    </div>
 		                    <div class="row">
 			                    <div class="col my-1" style="font-size: 25px; color: rgb(49, 108, 244)">
-			                   	 	${param.job}
-			                    </div>
-		                    </div>
-		                    <div class="row">
-			                    <div class="col my-1" style="font-size: 25px; color: rgb(49, 108, 244)">
 			                   	 	${param.categoryName}
 			                    </div>
 		                    </div>

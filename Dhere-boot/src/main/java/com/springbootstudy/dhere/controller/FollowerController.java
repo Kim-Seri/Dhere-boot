@@ -20,6 +20,8 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,47 +47,45 @@ import com.springbootstudy.dhere.service.ReplyService;
 import com.springbootstudy.dhere.service.StoryService;
 
 @Controller
-public class ReplyController {
-
-	@Autowired
-	private ReplyService replyService;
+public class FollowerController {
 	
-	//	댓글 쓰기(syj)
-	@PostMapping("/replyWrite")
-	public String replyWrite(HttpServletRequest request, HttpServletResponse response, Model model,
-	                         @RequestParam("storyNo") int storyNo,
-	                         @RequestParam(value = "replyNo", required = false) Integer replyNo,
-	                         @RequestParam("replyContent") String replyContent,
-	                         HttpSession session) {
-	    // 세션에서 이메일을 가져오기
-	    String email = (session.getAttribute("member") != null) ? ((Member)session.getAttribute("member")).getEmail() : null;
-
-	    // 이메일이 null이면 사용자가 로그인하지 않은 것으로 간주하고 처리
-	    if(email == null) {
-	        // 로그인 페이지로 리다이렉트하거나 에러 메시지
-	        return "redirect:login";
+	
+	@PostMapping("/follow-toggle")
+	public ResponseEntity<?> toggleFollow(@RequestParam String following_email, HttpSession session) {
+	    String followerEmail = (String) session.getAttribute("email"); // 현재 로그인한 사용자의 이메일
+	    if (followerEmail == null) {
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
 	    }
 
-	    Reply reply = new Reply();
-	    
-	    reply.setStoryNo(storyNo);
-	    reply.setReplyNo(replyNo != null ? replyNo : 0); // replyNo가 null이면 기본값으로 설정
-	    reply.setReplyContent(replyContent);
-	    reply.setEmail(email);
-	    
-	    replyService.replyWrite(reply);
-	    
-	    return "redirect:/storyDetail?storyNo=" + storyNo + "#bottomOfPage";
+	    // 팔로우 상태 토글 로직
+	    boolean isFollowing = followService.toggleFollow(followerEmail, followingEmail);
+
+	    // 팔로우 상태에 따라 응답을 반환
+	    return ResponseEntity.ok(new IsFollowingResponse(isFollowing));
+	}
+/////////////////////////////////////////////////////////////////////////////////////////////
+	@GetMapping("/check-follow")
+	public ResponseEntity<?> checkFollowStatus(@RequestParam String following_email, HttpSession session) {
+	    String followerEmail = (String) session.getAttribute("email"); // 현재 로그인한 사용자의 이메일
+	    if (followerEmail == null) {
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+	    }
+
+	    // 팔로우 상태 확인 로직
+	    boolean isFollowing = followService.isFollowing(followerEmail, followingEmail);
+
+	    // 팔로우 상태에 따라 응답을 반환
+	    return ResponseEntity.ok(new IsFollowingResponse(isFollowing));
+	}
+
+	// 팔로우 상태를 나타내는 응답 클래스
+	class IsFollowingResponse {
+	    public boolean isFollowing;
+
+	    public IsFollowingResponse(boolean isFollowing) {
+	        this.isFollowing = isFollowing;
+	    }
 	}
 	
-////////////////////////////////////////////////////////////////////////////
-		// 댓글 삭제(syj)
-		@PostMapping("/deleteReply")
-		public String deleteReply(
-				@RequestParam("replyNo") int replyNo) {
-			
-		    replyService.deleteReply(replyNo);
-		    
-		    return "redirect:/main"; // 또는 적절한 주소로 리다이렉트
-		}
+	
 }
