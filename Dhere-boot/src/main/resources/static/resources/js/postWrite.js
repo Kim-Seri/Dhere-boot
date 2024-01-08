@@ -3,48 +3,59 @@ let isAddingMarker = false; // 마커를 추가 중인지 여부를 나타내는
 
 // 마커 추가 시작
 function startAddingMarker() {
-  isAddingMarker = true;
-  console.log(isAddingMarker);
-  
-  //마커 추가 버튼 엘리먼트
-  const addMarkerButton = $("#addMarkerButton"); 
-  addMarkerButton.text("편집 완료");
-  document.getElementById('addMarkerButton').setAttribute('id','finishMarkerButton');
+	isAddingMarker = true;
+	console.log(isAddingMarker);
+
+	//마커 추가 버튼 엘리먼트
+	const addMarkerButton = $("#addMarkerButton");
+	addMarkerButton.text("편집 완료");
+	document.getElementById('addMarkerButton').setAttribute('id', 'finishMarkerButton');
 }
 
 // 마커 추가 완료
 function finishAddingMarker() {
-  isAddingMarker = false;
-  const finishMarkerButton = $("#finishMarkerButton"); 
+	isAddingMarker = false;
+	const finishMarkerButton = $("#finishMarkerButton");
 
-  console.log(isAddingMarker);
-  finishMarkerButton.text("마커 추가");
-  document.getElementById('finishMarkerButton').setAttribute('id','addMarkerButton');
-  document.getElementById("marker")
-  
+	console.log(isAddingMarker);
+	finishMarkerButton.text("마커 추가");
+	document.getElementById('finishMarkerButton').setAttribute('id', 'addMarkerButton');
+	
+
 
 }
 
 // 마커 클릭 이벤트 처리
 function handleMarkerClick(e) {
-  if (isAddingMarker) {
-	  console.log(isAddingMarker);
-    addMarker(e.clientX, e.clientY);
-  } else {
- 
-  }
+	if (isAddingMarker) {
+		console.log(isAddingMarker);
+		addMarker(e.clientX, e.clientY);
+	} else {
+
+	}
 }
 
 //Marker addition function
 function addMarker(x, y) {
 	// 동적으로 마커를 추가하는 로직 작성
-	
+
+	console.log("x 좌표," + x);
+	console.log("y 좌표," + y);
+
+	const leftX = (`<input type='hidden' name='leftX', value='${x}'>`);
+	const topY = (`<input type='hidden' name='topY', value='${y}'>`);
+	$('#postWriteForm').append(leftX);
+	$('#postWriteForm').append(topY);
+
+
+
+
 	// 마커를 추가할 부모 컨테이너
-    const markerContainer = $("<div class='marker-container'></div>");
-    const marker = $(`<div class='marker' id='marker'><button type='button' class='btn btn-primary rounded-circle' id='markerBtn'>+</button></div>`);
-    const searchBox = $(`
+	const markerContainer = $("<div class='marker-container'></div>");
+	const marker = $(`<div class='marker' id='marker'><button type='button' class='btn btn-primary rounded-circle' id='markerBtn'>+</button></div>`);
+	const searchBox = $(`
     							<div class='row search-box  bg-white border border-primary-subtle rounded ' id='searchBox ' >
-	    							<div class='col'>
+	    							<div class='col' id='searchBoxCol'>
 		    							<div class='row my-3'>
 			    							<div class='col-9'>
 			    								<input type='text' id='searchInput'  class='form-control'>
@@ -59,76 +70,76 @@ function addMarker(x, y) {
 			    						</div>
 		    						</div>
     							</div>`);
-    
-    // 이미지의 크기
-    const imageWidth = $('body').width();
-    const bodyHeight = $("body").height();
 
-    // 스크롤 위치
-    const scrollY = window.scrollY;
+	// 이미지의 크기
+	const imageWidth = $('body').width();
+	const bodyHeight = $("body").height();
 
-	
- // 마커의 위치 조절
-    const adjustedX = (x / imageWidth) * 100; // 이미지의 가로 방향 상대 위치
-    const adjustedY = ((y + scrollY) / bodyHeight) * 100; // body의 세로 방향 상대 위치
-    
+	// 스크롤 위치
+	const scrollY = window.scrollY;
 
-    // 마커의 위치를 설정
-    marker.css({
-      position: "absolute",
-//      top: y +window.scrollY + "px", 
-      top: y +window.scrollY + "px", 
-      left: `${adjustedX}%`,
-    });
-	
-	searchBox.css({
-	 position: "absolute",
-	 top: y +window.scrollY + 30 + "px", // 마커 아래에 위치
-	  left: `${adjustedX}%`,
-//	 display: "none", // 일단 숨김
+
+	// 마커의 위치 조절
+	const adjustedX = (x / imageWidth) * 100; // 이미지의 가로 방향 상대 위치
+	const adjustedY = ((y + scrollY) / bodyHeight) * 100; // body의 세로 방향 상대 위치
+
+
+	// 마커의 위치를 설정
+	marker.css({
+		position: "absolute",
+		//      top: y +window.scrollY + "px", 
+		top: y + window.scrollY + "px",
+		left: `${adjustedX}%`,
 	});
-	
+
+	searchBox.css({
+		position: "absolute",
+		top: y + window.scrollY + 30 + "px", // 마커 아래에 위치
+		left: `${adjustedX}%`,
+		//	 display: "none", // 일단 숨김
+	});
+
 	markerContainer.append(marker);
 	markerContainer.append(searchBox);
-	
+
 	// 마커를 이미지가 아닌 별도의 컨테이너에 추가
-    $("#imageContainer").append(markerContainer);
-	
-	
+	$("#imageContainer").append(markerContainer);
+
+
 	// 마커에 마우스 오버 시 검색 상자 표시
-	marker.on("mouseover", function () {
-	 searchBox.show();
+	marker.on("mouseover", function() {
+		searchBox.show();
 	});
-	
+
 	// 마커에서 마우스 나갈 시 검색 상자 숨김
-//	marker.on("mouseout", function () {
-//	 searchBox.hide();
-//	});
+	//	marker.on("mouseout", function () {
+	//	 searchBox.hide();
+	//	});
 }
 
 //엔터 누르면 해시태그 추가
 function enterkey() {
-  if (window.event.keyCode == 13) {
-    addHashtag();
-  }
+	if (window.event.keyCode == 13) {
+		addHashtag();
+	}
 }
 
 //해시태그 삭제
 function removeHashtag(hashtag) {
-  document.getElementById(hashtag).remove();
+	document.getElementById(hashtag).remove();
 }
 
 //해시태그 추가
 function addHashtag() {
-  let hashtag = $("#hashtag").val();
-  let item = getHashtagItem(hashtag);
-  $("#hashtagList").append(item);
-  $("#hashtag").val("");
+	let hashtag = $("#hashtag").val();
+	let item = getHashtagItem(hashtag);
+	$("#hashtagList").append(item);
+	$("#hashtag").val("");
 }
 
 //해시태크 부분 동적 생성 코드
 function getHashtagItem(hashtag) {
-  let item = `<div class="col-auto hashtag" id="${hashtag}">
+	let item = `<div class="col-auto hashtag" id="${hashtag}">
 			<div class="row my-3">
 				<div class="col border border-primary-subtle pe-0">
 					<span class="hashtag-value text-primary"  value="${hashtag}">#${hashtag}</span>&nbsp;
@@ -138,183 +149,201 @@ function getHashtagItem(hashtag) {
 			</div>
 		</div>`;
 
-  return item;
+	return item;
 }
 
-$(function () {
-	
-	var deleteBtnNum=0;
-	var imageDivNum=0;
-	
+$(function() {
+
+	var deleteBtnNum = 0;
+	var imageDivNum = 0;
+
 	//ajax로 페이지 로딩 시에 제품 데이터 가져오기
 	$.ajax({
 		url: "productList",
-		method:"GET",
-		success:function(products){
+		method: "GET",
+		success: function(products) {
 			console.log(products)
 			console.log(products[0].productName);
-			var result=products.map(function(object,index){
-			window.productList = products;	
+			var result = products.map(function(object, index) {
+				window.productList = products;
 			})
 		},
-		error : function (error){
-			console.log("제품명 데이터를 가져오는 중 오류 발",error);	
+		error: function(error) {
+			console.log("제품명 데이터를 가져오는 중 오류 발", error);
 		}
 	})
-	
+
 	// 검색어 입력 이벤트 감지
-    $("#imageContainer").on("input","#searchInput", function () {
-        const userInput = $(this).val().toLowerCase();
-        const matchingProducts = window.productList.filter(product =>
-            product.productName.toLowerCase().includes(userInput)
-        );
-        
-        var inputSearch=$("#searchInput").val();
-        if(inputSearch.length==0){
+	$("#imageContainer").on("input", "#searchInput", function() {
+		const userInput = $(this).val().toLowerCase();
+		const matchingProducts = window.productList.filter(product =>
+			product.productName.toLowerCase().includes(userInput)
+		);
+
+		var inputSearch = $("#searchInput").val();
+		if (inputSearch.length == 0) {
 			$("#autoCompleteResults").empty();
 		}
-        
+
 		console.log(matchingProducts.brandName);
-		
-        displayAutoCompleteResults(matchingProducts);
-    });
-    
-    
-	
-  //폼 엔터키 눌러도 자동으로submit 안되게 제한
-  $("form").keydown(function () {
-    if (event.keyCode === 13) {
-      event.preventDefault();
-    }
-  });
 
-  $("#categoryCarousel").carousel();
-  
-	
-	
-  $("#addImageButton").on("click", function () {
-    // 새로운 이미지 입력 필드를 생성하고 파일 선택 다이얼로그를 띄웁니다.
-	
-	deleteBtnNum++;
-	imageDivNum++;
-	console.log(deleteBtnNum);
-    var imageInput = $(
-      "<input type='file' class='form-control' name='additionalImages' style='display:none'>"
-    );
-    $("#imageContainer").append(imageInput);
-    imageInput.click();
-
-    // 이미지 업로드 인풋이 변경됐을 때의 이벤트 핸들러
-    imageInput.on("change", function () {
-      if (!this.files.length) {
-        return;
-      }
-
-      // 이미지 미리보기 업데이트
-      var imagePreview = $("<img class='img-thumbnail' id='postImg'/>");
-//      var changeButton = $(
-//        "<button type='button' class='btn btn-outline-primary' id='changeImageButton'>사진 수정하기</button>"
-//      );
-      var imageDivRow = $(`<div class='row my-3'></div>`);
-      var imageDivCol = $(`<div class='col my-3 position-relative'></div>`);
-      var imageDivRow2 = $(`<div class='row my-3'></div>`);
-      var imageDivCol2 = $( `<div class='col text-center position-relative' id='ImgDiv${imageDivNum}'></div>`);
-      var imageDivRow3 = $(`<div class='row my-3'></div>`);
-      var imageDivCol3 = $( `<div class='col text-center '></div>`);
-      var deleteButton = $(`<button type='button' class='btn btn-secondary deleteBtn' id='deleteImageButton${deleteBtnNum}'>삭제하기</button>`);
-      
-
-      imageDivRow.append(imageDivCol);
-      imageDivCol.append(imageDivRow2);
-      imageDivRow2.append(imageDivCol2);
-
-      imageDivCol2.append(imagePreview);
-      imageDivCol2.append(deleteButton);
-      
-      if(imageDivNum === 1){
-		var markerButton = $(`<button type='button' class='btn btn-secondary' id='addMarkerButton'>마커 편집</button>`);
-      	imageDivCol2.append(markerButton);
-      }
-      
-      $(".deleteBtn").css({
-		  
-	  });
-	  
-	  $("#addMarkerButton").css({
-		  
-	  });
-      
-     
-
-      imageDivCol.append(imageDivRow3);
-      imageDivRow3.append(imageDivCol3);
-//      imageDivCol3.append(changeButton);
-      $("#imageContainer").append(imageDivRow);
-
-      displayImagePreview(this, imagePreview);
-
-
-    });
-  });
-
-  //이미지 삭제하기 버튼 눌렸을 때
-  $("#imageContainer").on("click", ".deleteBtn", function () {
-    $(this).parent().parent().parent().parent().prev().remove();
-    $(this).parent().parent().parent().parent().remove();
-    
-	imageDivNum--;
-	deleteBtnNum--;
-    
-    
-    isAddingMarker=false;
-    console.log(isAddingMarker);
-  });
-  
-  // 첫번째 (마커추가가능한) 이미지 삭제하기 버튼 눌렸을 때
-  $("#imageContainer").on("click", "#deleteImageButton1", function () {
-    $(this).parent().parent().parent().parent().prev().remove();
-    $(this).parent().parent().parent().parent().remove();
-    
-    $(".marker-container").remove();
-    
-    
-    isAddingMarker=false;
-    console.log(isAddingMarker);
-  });
-
-  //마커 추가 버튼 클릭 시
-  $("#imageContainer").on("click", "#addMarkerButton", function () {
-    startAddingMarker();
-  });
-  
-  //마커 삭제버튼 눌렀을 시
-  $("#imageContainer").on("click", "#deleteMaker", function () {
-	    $(this).parent().parent().parent().parent().prev().remove()
-	    $(this).parent().parent().parent().parent().remove()
-	  });
-  
-  $(document).on("click", "#postImg", function(event) {
-	    if (isAddingMarker) {
-	        addMarker(event.clientX, event.clientY);
-	    }
+		displayAutoCompleteResults(matchingProducts);
 	});
-  
-  //마커 편집 완료 버튼 클릭 시
-  $("#imageContainer").on("click", "#finishMarkerButton", function () {
-	  finishAddingMarker();
-  });
-  
-  
-  function displayAutoCompleteResults(results) {
-        // 결과를 표시할 UI 요소 선택 (예: 결과를 표시할 div)
-        const autoCompleteDiv = $("#autoCompleteResults");
 
-        // 이전 결과 지우기
-        autoCompleteDiv.empty();
 
-        // 일치하는 결과를 UI에 추가
-        results.forEach(result => {
-            const resultItem = $(`<div class='row my-2 p-3 '>
+
+	//폼 엔터키 눌러도 자동으로submit 안되게 제한
+	$("form").keydown(function() {
+		if (event.keyCode === 13) {
+			event.preventDefault();
+		}
+	});
+
+	$("#categoryCarousel").carousel();
+
+
+
+	$("#addImageButton").on("click", function() {
+		// 새로운 이미지 입력 필드를 생성하고 파일 선택 다이얼로그를 띄웁니다.
+
+		deleteBtnNum++;
+		imageDivNum++;
+		console.log(deleteBtnNum);
+		var imageInput = $(
+			"<input type='file' class='form-control' name='additionalImages' style='display:none'>"
+		);
+		$("#imageContainer").append(imageInput);
+		imageInput.click();
+
+		// 이미지 업로드 인풋이 변경됐을 때의 이벤트 핸들러
+		imageInput.on("change", function() {
+			if (!this.files.length) {
+				return;
+			}
+
+			// 이미지 미리보기 업데이트
+			var imagePreview = $("<img class='img-thumbnail' id='postImg'/>");
+			//      var changeButton = $(
+			//        "<button type='button' class='btn btn-outline-primary' id='changeImageButton'>사진 수정하기</button>"
+			//      );
+			var imageDivRow = $(`<div class='row my-3'></div>`);
+			var imageDivCol = $(`<div class='col my-3 position-relative'></div>`);
+			var imageDivRow2 = $(`<div class='row my-3'></div>`);
+			var imageDivCol2 = $(`<div class='col text-center position-relative' id='ImgDiv${imageDivNum}'></div>`);
+			var imageDivRow3 = $(`<div class='row my-3'></div>`);
+			var imageDivCol3 = $(`<div class='col text-center '></div>`);
+			var deleteButton = $(`<button type='button' class='btn btn-secondary deleteBtn' id='deleteImageButton${deleteBtnNum}'>삭제하기</button>`);
+
+
+			imageDivRow.append(imageDivCol);
+			imageDivCol.append(imageDivRow2);
+			imageDivRow2.append(imageDivCol2);
+
+			imageDivCol2.append(imagePreview);
+			imageDivCol2.append(deleteButton);
+
+			if (imageDivNum === 1) {
+				var markerButton = $(`<button type='button' class='btn btn-secondary' id='addMarkerButton'>마커 편집</button>`);
+				imageDivCol2.append(markerButton);
+			}
+
+			$(".deleteBtn").css({
+
+			});
+
+			$("#addMarkerButton").css({
+
+			});
+
+
+
+			imageDivCol.append(imageDivRow3);
+			imageDivRow3.append(imageDivCol3);
+			//      imageDivCol3.append(changeButton);
+			$("#imageContainer").append(imageDivRow);
+
+			displayImagePreview(this, imagePreview);
+
+
+		});
+	});
+
+	//이미지 삭제하기 버튼 눌렸을 때
+	$("#imageContainer").on("click", ".deleteBtn", function() {
+		$(this).parent().parent().parent().parent().prev().remove();
+		$(this).parent().parent().parent().parent().remove();
+
+		imageDivNum--;
+		deleteBtnNum--;
+
+
+		isAddingMarker = false;
+		console.log(isAddingMarker);
+	});
+
+	// 첫번째 (마커추가가능한) 이미지 삭제하기 버튼 눌렸을 때
+	$("#imageContainer").on("click", "#deleteImageButton1", function() {
+		$(this).parent().parent().parent().parent().prev().remove();
+		$(this).parent().parent().parent().parent().remove();
+
+		$(".marker-container").remove();
+
+
+		isAddingMarker = false;
+		console.log(isAddingMarker);
+	});
+
+	//마커 추가 버튼 클릭 시
+	$("#imageContainer").on("click", "#addMarkerButton", function() {
+		startAddingMarker();
+	});
+
+	//마커 삭제버튼 눌렀을 시
+	$("#imageContainer").on("click", "#deleteMaker", function() {
+		$(this).parent().parent().parent().parent().prev().remove()
+		$(this).parent().parent().parent().parent().remove()
+	});
+
+	$(document).on("click", "#postImg", function(event) {
+		if (isAddingMarker) {
+			addMarker(event.clientX, event.clientY);
+		}
+	});
+
+	//마커 편집 완료 버튼 클릭 시
+	$("#imageContainer").on("click", "#finishMarkerButton", function() {
+		finishAddingMarker();
+	});
+
+
+	
+
+	
+
+
+	// 이미지 미리보기 업데이트 함수
+	function displayImagePreview(input, preview) {
+		// 선택한 이미지를 미리보기로 업데이트
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				preview.attr("src", e.target.result);
+			};
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+});
+
+function displayAutoCompleteResults(results) {
+		// 결과를 표시할 UI 요소 선택 (예: 결과를 표시할 div)
+		const autoCompleteDiv = $("#autoCompleteResults");
+
+		// 이전 결과 지우기
+		autoCompleteDiv.empty();
+
+		// 일치하는 결과를 UI에 추가
+		results.forEach(result => {
+			const resultItem = $(`<div class='row my-2 p-3 '>
             						<button type='button' class='btn btn-outline-primary'>
             						<div class='row my-3'>
 	            						<div class='col-4'>
@@ -339,29 +368,68 @@ $(function () {
             						</button>
             					</div>`);
 
-            // 결과를 클릭하면 자동으로 검색 상자에 입력되도록 이벤트 처리
-            resultItem.on("click", function () {
-                // 텍스트 창 아래에 제품 정보 표시
-                displayProductInfo(result);
+			// 결과를 클릭하면 자동으로 검색 상자에 입력되도록 이벤트 처리
+			resultItem.on("click", function() {
+				// 텍스트 창 아래에 제품 정보 표시
+				
+				// 선택 후 자동 완성 결과 지우기
+    			autoCompleteDiv.empty();
+				
+				$("#searchBoxCol").remove();
+				$("#searchBox").hide();
+				
+				displayProductInfo(result.productImage, result.brandName, result.productName);
+			});
 
-                // 선택 후 자동 완성 결과 지우기
-                autoCompleteDiv.empty();
-            });
+			autoCompleteDiv.append(resultItem);
+			// 선택한 제품의 브랜드와 제품 이름을 마커 아래에 표시
+			
+		});
+	}
 
-            autoCompleteDiv.append(resultItem);
-        });
-    }
+// 마커 아래에 선택한 제품의 브랜드와 제품 이름을 표시하는 함수
+	function displayProductInfo(productImage, brandName, productName) {
+		// 선택한 제품 정보를 표시할 UI 요소 선택
+		console.log(productImage);
+		console.log(brandName);
+		console.log(productName);
+		
 
-   
-  // 이미지 미리보기 업데이트 함수
-  function displayImagePreview(input, preview) {
-    // 선택한 이미지를 미리보기로 업데이트
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
-      reader.onload = function (e) {
-        preview.attr("src", e.target.result);
-      };
-      reader.readAsDataURL(input.files[0]);
-    }
-  }
-});
+		const searchBox=$("#searchBox");
+		console.log(searchBox.length); // 콘솔에 출력하여 길이 확인
+		
+
+		// 브랜드와 제품 이름을 표시할 UI 엘리먼트 생성
+		const productElement = (`<div class='col' id='productEle'>
+									<button type='button' class='btn btn-outline-primary'>
+									<div class='row my-3'>
+	            						<div class='col-4'>
+	            							<img src="resources/images/products/${productImage}" style='width:70px; height:70px;'>
+	            						</div>
+	            						<div class='col-4'>
+	            							<div class='row mt-2'>
+	            								<div class='col text-start'>
+	            									${brandName}
+	            								</div>
+	            							</div>
+	            							<div class='row'>
+	            								<div class='col text-start'>
+	            									${productName}
+	            								</div>
+	            							</div>
+	            						</div>
+	            						<div class='col-4'>
+	            		
+	            						</div>	
+	            					</div>
+	            					</button>
+								</div>`)
+								
+		console.log(productElement);
+
+		// UI 엘리먼트를 컨테이너에 추가
+		searchBox.html(productElement);
+
+		// 추가된 정보가 화면에 표시되도록 보여줌
+		searchBox.show();
+}
