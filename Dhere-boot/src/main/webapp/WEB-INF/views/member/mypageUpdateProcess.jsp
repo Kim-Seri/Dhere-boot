@@ -14,12 +14,12 @@
 <link href="resources/bootstrap/bootstrap.min.css" rel="stylesheet">
 <script src="resources/js/member.js"></script>
 <script src="resources/js/jquery-3.2.1.min.js"></script>
-<script src="resources/js/scrap.js"></script>
+<script src="resources/js/mypageUpdateProcess.js"></script>
 	</head>
 <body>
 <div class="row align-items-center h-100">
 	<div class="col">
-				<div class="row mx-5">
+				<div class="d-flex justify-content-center">
 					<div class="col-5 text-center" id="ballon">
 						<div class="position-relative py-2 px-4 text-bg-secondary 
 						border border-secondary rounded-pill">
@@ -34,7 +34,7 @@
 					</div>
 				</div>
 				<div class="row">
-				<div class="col text-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
+				<div class="col mt-2 text-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
                     <c:if test="${ empty sessionScope.member.picture }"><!-- 귀여운그림 -->
                     <img src="resources/images/icon/86683729.png" alt="150*150" style="width:150px; height:150px; object-fit: cover; border-radius: 70%; border: 3px solid blue" />
                     </c:if>
@@ -55,7 +55,7 @@
 				</div>
 				<div class="row">
 				<div class="col text-center">
-					<input type="button" id="btnPassCheck" value="확인">
+					<input type="button" class="btn btn-light" id="btnPassCheck" value="확인">
 				</div>
 				</div>
 			</div>

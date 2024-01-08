@@ -31,44 +31,46 @@
 			<button type="button" class="btn btn-outline-primary" id="infoTab_btn" onclick="showInfo(1)">로그아웃</button>
 		</div>
 		<div class="infoContent_box">
-			<div class="row-2 infoContent">
+			<div class="row infoContent">
 				<!-- 프로필 사진 시작 -->
-            	<div style="width : 33%;">
+            	<div class="col-4" >
 					 <c:if test="${ empty sessionScope.member.picture }">
 	                    <img src="resources/images/icon/86683729.png" id="defaultPicture"
-	                     style="width: 150px; height: 150px; object-fit: cover; border-radius: 70%; border: 3px solid blue" />
+	                     style="width:150px; height:150px; object-fit: cover; border-radius: 70%; border: 3px solid blue" />
 	                 </c:if>
 	                 <c:if test="${ not empty sessionScope.member.picture }">
 	                    <img src="resources/upload/${sessionScope.member.picture}" alt="150*150 크기 이미지" 
-	                    style="width: 150px; height: 150px; object-fit: cover; border-radius: 70%; border: 3px solid blue">
+	                    style="width:150px; height:150px; object-fit: cover; border-radius: 70%; border: 3px solid blue">
 	                 </c:if>           
             	</div>
 				<!-- 프로필 사진 끝 -->
 			<!-- 닉네임/이메일/직업/좋아요 시작 -->
 			
                 <!-- 닉네임 -->
-                <div class="row">
-	                <div class="col" style="font-size: 35px; color: rgb(49, 108, 244); font-weight: bold">
-	                    ${sessionScope.member.nickname}
+                <div class="col-6 offset-1">
+	                <div class="row">
+		                <div class="col" style="font-size: 35px; color: rgb(49, 108, 244); font-weight: bold">
+		                    ${sessionScope.member.nickname}
+		                </div>
 	                </div>
-                </div>
-                <!-- 이메일 -->
-                <div class="row">
-	                <div class="col" style="font-size: 25px; color: rgb(49, 108, 244)">
-	                    (${sessionScope.member.email})
+	                <!-- 이메일 -->
+	                <div class="row">
+		                <div class="col" style="font-size: 25px; color: rgb(49, 108, 244)">
+		                    (${sessionScope.member.email})
+		                </div>
 	                </div>
-                </div>
-                <!-- 직업 -->
-                <div class="row">
-	                <div class="col" style="font-size: 25px; color: rgb(49, 108, 244)">
-	                    ${sessionScope.member.job}
+	                <!-- 직업 -->
+	                <div class="row">
+		                <div class="col" style="font-size: 25px; color: rgb(49, 108, 244)">
+		                    ${sessionScope.member.job}
+		                </div>
 	                </div>
-                </div>
-                <!-- 하트 시작 -->
-                <div class="row">
-	                <div class="col" style="color: rgb(49, 108, 244)">
-	                    <img src="resources/images/icon/heart.png" style="width: 30px; height: 30px"> 개
-					</div>
+	                <!-- 하트 시작 -->
+	                <div class="row">
+		                <div class="col" style="color: rgb(49, 108, 244)">
+		                    <img src="resources/images/icon/heart.png" style="width: 30px; height: 30px"> 개
+						</div>
+	                </div>
 				</div>
 	
 			</div>
