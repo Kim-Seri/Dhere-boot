@@ -7,12 +7,14 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.springbootstudy.dhere.domain.Image;
 import com.springbootstudy.dhere.domain.Member;
 import com.springbootstudy.dhere.service.MemberService;
 
@@ -28,7 +30,7 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
-	private static final String DEFAULT_PATH = "/resources/images/profile";
+	private static final String DEFAULT_PATH = "src/main/resources/static/resources/images/profile/";
 
 	// 로그인
 	@PostMapping(value = "/login")
@@ -95,20 +97,44 @@ public class MemberController {
         System.out.println("role : " + m.getRole());
         
         if (multipartFile != null && !multipartFile.isEmpty()) {
+        	
+        	Image image = new Image();
+        	
+        	File parent = new File(DEFAULT_PATH);
+			log.info("parent abs path : " + parent.getAbsolutePath());
+			log.info("parent path : " + parent.getPath());
+			log.info("exist : " + parent.exists() + ", dir : " + parent.isDirectory());
+
+			// 존재하지 않으면 filePath의 경로에 있는 모든 폴더를 생성한다.
+			if (!parent.exists()) {
+				parent.mkdirs();
+			}
+
+			UUID uid = UUID.randomUUID();
+			
+			String extension = StringUtils.getFilenameExtension(multipartFile.getOriginalFilename());
+			String saveName = uid.toString() + "." + extension;
+			File file = new File(parent.getAbsolutePath(), saveName);
+			log.info("file abs path : " + file.getAbsolutePath());
+			log.info("file path : " + file.getPath());
+			multipartFile.transferTo(file);
+			m.setPicture(saveName);
+        	
+        	
             
-            // Request 객체를 이용해 파일이 저장될 실제 경로를 구한다.
-            String filePath = request.getServletContext().getRealPath(DEFAULT_PATH);
-            
-            UUID uid = UUID.randomUUID();
-            String saveName = uid.toString() + "_" + multipartFile.getOriginalFilename();
-            
-            File file = new File(filePath, saveName);         
-            
-            // 업로드 되는 파일을 upload 폴더로 저장한다.
-            multipartFile.transferTo(file);
-            m.setPicture(saveName);
-            
-            System.out.println("picture : " + m.getPicture());
+//            // Request 객체를 이용해 파일이 저장될 실제 경로를 구한다.
+//            String filePath = request.getServletContext().getRealPath(DEFAULT_PATH);
+//            
+//            UUID uid = UUID.randomUUID();
+//            String saveName = uid.toString() + "_" + multipartFile.getOriginalFilename();
+//            
+//            File file = new File(filePath, saveName);         
+//            
+//            // 업로드 되는 파일을 upload 폴더로 저장한다.
+//            multipartFile.transferTo(file);
+//            m.setPicture(saveName);
+//            
+//            System.out.println("picture : " + m.getPicture());
         } else {
             // Handle the case when no file is uploaded
             System.out.println("No file uploaded");
