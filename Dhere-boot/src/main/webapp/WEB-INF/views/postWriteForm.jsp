@@ -20,11 +20,15 @@
 
 			<div class="row">
 				<div class="col-6 offset-3 text-center">
-					<div class="job-categories-container justify-content-center">
+					
 						<c:forEach var="jList" items="${jList}" varStatus="status">
 							
 								<input type="radio" class="btn-check"  name="categoryNo" id="category${jList.categoryNo}" value="${jList.categoryNo} ">
 	                            <label class="btn btn-outline-primary" for="category${jList.categoryNo}">${jList.categoryName}</label>
+							
+								<input type="radio" class="btn-check"  name="categoryNo" id="category${jList.categoryNo}" value="${jList.categoryNo} ">
+	                            <label class="btn btn-outline-primary" for="category${jList.categoryNo}">${jList.categoryName}</label>
+							
 							
 							
 						</c:forEach>
