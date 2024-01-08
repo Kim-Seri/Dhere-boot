@@ -12,36 +12,42 @@
 				</div>
 			</div>
 			<form name="inquiryWrite" id="inquiryWrite" action="inquiryWriteForm"
-				class="row g-3" method="post" enctype="multipart/form-data">
-				   <%-- <div class="col-5 offset-1">
-				    <label for="inquiryEmail" class="form-label">글쓴이</label>
-				    <input type="text" class="form-control" name="inquiryEmail" id="inquiryEmail" value="${sessionScope.member.email}" readonly>
-				  </div> --%>
-				  <div class="col-10 offset-1">
-				    <label for="inquiryTitle" class="form-label">제 목</label>
-				    <input type="text" class="form-control" name="inquiryTitle" id="inquiryTitle" value="${inquiry.inquiryTitle}" readonly>
+				class="row g-3 border border-3 m-3 p-3 rounded-3 border-primary" method="post" enctype="multipart/form-data">
+				  <div class="col-10 offset-1 my-5">
+				    <input type="text" class="form-control" name="inquiryTitle" id="inquiryTitle" value="${inquiry.inquiryTitle}" style="border: none; border-radius: 0; border-bottom: 2px solid rgb(49, 108, 244); outline: none; font-size: 30px; font-weight: bold" readonly>
 				  </div>
-				  <div class="col-10 offset-1">
-				    <label for="inquiryContent" class="form-label">내 용</label>
-				    <textarea name="inquiryContent" id="inquiryContent" class="form-control" rows="10" readonly>${inquiry.inquiryContent}</textarea>
+				  <div class="col-10 offset-1 my-5">
+				  	<input type="text" class="form-control" name="inquiryContent" id="inquiryContent" value="${inquiry.inquiryContent}" style="border: none; border-radius: 0; border-bottom: 2px solid rgb(49, 108, 244); outline: none" readonly> 
 				  </div>
 				  <div class="col-3">
 					<img src="resources/images/inquiry/${inquiry.inquiryFile}" style="max-width: 200%; height: auto;">
 				  </div>
-				  <c:if test="${sessionScope.member.role eq 'admin'}">
-				 	 <input type="button" class="btn btn-primary" value="답변하기" onclick="location.href='answerWrite?no=${inquiry.inquiryNo}'">
-				 	 <input type="button" class="btn btn-warning" value="삭제하기" id="deleteInquiry">
+				  <c:forEach var="answer" items="${answerList}">
+				    <div class="col-10 offset-1 border border-3 rounded-3 my-5">
+				    	<input type="text" value="${answer.answerContent}" style="height: 150px; border: none; outline: none" readonly>
+				    </div>
+				</c:forEach>
+				<c:if test="${sessionScope.member.role eq 'user'}">
+			    	<div class="row mt-3 text-center">
+			    		<div class="col my-5">
+				 	 		<input type="button" class="btn border-3 border-primary" style="width: 90px; height: 45px; font-weight: bold; color:rgb(49, 108, 244)" value="돌아가기">
+				 	 	</div>
+			 	 	</div>
+			    </c:if>
+			    
+			    <c:if test="${sessionScope.member.role eq 'admin'}">
+				 	 <div class="row mt-3 text-center my-5">
+				 	 	<div class="col">
+				 	 		<input type="button" class="btn btn-primary" value="답변하기" style="width: 90px; height: 45px" onclick="location.href='answerWrite?no=${inquiry.inquiryNo}'">
+				 	 	</div>
+				 	 	<div class="col">
+				 	 		<input type="button" class="btn border-3 border-primary" style="width: 90px; height: 45px; font-weight: bold; color:rgb(49, 108, 244)" value="삭제하기" id="deleteInquiry">
+				 	 	</div>
+				 	 	<div class="col">
+				 	 		<input type="button" class="btn border-3 border-primary" style="width: 90px; height: 45px; font-weight: bold; color:rgb(49, 108, 244)" value="돌아가기" onclick="goBack()">
+				 	 	</div>
+				 	 </div>
 				  </c:if>
 			</form>
-			
-			<c:forEach var="answer" items="${answerList}">
-			    <div class="col-10 offset-1">
-			        <label for="answerContent" class="form-label">답변 내용</label>
-			        <textarea name="answerContent" id="answerContent" class="form-control" rows="5" readonly>${answer.answerContent}</textarea>
-			    </div>
-			</c:forEach>
-
-
-			
 		</div>
 	</div>		

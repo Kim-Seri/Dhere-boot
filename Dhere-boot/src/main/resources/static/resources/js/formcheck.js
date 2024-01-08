@@ -10,6 +10,16 @@ function readURL(input) {
     }
 }
 
+ /*document.addEventListener("DOMContentLoaded", function() {
+        // 여기에 답변 상태를 확인하고 설정하는 로직을 작성합니다.
+        // isAnswered 변수는 답변이 있는지 여부를 나타냅니다.
+        var isAnswered = true; // 답변이 있을 경우 true, 없을 경우 false로 설정
+
+        // 답변 상태에 따라 라벨 내용을 동적으로 변경합니다.
+        var statusLabel = document.getElementById("status");
+        statusLabel.textContent = isAnswered ? "답변 완료" : "답변 대기 중";
+    });*/
+
 function goBack() {
 window.history.back();
 }

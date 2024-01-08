@@ -13,7 +13,9 @@
     <select id="iList" resultType="Inquiry">
 		SELECT 
 			inquiry_no as inquiryNo,
-			inquiry_title as inquiryTitle
+			inquiry_title as inquiryTitle,
+			reg_date as regDate,
+			inquiry_email as inquiryEmail
 		FROM inquiry
 		WHERE inquiry_email = #{email}
 		ORDER BY inquiry_no DESC
