@@ -4,6 +4,11 @@
 <link rel="stylesheet" href="resources/css/storyDetail.css">
 <link rel="stylesheet" href="resources/css/main.css">
 <%@ page session="true" %>
+<%@ page import="com.springbootstudy.dhere.domain.Member"%>
+<% 
+    Member member = (Member)session.getAttribute("member");
+    boolean isLoggedIn = member != null;
+%>
 <html>
 <head>
     <title>Story Detail</title>
@@ -91,7 +96,7 @@
 							<c:choose>
 							    <c:when test="${storyDetail.email eq sessionScope.member.email}">
 							    <button type="button" class="btn btn-outline-primary fs-5" id="updateBtn" 
-							    		onclick="location.href='/dhere/updateStory?storyNo=${storyDetail.storyNo}'">
+							    		onclick="location.href='/updateStory?storyNo=${storyDetail.storyNo}'">
 							            수정하기
 							    </button>
 							    </c:when>
@@ -224,8 +229,8 @@
 							    <span class="likes-count">${storyDetail.thank}</span>
 							</button>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<button type="button" class="btn btn-outline-primary">
-								<img src="resources/images/icon/siren_police.png" id="icon_siren_btn">
+							<button type="button" class="btn btn-outline-primary" id="icon_siren_btn1">
+							    <img src="resources/images/icon/siren_police.png" id="icon_siren_btn">
 							</button>
 						</div>
 					</div>
@@ -304,7 +309,7 @@
 									<c:choose>
 									    <c:when test="${sessionScope.member.email eq 'admin' or r.email eq sessionScope.member.email}">
 											<img src="resources/images/icon/cancel.png" id="storyDetail_reply_delete"
-														onclick="deleteReply(${r.replyNo})">
+														onclick="deleteReply(${r.replyNo})" style="cursor: pointer;">
 										</c:when>
 								    	<c:otherwise>
 								    		<img src="resources/images/icon/siren_police.png" id="storyDetail_reply_siren">
@@ -321,12 +326,12 @@
 					    </c:otherwise>
 					</c:choose>
 	<!--############################# 댓글 출력 영역 끝 ############################-->						
-	<!--############################# 댓글 작성 영역 끝 ############################-->		
+	<!--############################# 댓글 작성 영역 시작 ############################-->		
 					<form class="row" action="replyWrite" method="post" id="storyDetail_reply_write_area">
 					<input type="hidden" name="storyNo" value="${storyDetail.storyNo}">
 						<div class="col-3">
 							<div class="row">
-								<div class="col text-center">
+								<div class="col text-center" >
 									<c:choose>
 									    <c:when test="${not empty sessionScope.member.email}">
 											<img src="resources/images/profile/${sessionScope.member.picture}" id="profile">
@@ -368,34 +373,15 @@
 		</div>
 	</div>
 </div>
+<div id="bottomOfPage"></div>
 
 
-<script>
-$(document).ready(function() {
-    $('#storyDetail_reply_write_area').submit(function(event) {
-        event.preventDefault(); // 폼 기본 제출 방지
 
-        var formData = $(this).serialize(); // 폼 데이터 직렬화
 
-        $.ajax({
-            url: '/replyWrite', // 서버의 URL
-            type: 'POST',
-            data: formData,
-            success: function(response) {
-                // 댓글 목록을 업데이트하는 로직
-                // 예를 들어, 댓글 목록 컨테이너에 새로운 댓글 요소를 추가
-                $('#commentsContainer').append('<div>' + response.replyContent + '</div>');
-                // 폼 초기화
-                $('#storyDetail_reply_write_area').find('textarea').val('');
-            },
-            error: function(xhr, status, error) {
-                // 오류 처리
-                console.log("Error: ", error);
-            }
-        });
-    });
-});
-</script>
+
+
+
+
 
 
 
@@ -445,6 +431,75 @@ function deleteReply(replyNo) {
     });
 }
 </script>
+<script>
+    // 로그인 상태를 JavaScript 변수로 설정
+    var isLoggedIn = <%= isLoggedIn %>;
+
+    document.getElementById('icon_siren_btn1').onclick = function() {
+        if (!isLoggedIn) {
+            alert('로그인을 먼저 진행해주세요');
+            window.location.href = 'loginForm'; // 로그인 페이지로 이동
+        } else {
+            window.location.href = 'inquiryWriteForm'; // 문의 작성 페이지로 이동
+        }
+    };
+</script>
+
+
+
+
+
+<script>
+$(document).ready(function() {
+    // 페이지 로드 시 팔로우 상태 확인
+    checkFollowStatus();
+
+    $('#followBtn').click(function() {
+        var $this = $(this); // 버튼을 jQuery 객체로 저장
+        var followingEmail = '작성자 이메일'; // 작성자 이메일을 여기에 설정
+
+        $.ajax({
+            url: '/follow-toggle', // 팔로우 상태를 토글하는 서버의 URL
+            type: 'POST',
+            data: {
+                following_email: followingEmail
+            },
+            success: function(response) {
+                if (response.isFollowing) {
+                    $this.addClass('btn-danger').removeClass('btn-outline-primary').text('언팔로우');
+                } else {
+                    $this.removeClass('btn-danger').addClass('btn-outline-primary').text('팔로우');
+                }
+            },
+            error: function(xhr, status, error) {
+                alert('오류가 발생했습니다.');
+            }
+        });
+    });
+});
+
+function checkFollowStatus() {
+    var followingEmail = '작성자 이메일'; // 작성자 이메일을 여기에 설정
+    $.ajax({
+        url: '/check-follow', // 팔로우 상태를 확인하는 서버의 URL
+        type: 'GET',
+        data: {
+            following_email: followingEmail
+        },
+        success: function(response) {
+            if (response.isFollowing) {
+                $('#followBtn').addClass('btn-danger').removeClass('btn-outline-primary').text('언팔로우');
+            }
+        }
+    });
+}
+
+</script>
+
+
+
+
+
 
 
 
@@ -452,3 +507,18 @@ function deleteReply(replyNo) {
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

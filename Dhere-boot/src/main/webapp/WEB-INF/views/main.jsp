@@ -147,7 +147,8 @@
 							data-bs-trigger="focus"
 							data-bs-title="${s.nickname}"
 							data-bs-content="
-										<a href='otherScrap?email=${s.email}&nickname=${s.nickname}&picture=${s.picture}&categoryName=${s.categoryName}'class='text-decoration-none text-dark'>프로필 보러가기</a>
+										<a href='otherScrap?email=${s.email}&nickname=${s.nickname}&picture=${s.picture}&categoryName=${s.categoryName}&categoryName=${s.categoryName}'
+												class='text-decoration-none text-dark'>프로필 보러가기</a>
 										<br>
 									    <br>
 									    <a href='scrap' class='text-decoration-none text-dark'>쪽지 보내기</a>
