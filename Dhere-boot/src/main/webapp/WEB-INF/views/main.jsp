@@ -98,7 +98,7 @@
 		<div class="col text-end">
 			<select id="selectBox" onchange="sortingList()">
 				<option value="recent">최신순 정렬</option>
-				<option value="view">인기순 정렬</option>
+				<option value="thank">인기순 정렬</option>
 			</select>
 		</div>
 		</div>
@@ -113,10 +113,14 @@
 			
 			<!-- 게시물 한칸 -->
 			<div class="row d-flex justify-content-center" id="jobSelectedCategory">
-			<c:forEach var="s" items="${sList}">
+			<c:forEach var="s" items="${sList}" varStatus="counter">
 			
 			<c:if test="${empty sList}">
-				none
+				<div class="row m-5">
+				<div class="col text-center">
+				 	게시물이 존재하지 않습니다.
+				</div>
+				</div>
 			</c:if>
 			
 			<c:if test="${not empty sList}">
@@ -208,7 +212,7 @@
 			
 			<div class="row">
 			<div class="col text-center">
-				<button id="moreBtn" onclick=""><span>더보기</span></button>
+				<button id="moreBtn" onclick="loadMore()"><span>더보기</span></button>
 			</div>
 			</div>
 			
@@ -299,5 +303,3 @@
 </div>
 </body>
 </html>
-
-	

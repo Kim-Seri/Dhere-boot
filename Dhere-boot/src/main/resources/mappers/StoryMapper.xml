@@ -40,6 +40,8 @@
 		
 		WHERE
 		i.image_no = (SELECT MIN(image_no) FROM image WHERE story_no = s.story_no)
+		
+		ORDER BY s.reg_date DESC
 	</select>
 
 	<!-- 스토리 result map / seri02 수정 -->
@@ -353,7 +355,17 @@
 			job j ON s.category_no = j.category_no
 					WHERE
 			i.image_no = (SELECT MIN(image_no) FROM image WHERE story_no = s.story_no)
-			ORDER BY read_count DESC
+			<choose>
+				<when test="sort == 'thank'">
+					ORDER BY s.thank DESC
+				</when>
+				<when test="sort == 'recent'">
+					ORDER BY s.reg_date DESC
+				</when>
+				<otherwise>
+					ORDER BY s.read_count DESC
+				</otherwise>
+			</choose>
 		</select>
 
 

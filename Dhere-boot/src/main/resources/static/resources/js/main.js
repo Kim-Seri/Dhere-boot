@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
-	// 글쓰기 버튼 스크롤 위치 설정
+
 	let button = document.querySelector(".fixed-write-button");
 	let isLogin = false;
+	//let itemCnt = 6;
 
 	window.addEventListener("scroll", function () {
-    // 특정 위치 (예: 200px)에서 버튼이 나타나도록 설정
     if (window.scrollY > 200) {
       button.style.display = "block";
     } else {
@@ -155,11 +155,13 @@ function categoryList(items) {
 						$("#jobSelectedCategory").append(`
 								
 				<div class="col-3 m-4 rounded-4" style="background: #F3F3F3; width: 29%;">
-			
-				<div class="row rounded-top-4" style="height: 200px; background-size: cover; background-position: center; background-image: url('resources/images/desk/`+i.fileName+`');">
-				<div class="col">				
-				</div>
-				</div>
+				
+				<a href="storyDetail?storyNo=`+i.storyNo+`">
+					<div class="row rounded-top-4" style="height: 200px; background-size: cover; background-position: center; background-image: url('resources/images/desk/`+i.fileName+`');">
+					<div class="col">				
+					</div>
+					</div>
+				</a>
 				
 				<div class="row">
 				<div class="col" style="color: #636363; margin-left: 2%; margin-top: 5%; font-weight: 700;">
@@ -233,10 +235,28 @@ function categoryList(items) {
 	
 }
 
-
-
-
-
-
+/*
+function loadMore() {
+	
+	itemCnt += 6;
+	
+	$.ajax({
+		type: "GET",
+		url: "",
+		data: {itemCnt: itemCnt},
+		success: function(res) {
+			
+			// $("#jobSelectedCategory").empty();
+			categoryList(res.sList);
+			
+		}, error: function() {
+					console.log("err");					
+			}
+		
+	});
+	
+	
+}
+*/
 
 

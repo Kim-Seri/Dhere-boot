@@ -51,12 +51,13 @@ public class StoryListAjax {
 		return map;
 	}
 	
-	@GetMapping("sorting")
-	public Map<String, List<Story>> sortingStoryList(@RequestParam("sort") String sort) {
-		
+	@GetMapping("/sorting")
+	@ResponseBody
+	public Map<String, List<Story>> sortingStoryList(@RequestParam("sortList") String sortList) {
+
 		Map<String, List<Story>> map = new HashMap<>();
-		map.put("sorting", storyService.sortList(sort));
-		
+		map.put("sortingList", storyService.sortList(sortList));
+
 		return map;
 	}
 	

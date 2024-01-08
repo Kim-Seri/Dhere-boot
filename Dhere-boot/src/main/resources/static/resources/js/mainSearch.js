@@ -55,10 +55,12 @@ function searchResult() {
 								
 				<div class="col-3 m-4 rounded-4" style="background: #F3F3F3; width: 29%;">
 			
-				<div class="row rounded-top-4" style="height: 200px; background-size: cover; background-position: center; background-image: url('resources/images/desk/`+i.fileName+`');">
-				<div class="col">				
-				</div>
-				</div>
+				<a href="storyDetail?storyNo=`+i.storyNo+`">
+					<div class="row rounded-top-4" style="height: 200px; background-size: cover; background-position: center; background-image: url('resources/images/desk/`+i.fileName+`');">
+					<div class="col">				
+					</div>
+					</div>
+				</a>
 				
 				<div class="row">
 				<div class="col" style="color: #636363; margin-left: 2%; margin-top: 5%; font-weight: 700;">

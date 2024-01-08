@@ -65,6 +65,11 @@ public class StoryController {
 		List<Job> jList=storyService.getJobList();
 		model.addAttribute("jList", jList);
 		
+		/*
+		Map<String, List<Story>> map = new HashMap<>();
+		map.put("sList", storyService.getStoryList(itemCnt));
+		*/
+		
 		List<Story> sList = storyService.getStoryList();
 		model.addAttribute("sList", sList);
 		
