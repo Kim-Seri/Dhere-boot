@@ -39,7 +39,7 @@
 	                     style="width:150px; height:150px; object-fit: cover; border-radius: 70%; border: 3px solid blue" />
 	                 </c:if>
 	                 <c:if test="${ not empty sessionScope.member.picture }">
-	                    <img src="resources/upload/${sessionScope.member.picture}" alt="150*150 크기 이미지" 
+	                    <img src="resources/images/profile/${sessionScope.member.picture}" alt="150*150 크기 이미지" 
 	                    style="width:150px; height:150px; object-fit: cover; border-radius: 70%; border: 3px solid blue">
 	                 </c:if>           
             	</div>

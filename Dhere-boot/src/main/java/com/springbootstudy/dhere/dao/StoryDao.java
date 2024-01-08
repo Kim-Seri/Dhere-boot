@@ -11,6 +11,9 @@ import com.springbootstudy.dhere.domain.Tag;
 public interface StoryDao {
     // 게시물 리스트 가져오기
     public abstract List<Story> getStoryList();
+    
+    //	페이징 처리를 위한 게시물 리스트 가져오기(syj)
+    public abstract List<Story> getStoryListPaged(int offset, int limit);
 
     // 게시물 디테일 가져오기(syj)
     public abstract Story getStoryDetail(int storyNo);
@@ -33,6 +36,7 @@ public interface StoryDao {
     void deleteReplyByStoryNo(int storyNo);
     void deleteMarkerByStoryNo(int storyNo);
     void deleteTagPostByStoryNo(int storyNo);
+    void deleteTagByStoryNo(int storyNo);
     void deleteImageByStoryNo(int storyNo);
     
     // 게시물 수정하기 읽어오기(syj)

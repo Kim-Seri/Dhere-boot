@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.springbootstudy.dhere.dao.ProductDao;
 import com.springbootstudy.dhere.domain.Product;
+import com.springbootstudy.dhere.domain.Story;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -30,6 +31,18 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> productListAll(){
 		return productDao.productListAll();
+	}
+	
+	//	페이징 처리를 위한 게시물 리스트 가져오기(syj)
+	@Override
+	public List<Product> getProductListPaged(int offset, int limit) {
+		return productDao.getProductListPaged(offset, limit);
+	}
+	
+	//	필터링 된 페이징 처리를 위한 게시물 리스트 가져오기(syj)
+	@Override
+	public List<Product> getFilteredProductListPaged(String category, int offset, int limit) {
+		return productDao.getFilteredProductListPaged(category, offset, limit);
 	}
 
 }

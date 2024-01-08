@@ -1,33 +1,31 @@
 document.addEventListener("DOMContentLoaded", function () {
+   
+    let button = document.querySelector(".fixed-write-button");
+    
+    window.addEventListener("scroll", function () {
+        if (window.scrollY > 200) {
+            button.style.display = "block";
+        } else {
+            button.style.display = "none";
+        }
+    });
 
-	let button = document.querySelector(".fixed-write-button");
-	let isLogin = false;
-	//let itemCnt = 6;
-
-	window.addEventListener("scroll", function () {
-    if (window.scrollY > 200) {
-      button.style.display = "block";
-    } else {
-      button.style.display = "none";
-    }
-  });
-
-//	button.addEventListener("click", function() {
-//		  if(!isLogin) {
-//			  alert("로그인 먼저 진행해주세요.");
-//			  // 여기 오류 잡아야 함 
-//			 history.back();
-//			 return null; 
-//		  } 
-//	})
+    $('#main_writeBtn').on("click", function() {
+        if(!isLogin2) { // JSP에서 선언된 isLogin 변수를 사용합니다.
+            alert("로그인 먼저 진행해주세요!!!");
+            window.location.href = "loginForm";
+        } else {
+            window.location.href = "postWriteForm";
+        }
+    });
 
 
-	/*
+	
 	document.querySelectorAll('.jobs').forEach(function (job, index) {
         job.addEventListener('click', function () {
             toggleSelection(index);
-        });
-    });*/
+    	});
+	});
 	
 	// 직무 카테고리 선택 시, 하단 리스트 출력
 	$('.jobs').on("click", function(){
@@ -94,20 +92,141 @@ document.addEventListener("DOMContentLoaded", function () {
 					} else {
 			
 					categoryList(res.category);
-			
-
 					};
 				}, error: function() {
 					console.log("err");
 				}
-				
-				});
-	
+			});
 		}
-		
 	});
 	
+	
+	
+	
+ ///////////////////////////////////////////////////////////////////////////////////
+var offset = 10; // 이미 가져온 데이터의 수
+var limit = 6; // 한 번에 가져올 데이터의 수
+
+$('#addBtn').on('click', function() {
+    $.ajax({
+        url: '/getStoryList',
+        type: 'GET',
+        data: {
+            offset: offset,
+            limit: limit
+        },
+        success: function(data) {
+            if (data.length > 0) {
+                // 데이터를 리스트에 추가합니다.
+                data.forEach(function(item) {
+                    $('#jobSelectedCategory').append(`
+                    
+                    <div class="col-3 m-4 rounded-4" style="background: #F3F3F3; width: 29%;">
+				
+				<a href="storyDetail?storyNo=`+item.storyNo+`">
+					<div class="row rounded-top-4" style="height: 200px; background-size: cover; background-position: center; background-image: url('resources/images/desk/`+item.fileName+`');">
+					<div class="col">				
+					</div>
+					</div>
+				</a>
+				
+				<div class="row">
+				<div class="col" style="color: #636363; margin-left: 2%; margin-top: 5%; font-weight: 700;">
+					<img src="resources/images/profile/`+item.picture+`" 
+							id="main_picture"
+							tabindex="0" 
+							data-bs-html="true" 
+							data-bs-placement="bottom" 
+							data-bs-toggle="popover" 
+							data-bs-trigger="focus"
+							data-bs-title=`+item.nickname+`
+							data-bs-content="
+										<a href='otherScrap?email=`+item.email+`&nickname=`+item.nickname+`&picture=`+item.picture+`&categoryName=`+item.categoryName+`' class='text-decoration-none text-dark'>프로필 보러가기</a>
+										<br>
+									    <br>
+									    <a href='scrap' class='text-decoration-none text-dark'>쪽지 보내기</a>
+										<br>
+									    <br>
+									    <a href='scrap' class='text-decoration-none text-dark'>1:1 대화</a>
+										<br>
+									    <br>
+									    <a href='scrap' class='text-decoration-none text-dark'>신고하기</a>
+							">
+					&nbsp;
+					`+item.nickname+`
+				</div>
+				<div class="col text-end" style="color: #5E5E5E; margin-top: 2%;">
+					`+item.nickname+`
+				</div>
+				</div>
+
+				<div class="row">
+					<div class="col" style="font-weight: bold; margin-left: 2%; margin-top: 11%; font-size: 21px; font-weight: 800;">
+						<a href="storyDetail?storyNo=`+item.storyNo+`" class="link-dark link-underline-opacity-0">`+item.title+`</a>
+					</div>
+				</div>
+				<div class="row" style="width: 99%; border-bottom: 2px solid #bfbfbf; margin-left: 1%; margin-top: 20px;">
+					<div class="col justify-content-center">
+						
+					</div>
+				</div>
+				
+
+				<div class="row">
+				<div class="col mt-3 mb-4" style="color:#5E5E5E; margin-left: 2%;">
+						${item.nickname}
+				</div>
+				</div>
+				
+
+				<div class="row">
+					<div class="col py-3" id="main_story_category_area">
+						&nbsp;
+						<img src="resources/images/icon/name_tag_full.png" id="main_story_category_btn">
+						&nbsp;
+						`+item.categoryName+`
+					</div>
+					<div class="col text-end py-3" style="color:#5E5E5E; font-size: smaller;">
+						<img src="resources/images/icon/eye_eyes_view_count.png" id="icon_count" style="width: 20px;">
+						`+item.readCount+` &nbsp;&nbsp;
+						<img src="resources/images/icon/heart.png" id="icon_heart" style="width: 20px;">
+						`+item.thank+`
+					</div>
+				</div>
+			</div>
+                    
+                    `);
+                    
+                });
+                // offset을 업데이트합니다.
+                offset += data.length;
+            } else {
+                // 더 이상 가져올 데이터가 없다면 "더보기" 버튼을 숨깁니다.
+                $('#addBtn').hide();
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("An error occurred: " + error);
+        }
+    });
 });
+ ///////////////////////////////////////////////////////////////////////////////////
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+});
+
+
+
 
 // 별도 함수 생성
 function toggleSelection(index) {
@@ -142,17 +261,20 @@ function clearSelection(index) {
 // 카테고리별 스토리 리스트 출력
 function categoryList(items) {
 	
+	
 	$(items).each(function(v,i) {
-						
-						let tags = '';
-						i.tags.forEach(function (tag) {
-							tags += `#${tag.tagName} &nbsp;`;
-						});
-						
-						let date = new Date((i.regDate));						
-						let formattedDate = date.getFullYear() + "-" + ('0' + (date.getMonth() +1)).slice(-2) + "-" + ('0' + date.getDate()).slice(-2);
-
-						$("#jobSelectedCategory").append(`
+		
+		$('[data-bs-toggle="popover"]').popover();
+		
+		let tags = '';
+		i.tags.forEach(function (tag) {
+			tags += `#${tag.tagName} &nbsp;`;
+		});
+		
+		let date = new Date((i.regDate));						
+		let formattedDate = date.getFullYear() + "-" + ('0' + (date.getMonth() +1)).slice(-2) + "-" + ('0' + date.getDate()).slice(-2);
+	
+		$("#jobSelectedCategory").append(`
 								
 				<div class="col-3 m-4 rounded-4" style="background: #F3F3F3; width: 29%;">
 				
@@ -172,9 +294,9 @@ function categoryList(items) {
 							data-bs-placement="bottom" 
 							data-bs-toggle="popover" 
 							data-bs-trigger="focus"
-							data-bs-title=`+i.nickname+`"
+							data-bs-title=`+i.nickname+`
 							data-bs-content="
-										<a href='otherScrap?email=`+i.email+`&nickname=`+i.nickname+`&picture=`+i.picture+`'class='text-decoration-none text-dark'>프로필 보러가기</a>
+										<a href='otherScrap?email=`+i.email+`&nickname=`+i.nickname+`&picture=`+i.picture+`&categoryName=`+i.categoryName+`' class='text-decoration-none text-dark'>프로필 보러가기</a>
 										<br>
 									    <br>
 									    <a href='scrap' class='text-decoration-none text-dark'>쪽지 보내기</a>
@@ -226,37 +348,9 @@ function categoryList(items) {
 						`+i.thank+`
 					</div>
 				</div>
-
-			
-			</div>
-
-								`) 
-					});
-	
-}
-
-/*
-function loadMore() {
-	
-	itemCnt += 6;
-	
-	$.ajax({
-		type: "GET",
-		url: "",
-		data: {itemCnt: itemCnt},
-		success: function(res) {
-			
-			// $("#jobSelectedCategory").empty();
-			categoryList(res.sList);
-			
-		}, error: function() {
-					console.log("err");					
-			}
-		
+			</div>`) 
 	});
-	
-	
 }
-*/
+
 
 

@@ -14,6 +14,9 @@ public interface StoryService {
 	
 	// 게시물 리스트 가져오기
 	public abstract List<Story> getStoryList();
+	    
+	//	페이징 처리를 위한 게시물 리스트 가져오기(syj)
+	public abstract List<Story> getStoryListPaged(int page, int limit);
 
     // 게시물 쓰기
 	public abstract void postWrite(Story story);
