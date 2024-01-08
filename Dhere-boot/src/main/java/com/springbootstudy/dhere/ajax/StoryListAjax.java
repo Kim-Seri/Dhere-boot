@@ -8,17 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.springbootstudy.dhere.domain.Story;
 import com.springbootstudy.dhere.service.StoryService;
-
+/*
 @Controller
 public class StoryListAjax {
 	
 	@Autowired
 	private StoryService storyService;
+	
 	
 	@PostMapping("/jobSelectedCategory")
 	@ResponseBody
@@ -61,4 +63,16 @@ public class StoryListAjax {
 		return map;
 	}
 	
+//	@GetMapping("/moreList")
+//	@ResponseBody
+//	public Map<String, List<Story>> moreList(@RequestParam("indexCnt") int indexCnt) {
+//		
+//		Map<String, List<Story>> map = new HashMap<>();
+//		map.put("moreList", storyService.moreList(indexCnt));
+//		
+//		return map;
+//	}
+	
 }
+
+*/

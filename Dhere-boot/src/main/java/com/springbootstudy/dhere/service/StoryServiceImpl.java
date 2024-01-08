@@ -24,10 +24,22 @@ public class StoryServiceImpl implements StoryService {
 
 	
 	// 게시물 리스트 가져오기
+//	@Override
+//	public List<Story> getStoryList() {
+//		return storyDao.getStoryList();
+//	}
+	
 	@Override
-	public List<Story> getStoryList() {
+	public Map<String, List<Story>> getStoryList() {
 		return storyDao.getStoryList();
 	}
+	
+	// 게시물 리스트 가져오기 (+페이징)
+	@Override
+	public List<Story> getStoryListPaged(int offset, int limit) {
+		return storyDao.getStoryListPaged(offset, limit);
+	}
+	
 
 	//게시글 작성하기(story)
 	@Override

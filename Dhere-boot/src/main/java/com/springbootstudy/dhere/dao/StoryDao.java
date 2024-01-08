@@ -1,6 +1,7 @@
 package com.springbootstudy.dhere.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.springbootstudy.dhere.domain.Image;
 import com.springbootstudy.dhere.domain.Job;
@@ -10,7 +11,11 @@ import com.springbootstudy.dhere.domain.Tag;
 
 public interface StoryDao {
     // 게시물 리스트 가져오기
-    public abstract List<Story> getStoryList();
+    //public abstract List<Story> getStoryList();
+    public abstract Map<String, List<Story>> getStoryList();
+    
+    // 게시물 리스트 가져오기 (+페이징)
+    public abstract List<Story> getStoryListPaged(int offset, int limit);
 
     // 게시물 디테일 가져오기(syj)
     public abstract Story getStoryDetail(int storyNo);
@@ -64,4 +69,6 @@ public interface StoryDao {
 	
 	// 정렬 리스트 출력
 	public abstract List<Story> sortList(String sort);
+
+	
 }

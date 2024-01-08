@@ -42,6 +42,8 @@ function searchResult() {
 			   } else {
 				   
 				   	$(res.search).each(function(v,i) {
+						   
+						$('[data-bs-toggle="popover"]').popover();
 						
 						let tags = '';
 						i.tags.forEach(function (tag) {
@@ -71,9 +73,9 @@ function searchResult() {
 							data-bs-placement="bottom" 
 							data-bs-toggle="popover" 
 							data-bs-trigger="focus"
-							data-bs-title=`+i.nickname+`"
+							data-bs-title=`+i.nickname+`
 							data-bs-content="
-										<a href='otherScrap?email=`+i.email+`&nickname=`+i.nickname+`&picture=`+i.picture+`'class='text-decoration-none text-dark'>프로필 보러가기</a>
+										<a href='otherScrap?email=`+i.email+`&nickname=`+i.nickname+`&picture=`+i.picture+`&categoryName=`+i.categoryName+`' class='text-decoration-none text-dark'>프로필 보러가기</a>
 										<br>
 									    <br>
 									    <a href='scrap' class='text-decoration-none text-dark'>쪽지 보내기</a>

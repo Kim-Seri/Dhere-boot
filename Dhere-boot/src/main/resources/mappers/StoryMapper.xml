@@ -67,6 +67,37 @@
 			<result property="tagName" column="tag_name" />
 		</collection>
 	</resultMap>
+	
+	<!-- 게시물 리스트 가져오기 (+페이징) -->
+	<select id="getStoryListPaged" resultMap="StoryResultMap">
+        SELECT
+			s.story_no,
+			s.title,
+			s.content1,
+			s.content2,
+			s.content3,
+			s.content4,
+			s.email,
+			s.reg_date,
+			s.category_no,
+			s.read_count,
+			s.thank,
+			s.nickname,
+			i.file_name,
+			m.picture,
+			t.tag_name,
+			j.category_name		
+		FROM story s		
+		LEFT JOIN image i ON s.story_no = i.story_no
+		LEFT JOIN member m ON s.email = m.email
+		LEFT JOIN tag_post tp ON s.story_no = tp.story_no
+		LEFT JOIN tag t ON tp.tag_no = t.tag_no
+		LEFT JOIN job j ON s.category_no = j.category_no	
+		WHERE i.image_no = (SELECT MIN(image_no) FROM image WHERE story_no = s.story_no)
+		GROUP BY s.story_no
+		ORDER BY s.reg_date DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
 
 	<!-- 스토리 게시글 작성 쿼리 -->
 	<insert id="postWrite" parameterType="story">

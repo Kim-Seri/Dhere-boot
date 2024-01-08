@@ -13,7 +13,11 @@ import com.springbootstudy.dhere.domain.Tag;
 public interface StoryService {
 	
 	// 게시물 리스트 가져오기
-	public abstract List<Story> getStoryList();
+	//public abstract List<Story> getStoryList();
+	public abstract Map<String, List<Story>> getStoryList();
+	
+	// 게시물 리스트 가져오기 (+페이징)
+	public abstract List<Story> getStoryListPaged(int offset, int limit);
 
     // 게시물 쓰기
 	public abstract void postWrite(Story story);

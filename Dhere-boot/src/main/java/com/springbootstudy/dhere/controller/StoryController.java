@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -69,19 +70,33 @@ public class StoryController {
 		List<Job> jList=storyService.getJobList();
 		model.addAttribute("jList", jList);
 		
-		/*
-		Map<String, List<Story>> map = new HashMap<>();
-		map.put("sList", storyService.getStoryList(itemCnt));
-		*/
+		//Map<String, List<Story>> map = storyService.getStoryList();
+		//map.put("sList", storyService.getStoryList());
 		
+		Map<String, List<Story>> map = storyService.getStoryList();
+	    List<Story> sList = map.get("sList"); 
+	    model.addAttribute("sList", sList);
+		
+		/*
 		List<Story> sList = storyService.getStoryList();
 		model.addAttribute("sList", sList);
+		*/
 		
 		List<Product> pList = productService.productList(productCategory);
 	    model.addAttribute("pList", pList);
 
 		return "main";
 	}
+	
+	// 게시물 리스트 출력 (+페이징)
+    @GetMapping("/getStoryList")
+    public ResponseEntity<List<Story>> getPartialList(
+            @RequestParam("offset") int offset,
+            @RequestParam("limit") int limit) {
+    	
+        List<Story> items = storyService.getStoryListPaged(offset, limit);
+        return ResponseEntity.ok(items);
+    }
 	
 	// 게시물 디테일(syj)
 	@GetMapping("/storyDetail")
