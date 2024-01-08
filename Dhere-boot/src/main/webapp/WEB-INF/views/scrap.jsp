@@ -33,7 +33,7 @@
 	            role="tab" aria-controls="tab2" aria-selected="false">회원정보수정</a>
 	        </li>
 	        <li class="nav-item"  style="width: 140px; font-size: 18px">
-	            <a class="nav-link text-center" id="tab3-tab" data-bs-toggle="pill" href="#tab3" 
+	            <a class="nav-link text-center" id="tab3-tab" data-bs-toggle="pill" href="#tab3"  onclick="location.href='inquiryWrite'"
 	            role="tab" aria-controls="tab3" aria-selected="false">1:1문의하기</a>
 	        </li>
 	        <li class="nav-item"  style="width: 140px; font-size: 18px">
@@ -302,6 +302,7 @@
 	</div>
 	<!-- 전체 컨테이너 끝 -->
          <input type="button" value="morepage">
+         <input type="button" value="내 문의사항 내역 리스트" onclick="location.href='iList'">
       <script src="resources/bootstrap/bootstrap.bundle.min.js"></script>
       </div>
 </body>

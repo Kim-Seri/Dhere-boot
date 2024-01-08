@@ -3,46 +3,33 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 	<!-- content 영역 -->
 	<div class="row justify-content-center">
-
-	<c:choose>
-    <c:when test="${sessionScope.member.role eq 'admin'}">
+		<div class="row">
+	        <div class="col my-5">
+	            <h2 style="font-weight: bold">문의 내역</h2>
+	        </div>
+	    </div>
+	    <div class="row">
         <c:forEach var="i" items="${inquiryList}">
-            <!-- 관리자에게 보여질 문의 목록 -->
-            <div class="col-3 border border-3 m-3 p-3">
+            <div class="col-3 border border-3 m-3 p-3 rounded-3 border-primary" style="width: 320px; height: 180px">
                 <div class="row">
-                    <div class="col mt-5">
-                        문의 번호 : ${i.inquiryNo}
-                        <br>
-                        <br>
-                        제목 : ${i.inquiryTitle}
-                        <br>
-                        <br>
-                        작성자 : ${i.inquiryEmail}
-                        <br>
-                        <br>
-                        작성일 : ${i.regDate}
-                        <br>
-                        <br>
-                        <a href="inquiryDetail?inquiryNo=${i.inquiryNo}">바로가기</a>
+                    <div class="col" style="font-size: 25px; font-weight: bold">
+                        ${i.inquiryTitle}
+                    </div>
+                    <div class="col">
+                        ${i.regDate}
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col mb-3">
+                        ${i.inquiryEmail}
+                    </div>
+                </div> 
+                <div class="row">
+                	<div class="col mt-3 text-center">
+                		<input type="button" class="btn btn-primary" value="바로 가기" onclick="location.href='inquiryDetail?inquiryNo=${i.inquiryNo}'" style="width: 250px">
+               		</div>
+                </div>
             </div>
-        </c:forEach>
-    </c:when>
-    <c:otherwise>
-        <!-- 관리자가 아닌 사용자에게 보여질 메시지 -->
-        모르겠다 너는 누구냐?
-    </c:otherwise>
-</c:choose>
-
-		<c:forEach var="i" items="${inquiryList}">
-			<div class="col-3 border border-3 m-3 p-3">
-				<div class="row">
-					<div class="col mt-5">
-					<a href="inquiryDetail?inquiryNo=${i.inquiryNo}">${i.inquiryTitle}</a>
-					</div>
-				</div>
-			</div>
 		</c:forEach>
-
+		</div>
 	</div>	
