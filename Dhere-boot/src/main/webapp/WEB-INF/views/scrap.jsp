@@ -121,9 +121,11 @@
 	</div>
 	<!-- 탭바 (내 게시물/스크랩 항목/팔로우) 끝 -->
 	 <input type="button" value="morepage" />
+	 
+	 <input type="button" value="내 문의사항 내역 리스트" onclick="location.href='iList'">
 </div>
 </div>
 </div>
-	<!— 전체컨테이너 끝 —>
+	<!-- 전체 컨테이너 끝 -->
 </body>
 </html>
