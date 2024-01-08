@@ -1,9 +1,12 @@
 package com.springbootstudy.dhere.configuration;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import com.springbootstudy.dhere.interceptor.LoginCheckInterceptor;
 
 /* 스프링 환경설정 클래스를 지정하는 애노테이션
  * 이 애노테이션이 붙은 클래스는 스프링 DI 컨테이너가 초기화 될 때 빈으로 등록된다.
@@ -31,6 +34,20 @@ public class WebConfig implements WebMvcConfigurer {
 		registry.addViewController("/inquiryWrite").setViewName("inquiryWrite");
 		registry.addViewController("/answerWrite").setViewName("answerWrite");			
 	}
+	
+	// Interceptor 등록
+		@Override
+		public void addInterceptors(InterceptorRegistry registry) {
+			registry.addInterceptor(new LoginCheckInterceptor())
+						// 인터셉터 호출에서 제외
+						.excludePathPatterns("/resources/**", "/", "/main", "/loginForm");
+						// 인터셉터 호출에 추가
+						//.addPathPatterns("/mypage*", "/post*");
+		}
+		
+		//  classpath:/static/resources/images/** 에 모든 리소스를 저장하고 
+		// /resources/images/** 로 요청되는 리소스 요청 설정
+		//  css, js, images를 모두 src/main/resources/static/resources/** 에 저장하고 적용해야 함
 	
 //  classpath:/static/resources/images/** 에 모든 리소스를 저장하고 
 	// /resources/images/** 로 요청되는 리소스 요청 설정

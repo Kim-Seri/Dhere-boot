@@ -1,5 +1,9 @@
 let isAddingMarker = false; // 마커를 추가 중인지 여부를 나타내는 변수
 let searchBox;
+let isMakerBtn =false; //마커 등록 뒤 클릭하면 보여주
+
+let leftX;
+let topY;
 
 
 // 마커 추가 시작
@@ -36,87 +40,7 @@ function handleMarkerClick(e) {
 	}
 }
 
-//Marker addition function
-function addMarker(x, y) {
-	// 동적으로 마커를 추가하는 로직 작성
 
-	console.log("x 좌표," + x);
-	console.log("y 좌표," + y);
-
-	const leftX = (`<input type='hidden' name='leftX', value='${x}'>`);
-	const topY = (`<input type='hidden' name='topY', value='${y}'>`);
-	$('#postWriteForm').append(leftX);
-	$('#postWriteForm').append(topY);
-
-
-
-
-	// 마커를 추가할 부모 컨테이너
-	const markerContainer = $("<div class='marker-container'></div>");
-	const marker = $(`<div class='marker' id='marker'><button type='button' class='btn btn-primary rounded-circle' id='markerBtn'>+</button></div>`);
-	const searchBox = $(`
-    							<div class='row search-box  bg-white border border-primary-subtle rounded ' id='searchBox ' >
-	    							<div class='col' id='searchBoxCol'>
-		    							<div class='row my-3'>
-			    							<div class='col-9'>
-			    								<input type='text' id='searchInput'  class='form-control'>
-			    							</div>
-			    							<div class='col-3 text-end'>
-			    								<button type='button' class='btn btn-danger' id='deleteMaker'>X</button> 
-			    							</div>
-			    						</div>
-			    						<div class='row my-2 overflow-scroll' style='height:500px;'>
-			    							<div class='col' id='autoCompleteResults'>
-			    							</div>
-			    						</div>
-		    						</div>
-    							</div>`);
-
-	// 이미지의 크기
-	const imageWidth = $('body').width();
-	const bodyHeight = $("body").height();
-
-	// 스크롤 위치
-	const scrollY = window.scrollY;
-
-
-	// 마커의 위치 조절
-	const adjustedX = (x / imageWidth) * 100; // 이미지의 가로 방향 상대 위치
-	const adjustedY = ((y + scrollY) / bodyHeight) * 100; // body의 세로 방향 상대 위치
-
-
-	// 마커의 위치를 설정
-	marker.css({
-		position: "absolute",
-		//      top: y +window.scrollY + "px", 
-		top: y + window.scrollY + "px",
-		left: `${adjustedX}%`,
-	});
-
-	searchBox.css({
-		position: "absolute",
-		top: y + window.scrollY + 30 + "px", // 마커 아래에 위치
-		left: `${adjustedX}%`,
-		//	 display: "none", // 일단 숨김
-	});
-
-	markerContainer.append(marker);
-	markerContainer.append(searchBox);
-
-	// 마커를 이미지가 아닌 별도의 컨테이너에 추가
-	$("#imageContainer").append(markerContainer);
-
-
-	// 마커에 마우스 오버 시 검색 상자 표시
-	marker.on("mouseover", function() {
-		searchBox.show();
-	});
-
-	// 마커에서 마우스 나갈 시 검색 상자 숨김
-	//	marker.on("mouseout", function () {
-	//	 searchBox.hide();
-	//	});
-}
 
 //엔터 누르면 해시태그 추가
 function enterkey() {
@@ -154,6 +78,99 @@ function getHashtagItem(hashtag) {
 }
 
 $(function() {
+	
+	//Marker addition function
+function addMarker(x, y) {
+	// 동적으로 마커를 추가하는 로직 작성
+	
+	topY=y;
+	leftX=x;
+
+	console.log("x 좌표," + leftX);
+	console.log("y 좌표," + topY);
+
+	const left1 = (`<input type='hidden' name='left1', value='${x}'>`);
+	const top1 = (`<input type='hidden' name='top1', value='${y}'>`);
+	$('#postWriteForm').append(leftX);
+	$('#postWriteForm').append(topY);
+
+
+
+
+	// 마커를 추가할 부모 컨테이너
+	const markerContainer = $("<div class='marker-container'></div>");
+	const marker = $(`<div class='marker' id='marker'><button type='button' class='btn btn-primary rounded-circle' id='markerBtn'>+</button></div>`);
+	const searchBox = $(`
+    							<div class='row search-box py-3  bg-white border border-primary-subtle rounded ' id='searchBox ' >
+	    							<div class='col' id='searchBoxCol'>
+		    							<div class='row my-3'>
+			    							<div class='col-9'>
+			    								<input type='text' id='searchInput'  class='form-control'>
+			    							</div>
+			    							<div class='col-3 text-end'>
+			    								<button type='button' class='btn btn-danger' id='deleteMaker'>X</button> 
+			    							</div>
+			    						</div>
+			    						<div class='row my-2 overflow-scroll' style='height:500px;'>
+			    							<div class='col' id='autoCompleteResults'>
+			    							</div>
+			    						</div>
+		    						</div>
+    							</div>`);
+
+	// 이미지의 크기
+	const imageWidth = $('body').width();
+	const bodyHeight = $("body").height();
+
+	// 스크롤 위치
+	const scrollY = window.scrollY;
+	
+	
+
+
+	// 마커의 위치 조절
+	const adjustedX = (x / imageWidth) * 100; // 이미지의 가로 방향 상대 위치
+	const adjustedY = ((y + scrollY) / bodyHeight) * 100; // body의 세로 방향 상대 위치
+
+
+	// 마커의 위치를 설정
+	marker.css({
+		position: "absolute",
+		//      top: y +window.scrollY + "px", 
+		top: y + window.scrollY + "px",
+		left: `${adjustedX}%`,
+	});
+
+	searchBox.css({
+		position: "absolute",
+		top: y + window.scrollY + 30 + "px", // 마커 아래에 위치
+		left: `${adjustedX}%`,
+		//	 display: "none", // 일단 숨김
+	});
+
+	markerContainer.append(marker);
+	markerContainer.append(searchBox);
+
+	// 마커를 이미지가 아닌 별도의 컨테이너에 추가
+	$("#imageContainer").append(markerContainer);
+
+
+	// 마커 클릭 시 상자 표시
+	marker.on("click", function() {
+		if(!isMakerBtn){
+			searchBox.show();
+			isMakerBtn=true;
+		}else{
+			searchBox.hide();
+			isMakerBtn=false;
+		}
+	});
+
+	// 마커에서 마우스 나갈 시 검색 상자 숨김
+		/*marker.on("mouseout", function () {
+		 searchBox.hide();
+		});*/
+}
 
 	var deleteBtnNum = 0;
 	var imageDivNum = 0;
@@ -315,27 +332,8 @@ $(function() {
 	$("#imageContainer").on("click", "#finishMarkerButton", function() {
 		finishAddingMarker();
 	});
-
-
 	
-
-	
-
-
-	// 이미지 미리보기 업데이트 함수
-	function displayImagePreview(input, preview) {
-		// 선택한 이미지를 미리보기로 업데이트
-		if (input.files && input.files[0]) {
-			var reader = new FileReader();
-			reader.onload = function(e) {
-				preview.attr("src", e.target.result);
-			};
-			reader.readAsDataURL(input.files[0]);
-		}
-	}
-});
-
-function displayAutoCompleteResults(results) {
+	function displayAutoCompleteResults(results) {
 		// 결과를 표시할 UI 요소 선택 (예: 결과를 표시할 div)
 		const autoCompleteDiv = $("#autoCompleteResults");
 
@@ -345,7 +343,7 @@ function displayAutoCompleteResults(results) {
 		// 일치하는 결과를 UI에 추가
 		results.forEach(result => {
 			const resultItem = $(`<div class='row my-2 p-3 '>
-            						<button type='button' class='btn btn-outline-primary'>
+            						<button type='button' class='btn btn-outline-primary' id='productBtn'>
             						<div class='row my-3'>
 	            						<div class='col-4'>
 	            							<img src="resources/images/products/${result.productImage}" style='width:70px; height:70px;'>
@@ -368,56 +366,37 @@ function displayAutoCompleteResults(results) {
 	            					</div>
             						</button>
             					</div>`);
+            					
+            autoCompleteDiv.append(resultItem);
+								
 
 			// 결과를 클릭하면 자동으로 검색 상자에 입력되도록 이벤트 처리
 			resultItem.on("click", function() {
+				
+				const searchBox1=($(this).parent().parent().parent().parent());
 				// 텍스트 창 아래에 제품 정보 표시
-				console.log($("#searchBox").length);
+				console.log(searchBox1.length);
+				console.log(searchBox1.attr('id'));
 				// 선택 후 자동 완성 결과 지우기
     			autoCompleteDiv.empty();
-				
-				
-				$("#searchBox").hide();
-				
-				
-				displayProductInfo(result.productImage, result.brandName, result.productName);
-			});
-
-			autoCompleteDiv.append(resultItem);
-			// 선택한 제품의 브랜드와 제품 이름을 마커 아래에 표시
-			
-		});
-	}
-
-// 마커 아래에 선택한 제품의 브랜드와 제품 이름을 표시하는 함수
-	function displayProductInfo(productImage, brandName, productName) {
-		// 선택한 제품 정보를 표시할 UI 요소 선택
-		console.log(productImage);
-		console.log(brandName);
-		console.log(productName);
-		
-
-		const searchBox1=$("#searchBox");
-		console.log(searchBox1.length); // 콘솔에 출력하여 길이 확인
-		
-
-		// 브랜드와 제품 이름을 표시할 UI 엘리먼트 생성
-		const productElement = (`
+    			
+    			// 브랜드와 제품 이름을 표시할 UI 엘리먼트 생성
+				const productElement = (`
 									<div class='col' id='productEle'>
-										<button type='button' class='btn btn-outline-primary'>
+										<button type='button' class='btn btn-outline-primary' onclick="location.href='productDetail?productNo=${result.productNo}'">
 										<div class='row my-3'>
 		            						<div class='col-4'>
-		            							<img src="resources/images/products/${productImage}" style='width:70px; height:70px;'>
+		            							<img src="resources/images/products/${result.productImage}" style='width:70px; height:70px;'>
 		            						</div>
 		            						<div class='col-4'>
 		            							<div class='row mt-2'>
 		            								<div class='col text-start'>
-		            									${brandName}
+		            									${result.brandName}
 		            								</div>
 		            							</div>
 		            							<div class='row'>
 		            								<div class='col text-start'>
-		            									${productName}
+		            									${result.productName}
 		            								</div>
 		            							</div>
 		            						</div>
@@ -427,12 +406,33 @@ function displayAutoCompleteResults(results) {
 		            					</div>
 		            					</button>
 									</div>`);
-								
-		console.log(productElement);
+				searchBox1.hide();
+				
+				
+				// UI 엘리먼트를 컨테이너에 추가
+				searchBox1.html(productElement);
 
-		// UI 엘리먼트를 컨테이너에 추가
-		searchBox1.html(productElement);
+				
+				
+			});
 
-		// 추가된 정보가 화면에 표시되도록 보여줌
-		searchBox1.show();
-}
+			
+			
+		});
+	}
+
+
+	// 이미지 미리보기 업데이트 함수
+	function displayImagePreview(input, preview) {
+		// 선택한 이미지를 미리보기로 업데이트
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				preview.attr("src", e.target.result);
+			};
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+});
+
+
