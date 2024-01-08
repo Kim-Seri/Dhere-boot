@@ -4,54 +4,6 @@
 
 <mapper namespace="com.springbootstudy.dhere.mappers.StoryMapper">
 
-
-
-    <select id="getStoryListPaged" parameterType="Map" resultType="com.springbootstudy.dhere.domain.Story">
-        SELECT
-		s.story_no,
-		s.title,
-		s.content1,
-		s.content2,
-		s.content3,
-		s.content4,
-		s.email,
-		s.reg_date,
-		s.category_no,
-		s.read_count,
-		s.thank,
-		s.nickname,
-		MIN(i.file_name),
-		m.picture,
-		t.tag_name,
-		j.category_name
-	
-		FROM
-		story s
-		
-		LEFT JOIN
-		image i ON s.story_no = i.story_no
-		LEFT JOIN
-		member m ON s.email = m.email
-		LEFT JOIN
-		tag_post tp ON s.story_no = tp.story_no
-		LEFT JOIN
-		tag t ON tp.tag_no = t.tag_no
-		LEFT JOIN
-		job j ON s.category_no = j.category_no
-		
-        GROUP BY s.story_no
-		
-		ORDER BY s.reg_date DESC
-        
-        LIMIT #{limit} OFFSET #{offset};
-        
-        
-       <!--  SELECT * FROM story
-        ORDER BY story_no DESC
-        LIMIT #{limit} OFFSET #{offset} -->
-    </select>
-
-
 	<!-- 스토리 게시물 출력 (스토리, 이미지, 프로필) / seri02 수정 -->
 	<select id="getStoryList" resultMap="StoryResultMap">
 		SELECT

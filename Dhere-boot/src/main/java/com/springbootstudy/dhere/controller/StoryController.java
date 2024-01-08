@@ -80,16 +80,6 @@ public class StoryController {
 	    return ResponseEntity.ok(productList);
 	}
 	
-	// 메인페이지서의 게시물 페이징 처리를 위한 메서드(syj)
-    @GetMapping("/getStoryList")
-    public ResponseEntity<List<Story>> getPartialList(
-            @RequestParam("offset") int offset,
-            @RequestParam("limit") int limit) {
-    	
-        List<Story> items = storyService.getStoryListPaged(offset, limit);
-        return ResponseEntity.ok(items);
-    }
-	
 	// 데스크 셋업 리스트 출력 (메인)
 	// 카테고리 별 제품 리스트 출력
 	@GetMapping(value = { "/", "/main" })

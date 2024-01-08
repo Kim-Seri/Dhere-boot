@@ -51,14 +51,6 @@ public class StoryDaoImpl implements StoryDao {
 		return sqlSession.selectList(NAME_SPACE + ".getStoryListPaged", params);
 	}
 	
-	//	페이징 처리를 위한 게시물 리스트 가져오기(syj)
-    @Override
-    public List<Story> getStoryListPaged(int offset, int limit) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("offset", offset);
-        params.put("limit", limit);
-        return sqlSession.selectList(NAME_SPACE + ".getStoryListPaged", params);
-    }
 
 	// 게시물 디테일 가져오기(syj)
 	@Override
