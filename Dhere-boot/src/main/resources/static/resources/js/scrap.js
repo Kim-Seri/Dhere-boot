@@ -3,7 +3,7 @@ window.onload = function() {
 }
  
  function showInfo(index) {
-   let contentBoxes = document.querySelectorAll('.infoContent');
+   var contentBoxes = document.querySelectorAll('.infoContent');
    
    // Hide all content boxes
    contentBoxes.forEach(function(box) {

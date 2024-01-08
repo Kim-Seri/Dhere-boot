@@ -1,6 +1,8 @@
 package com.springbootstudy.dhere.controller;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,5 +58,20 @@ public class ScrapController {
 		   return "member/mypageUpdateForm"; 
 	   }
 
+		// 회원 정보 수정하는 ajax 요청을 처리하는 컨트롤러
+		@PostMapping("/passCheck.ajax")
+		@ResponseBody
+		public Map<String, Boolean> memberPassCheck(
+				@RequestParam("email") String email, 
+				@RequestParam("pass") String pass) {
+			
+			System.out.println("passcheckk" + email);
+			System.out.println(pass);
+			boolean result = memberService.memberPassCheck(email, pass);
+			Map<String, Boolean> map = new HashMap<String, Boolean>();
+			map.put("result", result);
+			
+			return map;
+		}
 	  
 }

@@ -76,6 +76,9 @@
 			</div>
 			<!-- 닉네임/이메일/직업/좋아요 끝 -->
 			<div class="infoContent alert-box" id="logout_btn">
+			
+			</div>
+			<div class="infoContent alert-box" id="logout_btn">
 			<div>
 				<p>정말 로그아웃 하실건가요?</p>				
 				<a class="btn btn-primary" href="/" >아니오</a>
