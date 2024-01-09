@@ -18,7 +18,7 @@
 
     <div class="col justify-content-end d-flex align-items-center">
         <a href="mainAbout" class="text-decoration-none text-white" id="header_menu">About</a>
-        <a href="noticeWriteForm" class="text-decoration-none text-white" id="header_menu">Notice</a>
+        <a href="notice" class="text-decoration-none text-white" id="header_menu">Notice</a>
         
         
  
