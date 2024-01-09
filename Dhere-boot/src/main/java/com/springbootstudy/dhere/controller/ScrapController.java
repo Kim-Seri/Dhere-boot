@@ -73,7 +73,7 @@ public class ScrapController {
 	    }
 	  
 	   @GetMapping("/mypageUpdateForm")
-	   public String updateForm(Model model, HttpSession session) {
+	   public String updateForm() {
 		   return "member/mypageUpdateForm"; 
 	   }
 
