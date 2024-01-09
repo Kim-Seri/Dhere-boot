@@ -2,6 +2,7 @@ package com.springbootstudy.dhere.controller;
 
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.springbootstudy.dhere.domain.Member;
 import com.springbootstudy.dhere.domain.Scrap;
+import com.springbootstudy.dhere.domain.Story;
 import com.springbootstudy.dhere.service.MemberService;
 import com.springbootstudy.dhere.service.ScrapService;
+import com.springbootstudy.dhere.service.StoryService;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -32,6 +35,22 @@ public class ScrapController {
 	
 	@Autowired
 	private MemberService memberService;	
+	
+	@Autowired
+	private StoryService storyService;
+	
+	@GetMapping("/myPosts")
+    public String getMyPosts(Model model, HttpSession session) {
+		Member member = (Member) session.getAttribute("member");
+        
+        List<Story> sList = storyService.sList(member.getEmail());
+        
+        // 가져온 게시물을 모델에 추가합니다.
+        model.addAttribute("sList", sList);
+
+        // myPosts 탭으로 이동합니다.
+        return "scrap";
+    }
 	
 	// 회원정보 받기
 	@GetMapping(value="/mypage")

@@ -21,7 +21,11 @@ public class StoryServiceImpl implements StoryService {
 	@Autowired
 	private StoryDao storyDao;
 	
-
+	@Override
+	public List<Story> sList(String email) {
+		return storyDao.sList(email);
+	}
+	
 	// 게시물 리스트 가져오기
 //	@Override
 //	public List<Story> getStoryList() {

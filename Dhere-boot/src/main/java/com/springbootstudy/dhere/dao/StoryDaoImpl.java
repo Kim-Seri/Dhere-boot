@@ -172,6 +172,12 @@ public class StoryDaoImpl implements StoryDao {
 	public List<Story> sortList(String sort) {
 		return sqlSession.selectList(NAME_SPACE  + ".sortList", sort);
 	}
+	
+	@Override
+	public List<Story> sList(String email) {
+		return sqlSession.selectList(NAME_SPACE + ".sList", email);
+	}
+
 
 
 

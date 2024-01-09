@@ -61,6 +61,9 @@ public interface StoryDao {
 	
 	//tagPost추가하기
 	public abstract void insertTagPost(Tag tag);
+	
+	//내 게시 글
+	public abstract List<Story> sList(String email);
 
 	// 직종별 게시물 리스트 출력
 	public abstract List<Story> storyList(String selectedJob);

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.springbootstudy.dhere.dao.InquiryDao;
+import com.springbootstudy.dhere.domain.Answer;
 import com.springbootstudy.dhere.domain.Inquiry;
 
 @Service
@@ -42,5 +43,10 @@ public class InquiryServiceImpl implements InquiryService {
 		
 		inquiryDao.deleteInquiry(inquiryNo);
 	}
+	
+	@Override
+    public List<Answer> getAnswerList(int inquiryNo) {
+        return inquiryDao.getAnswerList(inquiryNo);
+    }
 
 }

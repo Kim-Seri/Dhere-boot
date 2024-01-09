@@ -8,13 +8,16 @@
 		<div class="offset-1 col-10">
 			<div class="row">
 				<div class="col">
-					<h2 class="fs-3 fw-bold text-center">상세보기(${inquiry.regDate})</h2>
+					<h2 class="fs-3 fw-bold text-center">상세보기</h2>
 				</div>
 			</div>
 			<form name="inquiryWrite" id="inquiryWrite" action="inquiryWriteForm"
 				class="row g-3 border border-3 m-3 p-3 rounded-3 border-primary" method="post" enctype="multipart/form-data">
-				  <div class="col-10 offset-1 my-5">
+				  <div class="col-10 offset-1 mt-5">
 				    <input type="text" class="form-control" name="inquiryTitle" id="inquiryTitle" value="${inquiry.inquiryTitle}" style="border: none; border-radius: 0; border-bottom: 2px solid rgb(49, 108, 244); outline: none; font-size: 30px; font-weight: bold" readonly>
+				  </div>
+				  <div class="row">
+				  	<div class="col-10 offset-1 text-end">${inquiry.regDate}</div>
 				  </div>
 				  <div class="col-10 offset-1 my-5">
 				  	<input type="text" class="form-control" name="inquiryContent" id="inquiryContent" value="${inquiry.inquiryContent}" style="border: none; border-radius: 0; border-bottom: 2px solid rgb(49, 108, 244); outline: none" readonly> 
@@ -22,11 +25,21 @@
 				  <div class="col-3">
 					<img src="resources/images/inquiry/${inquiry.inquiryFile}" style="max-width: 200%; height: auto;">
 				  </div>
-				  <c:forEach var="answer" items="${answerList}">
-				    <div class="col-10 offset-1 border border-3 rounded-3 my-5">
-				    	<input type="text" value="${answer.answerContent}" style="height: 150px; border: none; outline: none" readonly>
-				    </div>
-				</c:forEach>
+					<c:choose>
+						<c:when test="${not empty answerList}">
+							<c:forEach var="answer" items="${answerList}">
+								<div class="col-10 offset-1 border border-3 rounded-3 my-5">
+								    <input type="text" value="${answer.answerContent}" style="height: 150px; border: none; outline: none" readonly>
+								</div>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<div class="col-10 offset-1 rounded-3 my-5" style="background: #F3F3F3">
+							    <p class="d-flex align-items-center justify-content-center" style="font-size: 30px; font-weight: bold; height: 150px; border: none; outline: none" readonly>답변이 등록되지 않았습니다.</p>
+							</div>
+						</c:otherwise>
+					</c:choose>
+
 				<c:if test="${sessionScope.member.role eq 'user'}">
 			    	<div class="row mt-3 text-center">
 			    		<div class="col my-5">
