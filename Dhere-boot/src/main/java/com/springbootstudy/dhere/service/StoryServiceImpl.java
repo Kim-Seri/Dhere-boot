@@ -21,19 +21,28 @@ public class StoryServiceImpl implements StoryService {
 	@Autowired
 	private StoryDao storyDao;
 	
-
-	// 게시물 리스트 가져오기
 	@Override
-	public List<Story> getStoryList() {
+	public List<Story> sList(String email) {
+		return storyDao.sList(email);
+	}
+	
+	// 게시물 리스트 가져오기
+//	@Override
+//	public List<Story> getStoryList() {
+//		return storyDao.getStoryList();
+//	}
+	
+	@Override
+	public Map<String, List<Story>> getStoryList() {
 		return storyDao.getStoryList();
 	}
 	
-	//	페이징 처리를 위한 게시물 리스트 가져오기(syj)
-    @Override
-    public List<Story> getStoryListPaged(int offset, int limit) {
-        
-        return storyDao.getStoryListPaged(offset, limit);
-    }
+	// 게시물 리스트 가져오기 (+페이징)
+	@Override
+	public List<Story> getStoryListPaged(int offset, int limit) {
+		return storyDao.getStoryListPaged(offset, limit);
+	}
+	
 
 	//게시글 작성하기(story)
 	@Override

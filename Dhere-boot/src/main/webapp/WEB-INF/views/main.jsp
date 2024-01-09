@@ -108,7 +108,7 @@
 			<div class="job-categories-container justify-content-center">
 			    <c:forEach var="jList" items="${jList}" varStatus="status">
 			        <div class="jobs" data-category="${jList.categoryName}" style="cursor: pointer; position:relative; background-color: white;">		        	
-			        	<span >${jList.categoryName}</span>
+			        	<span class="cName">${jList.categoryName}</span>
 			            <span class="close-btn" onclick="clearSelection(${status.index})"></span>
 			        </div>			    
 			    </c:forEach>		    
@@ -157,7 +157,7 @@
 			
 			<!-- 게시물 한칸 -->
 			<div class="row d-flex justify-content-center" id="jobSelectedCategory">
-			<c:forEach var="s" items="${sList}" varStatus="counter" begin="0" end="5">
+			<c:forEach var="s" items="${sList}" begin="0" end="5">
 			
 			<c:if test="${empty sList}">
 				<div class="row m-5">
@@ -254,10 +254,16 @@
 			</div>
 			
 			<div class="row">
-			    <div class="col text-center">
-			        <button id="addBtn">더보기</button>
-			    </div>
+			<div class="col text-center">
+				<button id="addBtn"><span>더보기</span></button>
 			</div>
+			</div>
+			
+			<!-- <div class="row">
+			<div class="col text-center">
+				<button id="moreBtn" onclick="loadMore()"><span>더보기</span></button>
+			</div>
+			</div> -->
 			
 			</div>
 			</div>

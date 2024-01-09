@@ -27,19 +27,30 @@ public class StoryDaoImpl implements StoryDao {
 	}
 
 	// 게시물 리스트 가져오기
+//	@Override
+//	public List<Story> getStoryList() {
+//		return sqlSession.selectList(NAME_SPACE + ".getStoryList");
+//	}
+	
 	@Override
-	public List<Story> getStoryList() {
-		return sqlSession.selectList(NAME_SPACE + ".getStoryList");
+	public Map<String, List<Story>> getStoryList() {
+		//return sqlSession.selectList(NAME_SPACE + ".getStoryList");
+		List<Story> sList = sqlSession.selectList(NAME_SPACE + ".getStoryList");
+	    Map<String, List<Story>> map = new HashMap<>();
+	    map.put("sList", sList);
+	    return map;
+		
 	}
 	
-	//	페이징 처리를 위한 게시물 리스트 가져오기(syj)
-    @Override
-    public List<Story> getStoryListPaged(int offset, int limit) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("offset", offset);
-        params.put("limit", limit);
-        return sqlSession.selectList(NAME_SPACE + ".getStoryListPaged", params);
-    }
+	// 게시물 리스트 가져오기 (+페이징)
+	@Override
+	public List<Story> getStoryListPaged(int offset, int limit) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("offset", offset);
+		params.put("limit", limit);
+		return sqlSession.selectList(NAME_SPACE + ".getStoryListPaged", params);
+	}
+	
 
 	// 게시물 디테일 가져오기(syj)
 	@Override
@@ -161,6 +172,12 @@ public class StoryDaoImpl implements StoryDao {
 	public List<Story> sortList(String sort) {
 		return sqlSession.selectList(NAME_SPACE  + ".sortList", sort);
 	}
+	
+	@Override
+	public List<Story> sList(String email) {
+		return sqlSession.selectList(NAME_SPACE + ".sList", email);
+	}
+
 
 
 

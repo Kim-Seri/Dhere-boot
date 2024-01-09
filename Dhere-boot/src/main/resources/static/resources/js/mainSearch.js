@@ -19,9 +19,9 @@ function searchResult() {
        
        $.ajax({
 		   
-		   url: "searchTag",
+		   url: "storyList",
 		   data: "searchKeyword=" + searchTxt,
-		   type: "GET",
+		   type: "POST",
 		   dataType: "json",
 		   success: function(res) {
 			   

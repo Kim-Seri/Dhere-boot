@@ -42,7 +42,7 @@
 							<div class="row">
 								<div class="col-8">
 									<input type="text" class="form-control border border-white border-3" name="email" id="email" placeholder="example@example.com" style="width: 110%; background: white; border-radius: 10px; color: black;">
-									<label id="status"></label>
+									<label id="label1"></label>
 								</div>
 								<div class="col-4 text-end">
 									<input type="button" class="btn border-white" id="btnOverlapEmail" value="확인" style="width: 65%; height: 45px; color: white; border-radius: 10px;">

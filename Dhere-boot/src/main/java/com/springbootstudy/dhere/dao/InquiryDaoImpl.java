@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.springbootstudy.dhere.domain.Answer;
 import com.springbootstudy.dhere.domain.Inquiry;
 
 @Repository
@@ -43,7 +44,13 @@ public class InquiryDaoImpl implements InquiryDao {
 	// 문의 삭제
 	@Override
 	public void deleteInquiry(int inquiryNo) {
-		System.out.println("dao에서 : " + inquiryNo);
-		sqlSession.delete(NAME_SPACE + ".deleteInquiry", inquiryNo);
+	    sqlSession.delete(NAME_SPACE + ".deleteAnswersByInquiryNo", inquiryNo);
+	    sqlSession.delete(NAME_SPACE + ".deleteInquiry", inquiryNo);
+	}
+	
+	// 문의에 대한 답변 리스트 가져오기
+	@Override
+	public List<Answer> getAnswerList(int inquiryNo) {
+		return sqlSession.selectList(NAME_SPACE + ".answerList", inquiryNo);
 	}
 }

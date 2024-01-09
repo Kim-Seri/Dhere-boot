@@ -1,44 +1,64 @@
 document.addEventListener("DOMContentLoaded", function () {
-	
-	// 글쓰기 버튼 스크롤
-	let button = document.querySelector(".fixed-write-button");
-	
-	window.addEventListener("scroll", function () {
-	    if (window.scrollY > 200) {
-	      button.style.display = "block";
-	    } else {
-	      button.style.display = "none";
-	    }
- 	 });
- 	 
- 	 // 페이징 처리
- 	 let offset = 6;
- 	 let limit = 6;
- 	 
- 	 $("#addBtn").on("click", function() {
-		  
-		  $.ajax({
-			  url: "/getStoryList",
-			  type: 'GET',
-			  data: {
-				  offset: offset,
-				  limit: limit
-			  }, success: function(res) {
-				  if(res.length > 0) {
-					  
-					$('[data-bs-toggle="popover"]').popover();
-					
-					res.forEach(function(item) {
-						
-						let tags = '';
-						item.tags.forEach(function (tag) {
-							tags += `#${tag.tagName} &nbsp;`;
-						});
-						
-						let date = new Date((item.regDate));						
-						let formattedDate = date.getFullYear() + "-" + ('0' + (date.getMonth() +1)).slice(-2) + "-" + ('0' + date.getDate()).slice(-2);
 
+	let button = document.querySelector(".fixed-write-button");
+	let isLogin = false;
+	let itemCnt = 6;
+	
+	
+
+	window.addEventListener("scroll", function () {
+    if (window.scrollY > 200) {
+      button.style.display = "block";
+    } else {
+      button.style.display = "none";
+    }
+  });
+
+//	button.addEventListener("click", function() {
+//		  if(!isLogin) {
+//			  alert("로그인 먼저 진행해주세요.");
+//			  // 여기 오류 잡아야 함 
+//			 history.back();
+//			 return null; 
+//		  } 
+//	})
+
+
+	/*
+	document.querySelectorAll('.jobs').forEach(function (job, index) {
+        job.addEventListener('click', function () {
+            toggleSelection(index);
+        });
+    });*/
+    
+    // 페이징 처리
+	let offset = 0;
+	let limit = 6;
+    
+    // 더보기 버튼 페이징 처리
+	 $('#addBtn').on('click', function() {
+	    $.ajax({
+	        url: '/getStoryList',
+	        type: 'GET',
+	        data: {
+	            offset: offset,
+	            limit: limit
+	        },
+	        success: function(data) {
+	            if (data.length > 0) {
+					
+					$('[data-bs-toggle="popover"]').popover();
 						
+					/*let tags = '';
+					data.tags.forEach(function (tag) {
+						tags += `#${tag.tagName} &nbsp;`;
+					});*/
+					
+					let date = new Date((data.regDate));						
+					let formattedDate = date.getFullYear() + "-" + ('0' + (date.getMonth() +1)).slice(-2) + "-" + ('0' + date.getDate()).slice(-2);
+					
+	                // 데이터를 리스트에 추가합니다.
+	                data.forEach(function(item) {
 	                    $('#jobSelectedCategory').append(`
 	                    
 	                    <div class="col-3 m-4 rounded-4" style="background: #F3F3F3; width: 29%;">
@@ -94,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 				<div class="row">
 				<div class="col mt-3 mb-4" style="color:#5E5E5E; margin-left: 2%;">
-						${tags}
+						태그
 				</div>
 				</div>
 				
@@ -120,23 +140,23 @@ document.addEventListener("DOMContentLoaded", function () {
 	                    `);
 	                    
 	                });
-
-	                offset += res.length;
-					  
-				  } else {
-					  $('#addBtn').hide();
-				  }
-			  },  error: function (xhr, status, error) {
-                    console.log("AJAX Error: " + status + " - " + error);
-                    console.log(xhr.responseText);
-              }
-			  
-		  })
-		  
-	  });
-	  
-	  // 직무 카테고리 선택 (하단 categoryList() 함수 실행)
-	  $('.jobs').on("click", function(){
+	                // offset을 업데이트합니다.
+	                offset += data.length;
+	            } else {
+	                // 더 이상 가져올 데이터가 없다면 "더보기" 버튼을 숨깁니다.
+	                $('#addBtn').hide();
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("An error occurred: " + error);
+	        }
+	    });
+	});
+    
+    
+	
+	// 직무 카테고리 선택 시, 하단 리스트 출력
+	$('.jobs').on("click", function(){
 		
 		let jobTxt = $(this).children().eq(0).text();
 		let jobVal = $(this).attr("value");
@@ -149,13 +169,13 @@ document.addEventListener("DOMContentLoaded", function () {
             $(this).attr("value","off");
            
             $.ajax({
-                url: "getStoryList", 
+                url: "allJobSelectedCategory", 
                 type: "POST",
                 dataType: "json",
                 success: function (res) {
 
             	$("#jobSelectedCategory").empty();
-            	categoryList(res.resultList);
+            	categoryList(res.category);
                     
                 },
                 error: function (xhr, status, error) {
@@ -182,7 +202,7 @@ document.addEventListener("DOMContentLoaded", function () {
             $(this).attr("value","on");
            
 				$.ajax ({
-					url : "storyList",
+					url : "jobSelectedCategory",
 					data : "selectedJob=" + jobTxt,
 					type: "POST",
 					dataType: "json",
@@ -200,6 +220,8 @@ document.addEventListener("DOMContentLoaded", function () {
 					} else {
 			
 					categoryList(res.category);
+			
+
 					};
 				}, error: function() {
 					console.log("err");
@@ -211,8 +233,37 @@ document.addEventListener("DOMContentLoaded", function () {
 		
 	});
 	
-	
 });
+
+// 별도 함수 생성
+function toggleSelection(index) {
+    const job = document.querySelector(`#jobCategories-${index}`);
+    const label = document.querySelector(`#jobCategoriesLabel-${index}`);
+    const closeButton = document.querySelector(`#jobCategories-${index} .close-btn`);
+
+    if (job.checked) {
+        // 이미 선택된 경우 해제
+        job.checked = false;
+        clearSelection(index);
+    } else {
+        // 선택되지 않은 경우 선택
+        job.checked = true;
+        label.style.color = '#FFFFFF';
+        job.parentElement.classList.add('selected');
+        closeButton.style.display = 'block';
+    }
+}
+
+function clearSelection(index) {
+    const job = document.querySelector(`#jobCategories-${index}`);
+    const label = document.querySelector(`#jobCategoriesLabel-${index}`);
+    const closeButton = document.querySelector(`#jobCategories-${index} .close-btn`);
+
+    job.checked = false;
+    label.style.color = ''; // 원래의 색상으로 돌아가게 수정
+    job.parentElement.classList.remove('selected');
+    closeButton.style.display = 'none';
+}
 
 // 카테고리별 스토리 리스트 출력
 function categoryList(items) {
@@ -304,6 +355,50 @@ function categoryList(items) {
 						`+i.thank+`
 					</div>
 				</div>
-			</div>`) 
-	});
+
+			
+			</div>
+
+								`) 
+					});
+	
 }
+
+// 페이징 리스트 출력 ver2
+/*function storyListPaged() {
+	
+	let offset = 0;
+	let limit = 6;
+	
+	
+	
+	
+}*/
+
+
+
+
+/*
+function loadMore() {
+	
+	indexCnt = 6;
+	
+	$.ajax({
+		type: "POST",
+		url: "allJobSelectedCategory",
+		dataType: "json",
+		success: function(res) {
+			
+			appendStoryList(res);
+			indexCnt += res.length;
+			
+		}, error: function() {
+					console.log("err");					
+			}
+		
+	});
+	
+	
+}
+
+*/

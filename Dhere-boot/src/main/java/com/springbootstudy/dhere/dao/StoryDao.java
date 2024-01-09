@@ -1,6 +1,7 @@
 package com.springbootstudy.dhere.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.springbootstudy.dhere.domain.Image;
 import com.springbootstudy.dhere.domain.Job;
@@ -10,9 +11,10 @@ import com.springbootstudy.dhere.domain.Tag;
 
 public interface StoryDao {
     // 게시물 리스트 가져오기
-    public abstract List<Story> getStoryList();
+    //public abstract List<Story> getStoryList();
+    public abstract Map<String, List<Story>> getStoryList();
     
-    //	페이징 처리를 위한 게시물 리스트 가져오기(syj)
+    // 게시물 리스트 가져오기 (+페이징)
     public abstract List<Story> getStoryListPaged(int offset, int limit);
 
     // 게시물 디테일 가져오기(syj)
@@ -59,6 +61,9 @@ public interface StoryDao {
 	
 	//tagPost추가하기
 	public abstract void insertTagPost(Tag tag);
+	
+	//내 게시 글
+	public abstract List<Story> sList(String email);
 
 	// 직종별 게시물 리스트 출력
 	public abstract List<Story> storyList(String selectedJob);
@@ -68,4 +73,6 @@ public interface StoryDao {
 	
 	// 정렬 리스트 출력
 	public abstract List<Story> sortList(String sort);
+
+	
 }
