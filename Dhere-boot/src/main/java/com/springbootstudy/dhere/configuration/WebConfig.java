@@ -29,6 +29,7 @@ public class WebConfig implements WebMvcConfigurer {
 		registry.addViewController("/scrap").setViewName("scrap");
 		registry.addViewController("/inquiryWrite").setViewName("inquiryWrite");
 		registry.addViewController("/answerWrite").setViewName("answerWrite");			
+		registry.addViewController("/noticeWriteForm").setViewName("noticeWriteForm");			
 	}
 	
 //  classpath:/static/resources/images/** 에 모든 리소스를 저장하고 
