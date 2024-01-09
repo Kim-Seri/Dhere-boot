@@ -11,19 +11,18 @@
 	align-items: center;
 }
 
-#postImg, .div1,.div2 {
-	max-width: 100%;
-	height: auto;
-	width: 900px;
-	display: block; /* 이미지를 블록 레벨 요소로 설정 */
-    margin: auto;
+.postImg {
+	
+  	width:100%;
+    height:100%;
+    object-fit:cover;
 }
-.div2{
-	max-width: 100%;
-	height: auto;
-	width: 900px;
-	display: block; /* 이미지를 블록 레벨 요소로 설정 */
-    margin: auto;
+.div1{
+    
+    height: auto;
+    width: 900px; /* 변경된 부분: 동일한 너비로 설정 */
+    display: block;
+    margin: 0 auto;
 }
 
 .deleteBtn {

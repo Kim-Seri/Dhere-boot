@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.springbootstudy.dhere.dao.StoryDao;
 import com.springbootstudy.dhere.domain.Image;
 import com.springbootstudy.dhere.domain.Job;
+import com.springbootstudy.dhere.domain.Marker;
 import com.springbootstudy.dhere.domain.Image;
 import com.springbootstudy.dhere.domain.Story;
 import com.springbootstudy.dhere.domain.Tag;
@@ -133,6 +134,12 @@ public class StoryServiceImpl implements StoryService {
 	@Override
 	public List<Story> sortList(String sort) {
 		return storyDao.sortList(sort);
+	}
+	
+	//마커관련정보 추가
+	@Override
+	public void insertMarker(Marker marker){
+		 storyDao.insertMarker(marker);
 	}
 
 	

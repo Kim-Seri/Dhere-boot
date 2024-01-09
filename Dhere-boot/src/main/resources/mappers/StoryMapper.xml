@@ -82,7 +82,7 @@
 
 
 	<!-- 스토리 이미지 작성 쿼리 -->
-	<insert id="insertImage" parameterType="Image">
+	<insert id="insertImage" parameterType="Image" useGeneratedKeys="true" keyProperty="imageNo">
 		INSERT INTO image (file_name, story_no)
 		VALUES (#{fileName}, #{storyNo})
 	</insert>
@@ -100,6 +100,12 @@
 	<insert id="insertTagPost" parameterType="Tag">
 		INSERT INTO tag_post (tag_no, story_no)
 		VALUES(#{tagNo},#{storyNo})
+	</insert>
+	
+	<!-- 마커 정보 입력 쿼리 -->
+	<insert id="insertMarker" parameterType="Marker">
+		INSERT INTO marker(story_no,top1,left1,image_no,product_no)
+		VALUES(#{storyNo},#{top1},#{left1},#{imageNo},#{productNo})
 	</insert>
 
 	<!-- storyDetail_기본 정보 가져오기 쿼리(syj) -->

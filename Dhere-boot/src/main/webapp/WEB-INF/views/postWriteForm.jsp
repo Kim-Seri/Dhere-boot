@@ -12,6 +12,7 @@
 	<div class="col">
 		<form action="postWrite" method="post" id="postWriteForm"
 			name="postWriteForm" enctype="multipart/form-data">
+			<input type="hidden" name="markers" id="markers">
 			<div class="row ">
 				<div class="col text-start">
 					<h3 class="text-secondary">직종 선택</h3>
