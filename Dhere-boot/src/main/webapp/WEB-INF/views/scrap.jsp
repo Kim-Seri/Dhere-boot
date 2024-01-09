@@ -25,13 +25,13 @@
 	
 	<div class="col justify-content-center" id="infobox">
 		<div class="infoTab_box">
-			<button type="button" class="btn btn-outline-primary" id="infoTab_btn" onclick="showInfo(0)">회원정보</button>
-			<button type="button" class="btn btn-outline-primary" id="infoTab_btn" onclick="location.href='${pageContext.request.contextPath}/mypageUpdateProcess'">회원정보수정</button>
-			<button type="button" class="btn btn-outline-primary" id="infoTab_btn" onclick="location.href='inquiryWrite'">1:1문의하기</button>
-			<button type="button" class="btn btn-outline-primary" id="infoTab_btn" onclick="showInfo(1)">로그아웃</button>
+			<button type="button" class="btn" id="infoTab_btn" >회원정보</button>
+			<button type="button" class="btn" id="infoTab_btn" onclick="location.href='${pageContext.request.contextPath}/mypageUpdateProcess'">회원정보수정</button>
+			<button type="button" class="btn" id="infoTab_btn" onclick="location.href='inquiryWrite'">1:1문의하기</button>
+			<button type="button" class="btn" id="infoTab_btn" onclick="location.href='iList'">문의내역</button>
 		</div>
 		<div class="infoContent_box">
-			<div class="row infoContent">
+			<div class="row infoContent alert-box">
 				<!-- 프로필 사진 시작 -->
             	<div class="col-4" >
 					 <c:if test="${ empty sessionScope.member.picture }">
@@ -72,19 +72,8 @@
 						</div>
 	                </div>
 				</div>
-	
 			</div>
 			<!-- 닉네임/이메일/직업/좋아요 끝 -->
-			<div class="infoContent alert-box" id="logout_btn">
-			
-			</div>
-			<div class="infoContent alert-box" id="logout_btn">
-			<div>
-				<p>정말 로그아웃 하실건가요?</p>				
-				<a class="btn btn-primary" href="/" >아니오</a>
-				<a class="btn btn-primary" href="/logoutResult" >네에</a>
-			</div>
-			</div>			
 </div>
 </div>
 	
@@ -92,32 +81,31 @@
 	<!-- 탭바 (내 게시물/스크랩 항목/팔로우) 시작 -->
 	<div class="row mt-5">
 	<div class="col">
-		<ul class="nav nav-underline offset-1" id="myPostsBtn">
+		<ul class="nav nav-underline offset-1" id="myPostsBtn" >
 		  <li class="nav-item text-center" data-tab="myPosts" style="width: 170px">
 		    <a class="nav-link active" aria-current="page" 
-		    style="font-size: 25px; color: rgb(56, 96, 255); cursor: pointer" data-bs-toggle="pill">나의 게시물</a>
+		    style="font-size: 25px; color: rgb(56, 96, 255); cursor: pointer" data-bs-toggle="pill" onclick="showInfo(0)">나의 게시물</a>
 		  </li>
 		  <li class="nav-item text-center" data-tab="myScraps" style="width: 170px">
 		    <a class="nav-link " aria-current="page" 
-		    style="font-size: 25px; color: rgb(56, 96, 255); cursor: pointer" data-bs-toggle="pill">나의 스크랩</a>
+		    style="font-size: 25px; color: rgb(56, 96, 255); cursor: pointer" data-bs-toggle="pill" onclick="showInfo(1)">나의 스크랩</a>
 		  </li>
 		  <li class="nav-item text-center" data-tab="followListsß" style="width: 170px">
 		    <a class="nav-link " aria-current="page" 
-		    style="font-size: 25px; color: rgb(56, 96, 255); cursor: pointer" data-bs-toggle="pill">팔로우 목록</a>
+		    style="font-size: 25px; color: rgb(56, 96, 255); cursor: pointer" data-bs-toggle="pill" onclick="showInfo(2)">팔로우 목록</a>
 		  </li>
 		</ul>
 	<div class="tabcontent">
-		<div class="tabcontent fade show active" id="myPosts">
-    		호
+		<div class="tabcontent active" id="myPosts">
+    	야
  		 </div>
-
   		<!-- 나의 스크랩 탭 내용 -->
   		<div class="tabcontent fade" id="myScraps">
    		 이
   		</div>
 
   		<!-- 팔로우 목록 탭 내용 -->
-		<div class="tab-content fade" id="followLists">
+		<div class="tabcontent fade" id="followLists">
 		와우
   		</div>
 	</div>
