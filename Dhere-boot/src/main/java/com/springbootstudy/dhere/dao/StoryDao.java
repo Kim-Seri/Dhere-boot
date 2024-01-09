@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.springbootstudy.dhere.domain.Image;
 import com.springbootstudy.dhere.domain.Job;
+import com.springbootstudy.dhere.domain.Marker;
 import com.springbootstudy.dhere.domain.Image;
 import com.springbootstudy.dhere.domain.Story;
 import com.springbootstudy.dhere.domain.Tag;
@@ -74,5 +75,6 @@ public interface StoryDao {
 	// 정렬 리스트 출력
 	public abstract List<Story> sortList(String sort);
 
-	
+	//마커 정보 입력
+	public abstract void insertMarker(Marker marker);
 }

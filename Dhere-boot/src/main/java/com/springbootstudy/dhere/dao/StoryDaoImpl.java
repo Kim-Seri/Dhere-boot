@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.springbootstudy.dhere.domain.Image;
 import com.springbootstudy.dhere.domain.Job;
+import com.springbootstudy.dhere.domain.Marker;
 import com.springbootstudy.dhere.domain.Image;
 import com.springbootstudy.dhere.domain.Story;
 import com.springbootstudy.dhere.domain.Tag;
@@ -173,11 +174,16 @@ public class StoryDaoImpl implements StoryDao {
 		return sqlSession.selectList(NAME_SPACE  + ".sortList", sort);
 	}
 	
-	@Override
+@Override
 	public List<Story> sList(String email) {
 		return sqlSession.selectList(NAME_SPACE + ".sList", email);
 	}
 
+//마커 정보 입력
+	@Override
+	public void insertMarker(Marker marker) {
+		sqlSession.insert(NAME_SPACE+".insertMarker",marker);
+	}
 
 
 

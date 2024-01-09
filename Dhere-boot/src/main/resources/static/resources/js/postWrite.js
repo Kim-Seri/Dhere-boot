@@ -13,6 +13,10 @@ function startAddingMarker() {
 	isAddingMarker = true;
 	console.log(isAddingMarker);
 
+	// ##############################################
+	// ##############################################
+	// 문제점 - 이미지가 여러 개 선택될 때 마커 추가 버튼은 하나만 생김 - id 선택자를 사용하면 않됨
+	// ##############################################
 	//마커 추가 버튼 엘리먼트
 	const addMarkerButton = $("#addMarkerButton");
 	addMarkerButton.text("편집 완료");
@@ -29,7 +33,7 @@ function finishAddingMarker() {
 	document.getElementById('finishMarkerButton').setAttribute('id', 'addMarkerButton');
 }
 
-// 마커 클릭 이벤트 처리
+// 마커 클릭 이벤트 처리 - 없어도 됨
 function handleMarkerClick(e) {
 	if (isAddingMarker) {
 		console.log(isAddingMarker);
@@ -81,7 +85,33 @@ function getHashtagItem(hashtag) {
 	return item;
 }
 
+
+
 $(function() {
+	
+	
+	// 마커를 서버로 전송하기 위한 배열
+	let markers = [];
+	
+	// 마커를 객체 생성자 함수
+	function Marker(markerNo, storyNo, top1, left1, imageNo, productNo) {
+		this.markerNo = markerNo;
+		this.storyNo = storyNo;
+		this.top1 = top1;
+		this.left1 = left1;
+		this.imageNo = imageNo;
+		this.productNo = productNo;
+	}	
+	
+	// postWriteForm 폼이 전송될 때
+	$("#postWriteForm").on("submit", function(e) {
+		//e.preventDefault();
+		// 폼이 sumbit 될 때 마커 정보를 직렬화하여 markers라는 이름을 가진 hidden 필드에 추가된다.
+		$("#markers").val(JSON.stringify(markers));
+		
+		// 아래에 유효성 검사 코드가 필요함
+	});
+	
 
 	//Marker addition function
 	function addMarker(x, y) {
@@ -92,11 +122,6 @@ $(function() {
 
 		//console.log("x 좌표," + leftX);
 		//console.log("y 좌표," + topY);
-
-
-
-
-
 
 		// 마커를 추가할 부모 컨테이너
 		//const markerContainer = $("<div class='marker-container'></div>");
@@ -121,8 +146,8 @@ $(function() {
     							</div>`);
 
 		// 이미지의 크기
-		const imageWidth = $('.div1').width();
-		const bodyHeight = $(".div1").height();
+		const imageWidth = $('#div1').width();
+		const bodyHeight = $("#div1").height();
 		
 
 		// 스크롤 위치
@@ -151,8 +176,8 @@ $(function() {
 			// display: "none", // 현재는 숨김 처리
 		});
 
-		$(".div1").append(marker);
-		$(".div1").append(searchBox);
+		$("#div1").append(marker);
+		$("#div1").append(searchBox);
 
 		// 마커를 이미지가 아닌 별도의 컨테이너에 추가
 		//$(".div1").append(markerContainer);
@@ -185,12 +210,18 @@ $(function() {
 		success: function(products) {
 			console.log(products)
 			console.log(products[0].productName);
-			var result = products.map(function(object, index) {
+			window.productList = products;
+			
+			// ###################################
+			/* 여기 map 함수는 필요하지 않음
+			var result = products.map(function(object, index) {				
 				window.productList = products;
-			})
+			});
+			*/
+			// ###################################
 		},
 		error: function(error) {
-			console.log("제품명 데이터를 가져오는 중 오류 발", error);
+			console.log("제품명 데이터를 가져오는 중 오류 발생", error);
 		}
 	})
 
@@ -205,8 +236,10 @@ $(function() {
 		if (inputSearch.length == 0) {
 			$("#autoCompleteResults").empty();
 		}
-
-		console.log(matchingProducts.brandName);
+		
+		// 요거는 필요 없음 - matchingProducts는 배열이므로 brandName이 없음
+		//console.log(matchingProducts.brandName);
+		console.log(matchingProducts);
 
 		displayAutoCompleteResults(matchingProducts);
 	});
@@ -223,7 +256,7 @@ $(function() {
 	$("#categoryCarousel").carousel();
 
 
-
+	// 사진추가 버튼 클릭시
 	$("#addImageButton").on("click", function() {
 		// 새로운 이미지 입력 필드를 생성하고 파일 선택 다이얼로그를 띄웁니다.
 
@@ -243,8 +276,8 @@ $(function() {
 			}
 
 			// 이미지 미리보기 업데이트
-			var imagePreview = $("<img class='img-thumbnail' id='postImg'/>");
-			var div1 = $(`<div class='div1'></div>`);
+			var imagePreview = $(`<img class='img-thumbnail postImg' id='postImg${imageDivNum}'/>`);
+			var div1 = $(`<div class='div1' id='div${imageDivNum}'></div>`);
 			//      var changeButton = $(
 			//        "<button type='button' class='btn btn-outline-primary' id='changeImageButton'>사진 수정하기</button>"
 			//      );
@@ -322,13 +355,14 @@ $(function() {
 		startAddingMarker();
 	});
 
-	//마커 삭제버튼 눌렀을 시
+	// 마커 추가시 나타나는 검색창 삭제버튼 눌렀을 때(x) 
 	$("#imageContainer").on("click", "#deleteMaker", function() {
 		$(this).parent().parent().parent().parent().prev().remove();
 		$(this).parent().parent().parent().parent().remove();
 	});
 
-	$(document).on("click", "#postImg", function(event) {
+	// 이미지 안에서 클리했을 때 마커를 추가하는 이벤트 핸들러
+	$(document).on("click", "#postImg1", function(event) {
 		if (isAddingMarker) {
 			addMarker(event.offsetX, event.offsetY);
 		}
@@ -339,6 +373,7 @@ $(function() {
 		finishAddingMarker();
 	});
 
+	// 마커의 검색 창에서 검색어 입력 실행될 때 실행되는 함수 - 위쪽의 검색어 입력 이벤트 감지에서 사용 
 	function displayAutoCompleteResults(results) {
 		// 결과를 표시할 UI 요소 선택 (예: 결과를 표시할 div)
 		const autoCompleteDiv = $("#autoCompleteResults");
@@ -376,15 +411,17 @@ $(function() {
 			autoCompleteDiv.append(resultItem);
 
 
-			// 결과를 클릭하면 자동으로 검색 상자에 입력되도록 이벤트 처리
+			// 마커 검색 결과 리스트에서 상품을 클릭했을 때 자동으로 폼검색 상자에 입력되도록 이벤트 처리
 			resultItem.on("click", function() {
-
-				const left1 = (`<input type='hidden' name='left1', value='${adjustedX}%'>`);
-				const top1 = (`<input type='hidden' name='top1', value='${adjustedY}%'>`);
-				const productNo = (`<input type='hidden' name ='productNo',value='${result.productNo}'>`);
-
 				
+				// ##############################################
+				// ##############################################
+				// 마커 객체를 생성해 배열에 추가 - 여기서 생성된 객체 배열은 폼이 submit 될 때 직렬화되어 hidden 필드에 추가되고 서버로 전송된다.
+				// 이미지를 구분할 데이터, 즉 마커가 어떤 이미지에 속한 것인지를 구분할 데이터가 필요함
+				markers.push(new Marker(0, 0, adjustedX, adjustedY, 0, result.productNo));
 				
+				// ##############################################
+				// ##############################################
 
 				const searchBox1 = ($(this).parent().parent().parent().parent());
 				// 텍스트 창 아래에 제품 정보 표시
@@ -426,7 +463,7 @@ $(function() {
 		});
 	}
 
-	// 이미지 미리보기 업데이트 함수
+	// 이미지 미리보기 업데이트 함수 - 위쪽의 사진추가 버튼 클릭시에 실행되는 함수
 	function displayImagePreview(input, preview) {
 		// 선택한 이미지를 미리보기로 업데이트
 		if (input.files && input.files[0]) {
