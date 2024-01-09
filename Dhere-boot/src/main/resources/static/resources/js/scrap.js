@@ -21,3 +21,5 @@ window.onload = function() {
         // Activate the corresponding tab
    			tabs[index].classList.add('active');
     }	
+    
+    

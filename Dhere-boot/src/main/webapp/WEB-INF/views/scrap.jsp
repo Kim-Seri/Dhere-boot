@@ -25,10 +25,10 @@
 	
 	<div class="col justify-content-center" id="infobox">
 		<div class="infoTab_box">
-			<button type="button" class="btn" id="infoTab_btn" >회원정보</button>
-			<button type="button" class="btn" id="infoTab_btn" onclick="location.href='${pageContext.request.contextPath}/mypageUpdateProcess'">회원정보수정</button>
-			<button type="button" class="btn" id="infoTab_btn" onclick="location.href='inquiryWrite'">1:1문의하기</button>
-			<button type="button" class="btn" id="infoTab_btn" onclick="location.href='iList'">문의내역</button>
+			<button type="button" class="infoTab_btn" >회원정보</button>
+			<button type="button" class="infoTab_btn" onclick="location.href='${pageContext.request.contextPath}/mypageUpdateProcess'">회원정보수정</button>
+			<button type="button" class="infoTab_btn" onclick="location.href='inquiryWrite'">1:1문의하기</button>
+			<button type="button" class="infoTab_btn" onclick="location.href='iList'">문의내역</button>
 		</div>
 		<div class="infoContent_box">
 			<div class="row infoContent alert-box">

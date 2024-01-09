@@ -35,10 +35,13 @@
 	<!-- 회원정보를 수정하는 맵핑구문 -->
 	<update id="updateMember" parameterType="Member">
 		UPDATE member
-			SET pass=#{pass}, email=#{email}, phone=#{phone},
-			name=#{name}, nickname=#{nickname}, zipcode=#{zipcode},
-			address1=#{address1}, address2=#{address2}
-			job=#{job}, phone=#{phone}, picture=#{picture}
+			SET phone=#{phone}, pass=#{pass},
+			nickname=#{nickname}, zipcode=#{zipcode},
+			address1=#{address1}, address2=#{address2},
+			job=#{job}, phone=#{phone}
+			<if test="picture != null">
+			, picture=#{picture}
+			</if>
 		WHERE email=#{email}
 	</update> 
 	

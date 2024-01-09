@@ -13,16 +13,18 @@
     margin-bottom: -2.5px;
 }
 
-.infoTab_box #infoTab_btn{
+.infoTab_box .infoTab_btn{
 	color :  rgb(56, 96, 255);
 	font-size :18px;
 	font-weight:600;
+	border-color : white;
+	background-color : white;
 	border-radius : 12px 12px 0 0;
 	padding: 10px;
-	cursor: pointer;
+	width : 180px;
 }
 
-#infoTab_btn:hover{
+.infoTab_btn:hover{
 	 background-color: rgb(56, 96, 255);
 	 transition: 0.5s;
 	 color: white;
@@ -35,21 +37,8 @@
 	border-radius: 0 0 10px 10px;
 }
 
-.btn {
-	width: 137px;
-    margin-right: -2px;
-}
 
-.infoContent {
-      display: none;
-}
 
-.infoContent .logout_btn {
-		background-color: white;
-		padding: 20px;
-		color: blue;
-		border-radius: 5px;
-		display: none;
-}
+
 
 
