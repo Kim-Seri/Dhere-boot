@@ -22,4 +22,30 @@
 	    AND following_email = #{followingEmail}
 	</select>
 
+
+<!-- 
+<select id="followerList"  resultMap="followerResultMap">
+		SELECT
+			f.follower_email AS followerEmail,
+			f.following_email AS followingEmail,
+			m.email,
+			m.picture,
+			m.nickname,
+			m.job
+		FROM follower f
+			JOIN member m ON f.following_email = m.email
+		WHERE f.follower_email = #{followerEmail}
+	</select>
+	
+	<resultMap id="followerResultMap" type="Follower">
+		<id property="email" column="email" />
+		<result property="followerEmail" column="followerEmail" />
+		<result property="followingEmail" column="followingEmail" />
+		<result property="picture" column="picture" />
+		<result property="nickname" column="nickname" />
+		<result property="job" column="job" />
+	</resultMap>
+
+ -->
+
 </mapper>

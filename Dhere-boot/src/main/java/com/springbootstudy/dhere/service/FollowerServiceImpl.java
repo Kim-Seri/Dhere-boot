@@ -33,3 +33,22 @@ public class FollowerServiceImpl implements FollowerService {
     }
 
 }
+
+
+
+/*
+@Service
+public class FollowerServiceImpl implements FollowerService {
+	
+	@Autowired
+	private FollowerDao followerDao;
+
+	@Override
+	public List<Follower> followerList(String followerEmail) {
+		return followerDao.followerList(followerEmail);
+	}
+
+
+	
+}
+*/

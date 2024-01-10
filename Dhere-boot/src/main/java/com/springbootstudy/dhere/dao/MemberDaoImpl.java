@@ -11,10 +11,10 @@ import com.springbootstudy.dhere.domain.Member;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
-	private static final String NAME_SPACE="com.springstudy.dhere.mappers.MemberMapper";
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+	private static final String NAME_SPACE="com.springstudy.dhere.mappers.MemberMapper";
 	
 	//회원정보 가져오기
 	@Override
@@ -36,5 +36,9 @@ public class MemberDaoImpl implements MemberDao {
 	public void updateMember(Member member) {
 		sqlSession.update(NAME_SPACE + ".updateMember", member);
 	}
+	
+	
+	
+	
 		
 }

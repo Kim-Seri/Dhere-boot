@@ -27,10 +27,10 @@
 	
 	<div class="col justify-content-center" id="infobox">
 		<div class="infoTab_box">
-			<button type="button" class="btn" id="infoTab_btn" >회원정보</button>
-			<button type="button" class="btn" id="infoTab_btn" onclick="location.href='${pageContext.request.contextPath}/mypageUpdateProcess'">회원정보수정</button>
-			<button type="button" class="btn" id="infoTab_btn" onclick="location.href='inquiryWrite'">1:1문의하기</button>
-			<button type="button" class="btn" id="infoTab_btn" onclick="location.href='iList'">문의내역</button>
+			<button type="button" class="infoTab_btn" onclick="setActiveButton(this)">회원정보</button>
+			<button type="button" class="infoTab_btn" onclick="setActiveButton(this); location.href='${pageContext.request.contextPath}/mypageUpdateProcess'">회원정보수정</button>
+			<button type="button" class="infoTab_btn" onclick="setActiveButton(this); location.href='inquiryWrite'">1:1문의하기</button>
+			<button type="button" class="infoTab_btn" onclick="setActiveButton(this); location.href='iList'">문의내역</button>
 		</div>
 		<div class="infoContent_box">
 			<div class="row infoContent alert-box">
@@ -78,6 +78,28 @@
 			<!-- 닉네임/이메일/직업/좋아요 끝 -->
 </div>
 </div>
+		<!-- 게시물 전체 -->	
+		<div class="row">
+		<div class="col">
+		<!-- 팔로워목록 한칸 -->
+		<div class="" id="followingCategory" >
+			<c:forEach var ="f" items="${followerList}">
+				<c:if test="${empty followerList}">
+				팔로워한 사람이 없네요 !
+				</c:if>
+				<c:if test="${not empty followerList}">
+			<!-- 프로필 사진 -->
+			${f.picture}
+			<!-- 닉네임 -->
+			<!-- 이메일 -->
+				${f.followerEmail}
+			<!-- 직업 -->
+			
+				</c:if>
+			</c:forEach>
+		</div>
+		</div>
+		</div>
 	
 	<!-- 탭바 (프로필/정보수정/1:1문의하기/로그아웃) 끝 -->
 	<!-- 탭바 (내 게시물/스크랩 항목/팔로우) 시작 -->
@@ -199,13 +221,14 @@
 			</div>
  		 </div>
   		<!-- 나의 스크랩 탭 내용 -->
-  		<div class="tabcontent" id="myScraps">
-   		 
+  		<div class="tabcontent fade" id="myScraps">
+   		d
   		</div>
 
   		<!-- 팔로우 목록 탭 내용 -->
-		<div class="tab-content" id="followLists">
+		<div class="tabcontent fade" id="followLists">
 		
+		d
   		</div>
 	</div>
 	</div>

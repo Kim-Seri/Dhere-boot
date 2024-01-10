@@ -81,3 +81,42 @@ public class FollowerController {
 	        return "redirect:/storyDetail?storyNo=" + storyNo;
 	    }
 }
+
+
+
+
+/*
+@Controller
+public class FollowerController {
+	
+	
+
+	@Autowired
+	private FollowerService followerService;
+	
+	@Autowired
+	private MemberService memberService;
+	
+	public void setFollowerService(FollowerService followService) {
+		this.followerService = followService;
+	}
+	
+	private static final String DEFAULT_PATH = "/resources/images/profile/";
+	
+	// 팔로우 리스트 출력
+	@GetMapping("/scrap")
+	public String following( Model model, 
+			HttpSession session) {
+		
+		Member member = (Member)session.getAttribute("member");
+		System.out.println("email" + member.getEmail());
+		
+		List<Follower> followerList = followerService.followerList(member.getEmail());
+		model.addAttribute("followerList", followerList);
+		
+			return "scrap";
+		
+	}
+			
+}
+*/

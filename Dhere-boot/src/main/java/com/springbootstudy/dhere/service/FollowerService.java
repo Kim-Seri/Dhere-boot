@@ -16,3 +16,17 @@ public interface FollowerService {
     boolean isFollowing(String followerEmail, String followingEmail);
     
 }
+
+
+
+
+/*
+public interface FollowerService {
+	
+	public abstract List<Follower> followerList(String followerEmail);
+	
+
+	
+
+}
+*/

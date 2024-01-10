@@ -16,3 +16,17 @@ public interface FollowerDao {
     // 팔로우 여부 확인하기(syj)
     boolean isFollowing(String followerEmail, String followingEmail);
 }
+
+
+
+
+
+/*
+public interface FollowerDao {
+	
+	public List<Follower> followerList(String followerEmail);
+	
+
+	
+}
+*/

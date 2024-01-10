@@ -46,3 +46,20 @@ public class FollowerDaoImpl implements FollowerDao {
 
 
 
+/*
+@Repository
+public class FollowerDaoImpl implements FollowerDao {
+	
+	@Autowired
+	private SqlSessionTemplate sqlSession;
+	private static final String NAME_SPACE = "com.springbootstudy.dhere.mappers.FollowerMapper";
+
+	@Override
+	public List<Follower> followerList(String followerEmail) {
+		return sqlSession.selectList(NAME_SPACE + ".followerList", followerEmail);
+	}
+
+
+		
+}
+*/

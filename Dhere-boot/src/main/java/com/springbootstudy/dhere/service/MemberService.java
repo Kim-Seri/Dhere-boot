@@ -2,6 +2,7 @@ package com.springbootstudy.dhere.service;
 
 import java.util.List;
 
+
 import com.springbootstudy.dhere.domain.Job;
 import com.springbootstudy.dhere.domain.Member;
 
@@ -22,4 +23,10 @@ public interface MemberService {
 	// 비밀번호 체크 메서드
 	public abstract boolean memberPassCheck(String email, String pass);
 	
+	// 회원 정보를 DAO를 이용해 회원테이블에서 수정하는 메서드
+	public void updateMember(Member member);
+
+	
+	
+
 }
