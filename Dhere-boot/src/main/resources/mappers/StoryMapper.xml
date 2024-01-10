@@ -264,13 +264,26 @@
 	    		content1 = #{content1},
 	    		content2 = #{content2},
 	    		content3 = #{content3},
-	    		content4 = #{content4}
+	    		content4 = #{content4},
+	    		category_no=#{categoryNo}
 		WHERE 	story_no = #{storyNo}
 	</update>
-		
-		
-
-		
+	
+	<!-- 태그 수정 쿼리 -->
+	<update id="updateTag" parameterType="Tag">
+	UPDATE tag
+	SET    tag_name=#{tagName}
+	WHERE  tag_no=#{tagNo}
+	</update>	
+	
+	<!-- 태그포스트 수정 쿼리 -->	
+	<update id="updateTagPost" parameterType="Tag">
+	UPDATE tag_post
+	SET    tag_no=#{tagNo}
+	WHERE  story_no=#{storyNo}
+	</update>		
+	
+	
 	<!-- 직종 조회 쿼리 -->
 	<select id="getJobList" resultType="Job"
 		resultMap="JobResultMap">

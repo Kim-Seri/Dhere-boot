@@ -23,6 +23,7 @@
     width: 900px; /* 변경된 부분: 동일한 너비로 설정 */
     display: block;
     margin: 0 auto;
+    
 }
 
 .deleteBtn {

@@ -80,4 +80,10 @@ public interface StoryDao {
 	
 	// 마커 리스트에 담기(syj)
 	public abstract List<Marker> markerList(int storyNo);
+
+	//태그 수정
+	void updateTag(Tag tag);
+
+	//태그 포스트 수정
+	void updateTagPost(Tag tag);
 }
