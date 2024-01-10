@@ -76,9 +76,9 @@ public interface StoryService {
 	// 마커 리스트에 담기(syj)
 	public abstract List<Marker> markerList(int storyNo);
 
-	//태그 리스트 수정
-	public abstract void updateTag(Tag tag);
+	//이미지 삭제
+	public abstract void deleteImage(int storyNo);
 
-	//태그 리스트 수정
-	public abstract void updateTagPost(Tag tag);
+	//태그 삭제
+	public abstract void deleteMarker(int storyNo);
 }

@@ -204,21 +204,107 @@ public class StoryController {
 			@RequestParam(value = "hashtag", required = false) List<String> tagList,
 			@RequestParam(value = "additionalImages", required = false) List<MultipartFile> multipartFile,
 			@RequestParam(value = "markers", required = false) String markers) throws IOException {
+		
+		int imageNo = 0;
+		log.info("markers : " + markers);
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		List<Marker> mList = objectMapper.readValue(markers, new TypeReference<List<Marker>>() {
+		});
+		
 
 		// storyService 클래스를 이용해 게시물을 수정한다.
 		storyService.updateStoryProcess(story);
 		int storyNo = story.getStoryNo();
+		log.info("storyNo : " + storyNo);
+		storyService.deleteMarker(storyNo);
+		
+		
+		// 이미지 리스트 추가
+				if (multipartFile != null && !multipartFile.isEmpty()) {
+					storyService.deleteImage(storyNo);
+					boolean isFirstLoop = true;
 
-		if (tagList != null && !tagList.isEmpty()) {
-			for (String hashtag : tagList) {
-				Tag tag = new Tag();
-				tag.setTagName(hashtag);
-				tag.setStoryNo(storyNo);
-				storyService.updateTag(tag);
-				storyService.updateTagPost(tag);
-				System.out.println("태그번호 : " + tag.getTagNo());
-			}
-		}
+					// ########################################################
+					// 여기서 mList에 들어있는 모든 마커에 storyNo를 설정해야 함
+					// ########################################################
+
+					for (MultipartFile imageFile : multipartFile) {
+						Image image = new Image();
+			
+						// ##################################################################
+						// src/main/resources/static/resources/images/desk/** 정적경로 파일 업로드 테스트
+
+						File parent = new File(DEFAULT_PATH);
+						log.info("parent abs path : " + parent.getAbsolutePath());
+						log.info("parent path : " + parent.getPath());
+						log.info("exist : " + parent.exists() + ", dir : " + parent.isDirectory());
+
+						// 존재하지 않으면 filePath의 경로에 있는 모든 폴더를 생성한다.
+						if (!parent.exists()) {
+							parent.mkdirs();
+						}
+
+						UUID uid = UUID.randomUUID();
+
+						// UUID만 사용
+						// 원본 파일에서 확장자만 추출
+						log.info("원본 파일 명 : " + imageFile.getOriginalFilename());
+						String extension = StringUtils.getFilenameExtension(imageFile.getOriginalFilename());
+						String saveName = uid.toString() + "." + extension;
+						File file = new File(parent.getAbsolutePath(), saveName);
+						log.info("file abs path : " + file.getAbsolutePath());
+						log.info("file path : " + file.getPath());
+
+						// 업로드 되는 파일을 upload 폴더로 저장한다.
+						imageFile.transferTo(file);
+						image.setFileName(file.getName());
+						image.setStoryNo(story.getStoryNo());
+						storyService.insertImage(image);
+
+						// #################################################
+						// #################################################
+						// 여기서 mList에 들어있는 모든 마커에 imageNo를 설정해야함
+						// 그런데 문제가 생김 - 하나의 이미지에는 여러 개의 마커가 존재하는데 imageNo는
+						// 마커를 생성할 때 알 수 있는 것이 아니라 서버에서 DB 테이블에 INSERT 될 때 자동 생성되므로
+						if (isFirstLoop) {
+							imageNo = image.getImageNo();
+
+							isFirstLoop = false;
+						}
+						// 폼에서 전송될 때 현재 마커가 어떤 이미지의 마커인지 설정해서 보내야 함
+						// #################################################
+
+					}
+
+					// ####################################################
+					// 여기서 마커 정보를 DB 테이블에 추가하면 될 것 같음 - 이미지가 업로드 되지 않으면 마커는 없다.
+					// ####################################################
+				}
+				if (mList != null && !mList.isEmpty()) {
+					for (Marker marker : mList) {
+
+						Marker m = new Marker();
+						m.setStoryNo(story.getStoryNo());
+						m.setTop1(marker.getTop1());
+						m.setLeft1(marker.getLeft1());
+						m.setProductNo(marker.getProductNo());
+						m.setImageNo(imageNo);
+						System.out.println("마커 이미지 번호 :" + m.getImageNo());
+						System.out.println("마커 스토리 번호 : " + m.getStoryNo());
+						System.out.println("상품 번호 : " + m.getProductNo());
+						System.out.println("마커 x  : " + m.getTop1());
+						System.out.println("마커 y  : " + m.getLeft1());
+
+						storyService.insertMarker(m);
+					}
+				}
+		
+		
+		
+		
+
+		
 
 		return "redirect:main";
 	}

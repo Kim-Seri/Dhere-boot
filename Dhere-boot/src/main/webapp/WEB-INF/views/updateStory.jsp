@@ -14,11 +14,12 @@
 
 		<div class="row p-5 my-5 border border-primary rounded-4 border-3">
 			<div class="col">
-				<form action="updateStoryProcess" method="post" id="postWriteForm"
-					name="postWriteForm" enctype="multipart/form-data">
+				<form action="updateStoryProcess" method="post" id="postUpdateForm"
+					name="postUpdateForm" enctype="multipart/form-data">
 
 					<input type="hidden" name="storyNo" id="storyNo"
 						value="${story.storyNo}">
+						<input type="hidden" name="markers" id="markers">
 
 					<div class="row ">
 						<div class="col text-start">
@@ -45,45 +46,7 @@
 						</div>
 					</div>
 
-					<div class="my-5">
-						<div class="col">
-							<div class="row my-3">
-								<div class="col">
-									<h3 class="text-primary">Q. 태그 입력</h3>
-								</div>
-
-							</div>
-							<div class="row">
-								<div class="col-3 text-center ">
-									<input type="text" class="form-control border-0 border-bottom"
-										id="hashtag" onkeyup="enterkey()" placeholder="태그를 입력하세요"
-										name="tagName">
-								</div>
-								<div class="col">
-									<input type="button" class="btn btn-primary" id="hashtageAdd"
-										onclick="addHashtag()" value="태그추가">
-								</div>
-							</div>
-							<!-- 추가한 해시 태그 리스트 -->
-							<div class="row hashtagList" id="hashtagList">
-								<c:forEach var="tag" items="${tList}">
-									<div class="col-auto hashtag" id="${tag.tagName}">
-										<div class="row my-3">
-											<div class="col border border-primary-subtle pe-0">
-												<span class="hashtag-value text-primary"
-													value="${tag.tagName}">#${tag.tagName}</span>&nbsp; <input
-													type="hidden" name="hashtag" value="${tag.tagName}">
-												<button type="button"
-													class="btn btn-outline-primary border border-0 "
-													onclick="removeHashtag('${tag.tagName}')">×</button>
-											</div>
-											&nbsp;&nbsp;
-										</div>
-									</div>
-								</c:forEach>
-							</div>
-						</div>
-					</div>
+					
 
 					<div class="row ">
 						<div class="col text-start">
@@ -101,62 +64,57 @@
 										<div class='row my-3'>
 											<div class='col text-center position-relative div2'
 												id='ImgDiv${status.count}'>
-												<div class='div1' id='div${status.count}'></div>
-											</div>
-										</div>
-									</div>
-									<div class='row my-3'>
-										<div class='col text-center '>
-											<div class='div1' id='div${status.count}'>
-												<img class='img-thumbnail postImg'
-													src="resources/images/desk/${ image.fileName }"
-													id='postImg${status.count}' />
-												<button type='button' class='btn btn-secondary deleteBtn'
-													id='deleteImageButton${status.count}'>삭제하기</button>
-												<c:if test="${status.count == 1}">
-													<button type='button' class='btn btn-secondary'
-														id='addMarkerButton'>마커 편집</button>
-												</c:if>
-												<c:if test="${status.count == 1 }">
-													<c:forEach var="m" items="${mList}" varStatus="status">
-														<div class='marker' id='marker'
-															style="position: absolute; top:${m.top1}%; left: ${m.left1}%;">
-															<button type='button'
-																class='btn btn-primary rounded-circle markerBtn' id='markerBtn'>+</button>
-														</div>
-														<div
-															class='row search-box py-3 z-3  bg-white border border-primary-subtle rounded '
-															id='searchBox' style="position: absolute; top:${m.top1+3}%; left: ${m.left1}%; display:none;">
-															<img src='resources/images/icon/cancel_red.png'
-																class='deleteMakerBtn' id='deleteMaker1'>
-															<div class='col' id='productEle'>
-																<input type='hidden' name='markerTop'
-																	id='topMarkerResult' value='${m.top1}'>
-																<button type='button' class='btn btn-outline-primary'
-																	onclick="location.href='productDetail?productNo=${m.productNo}'">
-																	<div class='row my-3'>
-																		<div class='col-4'>
-																			<img
-																				src="resources/images/products/${m.productImage}"
-																				style='width: 70px; height: 70px;'>
-																		</div>
-																		<div class='col-4'>
-																			<div class='row mt-2'>
-																				<div class='col text-start'>
-																					${m.brandName}</div>
-																			</div>
-																			<div class='row'>
-																				<div class='col text-start'>
-																					${m.productName}</div>
-																			</div>
-																		</div>
-																		<div class='col-4'></div>
-																	</div>
-																</button>
+												<div class='div1' id='div${status.count}'>
+													<img class='img-thumbnail postImg'
+														src="resources/images/desk/${ image.fileName }"
+														id='postImg${status.count}' />
+													<button type='button' class='btn btn-secondary deleteBtn'
+														id='deleteImageButton${status.count}'>삭제하기</button>
+													<c:if test="${status.count == 1}">
+														<button type='button' class='btn btn-secondary'
+															id='addMarkerButton'>마커 편집</button>
+													</c:if>
+													<c:if test="${status.count == 1 }">
+														<c:forEach var="m" items="${mList}" varStatus="status">
+															<div class='marker' id='marker'
+																style="position: absolute; top:${m.top1}%; left: ${m.left1}%;">
+																<button type='button'
+																	class='btn btn-primary rounded-circle markerBtn'
+																	id='markerBtn'>+</button>
 															</div>
-														</div>
-													</c:forEach>
-												</c:if>
+															<div
+																class='row search-box py-3 z-3  bg-white border border-primary-subtle rounded '
+																id='searchBox'
+																style="position: absolute; top:${m.top1+3}%; left: ${m.left1}%; display:none;">
+																<img src='resources/images/icon/cancel_red.png'
+																	class='deleteMakerBtn' id='deleteMaker1'>
+																<div class='col' id='productEle'>
+																	<input type='hidden' name='markerTop'
+																		id='topMarkerResult' value='${m.top1}'>
+																	<button type='button' class='btn btn-outline-primary'
+																		onclick="location.href='productDetail?productNo=${m.productNo}'">
+																		<div class='row my-3'>
+																			<div class='col-4'>
+																				<img
+																					src="resources/images/products/${m.productImage}"
+																					style='width: 70px; height: 70px;'>
+																			</div>
+																			<div class='col-4'>
+																				<div class='row mt-2'>
+																					<div class='col text-start'>${m.brandName}</div>
+																				</div>
+																				<div class='row'>
+																					<div class='col text-start'>${m.productName}</div>
+																				</div>
+																			</div>
+																			<div class='col-4'></div>
+																		</div>
+																	</button>
+																</div>
+															</div>
+														</c:forEach>
+													</c:if>
+												</div>
 											</div>
 										</div>
 									</div>
