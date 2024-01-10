@@ -23,3 +23,14 @@ window.onload = function() {
     }	
     
     
+   function setActiveButton(button) {
+	   var buttons = document.getElementsByClassName("infoTab_btn");
+	   
+	   for(var i = 0; i < buttons.length; i++) {
+		   buttons[i].classList.remove("activeButton");
+	   }
+	   
+	   button.classList.add("activeButton");
+   }
+    
+    

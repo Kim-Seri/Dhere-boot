@@ -44,7 +44,6 @@
 			
 	</select>
 	
-	
 	<resultMap id="ScrapResultMap" type="Scrap">
 		<id property="email" column="email" />
 		<result property="scrap_no" column="scrap_no" />
