@@ -13,10 +13,6 @@
 </style>
 
 
-
-
-
-
 <div class="row my-4 container" id="global-content">
 	<div class="offset-3 col-6">
 		<form action="joinResult" name="joinForm" id="joinForm" method="post" enctype="multipart/form-data">
@@ -116,13 +112,7 @@
 							<label for="job" class="form-label" style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;직업 </label>
 							<div class="row">
 								<div class="col">
-									<select class="form-control border border-white border-3" name="job" id="job" style="background: white; border-radius: 10px; color: black;">
-									    <option selected disabled>직업을 선택해주세요</option>
-										    <option value="1">개발자</option>
-										    <option value="2">디자이너</option>
-										    <option value="3">마케터</option>
-										    <option value="4">기타</option>
-									</select>
+									<input type="text" class="form-control border border-white border-3" name="job" id="job" placeholder="개발자" style="background: white; border-radius: 10px; color: black;">
 								</div>
 							</div>
 						</div>
