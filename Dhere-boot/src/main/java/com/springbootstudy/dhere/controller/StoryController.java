@@ -48,7 +48,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class StoryController {
 
-	
 	@Autowired
 	private StoryService storyService;
 
@@ -67,27 +66,23 @@ public class StoryController {
 	// #######################################################
 	// ##### JSP 뷰 시작
 	// #######################################################
-	
-	
-	
-	
+
 	// 메인페이지서의 제품 페이징 처리를 위한 메서드(syj)
 	@GetMapping("/getProductList")
 	public ResponseEntity<List<Product>> getProductListPaged(
-	        @RequestParam(value = "category", required = false) String category,
-	        @RequestParam("offset") int offset, 
-	        @RequestParam("limit") int limit) {
+			@RequestParam(value = "category", required = false) String category, @RequestParam("offset") int offset,
+			@RequestParam("limit") int limit) {
 
-	    List<Product> productList;
-	    if (category == null || category.isEmpty() || category.equals("All")) {
-	        productList = productService.getProductListPaged(offset, limit);
-	    } else {
-	        productList = productService.getFilteredProductListPaged(category, offset, limit);
-	    }
-	    
-	    return ResponseEntity.ok(productList);
+		List<Product> productList;
+		if (category == null || category.isEmpty() || category.equals("All")) {
+			productList = productService.getProductListPaged(offset, limit);
+		} else {
+			productList = productService.getFilteredProductListPaged(category, offset, limit);
+		}
+
+		return ResponseEntity.ok(productList);
 	}
-	
+
 	// 데스크 셋업 리스트 출력 (메인)
 	// 카테고리 별 제품 리스트 출력
 	@GetMapping(value = { "/", "/main" })
@@ -96,25 +91,25 @@ public class StoryController {
 
 		List<Job> jList = storyService.getJobList();
 		model.addAttribute("jList", jList);
-		
-		//Map<String, List<Story>> map = storyService.getStoryList();
-		//map.put("sList", storyService.getStoryList());
-		
+
+		// Map<String, List<Story>> map = storyService.getStoryList();
+		// map.put("sList", storyService.getStoryList());
+
 		Map<String, List<Story>> map = storyService.getStoryList();
-	    List<Story> sList = map.get("sList"); 
-	    model.addAttribute("sList", sList);
-		
-		/*
-		List<Story> sList = storyService.getStoryList();
+		List<Story> sList = map.get("sList");
 		model.addAttribute("sList", sList);
-		*/
-		
+
+		/*
+		 * List<Story> sList = storyService.getStoryList(); model.addAttribute("sList",
+		 * sList);
+		 */
+
 		List<Product> pList = productService.productList(productCategory);
 		model.addAttribute("pList", pList);
 
 		return "main";
 	}
-	
+
 	// 게시물 리스트 출력 (+페이징)
     @GetMapping("/getStoryList")
     public ResponseEntity<List<Story>> getPartialList(
@@ -199,14 +194,18 @@ public class StoryController {
 	// 게시물 수정하기 읽어오기(syj)
 	@GetMapping("/updateStory")
 	public String updateStory(Model model, HttpServletResponse response, @RequestParam("storyNo") int storyNo) {
-		
+
+		// 마커 출력 로직 추가
+		List<Marker> mList = storyService.markerList(storyNo);
+		model.addAttribute("mList", mList);
+
 		List<Job> jList = storyService.getJobList();
 		// System.out.println(jList.get(0).getCategoryName());
 		model.addAttribute("jList", jList);
 
 		Story story = storyService.getStoryDetail(storyNo);
 		model.addAttribute("story", story);
-		
+
 		List<Image> iList = storyService.getStoryDetailImage(storyNo);
 		model.addAttribute("iList", iList);
 
@@ -220,10 +219,25 @@ public class StoryController {
 	// 게시물 수정하기(syj)
 	@PostMapping("updateStoryProcess")
 	public String updateStoryProcess(HttpServletResponse response, PrintWriter out, @ModelAttribute Story story,
-			@RequestParam(value = "categoryNo") int categoryNo) {
+			@RequestParam(value = "hashtag", required = false) List<String> tagList,
+			@RequestParam(value = "additionalImages", required = false) List<MultipartFile> multipartFile,
+			@RequestParam(value = "markers", required = false) String markers) throws IOException {
 
 		// storyService 클래스를 이용해 게시물을 수정한다.
 		storyService.updateStoryProcess(story);
+		int storyNo = story.getStoryNo();
+
+		if (tagList != null && !tagList.isEmpty()) {
+			for (String hashtag : tagList) {
+				Tag tag = new Tag();
+				tag.setTagName(hashtag);
+				tag.setStoryNo(storyNo);
+				storyService.updateTag(tag);
+				storyService.updateTagPost(tag);
+				System.out.println("태그번호 : " + tag.getTagNo());
+			}
+		}
+
 		return "redirect:main";
 	}
 
@@ -417,8 +431,6 @@ public class StoryController {
 
 		return "productDetail";
 	}
-	
-
 
 	// #######################################################
 	// ##### Thymeleaf 뷰 시작
@@ -428,6 +440,5 @@ public class StoryController {
 
 		return "th/thViewTest";
 	}
-	
-	
+
 }

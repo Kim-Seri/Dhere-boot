@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.springbootstudy.dhere.controller.MemberController;
+import com.springbootstudy.dhere.domain.Image;
+import com.springbootstudy.dhere.domain.Marker;
 import com.springbootstudy.dhere.domain.Product;
 import com.springbootstudy.dhere.service.MemberService;
 import com.springbootstudy.dhere.service.ProductService;
+import com.springbootstudy.dhere.service.StoryService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,6 +31,8 @@ public class AjaxProcessCount {
 	
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired StoryService storyService;
 	
 	@PostMapping("/joinCheck")
 	@ResponseBody
@@ -51,6 +56,8 @@ public class AjaxProcessCount {
 		return map;
 	}
 	
+	
+	
 	// 회원 정보 수정하는 ajax 요청을 처리하는 컨트롤러
 //	@GetMapping("/passCheck.ajax")
 //	@ResponseBody
@@ -66,6 +73,26 @@ public class AjaxProcessCount {
 //		//return map;
 //	}
 	
+	@PostMapping("/imageListajax")
+	@ResponseBody
+	public List<Image> storyImageList(
+			@RequestParam("storyNo") int storyNo){
+		
+		List<Image> iList = storyService.getStoryDetailImage(storyNo);
+		return iList;
+		
+	}
+	
+	@PostMapping("/markerData")
+	@ResponseBody
+	public List<Marker> markerList(
+			@RequestParam("storyNo") int storyNo){
+		
+		List<Marker> mList = storyService.markerList(storyNo);
+		return mList;
+		
+	}
+	
 	//제품정보 전체 데이터 가져오기 (마커 검색 비교용)
 	@GetMapping("/productList")
 	@ResponseBody
@@ -75,6 +102,9 @@ public class AjaxProcessCount {
 		
 		return product;
 	}
+	
+	
+	
 	
 }
 

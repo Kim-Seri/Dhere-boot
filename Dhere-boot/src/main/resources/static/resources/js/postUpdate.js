@@ -1,5 +1,8 @@
+
+
 let isAddingMarker = false; // 마커를 추가 중인지 여부를 나타내는 변수
 let searchBox;
+let marker;
 let isMakerBtn = false; //마커 등록 뒤 클릭하면 보여주
 
 let adjustedX;
@@ -8,6 +11,8 @@ let adjustedY;
 let markerData = new Array();
 
 let topResult;
+
+
 
 
 // 마커 추가 시작
@@ -34,18 +39,6 @@ function finishAddingMarker() {
 	finishMarkerButton.text("마커 추가");
 	document.getElementById('finishMarkerButton').setAttribute('id', 'addMarkerButton');
 }
-
-// 마커 클릭 이벤트 처리 - 없어도 됨
-function handleMarkerClick(e) {
-	if (isAddingMarker) {
-		console.log(isAddingMarker);
-		addMarker(e.offsetX, e.offsetY);
-
-	} else {
-
-	}
-}
-
 
 
 
@@ -84,48 +77,19 @@ function getHashtagItem(hashtag) {
 	return item;
 }
 
+function addMarker(x, y) {
+	// 동적으로 마커를 추가하는 로직 작성
 
+	console.log(x);
+	console.log(y);
 
-$(function() {
+	//console.log("x 좌표," + leftX);
+	//console.log("y 좌표," + topY);
 
-
-	// 마커를 서버로 전송하기 위한 배열
-	let markers = [];
-
-	// 마커를 객체 생성자 함수
-	function Marker(markerNo, storyNo, left1, top1, imageNo, productNo) {
-		this.markerNo = markerNo;
-		this.storyNo = storyNo;
-		this.left1 = left1;
-		this.top1 = top1;
-		this.imageNo = imageNo;
-		this.productNo = productNo;
-	}
-
-	// postWriteForm 폼이 전송될 때
-	$("#postWriteForm").on("submit", function(e) {
-		//e.preventDefault();
-		// 폼이 sumbit 될 때 마커 정보를 직렬화하여 markers라는 이름을 가진 hidden 필드에 추가된다.
-		$("#markers").val(JSON.stringify(markers));
-
-		// 아래에 유효성 검사 코드가 필요함
-	});
-
-
-	//Marker addition function
-	function addMarker(x, y) {
-		// 동적으로 마커를 추가하는 로직 작성
-
-		console.log(x);
-		console.log(y);
-
-		//console.log("x 좌표," + leftX);
-		//console.log("y 좌표," + topY);
-
-		// 마커를 추가할 부모 컨테이너
-		//const markerContainer = $("<div class='marker-container'></div>");
-		const marker = $(`<div class='marker' id='marker'><button type='button' class='btn btn-primary rounded-circle' id='markerBtn'>+</button></div>`);
-		const searchBox = $(`
+	// 마커를 추가할 부모 컨테이너
+	//const markerContainer = $("<div class='marker-container'></div>");
+	marker = $(`<div class='marker' id='marker'><button type='button' class='btn btn-primary rounded-circle' id='markerBtn'>+</button></div>`);
+	searchBox = $(`
     							<div class='row search-box py-3 z-3  bg-white border border-primary-subtle rounded ' id='searchBox '  >
     								<img src='resources/images/icon/cancel_red.png' class='deleteMakerBtn' id='deleteMaker'>
     								
@@ -144,63 +108,154 @@ $(function() {
 		    						</div>
     							</div>`);
 
-		// 이미지의 크기
-		const imageWidth = $('#div1').width();
-		const bodyHeight = $("#div1").height();
+	// 이미지의 크기
+	const imageWidth = $('.div1').width();
+	const bodyHeight = $(".div1").height();
+
+	console.log(imageWidth);
+	console.log(bodyHeight);
 
 
-		// 스크롤 위치
+	// 마커의 위치 조절
+	adjustedX = (x / imageWidth) * 100;  // 이미지의 가로 방향 상대 위치
+	adjustedY = (y / bodyHeight) * 100; // body의 세로 방향 상대 위치
+
+	console.log(adjustedX);
+	console.log(adjustedY);
 
 
 
 
+	marker.css({
+		position: "absolute",
+		top: `${adjustedY}%`, // 클릭한 위치에 상대적인 세로 위치
+		left: `${adjustedX}%`, // 클릭한 위치에 상대적인 가로 위치
+	});
 
-		// 마커의 위치 조절
-		adjustedX = (x / imageWidth) * 100;  // 이미지의 가로 방향 상대 위치
-		adjustedY = (y / bodyHeight) * 100; // body의 세로 방향 상대 위치
+	searchBox.css({
+		position: "absolute",
+		top: `${adjustedY + 3}%`, // 마커 아래에 위치
+		left: `${adjustedX}%`,
+		// display: "none", // 현재는 숨김 처리
+	});
 
+	$("#div1").append(marker);
+	$("#div1").append(searchBox);
 
-
-
-		marker.css({
-			position: "absolute",
-			top: `${adjustedY}%`, // 클릭한 위치에 상대적인 세로 위치
-			left: `${adjustedX}%`, // 클릭한 위치에 상대적인 가로 위치
-		});
-
-		searchBox.css({
-			position: "absolute",
-			top: `${adjustedY + 3}%`, // 마커 아래에 위치
-			left: `${adjustedX}%`,
-			// display: "none", // 현재는 숨김 처리
-		});
-
-		$("#div1").append(marker);
-		$("#div1").append(searchBox);
-
-		// 마커를 이미지가 아닌 별도의 컨테이너에 추가
-		//$(".div1").append(markerContainer);
+	// 마커를 이미지가 아닌 별도의 컨테이너에 추가
+	//$(".div1").append(markerContainer);
 
 
-		// 마커 클릭 시 상자 표시
-		marker.on("click", function() {
-			if (!isMakerBtn) {
-				searchBox.show();
-				isMakerBtn = true;
-			} else {
-				searchBox.hide();
-				isMakerBtn = false;
-			}
-		});
 
-		// 마커에서 마우스 나갈 시 검색 상자 숨김
-		/*marker.on("mouseout", function () {
-		 searchBox.hide();
-		});*/
-	}
 
+	// 마커 클릭 시 상자 표시
+	marker.on("click",function(){
+		if (!isMakerBtn) {
+			searchBox.show();
+			isMakerBtn = true;
+			console.log(isMakerBtn);
+		} else {
+			searchBox.hide();
+			isMakerBtn = false;
+		}
+	});
+
+	// 마커에서 마우스 나갈 시 검색 상자 숨김
+	/*marker.on("mouseout", function () {
+	 searchBox.hide();
+	});*/
+}
+
+
+
+$(function() {
+	//이미지 구분을 위한 변수
 	var deleteBtnNum = 0;
 	var imageDivNum = 0;
+	var updatingMarker = false;
+
+	//게시글 번호 가져오기
+	var storyNo = $("#storyNo").val().trim();
+	console.log("storyNo : ", Number(storyNo));
+
+
+	// 마커를 서버로 전송하기 위한 배열
+	let markers = [];
+
+	var marker;
+	var searchBox;
+
+	//생성되어있는 마커 클릭 시 searchbox 보여줌
+	$(".markerBtn").on("click", function() {
+		console.log("Marker Button Clicked");
+		if (!updatingMarker) {
+			$(this).parent().next().show();
+			updatingMarker = true;
+		} else {
+			$(this).parent().next().hide();
+			updatingMarker = false;
+		}
+	})
+
+	// 마커를 객체 생성자 함수
+	function Marker(markerNo, storyNo, left1, top1, imageNo, productNo) {
+		this.markerNo = markerNo;
+		this.storyNo = storyNo;
+		this.left1 = left1;
+		this.top1 = top1;
+		this.imageNo = imageNo;
+		this.productNo = productNo;
+	}
+
+	//image 리스트를 호출해서 갯수만큼 위의 변수에 대입
+	$.ajax({
+		url: "markerData",
+		data: "storyNo=" + storyNo,
+		type: "POST",
+		dataType: "json",
+		success: function(res) {
+			console.log("res : ", res);
+			res.forEach((element) => {
+				console.log(element.top1);
+				markers.push(new Marker(0, 0, element.left1, element.top1, 0, element.productNo))
+			});
+			console.log("markers : " + markers);
+		},
+		error: function(error) {
+			console.log("이미지 리스트를 가져오는 중 오류 발생", error);
+		}
+	})
+
+	// postWriteForm 폼이 전송될 때
+	$("#postWriteForm").on("submit", function(e) {
+		//e.preventDefault();
+		// 폼이 sumbit 될 때 마커 정보를 직렬화하여 markers라는 이름을 가진 hidden 필드에 추가된다.
+		$("#markers").val(JSON.stringify(markers));
+
+		// 아래에 유효성 검사 코드가 필요함
+	});
+
+
+
+
+
+	//image 리스트를 호출해서 갯수만큼 위의 변수에 대입
+	$.ajax({
+		url: "imageListajax",
+		data: "storyNo=" + storyNo,
+		type: "POST",
+		dataType: "json",
+		success: function(res) {
+			deleteBtnNum = res.length;
+			imageDivNum = res.length;
+			console.log("imageDivNum :" + imageDivNum);
+			console.log("deleteBtnNum :" + deleteBtnNum);
+		},
+		error: function(error) {
+			console.log("이미지 리스트를 가져오는 중 오류 발생", error);
+		}
+	})
+
 
 	//ajax로 페이지 로딩 시에 제품 데이터 가져오기
 	$.ajax({
@@ -302,16 +357,6 @@ $(function() {
 				div1.append(markerButton);
 			}
 
-			$(".deleteBtn").css({
-
-			});
-
-			$("#addMarkerButton").css({
-
-			});
-
-
-
 			imageDivCol.append(imageDivRow3);
 			imageDivRow3.append(imageDivCol3);
 			//      imageDivCol3.append(changeButton);
@@ -328,7 +373,7 @@ $(function() {
 		$(this).parent().parent().parent().parent().prev().remove();
 		$(this).parent().parent().parent().parent().remove();
 
-		console.log(markers);
+		
 
 		imageDivNum--;
 		deleteBtnNum--;
@@ -343,6 +388,7 @@ $(function() {
 		$(this).parent().parent().parent().parent().prev().remove();
 		$(this).parent().parent().parent().parent().remove();
 		markers = [];
+		console.log(markers);
 
 		$(".marker-container").remove();
 
@@ -367,7 +413,7 @@ $(function() {
 		$(this).parent().prev().remove();
 		$(this).parent().remove();
 		console.log(Number($(this).next().children('#topMarkerResult').val()));
-		let topMarkerResult=Number($(this).next().children('#topMarkerResult').val());
+		let topMarkerResult = Number($(this).next().children('#topMarkerResult').val());
 
 		let topIndex = markers.findIndex((v, i) => {
 			console.log(v.top1);
@@ -379,8 +425,8 @@ $(function() {
 		});
 
 		console.log(topIndex);
-		 markers.splice(topIndex, 1);
-		 console.log(markers);
+		markers.splice(topIndex, 1);
+		console.log(markers);
 	});
 
 

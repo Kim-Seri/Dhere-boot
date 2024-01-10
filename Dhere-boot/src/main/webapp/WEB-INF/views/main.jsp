@@ -71,7 +71,7 @@
 	
 		 <!-- 글쓰기 버튼 -->
 		 <input type="button" id="main_writeBtn" class="btn btn-primary fixed-write-button" value="글쓰기" 
-       					onclick="window.location.href='/postWriteForm'"/>
+       					onclick="location.href='/postWriteForm'"/>
 		 
 		 <!-- 상단바 이동 버튼 -->
 		 <a href="#" class="goToTopBtn">

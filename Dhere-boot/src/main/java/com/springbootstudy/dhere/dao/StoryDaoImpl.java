@@ -190,8 +190,18 @@ public class StoryDaoImpl implements StoryDao {
 	public List<Marker> markerList(int storyNo) {
 		return sqlSession.selectList(NAME_SPACE  + ".markerList", storyNo);
 	}
-
-
+	
+	//태그 수정
+	@Override
+	public void updateTag(Tag tag) {
+		sqlSession.update(NAME_SPACE+".updateTag",tag);
+	}
+	
+	//태그 리스트 수정
+	@Override
+	public void updateTagPost(Tag tag) {
+		sqlSession.update(NAME_SPACE+".updateTagPost",tag);
+	}
 	
 
 }
