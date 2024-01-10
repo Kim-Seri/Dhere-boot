@@ -34,6 +34,7 @@ import com.springbootstudy.dhere.domain.Product;
 import com.springbootstudy.dhere.domain.Reply;
 import com.springbootstudy.dhere.domain.Story;
 import com.springbootstudy.dhere.domain.Tag;
+import com.springbootstudy.dhere.service.FollowerService;
 import com.springbootstudy.dhere.service.ProductService;
 import com.springbootstudy.dhere.service.ReplyService;
 import com.springbootstudy.dhere.service.StoryService;
@@ -56,6 +57,9 @@ public class StoryController {
 
 	@Autowired
 	private ReplyService replyService;
+	
+	@Autowired
+	private FollowerService followerService;
 
 	// src/main/resources/static/resources/images/desk/** 정적경로 파일 업로드 테스트
 	private static final String DEFAULT_PATH = "src/main/resources/static/resources/images/desk/";
@@ -121,38 +125,50 @@ public class StoryController {
         return ResponseEntity.ok(items);
     }
 	
-	// 게시물 디테일(syj)
-	@GetMapping("/storyDetail")
-	public String storyDetail(Model model, HttpSession session, 
-			@RequestParam("storyNo") int storyNo,
-			@RequestParam(value = "productCategory", required = false, defaultValue = "All") String productCategory) {
+    // 게시물 디테일(syj)
+    @GetMapping("/storyDetail")
+    public String storyDetail(Model model, HttpSession session, 
+                              @RequestParam("storyNo") int storyNo,
+                              @RequestParam(value = "productCategory", required = false, defaultValue = "All") String productCategory) {
 
-		// 마커 출력 로직 추가
-		List<Marker> mList = storyService.markerList(storyNo);
-		model.addAttribute("mList", mList);
-		
-		// 댓글 출력 로직 추가
-		List<Reply> rList = replyService.getReply(storyNo);
-		model.addAttribute("rList", rList);
-		
-		// 제품 목록 출력 로직 추가
-		List<Product> pList = productService.productList(productCategory);
-		model.addAttribute("pList", pList);
+        // 마커 출력 로직 추가
+        List<Marker> mList = storyService.markerList(storyNo);
+        model.addAttribute("mList", mList);
+        
+        // 댓글 출력 로직 추가
+        List<Reply> rList = replyService.getReply(storyNo);
+        model.addAttribute("rList", rList);
+        
+        // 제품 목록 출력 로직 추가
+        List<Product> pList = productService.productList(productCategory);
+        model.addAttribute("pList", pList);
 
-		// 조회수 증가 로직 추가
-		storyService.increaseReadCount(storyNo);
+        // 조회수 증가 로직 추가
+        storyService.increaseReadCount(storyNo);
 
-		Story storyDetail = storyService.getStoryDetail(storyNo);
-		model.addAttribute("storyDetail", storyDetail);
+        // 게시물 상세 정보 가져오기
+        Story storyDetail = storyService.getStoryDetail(storyNo);
+        model.addAttribute("storyDetail", storyDetail);
 
-		List<Image> iList = storyService.getStoryDetailImage(storyNo);
-		model.addAttribute("iList", iList);
+        // 게시물 이미지 목록 가져오기
+        List<Image> iList = storyService.getStoryDetailImage(storyNo);
+        model.addAttribute("iList", iList);
 
-		List<Tag> tList = storyService.getStoryDetailTag(storyNo);
-		model.addAttribute("tList", tList);
+        // 게시물 태그 목록 가져오기
+        List<Tag> tList = storyService.getStoryDetailTag(storyNo);
+        model.addAttribute("tList", tList);
 
-		return "storyDetail";
-	}
+        // 로그인한 사용자가 게시물 작성자를 팔로우하고 있는지 확인
+        Member member = (Member) session.getAttribute("member");
+        boolean isFollowing = false;
+        if (member != null && storyDetail.getEmail() != null) {
+            isFollowing = followerService.isFollowing(member.getEmail(), storyDetail.getEmail());
+        }
+        model.addAttribute("isFollowing", isFollowing);
+
+        return "storyDetail";
+    }
+
 
 	///////////////////////////////////////////////////////////////////
 	// 게시물 좋아요 증가시키기(syj)

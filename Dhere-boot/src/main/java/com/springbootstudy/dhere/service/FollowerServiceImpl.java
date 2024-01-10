@@ -22,8 +22,14 @@ public class FollowerServiceImpl implements FollowerService {
 	
 	// 언팔하기(syj)
 	@Override
-	public void deleteFollow(String followerEmail) {
-		followerDao.deleteFollow(followerEmail);
+	public void deleteFollow(String followerEmail, String followingEmail) {
+		followerDao.deleteFollow(followerEmail, followingEmail);
 	}
+
+	 // 팔로우 여부 확인하기(syj)
+    @Override
+    public boolean isFollowing(String followerEmail, String followingEmail) {
+    	return followerDao.isFollowing(followerEmail, followingEmail);
+    }
 
 }

@@ -26,36 +26,58 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class FollowerController {
-	
-	@Autowired
-	private FollowerService followerService;
-	
-	//	팔로우하기(syj)
-	@PostMapping("/insertFollow")
-	public String insertFollow(Model model, HttpServletRequest request, HttpSession session,
-	                          @RequestParam("followerEmail") String followerEmail,
-	                          @RequestParam("followingEmail") String followingEmail) {
-	    
-	    Member member = (Member) session.getAttribute("member");
-	    Follower follower = new Follower();
-	    
-	    follower.setFollower_email(followerEmail);
-	    follower.setFollowing_email(followingEmail);
+    
+    @Autowired
+    private FollowerService followerService;
+    
+    // 팔로우하기
+    @PostMapping("/insertFollow")
+    public String insertFollow(HttpSession session, 
+    		@RequestParam("followingEmail") String followingEmail,
+    		@RequestParam("storyNo") String storyNo) {
+    	
+        Member member = (Member) session.getAttribute("member");
+        
+        if (member == null) {
+            
+            return "redirect:/login";
+        }
 
-	    followerService.insertFollow(follower);
+        String followerEmail = member.getEmail();
+        Follower follower = new Follower();
+        
+        follower.setFollower_email(followerEmail);
+        follower.setFollowing_email(followingEmail);
 
-	    return "main";
-	}
-	
-	
-	//	언팔하기(syj)
-	 @GetMapping("/deleteFollow") 
-	 public String deleteFollow(
-			 @RequestParam("followerEmail") String followerEmail) {
-		 
-		 followerService.deleteFollow(followerEmail);
-		 
-		 return "redirect:/main"; 
-	 }
+        followerService.insertFollow(follower);
 
+        return "redirect:/storyDetail?storyNo=" + storyNo;
+    }
+    
+    
+    
+    
+	 // 언팔로우하기
+	    @PostMapping("/deleteFollow")
+	    public String deleteFollow(HttpSession session, 
+	                               @RequestParam("followingEmail") String followingEmail,
+	                               @RequestParam("storyNo") int storyNo) { // storyNo 파라미터 유지
+	                
+	        // 세션에서 현재 로그인된 사용자 정보를 가져옵니다.
+	        Member member = (Member) session.getAttribute("member");
+	        
+	        // 로그인되어 있지 않다면 로그인 페이지로 리다이렉트합니다.
+	        if (member == null) {
+	            return "redirect:/login";
+	        }
+	
+	        // 세션에서 가져온 사용자의 이메일 주소를 사용합니다.
+	        String sessionFollowerEmail = member.getEmail();
+	
+	        // 언팔로우 처리를 수행합니다.
+	        followerService.deleteFollow(sessionFollowerEmail, followingEmail);
+	
+	        // 처리 후 게시물 상세 페이지로 리다이렉트합니다.
+	        return "redirect:/storyDetail?storyNo=" + storyNo;
+	    }
 }

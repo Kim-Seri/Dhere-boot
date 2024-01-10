@@ -4,34 +4,22 @@
 
 <mapper namespace="com.springstudy.dhere.mappers.FollowerMapper">
 
-
-
-
-
-
-
-
-
-    <insert id="insertFollow" parameterType="Follow">
-        INSERT 
-        INTO follower(
-            follower_email AS followerEmail,
-            following_email AS followingEmail)
-        VALUES(#{followerEmail}, #{followingEmail})
+    <insert id="insertFollow" parameterType="com.springbootstudy.dhere.domain.Follower">
+        INSERT INTO follower (follower_email, following_email)
+        VALUES (#{follower_email}, #{following_email})
     </insert>
     
+    <delete id="deleteFollow" parameterType="map">
+        DELETE FROM follower
+        WHERE follower_email = #{followerEmail} 
+        AND following_email = #{followingEmail}
+    </delete>
     
-	
-	<delete id="deleteFollow">
-		DELETE 
-		FROM follower
-		WHERE follower_email = #{followerEmail}
-	</delete>
-	
-
-
-
-
-
+    <select id="isFollowing" parameterType="map" resultType="int">
+	    SELECT COUNT(*)
+	    FROM follower
+	    WHERE follower_email = #{followerEmail}
+	    AND following_email = #{followingEmail}
+	</select>
 
 </mapper>
