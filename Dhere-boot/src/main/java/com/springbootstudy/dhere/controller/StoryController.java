@@ -96,11 +96,10 @@ public class StoryController {
 		//Map<String, List<Story>> map = storyService.getStoryList();
 		//map.put("sList", storyService.getStoryList());
 		
-//		Map<String, List<Story>> map = storyService.getStoryList();
-//	    List<Story> sList = map.get("sList"); 
-//	    model.addAttribute("sList", sList);
+		Map<String, List<Story>> map = storyService.getStoryList();
+	    List<Story> sList = map.get("sList"); 
+	    model.addAttribute("sList", sList);
 	    
-		Map<String, List<Story>> map = new HashMap<>();
 		
 		/*
 		List<Story> sList = storyService.getStoryList();

@@ -34,13 +34,8 @@ public class StoryDaoImpl implements StoryDao {
 //	}
 	
 	@Override
-	public Map<String, List<Story>> getStoryList() {
-		//return sqlSession.selectList(NAME_SPACE + ".getStoryList");
-		List<Story> sList = sqlSession.selectList(NAME_SPACE + ".getStoryList");
-	    Map<String, List<Story>> map = new HashMap<>();
-	    map.put("sList", sList);
-	    return map;
-		
+	public List<Story> getStoryList() {
+	    return sqlSession.selectList(NAME_SPACE + ".getStoryList");
 	}
 	
 	// 게시물 리스트 가져오기 (+페이징)

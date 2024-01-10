@@ -12,8 +12,8 @@ import com.springbootstudy.dhere.domain.Tag;
 
 public interface StoryDao {
     // 게시물 리스트 가져오기
-    //public abstract List<Story> getStoryList();
-    public abstract Map<String, List<Story>> getStoryList();
+    public abstract List<Story> getStoryList();
+    //public abstract Map<String, List<Story>> getStoryList();
     
     // 게시물 리스트 가져오기 (+페이징)
     public abstract List<Story> getStoryListPaged(int offset, int limit, String selectedJob, String searchKeyword, String sort);
@@ -78,7 +78,7 @@ public interface StoryDao {
 	
 	// 정렬 리스트 출력
 	public abstract List<Story> sortList(String sort);
-
+	*/
 	//마커 정보 입력
 	public abstract void insertMarker(Marker marker);
 	

@@ -76,12 +76,13 @@ public interface StoryService {
 	
 	public abstract List<Story> sList(String email);
 	
+	/*
 	// 검색 결과 리스트 출력
 	public abstract List<Story> searchList(String searchKeyword);
 	
 	// 정렬 리스트 출력
 	public abstract List<Story> sortList(String sort);
-	
+	*/
 	//마커 정보 입력
 	public abstract void insertMarker(Marker marker);
 	

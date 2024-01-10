@@ -14,23 +14,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.springbootstudy.dhere.domain.Story;
 import com.springbootstudy.dhere.service.StoryService;
-
-@Controller
+//세리 
+@RestController
 public class StoryListAjax {
 	
 	@Autowired
 	private StoryService storyService;
 	
-	@RequestMapping("/storyList")
-	@ResponseBody
+	@PostMapping("/storyList")	
 	public Map<String, List<Story>> storyList(
-			@RequestParam(value="selectedJob", required = false) String selectedJob,
-			@RequestParam(value="searchKeyword", required = false) String searchKeyword,
-			@RequestParam(value="sort", required = false) String sort,
-			@RequestParam(value="offset", required = false) Integer offset,
-			@RequestParam(value="limit", required = false) Integer limit) {
+			@RequestParam(value="selectedJob", required = false, defaultValue="null") String selectedJob,
+			@RequestParam(value="searchKeyword", required = false, defaultValue="null") String searchKeyword,
+			@RequestParam(value="sort", required = false, defaultValue="recent") String sort,
+			@RequestParam(value="offset", required = false, defaultValue="0") Integer offset,
+			@RequestParam(value="limit", required = false, defaultValue="6") Integer limit) {
 		
 		System.out.println("selectedJob : " + selectedJob);
 		System.out.println("searchKeyword : " + searchKeyword);
@@ -39,40 +40,11 @@ public class StoryListAjax {
 		System.out.println("limit : " + limit);
 		
 		Map<String, List<Story>> map = new HashMap<>();
-		//List<Story> resultList = new ArrayList<>();
-		
-		/*
-	    if (offset != null && limit != null && offset >= 0 && limit > 0) {
-	    	// 페이징 리스트 출력
-	    	List<Story> pagingList = storyService.getStoryListPaged(offset, limit, selectedJob, searchKeyword, sort);
-	    	resultList.addAll(pagingList);
-	    }
-		
-		if (selectedJob != null) {
-	        // 직무 카테고리 별 리스트 출력
-	        List<Story> categoryList = storyService.getStoryListPaged(offset, limit, selectedJob, searchKeyword, sort);
-	        resultList.addAll(categoryList);
-	    }
-
-	    if (searchKeyword != null) {
-	        // 태그 검색 결과 리스트 출력
-	        List<Story> searchList = storyService.getStoryListPaged(offset, limit, selectedJob, searchKeyword, sort);
-	        resultList.addAll(searchList);
-	    }
-
-	    if (sort != null) {
-	        // 최신순/인기순 정렬 리스트 출력
-	        List<Story> sortingList = storyService.getStoryListPaged(offset, limit, selectedJob, searchKeyword, sort);
-	        resultList.addAll(sortingList);
-	    }
-		*/
 
 	    // 중복을 허용한 리스트를 전달
 	    map.put("resultList", storyService.getStoryListPaged(offset, limit, selectedJob, searchKeyword, sort));
 
-
-		return map;
-		
+		return map;		
 	}
 	
 	

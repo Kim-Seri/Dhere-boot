@@ -35,7 +35,17 @@ public class StoryServiceImpl implements StoryService {
 	
 	@Override
 	public Map<String, List<Story>> getStoryList() {
-		return storyDao.getStoryList();
+		Map<String, List<Story>> map = new HashMap<>();
+	    List<Story> sList = storyDao.getStoryList();
+
+	    // 각 Story 객체에 태그 정보 추가
+	    for (Story story : sList) {
+	        List<Tag> tags = storyDao.getStoryDetailTag(story.getStoryNo());
+	        story.setTags(tags);
+	    }
+
+	    map.put("sList", sList);
+	    return map;
 	}
 	
 	@Override
@@ -159,7 +169,7 @@ public class StoryServiceImpl implements StoryService {
 	public List<Story> sortList(String sort) {
 		return storyDao.sortList(sort);
 	}
-	
+	*/
 	//마커관련정보 추가
 	@Override
 	public void insertMarker(Marker marker){
@@ -171,4 +181,6 @@ public class StoryServiceImpl implements StoryService {
 	public List<Marker> markerList(int storyNo) {
 		return storyDao.markerList(storyNo);
 	}
+
+	
 }
