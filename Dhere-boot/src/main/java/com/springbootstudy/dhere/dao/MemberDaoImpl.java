@@ -1,9 +1,12 @@
 package com.springbootstudy.dhere.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.springbootstudy.dhere.domain.Job;
 import com.springbootstudy.dhere.domain.Member;
 
 @Repository
@@ -33,6 +36,5 @@ public class MemberDaoImpl implements MemberDao {
 	public void updateMember(Member member) {
 		sqlSession.update(NAME_SPACE + ".updateMember", member);
 	}
-		
 		
 }

@@ -1,5 +1,8 @@
 package com.springbootstudy.dhere.dao;
 
+import java.util.List;
+
+import com.springbootstudy.dhere.domain.Job;
 import com.springbootstudy.dhere.domain.Member;
 
 public interface MemberDao {

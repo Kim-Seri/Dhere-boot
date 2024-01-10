@@ -4,15 +4,9 @@
 
 <mapper namespace="com.springbootstudy.dhere.mappers.NoticeMapper">
 
-	<insert id="noticeWrite" parameterType="Notice">
-		INSERT INTO notice(notice_no, title, content, reg_date, email, file, picture)
-		VALUES(#{noticeNo}, #{title}, #{content}, SYSDATE(), #{email}, #{file}, #{picture})
+ 	<insert id="noticeWrite" parameterType="Notice">
+		INSERT INTO notice(title, content, reg_date, email, file, picture)
+		VALUES(#{title}, #{content}, SYSDATE(), #{email}, #{file}, #{picture})
 	</insert>
-
-	<select id="getNoticeList" >
-		
-	</select>
-
-	
 
 </mapper>

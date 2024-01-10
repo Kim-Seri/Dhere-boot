@@ -17,15 +17,35 @@ public class NoticeDaoImpl implements NoticeDao {
 	private SqlSessionTemplate sqlSession;
 	private static final String NAME_SPACE = "com.springbootstudy.dhere.mappers.NoticeMapper";
 	
-	// 게시물 쓰기(syj)
+	// 공지사항 쓰기(syj)
 	@Override
 	public void noticeWrite(Notice notice) {
 		sqlSession.insert(NAME_SPACE+".noticeWrite", notice);
 	}
 	
-	// 게시물 리스트 가져오기(syj)
+	//	공지사항 읽기(syj)
 	@Override
-	public List<Notice> getNoticeList() {
-		return sqlSession.selectList(NAME_SPACE + ".NoticetList");
+	public Notice noticeDetail(int noticeNo) {
+		return sqlSession.selectOne(NAME_SPACE + ".noticeDetail", noticeNo);	
 	}
+	
+	//	공지사항 수정(syj)
+	@Override
+	public void noticeUpdate(Notice notice) {
+			sqlSession.update(NAME_SPACE + ".noticeUpdate", notice);
+	}
+	
+	//	공지사항 삭제(syj)
+	@Override
+	public  void noticeDelete(int noticeNo) {
+			sqlSession.delete(NAME_SPACE + ".noticeDelete", noticeNo);
+	}
+	
+	// 공지사항 목록 가져오기(syj)
+	@Override
+	public List<Notice> getNoticeList(int noticeNo) {
+		return sqlSession.selectList(NAME_SPACE + ".NoticetList", noticeNo);
+	}
+	
+	
 }

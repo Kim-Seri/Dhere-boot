@@ -1,5 +1,8 @@
 package com.springbootstudy.dhere.service;
 
+import java.util.List;
+
+import com.springbootstudy.dhere.domain.Job;
 import com.springbootstudy.dhere.domain.Member;
 
 public interface MemberService {
@@ -19,6 +22,4 @@ public interface MemberService {
 	// 비밀번호 체크 메서드
 	public abstract boolean memberPassCheck(String email, String pass);
 	
-
-
 }

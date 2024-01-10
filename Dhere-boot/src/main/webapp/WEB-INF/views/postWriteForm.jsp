@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <link rel="stylesheet"
 	href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 <link href="resources/css/postWrite.css" rel="stylesheet">
@@ -12,26 +14,64 @@
 	<div class="col">
 		<form action="postWrite" method="post" id="postWriteForm"
 			name="postWriteForm" enctype="multipart/form-data">
+			<input type="hidden" name="markers" id="markers">
 			<div class="row ">
 				<div class="col text-start">
 					<h3 class="text-secondary">직종 선택</h3>
 				</div>
 			</div>
 
-			<div class="row">
-				<div class="col-6 offset-3 text-center">
-					
-						<c:forEach var="jList" items="${jList}" varStatus="status">
-							
-								<input type="radio" class="btn-check"  name="categoryNo" id="category${jList.categoryNo}" value="${jList.categoryNo} ">
-	                            <label class="btn btn-outline-primary" for="category${jList.categoryNo}">${jList.categoryName}</label>
-							
-							
-						</c:forEach>
 
-					
-				</div>
-			</div>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+
+
+
+
+
+
+<!-- 카테고리 캐러셀 시작 -->
+<div class="row">
+    <div class="col">
+        <div id="categoryCarousel" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner">
+                <!-- 페이지 수 계산 -->
+                <c:set var="itemsPerPage" value="8" />
+                <c:set var="totalItems" value="${fn:length(jList)}" />
+                <c:set var="pageCount" value="${(totalItems div itemsPerPage) + (totalItems % itemsPerPage ne 0 ? 1 : 0)}" />
+
+                <!-- 페이지별 캐러셀 아이템 생성 -->
+                <c:forEach begin="0" end="${pageCount - 1}" var="pageIndex">
+                    <div class="carousel-item ${pageIndex == 0 ? 'active' : ''}">
+                        <div class="d-flex flex-row justify-content-center">
+                            <!-- 페이지별 카테고리 항목 생성 -->
+                            <c:forEach begin="${pageIndex * itemsPerPage}" end="${(pageIndex + 1) * itemsPerPage - 1}" varStatus="status" items="${jList}">
+                                <c:if test="${status.index lt totalItems}">
+                                    <div class="category-item" style="cursor: pointer; position:relative; background-color: white;">
+                                        <input type="radio" class="btn-check" name="categoryNo" id="category${jList[status.index].categoryNo}" value="${jList[status.index].categoryNo}">
+                                        <label class="btn btn-outline-primary" for="category${jList[status.index].categoryNo}">${jList[status.index].categoryName}</label>
+                                    </div>
+                                </c:if>
+                            </c:forEach>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+            <!-- 캐러셀 컨트롤 버튼 -->
+            <button class="carousel-control-prev rounded-5" type="button" data-bs-target="#categoryCarousel" data-bs-slide="prev" id="previous">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next rounded-5" type="button" data-bs-target="#categoryCarousel" data-bs-slide="next" id="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</div>
+<!-- 카테고리 캐러셀 끝 -->
+
 
 
 

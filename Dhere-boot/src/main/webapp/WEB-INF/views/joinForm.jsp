@@ -112,7 +112,13 @@
 							<label for="job" class="form-label" style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;직업 </label>
 							<div class="row">
 								<div class="col">
-									<input type="text" class="form-control border border-white border-3" name="job" id="job" placeholder="개발자" style="background: white; border-radius: 10px; color: black;">
+									<select class="form-control border border-white border-3" 
+												name="job" id="job" style="background: white; border-radius: 10px; color: black;">
+									    <option selected disabled>직업을 선택해주세요</option>
+										<c:forEach var="jList" items="${jList}">
+											<option>${jList.categoryName}</option>
+										</c:forEach>
+									</select>
 								</div>
 							</div>
 						</div>

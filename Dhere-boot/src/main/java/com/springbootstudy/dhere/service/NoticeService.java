@@ -8,9 +8,18 @@ import com.springbootstudy.dhere.domain.Notice;
 
 public interface NoticeService {
 	
-	// 게시물 쓰기(syj)
+    // 공지사항 쓰기(syj)
 	public abstract void noticeWrite(Notice notice);
 	
-	// 게시물 리스트 가져오기(syj)
-    public abstract List<Notice> getNoticeList();
+	//	공지사항 읽기(syj)
+	public abstract Notice noticeDetail(int noticeNo);
+	
+	//	공지사항 수정(syj)
+	public abstract void noticeUpdate(Notice notice);
+	
+	//	공지사항 삭제(syj)
+	public abstract void noticeDelete(int noticeNo);
+	
+    // 공지사항 목록 가져오기(syj)
+    public abstract List<Notice> getNoticeList(int noticeNo);
 }
