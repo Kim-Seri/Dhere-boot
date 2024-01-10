@@ -34,6 +34,9 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	@Autowired
+	private StoryService storyService;
+	
 	private static final String DEFAULT_PATH = "src/main/resources/static/resources/images/profile/";
 
 	// 로그인
@@ -147,18 +150,16 @@ public class MemberController {
         return "redirect:main";
     }
 	
-	
+	// 회원가입 시 직무 리스트 출력하기(syj)
+	@GetMapping("/joinForm")
+	public String getJobList(Model model) {
 
-//	// 회원가입 시 직무 리스트 가져오기
-//	@GetMapping("/joinForm")
-//	public String getJobList(Model model, 
-//			@RequestParam("categoryNo") int categoryNo,
-//			@RequestParam("categoryName") String categoryName) {
-//		
-//		List<Job> jList = storyService.getJobList();
-//		model.addAttribute("jList", jList);
-//		
-//		return "redirect:/main";
-//	}
+		List<Job> jList = storyService.getJobList();
+		
+		model.addAttribute("jList", jList);
+
+		return "joinForm";
+	}
+	
 
 }
