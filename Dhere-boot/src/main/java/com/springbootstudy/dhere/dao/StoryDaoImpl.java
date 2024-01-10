@@ -34,24 +34,48 @@ public class StoryDaoImpl implements StoryDao {
 //	}
 	
 	@Override
-	public Map<String, List<Story>> getStoryList() {
-		//return sqlSession.selectList(NAME_SPACE + ".getStoryList");
-		List<Story> sList = sqlSession.selectList(NAME_SPACE + ".getStoryList");
-	    Map<String, List<Story>> map = new HashMap<>();
-	    map.put("sList", sList);
-	    return map;
-		
+	public List<Story> getStoryList() {
+	    return sqlSession.selectList(NAME_SPACE + ".getStoryList");
 	}
 	
 	// 게시물 리스트 가져오기 (+페이징)
 	@Override
-	public List<Story> getStoryListPaged(int offset, int limit) {
+	public List<Story> getStoryListPaged(int offset, int limit, String selectedJob, String searchKeyword, String sort) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("offset", offset);
 		params.put("limit", limit);
+		params.put("selectedJob", selectedJob);
+        params.put("searchKeyword", searchKeyword);
+        params.put("sort", sort);
 		return sqlSession.selectList(NAME_SPACE + ".getStoryListPaged", params);
 	}
 	
+	// 태그 리스트 가져오기
+	@Override
+	public List<Tag> getTagList(int storyNo) {
+	    return sqlSession.selectList(NAME_SPACE + ".getTagList", storyNo);
+	}
+	
+	
+	// 직종별 게시물 리스트 출력
+	@Override
+	public List<Story> storyList(String selectedJob) {
+		return sqlSession.selectList(NAME_SPACE + ".getStoryListPaged", selectedJob);
+	}
+	
+	/*
+	// 검색 결과 리스트 출력
+	@Override
+	public List<Story> searchList(String searchKeyword) {
+		return sqlSession.selectList(NAME_SPACE + ".getStoryListPaged", searchKeyword);
+	}
+
+	// 정렬 리스트 출력
+	@Override
+	public List<Story> sortList(String sort) {
+		return sqlSession.selectList(NAME_SPACE  + ".getStoryListPaged", sort);
+	}
+	*/
 
 	// 게시물 디테일 가져오기(syj)
 	@Override
@@ -156,23 +180,7 @@ public class StoryDaoImpl implements StoryDao {
 		sqlSession.insert(NAME_SPACE+".insertTagPost", tag);
 	}
 
-	// 직종별 게시물 리스트 출력
-	@Override
-	public List<Story> storyList(String selectedJob) {
-		return sqlSession.selectList(NAME_SPACE + ".storyList", selectedJob);
-	}
 
-	// 검색 결과 리스트 출력
-	@Override
-	public List<Story> searchList(String searchKeyword) {
-		return sqlSession.selectList(NAME_SPACE + ".searchList", searchKeyword);
-	}
-
-	// 정렬 리스트 출력
-	@Override
-	public List<Story> sortList(String sort) {
-		return sqlSession.selectList(NAME_SPACE  + ".sortList", sort);
-	}
 	
 @Override
 	public List<Story> sList(String email) {

@@ -106,10 +106,13 @@
 		</div>
 		<!-- 캐러셀 끝 -->
 
-
-
-
-
+		<form id="categorySearchForm">
+			<input type="hidden" name="selectedJob" id="hiddenJob">
+			<input type="hidden" name="searchKeyword" id="hiddenKeyword">
+			<input type="hidden" name="sort" id="hiddenSort">
+			<input type="hidden" name="offset" value="0" id="hiddenOffset">
+			<input type="hidden" name="limit" value="6" id="hiddenLimit">
+		</form>
 
 		<!-- 카테고리 캐러셀 시작 -->
 		<div class="row">
@@ -129,7 +132,7 @@
 		                                <c:if test="${status.index lt totalItems}">
 		                                    <div class="jobs" data-category="${jList[status.index].categoryName}" style="cursor: pointer; position:relative; background-color: white;">
 		                                        <span class="cName text-center">${jList[status.index].categoryName}</span>
-		                                        <span class="close-btn" onclick="clearSelection(${status.index})"></span>
+		                                        <span class="close-btn"></span>
 		                                    </div>
 		                                </c:if>
 		                            </c:forEach>

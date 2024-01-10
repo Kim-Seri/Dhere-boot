@@ -103,9 +103,10 @@ public class StoryController {
 		// map.put("sList", storyService.getStoryList());
 
 		Map<String, List<Story>> map = storyService.getStoryList();
-		List<Story> sList = map.get("sList");
-		model.addAttribute("sList", sList);
-
+	    List<Story> sList = map.get("sList"); 
+	    model.addAttribute("sList", sList);
+	    
+		
 		/*
 		 * List<Story> sList = storyService.getStoryList(); model.addAttribute("sList",
 		 * sList);
@@ -116,16 +117,16 @@ public class StoryController {
 
 		return "main";
 	}
-
-	// 게시물 리스트 출력 (+페이징)
-    @GetMapping("/getStoryList")
-    public ResponseEntity<List<Story>> getPartialList(
-            @RequestParam("offset") int offset,
-            @RequestParam("limit") int limit) {
-    	
-        List<Story> items = storyService.getStoryListPaged(offset, limit);
-        return ResponseEntity.ok(items);
-    }
+	
+//	// 게시물 리스트 출력 (+페이징)
+//    @GetMapping("/getStoryList")
+//    public ResponseEntity<List<Story>> getPartialList(
+//            @RequestParam("offset") int offset,
+//            @RequestParam("limit") int limit) {
+//    	
+//        List<Story> items = storyService.getStoryListPaged(offset, limit);
+//        return ResponseEntity.ok(items);
+//    }
 	
     // 게시물 디테일(syj)
     @GetMapping("/storyDetail")
