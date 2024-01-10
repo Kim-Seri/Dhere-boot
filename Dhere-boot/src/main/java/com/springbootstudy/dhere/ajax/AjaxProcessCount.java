@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springbootstudy.dhere.controller.MemberController;
 import com.springbootstudy.dhere.domain.Image;
 import com.springbootstudy.dhere.domain.Marker;
+import com.springbootstudy.dhere.domain.Member;
 import com.springbootstudy.dhere.domain.Product;
 import com.springbootstudy.dhere.domain.Scrap;
 import com.springbootstudy.dhere.domain.Story;
 import com.springbootstudy.dhere.service.MemberService;
 import com.springbootstudy.dhere.service.ProductService;
+import com.springbootstudy.dhere.service.ScrapService;
 import com.springbootstudy.dhere.service.StoryService;
 
 import jakarta.servlet.http.HttpSession;
@@ -39,8 +41,6 @@ public class AjaxProcessCount {
 	
 	@Autowired
 	private ProductService productService;
-	
-	@Autowired StoryService storyService;
 	
 	@Autowired
 	private ScrapService scrapService;
