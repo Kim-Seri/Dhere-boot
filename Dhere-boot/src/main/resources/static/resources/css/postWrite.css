@@ -31,10 +31,24 @@
 	left: 90%;
 }
 
+#searchBox{
+	width:350px;
+	height:350px;
+}
+
 #addMarkerButton, #finishMarkerButton {
 	position: absolute;
 	top: 0%;
 	left: 0%;
+}
+
+.deleteMakerBtn{
+	position:absolute;
+	width:55px;
+	height:30px;
+	top:-13px;
+	left:88%;
+	cursor:pointer;
 }
 
 div{

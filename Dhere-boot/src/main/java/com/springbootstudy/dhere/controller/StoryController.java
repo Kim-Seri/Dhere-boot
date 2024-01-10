@@ -183,10 +183,19 @@ public class StoryController {
 	// 게시물 수정하기 읽어오기(syj)
 	@GetMapping("/updateStory")
 	public String updateStory(Model model, HttpServletResponse response, @RequestParam("storyNo") int storyNo) {
+		
+		List<Job> jList = storyService.getJobList();
+		// System.out.println(jList.get(0).getCategoryName());
+		model.addAttribute("jList", jList);
 
 		Story story = storyService.getStoryDetail(storyNo);
-
 		model.addAttribute("story", story);
+		
+		List<Image> iList = storyService.getStoryDetailImage(storyNo);
+		model.addAttribute("iList", iList);
+
+		List<Tag> tList = storyService.getStoryDetailTag(storyNo);
+		model.addAttribute("tList", tList);
 
 		return "updateStory";
 	}
@@ -194,11 +203,11 @@ public class StoryController {
 	///////////////////////////////////////////////////////////////////
 	// 게시물 수정하기(syj)
 	@PostMapping("updateStoryProcess")
-	public String updateStoryProcess(HttpServletResponse response, PrintWriter out, @ModelAttribute Story story) {
+	public String updateStoryProcess(HttpServletResponse response, PrintWriter out, @ModelAttribute Story story,
+			@RequestParam(value = "categoryNo") int categoryNo) {
 
 		// storyService 클래스를 이용해 게시물을 수정한다.
 		storyService.updateStoryProcess(story);
-
 		return "redirect:main";
 	}
 
