@@ -100,9 +100,12 @@ input[type="checkbox"] {
 }
 
 #main_story_category_btn {
-	
 	width: 20px; 
 	height: 20px;
+}
 
+#previous, #next  {
+	background-color: #4370FF;
+	width: 50px; 
 }
 

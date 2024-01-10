@@ -185,7 +185,13 @@ public class StoryDaoImpl implements StoryDao {
 		sqlSession.insert(NAME_SPACE+".insertMarker",marker);
 	}
 
+	// 마커 리스트에 담기(syj)
+	@Override
+	public List<Marker> markerList(int storyNo) {
+		return sqlSession.selectList(NAME_SPACE  + ".markerList", storyNo);
+	}
 
 
+	
 
 }

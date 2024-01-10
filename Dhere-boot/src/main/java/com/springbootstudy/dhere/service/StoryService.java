@@ -72,4 +72,7 @@ public interface StoryService {
 	
 	//마커 정보 입력
 	public abstract void insertMarker(Marker marker);
+	
+	// 마커 리스트에 담기(syj)
+	public abstract List<Marker> markerList(int storyNo);
 }

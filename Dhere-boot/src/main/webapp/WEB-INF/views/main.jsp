@@ -4,11 +4,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.net.URL" %>
 <%@ page import="java.net.HttpURLConnection" %>
 <%@ page import="java.io.BufferedReader" %>
 <%@ page import="java.io.InputStreamReader" %>
+
+
 
 
 <link rel="stylesheet" href="resources/css/main.css">
@@ -66,12 +70,44 @@
 	<div class="col">
 	
 		 <!-- 글쓰기 버튼 -->
-		 <input type="button" id="main_writeBtn" class="btn btn-primary fixed-write-button" value="글쓰기" />
+		 <input type="button" id="main_writeBtn" class="btn btn-primary fixed-write-button" value="글쓰기" 
+       					onclick="window.location.href='/postWriteForm'"/>
 		 
 		 <!-- 상단바 이동 버튼 -->
 		 <a href="#" class="goToTopBtn">
 		 	<img src="resources/images/icon/topbar.png" id="goToTopBtnIcon" style="width: 35px;">
 		 </a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		<!-- 캐러셀 시작 -->
 		<div class="row">
@@ -101,21 +137,46 @@
 		</div>
 		<!-- 캐러셀 끝 -->
 
-		<!-- 카테고리 -->
-		<div class="row">
-		<div class="col">
-			
-			<div class="job-categories-container justify-content-center">
-			    <c:forEach var="jList" items="${jList}" varStatus="status">
-			        <div class="jobs" data-category="${jList.categoryName}" style="cursor: pointer; position:relative; background-color: white;">		        	
-			        	<span class="cName">${jList.categoryName}</span>
-			            <span class="close-btn" onclick="clearSelection(${status.index})"></span>
-			        </div>			    
-			    </c:forEach>		    
-			</div>
 
+		<!-- 카테고리 캐러셀 시작 -->
+		<div class="row">
+		    <div class="col">
+		        <div id="jobCarousel" class="carousel slide" data-bs-ride="false">
+		            <div class="carousel-inner">
+		                <!-- 페이지 수 계산 -->
+		                <c:set var="itemsPerPage" value="8" />
+		                <c:set var="totalItems" value="${fn:length(jList)}" />
+		                <c:set var="pageCount" value="${(totalItems div itemsPerPage) + (totalItems % itemsPerPage ne 0 ? 1 : 0)}" />
+		
+		                <!-- 페이지별 캐러셀 아이템 생성 -->
+		                <c:forEach begin="0" end="${pageCount - 1}" var="pageIndex">
+		                    <div class="carousel-item ${pageIndex == 0 ? 'active' : ''}">
+		                        <div class="d-flex flex-row justify-content-center">
+		                            <c:forEach begin="${pageIndex * itemsPerPage}" end="${(pageIndex + 1) * itemsPerPage - 1}" varStatus="status" items="${jList}">
+		                                <c:if test="${status.index lt totalItems}">
+		                                    <div class="jobs" data-category="${jList[status.index].categoryName}" style="cursor: pointer; position:relative; background-color: white;">
+		                                        <span class="cName text-center">${jList[status.index].categoryName}</span>
+		                                        <span class="close-btn" onclick="clearSelection(${status.index})"></span>
+		                                    </div>
+		                                </c:if>
+		                            </c:forEach>
+		                        </div>
+		                    </div>
+		                </c:forEach>
+		            </div>
+		            <!-- 캐러셀 컨트롤 버튼 -->
+		            <button class="carousel-control-prev rounded-4" type="button" data-bs-target="#jobCarousel" data-bs-slide="prev" id="previous">
+		                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		                <span class="visually-hidden">Previous</span>
+		            </button>
+		            <button class="carousel-control-next rounded-4" type="button" data-bs-target="#jobCarousel" data-bs-slide="next" id="next">
+		                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		                <span class="visually-hidden">Next</span>
+		            </button>
+		        </div>
+		    </div>
 		</div>
-		</div>
+		<!-- 카테고리 캐러셀 끝 -->
 
 		<!-- 검색창 -->
 		<div class="row">

@@ -47,6 +47,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class StoryController {
 
+	
 	@Autowired
 	private StoryService storyService;
 
@@ -122,11 +123,21 @@ public class StoryController {
 	
 	// 게시물 디테일(syj)
 	@GetMapping("/storyDetail")
-	public String storyDetail(Model model, HttpSession session, @RequestParam("storyNo") int storyNo) {
+	public String storyDetail(Model model, HttpSession session, 
+			@RequestParam("storyNo") int storyNo,
+			@RequestParam(value = "productCategory", required = false, defaultValue = "All") String productCategory) {
 
+		// 마커 출력 로직 추가
+		List<Marker> mList = storyService.markerList(storyNo);
+		model.addAttribute("mList", mList);
+		
 		// 댓글 출력 로직 추가
 		List<Reply> rList = replyService.getReply(storyNo);
 		model.addAttribute("rList", rList);
+		
+		// 제품 목록 출력 로직 추가
+		List<Product> pList = productService.productList(productCategory);
+		model.addAttribute("pList", pList);
 
 		// 조회수 증가 로직 추가
 		storyService.increaseReadCount(storyNo);
@@ -381,6 +392,8 @@ public class StoryController {
 
 		return "productDetail";
 	}
+	
+
 
 	// #######################################################
 	// ##### Thymeleaf 뷰 시작

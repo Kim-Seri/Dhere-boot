@@ -164,8 +164,8 @@
 	<!-- storyDetail_이미지 가져오기 쿼리(syj) -->	
 	<select id="getStoryDetailImage" resultType="Image">
     	SELECT	image_no as imageNo,
-    			file_name as fileName,
-				story_no as storyNo
+    				file_name as fileName,
+					story_no as storyNo
 	    FROM	image
 	    WHERE	story_no = #{storyNo}
 	</select>
@@ -173,10 +173,30 @@
 	<!-- storyDetail_태그 가져오기 쿼리(syj) -->	
 	<select id="getStoryDetailTag" resultType="Tag">
 	    SELECT tp.story_no AS storyNo, 
-	    		t.tag_name AS tagName
+	    			t.tag_name AS tagName
 	    FROM 	tag_post tp
 	    JOIN 	tag t ON tp.tag_no = t.tag_no
 	    WHERE 	tp.story_no = #{storyNo}
+	</select>
+	
+	<!-- storyDetail_마커 가져오기 쿼리(syj) -->	
+	<select id="markerList" resultType="Marker">
+	    SELECT 
+		    m.marker_no AS markerNo,
+		    m.story_no AS storyNo, 
+		    m.top1,
+		    m.left1,
+		    m.image_no AS imageNo,
+		    m.product_no AS productNo,
+		    p.product_name AS productName,
+		    p.brand_name AS brandName,
+		    p.product_image AS productImage
+		FROM 
+		    marker m
+		JOIN 
+		    product p ON p.product_no = m.product_no
+		WHERE 
+		    story_no = #{storyNo}
 	</select>
 	
 	<!-- storyDetail_조회수 증가 쿼리(syj) -->
@@ -443,6 +463,8 @@
 				</otherwise>
 			</choose>
 		</select>
+
+
 
 
 </mapper>
