@@ -14,7 +14,11 @@ import com.springbootstudy.dhere.domain.Tag;
 public interface StoryService {
 	
 	// 게시물 리스트 가져오기
-	public abstract List<Story> getStoryList();
+	//public abstract List<Story> getStoryList();
+	public abstract Map<String, List<Story>> getStoryList();
+	
+	// 게시물 리스트 가져오기 (+페이징)
+	public abstract List<Story> getStoryListPaged(int offset, int limit);
 
     // 게시물 쓰기
 	public abstract void postWrite(Story story);
@@ -58,6 +62,8 @@ public interface StoryService {
 	// 직종별 게시물 리스트 출력
 	public abstract List<Story> storyList(String selectedJob);
 	
+	public abstract List<Story> sList(String email);
+	
 	// 검색 결과 리스트 출력
 	public abstract List<Story> searchList(String searchKeyword);
 	
@@ -66,4 +72,7 @@ public interface StoryService {
 	
 	//마커 정보 입력
 	public abstract void insertMarker(Marker marker);
+	
+	// 마커 리스트에 담기(syj)
+	public abstract List<Marker> markerList(int storyNo);
 }

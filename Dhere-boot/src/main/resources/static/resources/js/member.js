@@ -67,105 +67,105 @@ $(function() {
 
 $(function() {
 
-   $("#joinForm").on("submit", function() {
-      
-      let regExp = /^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$/gi;
-      
-      if($("#email").val().length <= 0) {
-         alert("이메일을 입력해 주세요.");
-         
-         return false;
-      }
-      if($("#pass1").val().length <= 0) {
-         alert("비밀번호를 입력해 주세요.");
-         
-         return false;
-      }
-      if($("#name").val().length <= 0) {
-         alert("이름을 입력해 주세요.");
-         
-         return false;
-      }
-      if($("#nickname").val().length <= 0) {
-         alert("닉네임을 입력해 주세요.");
-         
-         return false;
-      }
-      if($("#zipcode").val().length <= 0) {
-         alert("우편번호를 입력해 주세요.");
-         
-         return false;
-      }
-      if($("#address1").val().length <= 0) {
-         alert("주소를 입력해 주세요.");
-         
-         return false;
-      }
-      if($("#address2").val().length <= 0) {
-         alert("주소를 입력해 주세요.");
-         
-         return false;
-      }
-      if(regExp.test($("#job").val())) {
-         alert("직업을 입력해 주세요.");
-         
-         return false;
-      }
-      if($("#phone").val().length <= 0) {
-         alert("연락처를 입력해 주세요.");
-         
-         return false;
-      }
-      
-      alert("회원가입에 성공했습니다.");
-      
-   });
-   //회원가입 아이디 중복검사
-   $("#btnOverlapEmail").on("click",function(){
-      var id=$("#email").val()
-         if(id == '' || id.length == 0) {
-             $("#label1").css("color", "red").text("공백은 ID로 사용할 수 없습니다.");
-             return false;
-          }
-      var idCheck=$("#isIdCheck").val();
-      
-      //Ajax로 전송
-      $.ajax({
-         url:"joinCheck",
-         data:{id : id},
-         type:"POST",
-         dataType:"json",
-         success:function(resData){
-            console.log(resData.result);
-            console.log(resData);
-            if(resData.result) {
-               $("#label1").css("color", "black").text("사용 가능한 ID 입니다.");
-               $("#isIdCheck").val("true");
-               console.log(id);
-               
-            }else {
-               $("#label1").css("color", "red").text("사용 불가능한 ID 입니다.");
-                $("userId").val('');
-            }
-         },
-         "error": function(xhr, statusText, err) {
-            console.error("error …");
-         }
-      });
-   });
-      
-   
-   
-   
-   $("#btnOverlapPass").on("click",function(){
-      var pass1=$("#pass1").val();
-      var pass2=$("#pass2").val();
-      if(pass1 == pass2) {
-          $("#label2").css("color", "black").text("비밀번호가 일치합니다.");
-          return false;
-       } else {
-          $("#label2").css("color", "red").text("비밀번호가 일치하지 않습니다.");
-       }
-   });
-   
+	$("#joinForm").on("submit", function() {
+		
+		let regExp = /^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$/gi;
+		
+		if($("#email").val().length <= 0) {
+			alert("이메일을 입력해 주세요.");
+			
+			return false;
+		}
+		if($("#pass1").val().length <= 0) {
+			alert("비밀번호를 입력해 주세요.");
+			
+			return false;
+		}
+		if($("#name").val().length <= 0) {
+			alert("이름을 입력해 주세요.");
+			
+			return false;
+		}
+		if($("#nickname").val().length <= 0) {
+			alert("닉네임을 입력해 주세요.");
+			
+			return false;
+		}
+		if($("#zipcode").val().length <= 0) {
+			alert("우편번호를 입력해 주세요.");
+			
+			return false;
+		}
+		if($("#address1").val().length <= 0) {
+			alert("주소를 입력해 주세요.");
+			
+			return false;
+		}
+		if($("#address2").val().length <= 0) {
+			alert("주소를 입력해 주세요.");
+			
+			return false;
+		}
+		if(regExp.test($("#job").val())) {
+			alert("직업을 입력해 주세요.");
+			
+			return false;
+		}
+		if($("#phone").val().length <= 0) {
+			alert("연락처를 입력해 주세요.");
+			
+			return false;
+		}
+		
+		alert("회원가입에 성공했습니다.");
+		
+	});
+	//회원가입 아이디 중복검사
+	$("#btnOverlapEmail").on("click",function(){
+		var id=$("#email").val()
+			if(id == '' || id.length == 0) {
+	    		$("#label1").css("color", "red").text("공백은 ID로 사용할 수 없습니다.");
+	    		return false;
+	    	}
+		var idCheck=$("#isIdCheck").val();
+		
+		//Ajax로 전송
+		$.ajax({
+			url:"joinCheck",
+			data:{id : id},
+			type:"POST",
+			dataType:"json",
+			success:function(resData){
+				console.log(resData.result);
+				console.log(resData);
+				if(resData.result) {
+					$("#label1").css("color", "black").text("사용 가능한 ID 입니다.");
+					$("#isIdCheck").val("true");
+					console.log(id);
+					
+				}else {
+					$("#label1").css("color", "red").text("사용 불가능한 ID 입니다.");
+    				$("userId").val('');
+				}
+			},
+			"error": function(xhr, statusText, err) {
+				console.error("error …");
+			}
+		});
+	});
+		
+	
+	
+	
+	$("#btnOverlapPass").on("click",function(){
+		var pass1=$("#pass1").val();
+		var pass2=$("#pass2").val();
+		if(pass1 == pass2) {
+	    	$("#label2").css("color", "black").text("비밀번호가 일치합니다.");
+	    	return false;
+	    } else {
+	    	$("#label2").css("color", "red").text("비밀번호가 일치하지 않습니다.");
+	    }
+	});
+	
 });

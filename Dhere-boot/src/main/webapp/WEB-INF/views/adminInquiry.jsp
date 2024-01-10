@@ -10,12 +10,12 @@
 	    </div>
 	    <div class="row">
         <c:forEach var="i" items="${inquiryList}">
-            <div class="col-3 border border-3 m-3 p-3 rounded-3 border-primary" style="width: 320px; height: 180px">
+            <div class="col-3 border border-3 m-3 p-3 rounded-3 border-primary" style="width: 320px; height: 200px">
                 <div class="row">
-                    <div class="col" style="font-size: 25px; font-weight: bold">
+                    <div class="col" style="font-size: 25px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">
                         ${i.inquiryTitle}
                     </div>
-                    <div class="col">
+                    <div class="col text-end">
                         ${i.regDate}
                     </div>
                 </div>
@@ -23,7 +23,7 @@
                     <div class="col mb-3">
                         ${i.inquiryEmail}
                     </div>
-                </div> 
+                </div>
                 <div class="row">
                 	<div class="col mt-3 text-center">
                 		<input type="button" class="btn btn-primary" value="바로 가기" onclick="location.href='inquiryDetail?inquiryNo=${i.inquiryNo}'" style="width: 250px">

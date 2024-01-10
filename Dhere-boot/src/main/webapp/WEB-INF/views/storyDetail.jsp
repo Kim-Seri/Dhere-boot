@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="resources/css/main.css">
 <%@ page session="true" %>
 <%@ page import="com.springbootstudy.dhere.domain.Member"%>
+<script src="resources/js/storyDetail.js"></script>
 <% 
     Member member = (Member)session.getAttribute("member");
     boolean isLoggedIn = member != null;
@@ -14,6 +15,11 @@
     <title>Story Detail</title>
 </head>
 <body>
+
+
+
+
+
 <div class="container">
 	<div class="row">
 		<div class="col">
@@ -125,13 +131,118 @@
 					</div>
 					<!-- 팔로우, 스크랩 버튼 끝 -->
 	<!--################################## 사진 출력 영역 시작 ##################################-->
-					 <c:forEach var="i" items="${iList}">
-							<div class="row">
-								<div class="col text text-center">
-									<img src="resources/images/desk/${ i.fileName }" id="fileName">
-								</div>
-							</div>
-			        </c:forEach>
+			        <div id="markerPopup" class="markerPopup" style="display: none; position: absolute; z-index: 10;">
+					    <!-- 팝업 내용은 JavaScript에 의해 동적으로 채워질 것입니다. -->
+					</div>
+					
+					
+					<c:forEach var="i" items="${iList}" varStatus="status">
+					    <div class="row">
+					        <div class="col text text-center" style="position: relative; display: block; max-width: 100%;">
+					            <img src="resources/images/desk/${i.fileName}" id="fileName"
+					                 style="display: block; width: 100%; height: auto;">
+					            <c:if test="${status.index == 0}">
+					                <c:forEach var="m" items="${mList}">
+									    <img src="resources/images/icon/plus.png" 
+									         class="markerIcon"
+									         data-marker-no="${m.markerNo}"
+									         data-product-no="${m.productNo}"
+									         data-product-name="${m.productName}"
+									         data-brand-name="${m.brandName}"
+									         data-product-image="resources/images/products/${m.productImage}"
+									         data-product-url="productDetail?productNo=${m.productNo}"
+									         style="width: 120px; height: 85px; position: absolute; top: ${m.top1}%; left: ${m.left1}%; cursor: pointer;">
+									</c:forEach>
+					            </c:if>
+					        </div>
+					    </div>
+					</c:forEach>
+					
+					
+					
+					<script>
+					document.addEventListener('DOMContentLoaded', function () {
+					    var markerIcons = document.querySelectorAll('.markerIcon');
+					    var markerPopup = document.getElementById('markerPopup');
+
+					    markerIcons.forEach(function(markerIcon) {
+					        markerIcon.addEventListener('mouseenter', function(event) {
+					            // 현재 마커에 해당하는 정보를 가져옵니다.
+					            var productNo = this.getAttribute('data-product-no');
+					            var productName = this.getAttribute('data-product-name');
+					            var brandName = this.getAttribute('data-brand-name');
+					            var productImage = this.getAttribute('data-product-image');
+					            var productUrl = this.getAttribute('data-product-url');
+					            
+					           /*  console.log('Product No:', this.getAttribute('data-product-no'));
+					            console.log('Product Name:', this.getAttribute('data-product-name'));
+					            console.log('Brand Name:', this.getAttribute('data-brand-name'));
+					            console.log('Product Image:', this.getAttribute('data-product-image'));
+					            console.log('Product URL:', this.getAttribute('data-product-url')); */
+					            
+					            console.log('productNo:', productNo);
+					            console.log('productName:', productName);
+					            console.log('brandName:', brandName);
+					            console.log('productImage:', productImage);
+					            console.log('productUrl:', productUrl);
+
+					            // 팝업의 내용을 현재 마커의 정보로 채웁니다.
+					            markerPopup.innerHTML = `
+					                <div class="col-3 m-3 p-1 rounded-4"
+					                					style="width: 290px; height: 380px; background: #F3F3F3; border: 5px solid #4370FF;" >
+					                    <div class="row">
+					                        <div class="col d-flex justify-content-center align-items-center" style="height: 200px; overflow: hidden;">
+					                            <img src=`+productImage+` id="preview" class="img-fluid rounded-top-3" style="width: 100%; height: 100%;">
+					                        </div>
+					                    </div>
+					                    <div class="row">
+					                        <div class="col p-3">
+					                            <div class="row">
+					                                <div class="col-10 offset-1 py-3" style="font-weight: bold; border-bottom: 2px solid #bfbfbf; color: #bfbfbf">
+					                                   `+brandName+`
+					                                </div>
+					                            </div>
+					                            <div style="width: 100%; height: 2px; color: black"></div>
+					                            <div class="row bg-info">
+					                                <div class="col-10 offset-1 mt-2" style="overflow: hidden; font-size: 23px">
+					                                    <b>`+productName+`</b>
+					                                </div>
+				                                </div>
+				                                <div class="row bg-danger">
+				                                	<div class="col text-end  mb-5">
+				                                		<a style="cursor: pointer;"  onclick="location.href='productDetail?productNo=`+productNo+`'" ">바로가기</a>
+				                                	</div>
+					                            </div>
+					                        </div>
+					                    </div>
+					                </div>
+					            `;
+					            
+
+					            // 팝업의 위치를 조정합니다.
+					            var iconRect = this.getBoundingClientRect();
+					            markerPopup.style.left = (iconRect.left + window.pageXOffset) + 'px';
+					            markerPopup.style.top = (iconRect.bottom + window.pageYOffset) + 'px';
+					            
+					            // 팝업을 표시합니다.
+					            markerPopup.style.display = 'block';
+					        });
+
+					       /*  markerIcon.addEventListener('mouseleave', function() {
+					            // 팝업을 숨깁니다.
+					            markerPopup.style.display = 'none';
+					        }); */
+					        
+					        
+					        	// 마우스를 클릭하면 원래 나왔던 팝업이 사라진다아아
+					        	document.addEventListener('click', function(e){
+					        		if(!markerPopup.contains(e.target)){
+					        			markerPopup.style.display='none';
+					        		}
+					        	});
+					    });
+					});
+					</script>
 	<!--################################## 사진 출력 영역 끝 ##################################-->
 	<!--################################## content 영역 시작 ##################################-->
 					<!-- content 1 시작 -->
@@ -220,7 +331,7 @@
 	<!--############################# 공유, 하트, 신고 버튼 영역 시작 ############################-->
 					<div class="row" id="share_heart_siren_btn">
 						<div class="col text text-center">
-							<button type="button" class="btn btn-outline-primary">
+							<button type="button" class="btn btn-outline-primary" id="icon_siren_btn2">
 								<img src="resources/images/icon/shara_export.png" id="icon_share_btn">
 							</button>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -274,7 +385,7 @@
 												data-bs-trigger="focus"
 												data-bs-title="${r.nickname}"
 												data-bs-content="
-												<a href='otherScrap?email=${r.email}&nickname=${r.nickname}&picture=${r.picture}&job=${storyDetail.categoryName}'class='text-decoration-none text-dark'>프로필 보러가기</a>
+												<a href='otherScrap?email=${r.email}&nickname=${r.nickname}&picture=${r.picture}&categoryName=${storyDetail.categoryName}'class='text-decoration-none text-dark'>프로필 보러가기</a>
 												<br>
 											    <br>
 											    <a href='scrap' class='text-decoration-none text-dark'>쪽지 보내기</a>
@@ -308,11 +419,11 @@
 									<div class="col-1">
 									<c:choose>
 									    <c:when test="${sessionScope.member.email eq 'admin' or r.email eq sessionScope.member.email}">
-											<img src="resources/images/icon/cancel.png" id="storyDetail_reply_delete"
+											<img src="resources/images/icon/cancel_red.png" id="storyDetail_reply_delete"
 														onclick="deleteReply(${r.replyNo})" style="cursor: pointer;">
 										</c:when>
 								    	<c:otherwise>
-								    		<img src="resources/images/icon/siren_police.png" id="storyDetail_reply_siren">
+								    		<img src="resources/images/icon/siren_police.png" id="storyDetail_reply_siren" >
 									    </c:otherwise>
 									</c:choose>
 									</div>
@@ -364,7 +475,7 @@
 						</c:choose>
 						</div>
 						<div class="col-2 text-center text-bottom">
-						<c:if test="${not empty sessionScope.member}">
+							<c:if test="${not empty sessionScope.member}">
 						        <input type="submit" class="btn btn-warning" value="댓글 작성">
 						    </c:if>
 						</div>
@@ -435,14 +546,30 @@ function deleteReply(replyNo) {
     // 로그인 상태를 JavaScript 변수로 설정
     var isLoggedIn = <%= isLoggedIn %>;
 
-    document.getElementById('icon_siren_btn1').onclick = function() {
-        if (!isLoggedIn) {
-            alert('로그인을 먼저 진행해주세요');
-            window.location.href = 'loginForm'; // 로그인 페이지로 이동
-        } else {
-            window.location.href = 'inquiryWriteForm'; // 문의 작성 페이지로 이동
-        }
-    };
+    document.addEventListener("DOMContentLoaded", function() {
+        // 버튼의 ID로 각 버튼을 가져옵니다.
+        var iconSirenBtn1 = document.getElementById('icon_siren_btn1');
+        var iconSirenBtn2 = document.getElementById('icon_siren_btn2');
+
+        // 각 버튼에 대한 클릭 이벤트 리스너를 설정합니다.
+        var buttons = [iconSirenBtn1, iconSirenBtn2];
+        buttons.forEach(function(button) {
+            if (button) {
+                button.onclick = function() {
+                    if (!isLoggedIn) {
+                        alert('로그인을 먼저 진행해주세요');
+                        window.location.href = 'loginForm'; // 로그인 페이지로 이동
+                    } else {
+                        // 로그인 상태일 때 확인창을 띄웁니다.
+                        if (confirm('해당 댓글을 신고하시겠습니까?')) {
+                            window.location.href = 'inquiryWrite'; // 문의 작성 페이지로 이동
+                        }
+                        // '취소'를 누르면 아무 일도 일어나지 않습니다.
+                    }
+                };
+            }
+        });
+    });
 </script>
 
 

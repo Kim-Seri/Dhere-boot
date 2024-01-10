@@ -30,9 +30,10 @@ public class WebConfig implements WebMvcConfigurer {
 		registry.addViewController("/loginForm").setViewName("loginForm");
 		registry.addViewController("/joinForm").setViewName("joinForm");
 		registry.addViewController("/scrap").setViewName("scrap");
-		registry.addViewController("/mainProduct").setViewName("mainProduct");
 		registry.addViewController("/inquiryWrite").setViewName("inquiryWrite");
 		registry.addViewController("/answerWrite").setViewName("answerWrite");			
+		registry.addViewController("/noticeWriteForm").setViewName("noticeWriteForm");			
+		registry.addViewController("/notice").setViewName("notice");					
 	}
 	
 	// Interceptor 등록

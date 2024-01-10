@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -45,6 +47,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class StoryController {
 
+	
 	@Autowired
 	private StoryService storyService;
 
@@ -60,7 +63,27 @@ public class StoryController {
 	// #######################################################
 	// ##### JSP 뷰 시작
 	// #######################################################
+	
+	
+	
+	
+	// 메인페이지서의 제품 페이징 처리를 위한 메서드(syj)
+	@GetMapping("/getProductList")
+	public ResponseEntity<List<Product>> getProductListPaged(
+	        @RequestParam(value = "category", required = false) String category,
+	        @RequestParam("offset") int offset, 
+	        @RequestParam("limit") int limit) {
 
+	    List<Product> productList;
+	    if (category == null || category.isEmpty() || category.equals("All")) {
+	        productList = productService.getProductListPaged(offset, limit);
+	    } else {
+	        productList = productService.getFilteredProductListPaged(category, offset, limit);
+	    }
+	    
+	    return ResponseEntity.ok(productList);
+	}
+	
 	// 데스크 셋업 리스트 출력 (메인)
 	// 카테고리 별 제품 리스트 출력
 	@GetMapping(value = { "/", "/main" })
@@ -69,28 +92,52 @@ public class StoryController {
 
 		List<Job> jList = storyService.getJobList();
 		model.addAttribute("jList", jList);
-
+		
+		//Map<String, List<Story>> map = storyService.getStoryList();
+		//map.put("sList", storyService.getStoryList());
+		
+		Map<String, List<Story>> map = storyService.getStoryList();
+	    List<Story> sList = map.get("sList"); 
+	    model.addAttribute("sList", sList);
+		
 		/*
-		 * Map<String, List<Story>> map = new HashMap<>(); map.put("sList",
-		 * storyService.getStoryList(itemCnt));
-		 */
-
 		List<Story> sList = storyService.getStoryList();
 		model.addAttribute("sList", sList);
-
+		*/
+		
 		List<Product> pList = productService.productList(productCategory);
 		model.addAttribute("pList", pList);
 
 		return "main";
 	}
-
+	
+	// 게시물 리스트 출력 (+페이징)
+    @GetMapping("/getStoryList")
+    public ResponseEntity<List<Story>> getPartialList(
+            @RequestParam("offset") int offset,
+            @RequestParam("limit") int limit) {
+    	
+        List<Story> items = storyService.getStoryListPaged(offset, limit);
+        return ResponseEntity.ok(items);
+    }
+	
 	// 게시물 디테일(syj)
 	@GetMapping("/storyDetail")
-	public String storyDetail(Model model, HttpSession session, @RequestParam("storyNo") int storyNo) {
+	public String storyDetail(Model model, HttpSession session, 
+			@RequestParam("storyNo") int storyNo,
+			@RequestParam(value = "productCategory", required = false, defaultValue = "All") String productCategory) {
 
+		// 마커 출력 로직 추가
+		List<Marker> mList = storyService.markerList(storyNo);
+		model.addAttribute("mList", mList);
+		
 		// 댓글 출력 로직 추가
 		List<Reply> rList = replyService.getReply(storyNo);
 		model.addAttribute("rList", rList);
+		
+		// 제품 목록 출력 로직 추가
+		List<Product> pList = productService.productList(productCategory);
+		model.addAttribute("pList", pList);
 
 		// 조회수 증가 로직 추가
 		storyService.increaseReadCount(storyNo);
@@ -354,6 +401,8 @@ public class StoryController {
 
 		return "productDetail";
 	}
+	
+
 
 	// #######################################################
 	// ##### Thymeleaf 뷰 시작
@@ -363,4 +412,6 @@ public class StoryController {
 
 		return "th/thViewTest";
 	}
+	
+	
 }

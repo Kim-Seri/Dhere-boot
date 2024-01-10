@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+#noticeEmail {
+	
+	border: none;
+	
+}
+
+#noticeTitle {
+
+	font-size: 30px;
+	font-weight: bold;
+	border: none;
+	border-radius: 0;
+	border-bottom: 2px solid rgb(49,108,244);
+	outline: none;
+	
+}
+
+#noticeContent {
+	
+	border: none;
+	height: 150px;
+	border-radius: 10px;
+	border: 2px solid #d6d6d6;
+	
+}

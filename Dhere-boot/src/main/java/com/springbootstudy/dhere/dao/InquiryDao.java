@@ -2,6 +2,7 @@ package com.springbootstudy.dhere.dao;
 
 import java.util.List;
 
+import com.springbootstudy.dhere.domain.Answer;
 import com.springbootstudy.dhere.domain.Inquiry;
 
 public interface InquiryDao {
@@ -20,4 +21,7 @@ public interface InquiryDao {
 	
 	// 문의 삭제
 	public abstract void deleteInquiry(int inquiryNo);
+	
+	// 문의에 대한 답변 리스트 가져오기
+	public abstract List<Answer> getAnswerList(int inquiryNo);
 }

@@ -1,51 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
-<link rel="stylesheet" href="resources/css/scrap.css">
-<html xmlns:th="http://www.thymeleaf.org">
-   <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width">
-   <head>
-         <title>마이페이지</title>
-<link href="resources/bootstrap/bootstrap.min.css" rel="stylesheet">
-<script src="resources/js/member.js"></script>
-<script src="resources/js/jquery-3.2.1.min.js"></script>
-<script src="resources/js/formcheck.js"></script>
-<script src="resources/js/scrap.js"></script>
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link rel="stylesheet" href="resources/css/joinForm.css">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	</head>
-<body>
-	<!-- 전체 컨테이너 시작 -->
-<div class="container mt-5 row justify-content-center">
-<div class="col-auto">
-	<!-- 탭바 (프로필/정보수정/1:1문의하기/로그아웃) 시작 -->
-	
-	<div class="col justify-content-center" id="infobox">
-		<div class="infoTab_box">
-			<button type="button" class="btn btn-outline-primary" id="infoTab_btn" onclick="showInfo(0)">회원정보</button>
-			<button type="button" class="btn btn-outline-primary" id="infoTab_btn" onclick="location.href='${pageContext.request.contextPath}/member/mypageUpdateProcess'">회원정보수정</button>
-			<button type="button" class="btn btn-outline-primary" id="infoTab_btn" onclick="showInfo(2)">1:1문의하기</button>
-			<button type="button" class="btn btn-outline-primary" id="infoTab_btn" onclick="showInfo(3)">로그아웃</button>
-		</div>
-<div class="row my-5 container" id="global-content">
+<script src="resources/js/member.js"></script>
+<style>
+	body {
+		background-image: url('resources/images/join_background.png');
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+</style>
+
+
+<div class="row my-4 container" id="global-content">
 	<div class="offset-3 col-6">
-		<form action="mypageUpdateResult" name="mypageUpdateForm" id="mypageUpdateForm" method="post" enctype="multipart/form-data">
+		<form action="joinResult" name="mypageUpdateForm" id="mypageUpdateForm" method="post" enctype="multipart/form-data">
 		<div class="row m-3">
 			<div class="col fs-1 text-center text-white" style="font-weight: bold">
-				Update
+				update-my page
 			</div>
 		</div>
-			<input type="hidden" name="isIdCheck" id="isIdCheck" value="false">
+			
 			<div class="row">
 				<div class="col m-3 rounded-4">	
 					<div class="row mt-5 mb-2">
 						<div class="col-md-6 offset-md-3 text-center">
-							<img id="preview" class="img-fluid" alt="프로필 사진" style="color:white; max-width: 300px; max-height: 300px; object-fit: cover;">
+							<img id="preview" class="img-fluid" alt="프로필 사진" style="color:white; max-width: 300px; max-height: 300px; object-fit: cover;"
+							value="${sessionScope.member.picture}">
 						</div>
 					</div>
 					<div class="row mb-3 justify-content-center">
@@ -53,118 +36,108 @@
 							<input type="file" class="form-control form-control-sm border border-1" id="picture" name="picture1" onchange="readURL(this);">
 						</div>
 					</div>
-
-			        
-					<div class="row my-3">
+					<div class="row my-4">
 						<div class="col-8 offset-2">
-							<label for="email" class="form-label" style="color:white">이메일 </label>
+							<label for="email" class="form-label" style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;이메일</label>
 							<div class="row">
 								<div class="col-8">
-									<input type="text" class="form-control border border-3" name="email" id="email" 
-									value="${sessionScope.member.email}" readonly
-									placeholder="example@example.com" style="background: transparent; border-radius: 15px; color: white;">
+									<input type="text" class="form-control border border-white border-3" name="email" id="email" placeholder="example@example.com" 
+									style="width: 110%; background: white; border-radius: 10px; color: black;" value="${sessionScope.member.email}" readonly>
 									<label id="label1"></label>
-								</div>
-								<div class="col-4">
-									<input type="button" class="btn" id="btnOverlapEmail" value="확인" style="width: 65%; height: 45px; background: white; border-radius: 15px;">
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="row my-3">
+					<div class="row my-4">
 						<div class="col-6 offset-2">
-							<label for="pass" class="form-label" style="color:white">비밀번호 </label>
-							<input type="password" class="form-control border border-3" name="Pass" id="Pass1" 
-							style="background: transparent; border-radius: 15px; color: white;">
+							<label for="pass" class="form-label" style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;비밀번호 </label>
+							<input type="password" class="form-control border border-white border-3" name="pass" id="pass1" style="width: 97%; background: white; border-radius: 10px; color: black;">
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-8 offset-2">
-							<label for="pass2" class="form-label" style="color:white">비밀번호 확인 </label>
+							<label for="pass2" class="form-label" style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;비밀번호 확인 </label>
 							<div class="row">
 								<div class="col-8">
-									<input type="password" class="form-control border border-3" name="pass2" id="pass2" 
-									style="background: transparent; border-radius: 15px; color: white;">
+									<input type="password" class="form-control border border-white border-3" name="pass2" id="pass2" style="width: 110%; background: white; border-radius: 10px; color: black;">
+									<label id="label2"></label>
 								</div>
-								<div class="col-4">
-									<input type="button" class="btn" id="btnOverlapPass" value="확인" style="width: 65%; height: 45px; background: white; border-radius: 15px;">
+								<div class="col-4 text-end">
+									<input type="button" class="btn border-white" id="btnOverlapPass" value="확인" style="width: 65%; height: 45px; color: white; border-radius: 10px;">
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="row mt-5 mb-3">
+					<div class="row my-4">
 						<div class="col-8 offset-2">
-							<label for="name" class="form-label" style="color:white">이름 </label>
-							<input type="text" class="form-control border border-3" name="name" id="name" 
-							value="${ sessionScope.member.name}"
-							style="background: transparent; border-radius: 15px; color: white;">
+							<label for="name" class="form-label" style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;이름 </label>
+							<input type="text" class="form-control border border-white border-3" name="name" id="name" 
+							style="background: white; border-radius: 10px; color: black;" value="${sessionScope.member.name}" readonly>
 						</div>
 					</div>
-					<div class="row my-3">
+					<div class="row my-4">
 						<div class="col-8 offset-2">
-							<label for="nickname" class="form-label" style="color:white">닉네임 </label>
-							<input type="text" class="form-control border border-3" name="nickname" id="nickname" 
-							style="background: transparent; border-radius: 15px; color: white;" >
+							<label for="nickname" class="form-label" style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;닉네임 </label>
+							<input type="text" class="form-control border border-white border-3" name="nickname" id="nickname" 
+							style="background: white; border-radius: 10px; color: black;" value="${sessionScope.member.nickname}">
 						</div>
 					</div>
-					<div class="row my-3">
+					<div class="row mt-4">
 						<div class="col-7 offset-2">
-							<label for="zipcode" class="form-label" style="color:white">주소 </label>
+							<label for="zipcode" class="form-label" style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;주소 </label>
 							<div class="row">
 								<div class="col-8">
-									<input type="text" class="form-control border border-3" name="zipcode" id="zipcode" 
-									maxlength="5" style="background: transparent; border-radius: 15px; color: white;" readonly 
-									value="${sessionScope.member.zipcode}">
+									<input type="text" class="form-control border border-white border-3" name="zipcode" id="zipcode" maxlength="5" 
+									style="background: white; border-radius: 10px; color: black;" value="${sessionScope.member.zipcode}" readonly>
 								</div>
 								<div class="col-3">
-									<input type="button" class="btn" id="btnZipcode" value="우편번호 검색" 
-									style="width: 220%; height: 45px; background: white; border-radius: 15px;">
+									<input type="button" class="btn border-white" id="btnZipcode" value="우편번호 검색" 
+									style="width: 220%; height: 45px; color: white; border-radius: 10px;">
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="row my-3">
+					<div class="row my-2">
 						<div class="col-8 offset-2">
 							<!-- <label for="address1" class="form-label">Address </label> -->
-							<input type="text" class="form-control border border-3" name="address1" id="address1" 
-							style="background: transparent; border-radius: 15px; color: white;" readonly
-							value="${sessionScope.member.address1}">
+							<input type="text" class="form-control border border-white border-3" name="address1" id="address1" 
+							style="background: white; border-radius: 10px; color: black;" value="${sessionScope.member.address1}" readonly>
 						</div>
 					</div>
-					<div class="row my-3">
+					<div class="row my-2">
 						<div class="col-8 offset-2">
 							<!-- <label for="address2" class="form-label">Detail Address </label> -->
-							<input type="text" class="form-control border border-3" name="address2" id="address2" 
-							style="background: transparent; border-radius: 15px; color: white;"
-							value="${ sessionScope.member.address2 }">
+							<input type="text" class="form-control border border-white border-3" name="address2" id="address2" 
+							style="background: white; border-radius: 10px; color: black;" value="${sessionScope.member.address2}" >
 						</div>
 					</div>
-					<div class="row my-3">
+					<div class="row my-4">
 						<div class="col-8 offset-2">
-							<label for="job" class="form-label" style="color:white">직업 </label>
+							<label for="job" class="form-label" style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;직업 </label>
 							<div class="row">
 								<div class="col">
-									<input type="text" class="form-control border border-3" name="job" id="job" placeholder="개발자" style="background: transparent; border-radius: 15px; color: white;">
+									<input type="text" class="form-control border border-white border-3" name="job" id="job" placeholder="개발자" style="background: white; border-radius: 10px; color: black;">
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="row my-3">
+					<div class="row my-4">
 						<div class="col-8 offset-2">
-							<label for="phone" class="form-label" style="color:white">연락처 </label> 
+							<label for="phone" class="form-label" style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;연락처 </label> 
 							<div class="row">
 								<div class="col">
-									<input type="text" class="form-control border border-3" name="phone" id="phone" 
-									maxlength="20" placeholder="010-0000-0000" 
-									value="${ sessionScope.member.phone }
-									style="background: transparent; border-radius: 15px; color: white;">
+									<input type="text" class="form-control border border-white border-3" name="phone" id="phone" maxlength="20" placeholder="010-0000-0000" 
+									style="background: white; border-radius: 10px; color: black;" value="${sessionScope.member.phone}">
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="row my-5">
-						<div class="col-8 offset-2 text-center"> 
-							<input type="submit" value="수정하기" class="btn border border-3 border-white" style="background: white; width: 25%; border-radius: 15px;">
+					<div class="row justify-content-center" style="margin-top: 100px;">
+						<div class="col-4"> 
+							<input type="submit" value="update" class="btn border border-white border-3" style="background: white; width: 100px; height: 55px; border-radius: 15px;">&nbsp;&nbsp;
+						</div>
+						<div class="col-4 text-end"> 
+							<input type="button" value="Back" class="btn border border-3" style="border-radius: 15px; width: 100px; height: 55px; color: white" onclick="location.href='main'">
 						</div>
 					</div>
 				</div>
@@ -172,8 +145,3 @@
 		</form>
 	</div>
 </div>
-</div>
-</div>
-</div>
-</body>
-</html>

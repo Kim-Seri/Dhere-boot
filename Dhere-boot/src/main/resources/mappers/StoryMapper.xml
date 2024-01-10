@@ -67,6 +67,37 @@
 			<result property="tagName" column="tag_name" />
 		</collection>
 	</resultMap>
+	
+	<!-- 게시물 리스트 가져오기 (+페이징) -->
+	<select id="getStoryListPaged" resultMap="StoryResultMap">
+        SELECT
+			s.story_no,
+			s.title,
+			s.content1,
+			s.content2,
+			s.content3,
+			s.content4,
+			s.email,
+			s.reg_date,
+			s.category_no,
+			s.read_count,
+			s.thank,
+			s.nickname,
+			i.file_name,
+			m.picture,
+			t.tag_name,
+			j.category_name		
+		FROM story s		
+		LEFT JOIN image i ON s.story_no = i.story_no
+		LEFT JOIN member m ON s.email = m.email
+		LEFT JOIN tag_post tp ON s.story_no = tp.story_no
+		LEFT JOIN tag t ON tp.tag_no = t.tag_no
+		LEFT JOIN job j ON s.category_no = j.category_no	
+		WHERE i.image_no = (SELECT MIN(image_no) FROM image WHERE story_no = s.story_no)
+		GROUP BY s.story_no
+		ORDER BY s.reg_date DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
 
 	<!-- 스토리 게시글 작성 쿼리 -->
 	<insert id="postWrite" parameterType="story">
@@ -133,8 +164,8 @@
 	<!-- storyDetail_이미지 가져오기 쿼리(syj) -->	
 	<select id="getStoryDetailImage" resultType="Image">
     	SELECT	image_no as imageNo,
-    			file_name as fileName,
-				story_no as storyNo
+    				file_name as fileName,
+					story_no as storyNo
 	    FROM	image
 	    WHERE	story_no = #{storyNo}
 	</select>
@@ -142,10 +173,30 @@
 	<!-- storyDetail_태그 가져오기 쿼리(syj) -->	
 	<select id="getStoryDetailTag" resultType="Tag">
 	    SELECT tp.story_no AS storyNo, 
-	    		t.tag_name AS tagName
+	    			t.tag_name AS tagName
 	    FROM 	tag_post tp
 	    JOIN 	tag t ON tp.tag_no = t.tag_no
 	    WHERE 	tp.story_no = #{storyNo}
+	</select>
+	
+	<!-- storyDetail_마커 가져오기 쿼리(syj) -->	
+	<select id="markerList" resultType="Marker">
+	    SELECT 
+		    m.marker_no AS markerNo,
+		    m.story_no AS storyNo, 
+		    m.top1,
+		    m.left1,
+		    m.image_no AS imageNo,
+		    m.product_no AS productNo,
+		    p.product_name AS productName,
+		    p.brand_name AS brandName,
+		    p.product_image AS productImage
+		FROM 
+		    marker m
+		JOIN 
+		    product p ON p.product_no = m.product_no
+		WHERE 
+		    story_no = #{storyNo}
 	</select>
 	
 	<!-- storyDetail_조회수 증가 쿼리(syj) -->
@@ -194,8 +245,11 @@
 		DELETE 
 		FROM 	tag_post
 		WHERE 	story_no = #{story_no}
-		<!-- DELETE FROM `Dhere`.`tag_post` 
-		WHERE story_no = #{story_no} -->
+	</delete>	
+	<delete id="deleteTagByStoryNo">
+		DELETE 
+		FROM 	tag
+		WHERE 	tag_no = #{tag_no}
 	</delete>	
 	<delete id="deleteImageByStoryNo">
 		DELETE 
@@ -266,6 +320,42 @@
 		
 		
 	</select>
+	
+	<select id="sList" resultMap="jobStoryResultMap">
+	    SELECT
+	    s.story_no,
+	    s.title,
+	    s.content1,
+	    s.content2,
+	    s.content3,
+	    s.content4,
+	    s.email,
+	    s.reg_date,
+	    s.category_no,
+	    s.read_count,
+	    s.thank,
+	    s.nickname,
+	    i.file_name,
+	    m.picture,
+	    t.tag_name,
+	    j.category_name
+	    FROM
+	    story s
+	    LEFT JOIN
+	    image i ON s.story_no = i.story_no
+	    LEFT JOIN
+	    member m ON s.email = m.email
+	    LEFT JOIN
+	    tag_post tp ON s.story_no = tp.story_no
+	    LEFT JOIN
+	    tag t ON tp.tag_no = t.tag_no
+	    LEFT JOIN
+	    job j ON s.category_no = j.category_no
+	    WHERE
+	    i.image_no = (SELECT MIN(image_no) FROM image WHERE story_no = s.story_no)
+	    AND s.email = #{email}
+	</select>
+	
 	
 	
 	<resultMap id="jobStoryResultMap" type="Story">
@@ -373,6 +463,8 @@
 				</otherwise>
 			</choose>
 		</select>
+
+
 
 
 </mapper>

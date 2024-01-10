@@ -38,7 +38,7 @@
 			SET pass=#{pass}, email=#{email}, phone=#{phone},
 			name=#{name}, nickname=#{nickname}, zipcode=#{zipcode},
 			address1=#{address1}, address2=#{address2}
-			job=#{job}, phone=#{phone}, picture=#{picture}
+			job=#{job}, phone=#{phone}, picture=#{picture}, role=#{role}
 		WHERE email=#{email}
 	</update> 
 	

@@ -42,13 +42,13 @@ public class OtherScrapController {
 	    public String showProfile(@RequestParam("email") String email,
 	                              @RequestParam("nickname") String nickname,
 	                              @RequestParam("picture") String picture,
-	                              @RequestParam("job") String job,
+	                              @RequestParam("categoryName") String categoryName,
 	                              Model model) {
 	       
 	        model.addAttribute("email", email);
 	        model.addAttribute("nickname", nickname);
 	        model.addAttribute("picture", picture);
-	        model.addAttribute("job", job);
+	        model.addAttribute("categoryName", categoryName);
 	        
 	        return "otherScrap";
 	    }

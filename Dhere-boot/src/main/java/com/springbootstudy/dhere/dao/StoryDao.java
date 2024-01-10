@@ -1,6 +1,7 @@
 package com.springbootstudy.dhere.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.springbootstudy.dhere.domain.Image;
 import com.springbootstudy.dhere.domain.Job;
@@ -11,7 +12,11 @@ import com.springbootstudy.dhere.domain.Tag;
 
 public interface StoryDao {
     // 게시물 리스트 가져오기
-    public abstract List<Story> getStoryList();
+    //public abstract List<Story> getStoryList();
+    public abstract Map<String, List<Story>> getStoryList();
+    
+    // 게시물 리스트 가져오기 (+페이징)
+    public abstract List<Story> getStoryListPaged(int offset, int limit);
 
     // 게시물 디테일 가져오기(syj)
     public abstract Story getStoryDetail(int storyNo);
@@ -34,6 +39,7 @@ public interface StoryDao {
     void deleteReplyByStoryNo(int storyNo);
     void deleteMarkerByStoryNo(int storyNo);
     void deleteTagPostByStoryNo(int storyNo);
+    void deleteTagByStoryNo(int storyNo);
     void deleteImageByStoryNo(int storyNo);
     
     // 게시물 수정하기 읽어오기(syj)
@@ -56,6 +62,9 @@ public interface StoryDao {
 	
 	//tagPost추가하기
 	public abstract void insertTagPost(Tag tag);
+	
+	//내 게시 글
+	public abstract List<Story> sList(String email);
 
 	// 직종별 게시물 리스트 출력
 	public abstract List<Story> storyList(String selectedJob);
@@ -68,4 +77,7 @@ public interface StoryDao {
 
 	//마커 정보 입력
 	public abstract void insertMarker(Marker marker);
+	
+	// 마커 리스트에 담기(syj)
+	public abstract List<Marker> markerList(int storyNo);
 }

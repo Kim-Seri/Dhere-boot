@@ -60,4 +60,18 @@
 		<result property="productImage" column="product_image" />
 	</resultMap>
 	
+	
+	<select id="getProductListPaged" parameterType="Map" resultType="com.springbootstudy.dhere.domain.Product">
+       SELECT * FROM product
+        ORDER BY product_no
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+    
+    <select id="getFilteredProductList" parameterType="Map" resultType="Product">
+	    SELECT * FROM product
+	    WHERE category = #{category}
+	    ORDER BY product_no
+	    LIMIT #{limit} OFFSET #{offset}
+	</select>
+	
 </mapper>

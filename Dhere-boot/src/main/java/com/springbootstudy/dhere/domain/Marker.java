@@ -24,4 +24,8 @@ public class Marker {
 		return "top1 : " + this.top1 + ", left1 : " + this.left1 + ", productNo : " + this.productNo; 
 	}
 	*/
+	private String productName;
+	private String brandName;
+	private String productImage;
+	
 }

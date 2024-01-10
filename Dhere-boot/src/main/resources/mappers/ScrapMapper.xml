@@ -23,21 +23,25 @@
 			WHERE no = #{no}
 	</select>
 	
-	<!-- 내 게시물 보기 -->
+	<!-- 내 게시물 출력-->
 	<select id="getScrapList" resultMap="ScrapResultMap">
 			SELECT
-				email,
-				scrap_no AS scrapNo,
+				sc.email,
+				sc.scrap_no AS scrapNo,
 				story_no AS storyNo,
 				scrap_date AS ScrapNo,
-				
-				story_no AS storyNo,				
+								
 				title,
-				content,
 				reg_date AS regDate,
-				category_id
-				thank
-			FROM scrap_no
+				category_no AS categoryNo,
+				read_count AS readCount,
+				thank,
+				nickname,
+				picture,
+				tag_name AS tagName,
+				category_name AS categoryName
+			FROM scrap s
+			
 	</select>
 	
 	

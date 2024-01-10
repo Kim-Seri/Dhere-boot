@@ -22,13 +22,28 @@ public class StoryServiceImpl implements StoryService {
 	@Autowired
 	private StoryDao storyDao;
 	
-
+	@Override
+	public List<Story> sList(String email) {
+		return storyDao.sList(email);
+	}
 	
 	// 게시물 리스트 가져오기
+//	@Override
+//	public List<Story> getStoryList() {
+//		return storyDao.getStoryList();
+//	}
+	
 	@Override
-	public List<Story> getStoryList() {
+	public Map<String, List<Story>> getStoryList() {
 		return storyDao.getStoryList();
 	}
+	
+	// 게시물 리스트 가져오기 (+페이징)
+	@Override
+	public List<Story> getStoryListPaged(int offset, int limit) {
+		return storyDao.getStoryListPaged(offset, limit);
+	}
+	
 
 	//게시글 작성하기(story)
 	@Override
@@ -74,6 +89,7 @@ public class StoryServiceImpl implements StoryService {
 		storyDao.deleteReplyByStoryNo(storyNo);
 		storyDao.deleteMarkerByStoryNo(storyNo);
 		storyDao.deleteTagPostByStoryNo(storyNo);
+		storyDao.deleteTagByStoryNo(storyNo);
 		storyDao.deleteImageByStoryNo(storyNo);
 		
 		//	마지막으로 story 삭제하자
@@ -142,6 +158,9 @@ public class StoryServiceImpl implements StoryService {
 		 storyDao.insertMarker(marker);
 	}
 
-	
-	
+	// 마커 리스트에 담기(syj)
+	@Override
+	public List<Marker> markerList(int storyNo) {
+		return storyDao.markerList(storyNo);
+	}
 }

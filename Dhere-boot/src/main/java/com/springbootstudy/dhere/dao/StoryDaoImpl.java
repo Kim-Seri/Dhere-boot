@@ -1,6 +1,8 @@
 package com.springbootstudy.dhere.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +24,34 @@ public class StoryDaoImpl implements StoryDao {
 	
 	@Override
 	public void postWrite (Story story) {
-		sqlSession.insert(NAME_SPACE+".postWrite",story);
+		sqlSession.insert(NAME_SPACE+".postWrite", story);
 	}
-	
 
 	// 게시물 리스트 가져오기
+//	@Override
+//	public List<Story> getStoryList() {
+//		return sqlSession.selectList(NAME_SPACE + ".getStoryList");
+//	}
+	
 	@Override
-	public List<Story> getStoryList() {
-		return sqlSession.selectList(NAME_SPACE + ".getStoryList");
+	public Map<String, List<Story>> getStoryList() {
+		//return sqlSession.selectList(NAME_SPACE + ".getStoryList");
+		List<Story> sList = sqlSession.selectList(NAME_SPACE + ".getStoryList");
+	    Map<String, List<Story>> map = new HashMap<>();
+	    map.put("sList", sList);
+	    return map;
+		
 	}
+	
+	// 게시물 리스트 가져오기 (+페이징)
+	@Override
+	public List<Story> getStoryListPaged(int offset, int limit) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("offset", offset);
+		params.put("limit", limit);
+		return sqlSession.selectList(NAME_SPACE + ".getStoryListPaged", params);
+	}
+	
 
 	// 게시물 디테일 가져오기(syj)
 	@Override
@@ -83,6 +104,10 @@ public class StoryDaoImpl implements StoryDao {
 	@Override
 	public void deleteTagPostByStoryNo(int storyNo) {
 		sqlSession.delete(NAME_SPACE + ".deleteTagPostByStoryNo", storyNo);
+	}
+	@Override
+	public void deleteTagByStoryNo(int storyNo) {
+		sqlSession.delete(NAME_SPACE + ".deleteTagByStoryNo", storyNo);
 	}
 	@Override
 	public void deleteImageByStoryNo(int storyNo) {
@@ -149,14 +174,24 @@ public class StoryDaoImpl implements StoryDao {
 		return sqlSession.selectList(NAME_SPACE  + ".sortList", sort);
 	}
 	
+@Override
+	public List<Story> sList(String email) {
+		return sqlSession.selectList(NAME_SPACE + ".sList", email);
+	}
 
-	//마커 정보 입력
+//마커 정보 입력
 	@Override
 	public void insertMarker(Marker marker) {
 		sqlSession.insert(NAME_SPACE+".insertMarker",marker);
 	}
 
+	// 마커 리스트에 담기(syj)
+	@Override
+	public List<Marker> markerList(int storyNo) {
+		return sqlSession.selectList(NAME_SPACE  + ".markerList", storyNo);
+	}
 
 
+	
 
 }

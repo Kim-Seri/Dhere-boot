@@ -85,11 +85,7 @@ input[type="checkbox"] {
  	transform: translateX(120%);
 }
 
-#goToTopBtnIcon {
-	
-}
-
-#moreBtn {
+#addBtn {
 	width: 150px;
 	height: 30px;
 	border: 1px solid blue;
@@ -104,9 +100,12 @@ input[type="checkbox"] {
 }
 
 #main_story_category_btn {
-	
 	width: 20px; 
 	height: 20px;
+}
 
+#previous, #next  {
+	background-color: #4370FF;
+	width: 50px; 
 }
 

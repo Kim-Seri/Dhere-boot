@@ -49,5 +49,18 @@
 		DELETE FROM inquiry
 		WHERE inquiry_no = #{inquiryNo}
 	</delete>
+	
+	<delete id="deleteAnswersByInquiryNo">
+	    DELETE FROM answer
+	    WHERE no = #{inquiryNo}
+	</delete>
+	
+	<select id="answerList" resultType="Answer">
+	    SELECT *
+	    FROM answer
+	    WHERE no = #{inquiryNo}
+	</select>
+
+
 
 </mapper>
