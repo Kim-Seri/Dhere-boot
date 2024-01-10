@@ -8,6 +8,9 @@ public class Scrap {
 	private int story_no;
 	private Timestamp scrap_date;
 	
+	private int storyNo; // 추가
+    private Timestamp scrapDate; // 추가
+	
 	private String nickname;
 	private String job;
 	private String picture;
@@ -90,6 +93,22 @@ public class Scrap {
 
 	public void setPicture(String picture) {
 		this.picture = picture;
+	}
+
+	public int getStoryNo() {
+		return storyNo;
+	}
+
+	public void setStoryNo(int storyNo) {
+		this.storyNo = storyNo;
+	}
+
+	public Timestamp getScrapDate() {
+		return scrapDate;
+	}
+
+	public void setScrapDate(Timestamp scrapDate) {
+		this.scrapDate = scrapDate;
 	}
 	
 	

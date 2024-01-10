@@ -88,9 +88,9 @@
 		    <a class="nav-link active" aria-current="page" 
 		    style="font-size: 25px; color: rgb(56, 96, 255); cursor: pointer" data-bs-toggle="pill" onclick="showInfo(0)">나의 게시물</a>
 		  </li>
-		  <li class="nav-item text-center" data-tab="myScraps" style="width: 170px">
+		  <li class="nav-item text-center scrapbtn" data-tab="myScraps" style="width: 170px">
 		    <a class="nav-link " aria-current="page" 
-		    style="font-size: 25px; color: rgb(56, 96, 255); cursor: pointer" data-bs-toggle="pill" onclick="showInfo(1)">나의 스크랩</a>
+		    style="font-size: 25px; color: rgb(56, 96, 255); cursor: pointer" data-bs-toggle="pill">나의 스크랩</a>
 		  </li>
 		  <li class="nav-item text-center" data-tab="followListsß" style="width: 170px">
 		    <a class="nav-link " aria-current="page" 
@@ -98,12 +98,12 @@
 		  </li>
 		</ul>
 	<div class="tabcontent">
-		<div class="tabcontent show active" id="myPosts">
+		<div class="tabcontent show active" id="myList">
     		<div class="row d-flex justify-content-center" id="jobSelectedCategory">
 			<c:forEach var="s" items="${sList}" varStatus="counter">
 			
 			<c:if test="${empty sList}">
-				<div class="row m-5">
+				<div class="row">
 				<div class="col text-center">
 				 	게시물이 존재하지 않습니다.
 				</div>
@@ -200,12 +200,12 @@
  		 </div>
   		<!-- 나의 스크랩 탭 내용 -->
   		<div class="tabcontent" id="myScraps">
-   		 이
+   		 
   		</div>
 
   		<!-- 팔로우 목록 탭 내용 -->
 		<div class="tab-content" id="followLists">
-		와우
+		
   		</div>
 	</div>
 	</div>

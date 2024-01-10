@@ -7,6 +7,10 @@ import com.springbootstudy.dhere.domain.Scrap;
 
 public interface ScrapDao {
 	
+	public abstract List<Scrap> scrapList(String email);
+	
+	public abstract void insertScrap(Scrap scrap);
+	
 	// 프로필 가져오기
 	public abstract Scrap getScrap(String email);
 

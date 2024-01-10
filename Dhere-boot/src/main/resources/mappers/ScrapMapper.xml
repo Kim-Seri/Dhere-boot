@@ -44,6 +44,28 @@
 			
 	</select>
 	
+	<select id="scrapList" resultType="Scrap">
+	    SELECT
+	        email,
+	        story_no AS storyNo,
+	        scrap_date AS scrapDate
+	    FROM scrap
+	    <where>
+	        <if test="email != null">
+	            AND email = #{email}
+	        </if>
+	    </where>
+	</select>
+
+
+
+
+	
+	<insert id="insertScrap" parameterType="Scrap">
+        INSERT INTO scrap (email, story_no, scrap_date)
+        VALUES (#{email}, #{story_no}, SYSDATE())
+    </insert>
+	
 	
 	<resultMap id="ScrapResultMap" type="Scrap">
 		<id property="email" column="email" />

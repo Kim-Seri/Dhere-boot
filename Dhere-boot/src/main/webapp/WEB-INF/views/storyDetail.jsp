@@ -117,9 +117,11 @@
 						        </form>
 							    </c:when>
 							    <c:otherwise>
-							        <button type="button" class="btn btn-outline-primary fs-5" id="scrapBtn">
-							            스크랩
-							        </button>
+							        <form id="scrapForm" action="scrapForm" method="post">
+									    <input type="hidden" name="email" value="${member.email}" />
+									    <input type="hidden" name="storyNo" value="${storyDetail.storyNo}" />
+									    <button type="button" class="btn btn-outline-primary fs-5" id="scrapBtn">스크랩</button>
+									</form>
 							    </c:otherwise>
 							</c:choose>
 						</div>

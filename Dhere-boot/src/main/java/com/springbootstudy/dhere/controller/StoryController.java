@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,10 +31,12 @@ import com.springbootstudy.dhere.domain.Job;
 import com.springbootstudy.dhere.domain.Member;
 import com.springbootstudy.dhere.domain.Product;
 import com.springbootstudy.dhere.domain.Reply;
+import com.springbootstudy.dhere.domain.Scrap;
 import com.springbootstudy.dhere.domain.Story;
 import com.springbootstudy.dhere.domain.Tag;
 import com.springbootstudy.dhere.service.ProductService;
 import com.springbootstudy.dhere.service.ReplyService;
+import com.springbootstudy.dhere.service.ScrapService;
 import com.springbootstudy.dhere.service.StoryService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -52,6 +56,9 @@ public class StoryController {
 
 	@Autowired
 	private ReplyService replyService;
+	
+	@Autowired
+	private ScrapService scrapService;
 
 	// src/main/resources/static/resources/images/desk/** 정적경로 파일 업로드 테스트
 	private static final String DEFAULT_PATH = "src/main/resources/static/resources/images/desk/";
@@ -140,6 +147,30 @@ public class StoryController {
 		model.addAttribute("tList", tList);
 
 		return "storyDetail";
+	}
+	
+	//스크랩하기
+	@PostMapping("/scrapForm")
+	public String handleScrapRequest(@RequestParam("storyNo") int storyNo, HttpSession session) {
+	    Member member = (Member) session.getAttribute("member");
+
+	    if (member != null) {
+	        Scrap scrap = new Scrap();
+	        scrap.setEmail(member.getEmail());
+	        scrap.setStory_no(storyNo);
+	        scrap.setScrap_date(Timestamp.valueOf(LocalDateTime.now()));
+
+	        scrapService.insertScrap(scrap);
+
+	        return "redirect:/";
+	    } else {
+	        return "redirect:/login";
+	    }
+	}
+
+	private Timestamp SYSDATE() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	///////////////////////////////////////////////////////////////////
