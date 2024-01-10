@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,11 +34,13 @@ import com.springbootstudy.dhere.domain.Marker;
 import com.springbootstudy.dhere.domain.Member;
 import com.springbootstudy.dhere.domain.Product;
 import com.springbootstudy.dhere.domain.Reply;
+import com.springbootstudy.dhere.domain.Scrap;
 import com.springbootstudy.dhere.domain.Story;
 import com.springbootstudy.dhere.domain.Tag;
 import com.springbootstudy.dhere.service.FollowerService;
 import com.springbootstudy.dhere.service.ProductService;
 import com.springbootstudy.dhere.service.ReplyService;
+import com.springbootstudy.dhere.service.ScrapService;
 import com.springbootstudy.dhere.service.StoryService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -56,6 +60,9 @@ public class StoryController {
 
 	@Autowired
 	private ReplyService replyService;
+	
+	@Autowired
+	private ScrapService scrapService;
 	
 	@Autowired
 	private FollowerService followerService;
@@ -161,9 +168,32 @@ public class StoryController {
         }
         model.addAttribute("isFollowing", isFollowing);
 
-        return "storyDetail";
-    }
+		return "storyDetail";
+	}
 
+	//스크랩하기
+	@PostMapping("/scrapForm")
+	public String handleScrapRequest(@RequestParam("storyNo") int storyNo, HttpSession session) {
+	    Member member = (Member) session.getAttribute("member");
+
+	    if (member != null) {
+	        Scrap scrap = new Scrap();
+	        scrap.setEmail(member.getEmail());
+	        scrap.setStory_no(storyNo);
+	        scrap.setScrap_date(Timestamp.valueOf(LocalDateTime.now()));
+
+	        scrapService.insertScrap(scrap);
+
+	        return "redirect:/";
+	    } else {
+	        return "redirect:/login";
+	    }
+	}
+
+	private Timestamp SYSDATE() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	///////////////////////////////////////////////////////////////////
 	// 게시물 좋아요 증가시키기(syj)
