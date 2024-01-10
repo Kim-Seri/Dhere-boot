@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
 				success: function(res) {
 					
 					$("#jobSelectedCategory").empty();
-					sortingList(res.sortingList);
+					sortingList(res.resultList);
 					
 				}, error: function(xhr, status, error) {
 					console.log("AJAX Error: " + status + " - " + error);

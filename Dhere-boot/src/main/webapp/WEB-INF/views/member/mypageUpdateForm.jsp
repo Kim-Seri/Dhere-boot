@@ -16,10 +16,10 @@
 
 <div class="row my-4 container" id="global-content">
 	<div class="offset-3 col-6">
-		<form action="joinResult" name="mypageUpdateForm" id="mypageUpdateForm" method="post" enctype="multipart/form-data">
+		<form action="mypageUpdateResult" name="mypageUpdateResult" id="mypageUpdateResult" method="post" enctype="multipart/form-data">
 		<div class="row m-3">
 			<div class="col fs-1 text-center text-white" style="font-weight: bold">
-				update-my page
+				update
 			</div>
 		</div>
 			
@@ -27,7 +27,7 @@
 				<div class="col m-3 rounded-4">	
 					<div class="row mt-5 mb-2">
 						<div class="col-md-6 offset-md-3 text-center">
-							<img id="preview" class="img-fluid" alt="프로필 사진" style="color:white; max-width: 300px; max-height: 300px; object-fit: cover;"
+							<img id="preview" class="img-fluid"  alt="프로필 사진" style="color:white; max-width: 300px; max-height: 300px; object-fit: cover;"
 							value="${sessionScope.member.picture}">
 						</div>
 					</div>
@@ -51,7 +51,7 @@
 					<div class="row my-4">
 						<div class="col-6 offset-2">
 							<label for="pass" class="form-label" style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;비밀번호 </label>
-							<input type="password" class="form-control border border-white border-3" name="pass" id="pass1" style="width: 97%; background: white; border-radius: 10px; color: black;">
+							<input type="password" class="form-control border border-white border-3" name="pass1" id="pass1" style="width: 97%; background: white; border-radius: 10px; color: black;">
 						</div>
 					</div>
 					<div class="row">

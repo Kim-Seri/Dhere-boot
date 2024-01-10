@@ -6,6 +6,21 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+$(document).ready(function() {
+    var isScrapped = false;
+
+    $("#scrapBtn").on("click", function() {
+        if (!isScrapped) {
+            if (confirm("이 게시물을 스크랩하시겠습니까?")) {
+                $("#scrapForm").submit();
+                $("#scrapBtn").prop("disabled", true);
+            }
+        } else {
+            alert("이미 스크랩한 게시물입니다.");
+        }
+    });
+});
+
 
 
 

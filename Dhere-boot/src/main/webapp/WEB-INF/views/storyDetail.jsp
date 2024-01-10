@@ -10,6 +10,7 @@
     Member member = (Member)session.getAttribute("member");
     boolean isLoggedIn = member != null;
 %>
+
 <html>
 <head>
     <title>Story Detail</title>
@@ -98,37 +99,52 @@
 					</div>
 					<!-- 팔로우, 스크랩 버튼 시작 -->
 					<div class="row text text-end mb-5">
-						<div class="col">
-							<c:choose>
-							    <c:when test="${storyDetail.email eq sessionScope.member.email}">
-							    <button type="button" class="btn btn-outline-primary fs-5" id="updateBtn" 
-							    		onclick="location.href='/updateStory?storyNo=${storyDetail.storyNo}'">
-							            수정하기
-							    </button>
-							    </c:when>
-							    <c:otherwise>
-							        <button type="button" class="btn btn-outline-primary fs-5" id="followBtn">
-							            팔로우
-							        </button>
-							    </c:otherwise>
-							</c:choose>
-							<c:choose>
-							    <c:when test="${storyDetail.email eq sessionScope.member.email}">
-							    <form action="deleteStory" method="post" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
-							    	<input type="hidden" name="storyNo" value="${storyDetail.storyNo}" />
-							        <button type="submit" class="btn btn-outline-primary fs-5" id="deleteBtn">
-							            삭제하기
-							        </button>
-						        </form>
-							    </c:when>
-							    <c:otherwise>
-							        <button type="button" class="btn btn-outline-primary fs-5" id="scrapBtn">
-							            스크랩
-							        </button>
-							    </c:otherwise>
-							</c:choose>
-						</div>
-					</div>
+    <div class="col">
+        <c:choose>
+            <c:when test="${storyDetail.email eq sessionScope.member.email}">
+                <!-- 자신의 게시물에는 수정, 삭제 버튼 표시 -->
+                <button type="button" class="btn btn-outline-primary fs-5" id="updateBtn" 
+                        onclick="location.href='/updateStory?storyNo=${storyDetail.storyNo}'">
+                    수정하기
+                </button>
+                <form action="deleteStory" method="post" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
+                    <input type="hidden" name="storyNo" value="${storyDetail.storyNo}" />
+                    <button type="submit" class="btn btn-outline-primary fs-5" id="deleteBtn">
+                        삭제하기
+                    </button>
+                </form>
+            </c:when>
+            <c:otherwise>
+                <!-- 다른 사용자의 게시물에는 팔로우/언팔로우 버튼 표시 -->
+                <c:choose>
+                    <c:when test="${isFollowing}">
+                        <!-- 이미 팔로우한 경우 언팔로우 버튼 표시 -->
+                        <form action="deleteFollow" method="post">
+                            <input type="hidden" name="followingEmail" value="${storyDetail.email}" />
+                            <input type="hidden" name="storyNo" value="${storyDetail.storyNo}" />
+                            <button type="submit" class="btn btn-outline-primary fs-5" id="unfollowBtn">
+                                언팔로우
+                            </button>
+                        </form>
+                    </c:when>
+                    <c:otherwise>
+                        <!-- 팔로우하지 않은 경우 팔로우 버튼 표시 -->
+                        <form action="insertFollow" method="post" onsubmit="return confirm('팔로우 하시겠습니까?');">
+                            <input type="hidden" name="followingEmail" value="${storyDetail.email}" />
+                            <input type="hidden" name="storyNo" value="${storyDetail.storyNo}" />
+                            <button type="submit" class="btn btn-outline-primary fs-5" id="followBtn">
+                                팔로우
+                            </button>
+                        </form>
+                    </c:otherwise>
+                </c:choose>
+                <button type="button" class="btn btn-outline-primary fs-5" id="scrapBtn">
+                    스크랩
+                </button>
+            </c:otherwise>
+        </c:choose>
+    </div>
+</div>
 					<!-- 팔로우, 스크랩 버튼 끝 -->
 	<!--################################## 사진 출력 영역 시작 ##################################-->
 			        <div id="markerPopup" class="markerPopup" style="display: none; position: absolute; z-index: 10;">
@@ -203,14 +219,14 @@
 					                                </div>
 					                            </div>
 					                            <div style="width: 100%; height: 2px; color: black"></div>
-					                            <div class="row bg-info">
+					                            <div class="row mb-2">
 					                                <div class="col-10 offset-1 mt-2" style="overflow: hidden; font-size: 23px">
 					                                    <b>`+productName+`</b>
 					                                </div>
 				                                </div>
-				                                <div class="row bg-danger">
+				                                <div class="row">
 				                                	<div class="col text-end  mb-5">
-				                                		<a style="cursor: pointer;"  onclick="location.href='productDetail?productNo=`+productNo+`'" ">바로가기</a>
+				                                		<a style="cursor: pointer;"  onclick="location.href='productDetail?productNo=`+productNo+`'" ">상세보기</a>
 				                                	</div>
 					                            </div>
 					                        </div>
@@ -576,52 +592,7 @@ function deleteReply(replyNo) {
 
 
 
-<script>
-$(document).ready(function() {
-    // 페이지 로드 시 팔로우 상태 확인
-    checkFollowStatus();
 
-    $('#followBtn').click(function() {
-        var $this = $(this); // 버튼을 jQuery 객체로 저장
-        var followingEmail = '작성자 이메일'; // 작성자 이메일을 여기에 설정
-
-        $.ajax({
-            url: '/follow-toggle', // 팔로우 상태를 토글하는 서버의 URL
-            type: 'POST',
-            data: {
-                following_email: followingEmail
-            },
-            success: function(response) {
-                if (response.isFollowing) {
-                    $this.addClass('btn-danger').removeClass('btn-outline-primary').text('언팔로우');
-                } else {
-                    $this.removeClass('btn-danger').addClass('btn-outline-primary').text('팔로우');
-                }
-            },
-            error: function(xhr, status, error) {
-                alert('오류가 발생했습니다.');
-            }
-        });
-    });
-});
-
-function checkFollowStatus() {
-    var followingEmail = '작성자 이메일'; // 작성자 이메일을 여기에 설정
-    $.ajax({
-        url: '/check-follow', // 팔로우 상태를 확인하는 서버의 URL
-        type: 'GET',
-        data: {
-            following_email: followingEmail
-        },
-        success: function(response) {
-            if (response.isFollowing) {
-                $('#followBtn').addClass('btn-danger').removeClass('btn-outline-primary').text('언팔로우');
-            }
-        }
-    });
-}
-
-</script>
 
 
 

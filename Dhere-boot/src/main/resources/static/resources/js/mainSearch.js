@@ -29,7 +29,7 @@ function searchResult() {
 			   
 			   $("#jobSelectedCategory").empty();
 			   
-			   if(res.search.length === 0) {
+			   if(res.resultList.length === 0) {
 
 					$("#jobSelectedCategory").append(`
 							<div class="row m-5">

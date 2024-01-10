@@ -1,5 +1,8 @@
 package com.springbootstudy.dhere.dao;
 
+import java.util.List;
+
+import com.springbootstudy.dhere.domain.Job;
 import com.springbootstudy.dhere.domain.Member;
 
 public interface MemberDao {
@@ -15,5 +18,9 @@ public interface MemberDao {
 		
 	// 회원 정보를 마이페이지에서 수정하는 메서드
 	public void updateMember(Member member);
+	
+	
+
+
 	
 }

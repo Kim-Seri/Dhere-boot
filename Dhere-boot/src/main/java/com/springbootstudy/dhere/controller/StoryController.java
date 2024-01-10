@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,10 +34,13 @@ import com.springbootstudy.dhere.domain.Marker;
 import com.springbootstudy.dhere.domain.Member;
 import com.springbootstudy.dhere.domain.Product;
 import com.springbootstudy.dhere.domain.Reply;
+import com.springbootstudy.dhere.domain.Scrap;
 import com.springbootstudy.dhere.domain.Story;
 import com.springbootstudy.dhere.domain.Tag;
+import com.springbootstudy.dhere.service.FollowerService;
 import com.springbootstudy.dhere.service.ProductService;
 import com.springbootstudy.dhere.service.ReplyService;
+import com.springbootstudy.dhere.service.ScrapService;
 import com.springbootstudy.dhere.service.StoryService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -55,6 +60,12 @@ public class StoryController {
 
 	@Autowired
 	private ReplyService replyService;
+	
+	@Autowired
+	private ScrapService scrapService;
+	
+	@Autowired
+	private FollowerService followerService;
 
 	// src/main/resources/static/resources/images/desk/** 정적경로 파일 업로드 테스트
 	private static final String DEFAULT_PATH = "src/main/resources/static/resources/images/desk/";
@@ -92,9 +103,10 @@ public class StoryController {
 		// map.put("sList", storyService.getStoryList());
 
 		Map<String, List<Story>> map = storyService.getStoryList();
-		List<Story> sList = map.get("sList");
-		model.addAttribute("sList", sList);
-
+	    List<Story> sList = map.get("sList"); 
+	    model.addAttribute("sList", sList);
+	    
+		
 		/*
 		 * List<Story> sList = storyService.getStoryList(); model.addAttribute("sList",
 		 * sList);
@@ -105,46 +117,83 @@ public class StoryController {
 
 		return "main";
 	}
+	
+//	// 게시물 리스트 출력 (+페이징)
+//    @GetMapping("/getStoryList")
+//    public ResponseEntity<List<Story>> getPartialList(
+//            @RequestParam("offset") int offset,
+//            @RequestParam("limit") int limit) {
+//    	
+//        List<Story> items = storyService.getStoryListPaged(offset, limit);
+//        return ResponseEntity.ok(items);
+//    }
+	
+    // 게시물 디테일(syj)
+    @GetMapping("/storyDetail")
+    public String storyDetail(Model model, HttpSession session, 
+                              @RequestParam("storyNo") int storyNo,
+                              @RequestParam(value = "productCategory", required = false, defaultValue = "All") String productCategory) {
 
-	// 게시물 리스트 출력 (+페이징)
-	@GetMapping("/getStoryList")
-	public ResponseEntity<List<Story>> getPartialList(@RequestParam("offset") int offset,
-			@RequestParam("limit") int limit) {
+        // 마커 출력 로직 추가
+        List<Marker> mList = storyService.markerList(storyNo);
+        model.addAttribute("mList", mList);
+        
+        // 댓글 출력 로직 추가
+        List<Reply> rList = replyService.getReply(storyNo);
+        model.addAttribute("rList", rList);
+        
+        // 제품 목록 출력 로직 추가
+        List<Product> pList = productService.productList(productCategory);
+        model.addAttribute("pList", pList);
 
-		List<Story> items = storyService.getStoryListPaged(offset, limit);
-		return ResponseEntity.ok(items);
-	}
+        // 조회수 증가 로직 추가
+        storyService.increaseReadCount(storyNo);
 
-	// 게시물 디테일(syj)
-	@GetMapping("/storyDetail")
-	public String storyDetail(Model model, HttpSession session, @RequestParam("storyNo") int storyNo,
-			@RequestParam(value = "productCategory", required = false, defaultValue = "All") String productCategory) {
+        // 게시물 상세 정보 가져오기
+        Story storyDetail = storyService.getStoryDetail(storyNo);
+        model.addAttribute("storyDetail", storyDetail);
 
-		// 마커 출력 로직 추가
-		List<Marker> mList = storyService.markerList(storyNo);
-		model.addAttribute("mList", mList);
+        // 게시물 이미지 목록 가져오기
+        List<Image> iList = storyService.getStoryDetailImage(storyNo);
+        model.addAttribute("iList", iList);
 
-		// 댓글 출력 로직 추가
-		List<Reply> rList = replyService.getReply(storyNo);
-		model.addAttribute("rList", rList);
+        // 게시물 태그 목록 가져오기
+        List<Tag> tList = storyService.getStoryDetailTag(storyNo);
+        model.addAttribute("tList", tList);
 
-		// 제품 목록 출력 로직 추가
-		List<Product> pList = productService.productList(productCategory);
-		model.addAttribute("pList", pList);
-
-		// 조회수 증가 로직 추가
-		storyService.increaseReadCount(storyNo);
-
-		Story storyDetail = storyService.getStoryDetail(storyNo);
-		model.addAttribute("storyDetail", storyDetail);
-
-		List<Image> iList = storyService.getStoryDetailImage(storyNo);
-		model.addAttribute("iList", iList);
-
-		List<Tag> tList = storyService.getStoryDetailTag(storyNo);
-		model.addAttribute("tList", tList);
+        // 로그인한 사용자가 게시물 작성자를 팔로우하고 있는지 확인
+        Member member = (Member) session.getAttribute("member");
+        boolean isFollowing = false;
+        if (member != null && storyDetail.getEmail() != null) {
+            isFollowing = followerService.isFollowing(member.getEmail(), storyDetail.getEmail());
+        }
+        model.addAttribute("isFollowing", isFollowing);
 
 		return "storyDetail";
+	}
+
+	//스크랩하기
+	@PostMapping("/scrapForm")
+	public String handleScrapRequest(@RequestParam("storyNo") int storyNo, HttpSession session) {
+	    Member member = (Member) session.getAttribute("member");
+
+	    if (member != null) {
+	        Scrap scrap = new Scrap();
+	        scrap.setEmail(member.getEmail());
+	        scrap.setStory_no(storyNo);
+	        scrap.setScrap_date(Timestamp.valueOf(LocalDateTime.now()));
+
+	        scrapService.insertScrap(scrap);
+
+	        return "redirect:/";
+	    } else {
+	        return "redirect:/login";
+	    }
+	}
+
+	private Timestamp SYSDATE() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	///////////////////////////////////////////////////////////////////

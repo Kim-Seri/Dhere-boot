@@ -1,8 +1,14 @@
 package com.springbootstudy.dhere.service;
 
+import java.util.List;
+
 import com.springbootstudy.dhere.domain.Scrap;
 
 public interface ScrapService {
+	
+	public abstract List<Scrap> scrapList(String email);
+	
+	public abstract void insertScrap(Scrap scrap);
 	
 	// 회원 로그인을 처리하는 메서드
 	//public int login(String email, String pass);

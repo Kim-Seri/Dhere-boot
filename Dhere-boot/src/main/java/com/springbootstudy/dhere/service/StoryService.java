@@ -17,11 +17,25 @@ public interface StoryService {
 	//public abstract List<Story> getStoryList();
 	public abstract Map<String, List<Story>> getStoryList();
 	
+	public abstract List<Story> getStoryListPaged(int offset, int limit, String selectedJob, String searchKeyword, String sort);
+	
 	// 게시물 리스트 가져오기 (+페이징)
-	public abstract List<Story> getStoryListPaged(int offset, int limit);
-
+	// public abstract List<Story> getStoryListPaged(int offset, int limit);
+	
+	// 직종별 게시물 리스트 출력
+	public abstract List<Story> storyList(String selectedJob);
+	
+	/*
+	// 검색 결과 리스트 출력
+	public abstract List<Story> searchList(String searchKeyword);
+	
+	// 정렬 리스트 출력
+	public abstract List<Story> sortList(String sort);
+	*/
+	
     // 게시물 쓰기
 	public abstract void postWrite(Story story);
+
 
      // 게시물 가져오기(syj)
     public abstract Story getStoryDetail(int storyNo);
@@ -59,17 +73,16 @@ public interface StoryService {
 	//tagPost 추가하기
 	public abstract  void insertTagPost(Tag tag);
 	
-	// 직종별 게시물 리스트 출력
-	public abstract List<Story> storyList(String selectedJob);
 	
 	public abstract List<Story> sList(String email);
 	
+	/*
 	// 검색 결과 리스트 출력
 	public abstract List<Story> searchList(String searchKeyword);
 	
 	// 정렬 리스트 출력
 	public abstract List<Story> sortList(String sort);
-	
+	*/
 	//마커 정보 입력
 	public abstract void insertMarker(Marker marker);
 	

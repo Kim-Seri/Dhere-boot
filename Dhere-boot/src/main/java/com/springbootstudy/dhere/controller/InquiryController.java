@@ -25,7 +25,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class InquiryController {
 	
-	private static final String DEFAULT_PATH = "/resources/images/inquiry/";
+	private static final String DEFAULT_PATH = "src/main/resources/static/resources/images/inquiry/";
 	
 	@Autowired
 	private InquiryService service;

@@ -1,17 +1,20 @@
 package com.springbootstudy.dhere.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.springbootstudy.dhere.domain.Job;
 import com.springbootstudy.dhere.domain.Member;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
-	private static final String NAME_SPACE="com.springstudy.dhere.mappers.MemberMapper";
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+	private static final String NAME_SPACE="com.springstudy.dhere.mappers.MemberMapper";
 	
 	//회원정보 가져오기
 	@Override
@@ -33,6 +36,9 @@ public class MemberDaoImpl implements MemberDao {
 	public void updateMember(Member member) {
 		sqlSession.update(NAME_SPACE + ".updateMember", member);
 	}
-		
+	
+	
+	
+	
 		
 }

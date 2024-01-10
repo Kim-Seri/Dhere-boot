@@ -1,9 +1,12 @@
 package com.springbootstudy.dhere.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.springbootstudy.dhere.dao.ScrapDao;
+import com.springbootstudy.dhere.domain.Answer;
 import com.springbootstudy.dhere.domain.Scrap;
 
 @Service
@@ -15,6 +18,16 @@ public class ScrapServiceImpl implements ScrapService {
 	@Autowired
 	private void setScrapDao(ScrapDao scrapDao) {
 		this.scrapDao = scrapDao;
+	}
+	
+	@Override
+	public List<Scrap> scrapList(String email) {
+		return scrapDao.scrapList(email);
+	}
+	
+	@Override
+	public void insertScrap(Scrap scrap) {
+		scrapDao.insertScrap(scrap);
 	}
 	
 	// 프로필 받아오기

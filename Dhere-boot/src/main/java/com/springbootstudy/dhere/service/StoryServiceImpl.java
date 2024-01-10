@@ -35,16 +35,34 @@ public class StoryServiceImpl implements StoryService {
 
 	@Override
 	public Map<String, List<Story>> getStoryList() {
-		return storyDao.getStoryList();
-	}
+		Map<String, List<Story>> map = new HashMap<>();
+	    List<Story> sList = storyDao.getStoryList();
 
-	// 게시물 리스트 가져오기 (+페이징)
+	    // 각 Story 객체에 태그 정보 추가
+	    for (Story story : sList) {
+	        List<Tag> tags = storyDao.getStoryDetailTag(story.getStoryNo());
+	        story.setTags(tags);
+	    }
+
+	    map.put("sList", sList);
+	    return map;
+	}
+	
 	@Override
-	public List<Story> getStoryListPaged(int offset, int limit) {
-		return storyDao.getStoryListPaged(offset, limit);
+	public List<Story> getStoryListPaged(int offset, int limit, String selectedJob, String searchKeyword, String sort) {
+		return storyDao.getStoryListPaged(offset, limit, selectedJob, searchKeyword, sort);
 	}
 
-	// 게시글 작성하기(story)
+	
+	
+	// 게시물 리스트 가져오기 (+페이징)
+//	@Override
+//	public List<Story> getStoryListPaged(int offset, int limit) {
+//		return storyDao.getStoryListPaged(offset, limit);
+//	}
+	
+
+	//게시글 작성하기(story)
 	@Override
 	public void postWrite(Story story) {
 		storyDao.postWrite(story);
@@ -132,13 +150,14 @@ public class StoryServiceImpl implements StoryService {
 	public void insertTagPost(Tag tag) {
 		storyDao.insertTagPost(tag);
 	}
-
+	
+	
 	// 직종별 게시물 리스트 출력
 	@Override
 	public List<Story> storyList(String selectedJob) {
 		return storyDao.storyList(selectedJob);
 	}
-
+	/*
 	// 검색 결과 리스트 출력
 	@Override
 	public List<Story> searchList(String searchKeyword) {
@@ -152,6 +171,8 @@ public class StoryServiceImpl implements StoryService {
 	}
 
 	// 마커관련정보 추가
+	*/
+	//마커관련정보 추가
 	@Override
 	public void insertMarker(Marker marker) {
 		storyDao.insertMarker(marker);

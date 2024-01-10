@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="com.springbootstudy.dhere.mappers.StoryMapper">
 
-	<!-- 스토리 게시물 출력 (스토리, 이미지, 프로필) / seri02 수정 -->
-	<select id="getStoryList" resultMap="StoryResultMap">
+<!-- 초기 스토리 리스트 출력 -->
+<select id="getStoryList" resultMap="StoryResultMap">
 		SELECT
 		s.story_no,
 		s.title,
-		s.content1,
-		s.content2,
-		s.content3,
-		s.content4,
 		s.email,
 		s.reg_date,
 		s.category_no,
@@ -21,31 +16,95 @@
 		s.nickname,
 		i.file_name,
 		m.picture,
-		t.tag_name,
-		j.category_name
-		
+		j.category_name		
 		FROM
-		story s
-		
+		story s		
 		LEFT JOIN
 		image i ON s.story_no = i.story_no
 		LEFT JOIN
 		member m ON s.email = m.email
 		LEFT JOIN
-		tag_post tp ON s.story_no = tp.story_no
-		LEFT JOIN
-		tag t ON tp.tag_no = t.tag_no
-		LEFT JOIN
-		job j ON s.category_no = j.category_no
-		
+		job j ON s.category_no = j.category_no		
 		WHERE
 		i.image_no = (SELECT MIN(image_no) FROM image WHERE story_no = s.story_no)
-		
 		ORDER BY s.reg_date DESC
 	</select>
 
-	<!-- 스토리 result map / seri02 수정 -->
-	<resultMap id="StoryResultMap" type="Story">
+<!-- 초기 스토리 리스트 출력을 위한 ResultMap -->
+<resultMap id="StoryResultMap" type="Story">
+	<id property="storyNo" column="story_no" />
+	<result property="title" column="title" />
+	<result property="email" column="email" />
+	<result property="regDate" column="reg_date" />
+	<result property="categoryNo" column="category_no" />
+	<result property="readCount" column="read_count" />
+	<result property="thank" column="thank" />
+	<result property="nickname" column="nickname" />
+	<result property="fileName" column="file_name" />
+	<result property="picture" column="picture" />
+	<result property="categoryName" column="category_name" />
+</resultMap>
+
+
+<select id="getStoryListPaged" resultType="Story" resultMap="StoryResultMapPaged" parameterType="hashmap">
+    SELECT
+    s.story_no,
+    s.title,
+    s.content1,
+    s.content2,
+    s.content3,
+    s.content4,
+    s.email,
+    s.reg_date,
+    s.category_no,
+    s.read_count,
+    s.thank,
+    s.nickname,
+    i.file_name,
+    m.picture,
+    t.tag_name,
+    j.category_name
+    
+    FROM
+    story s
+    
+    JOIN
+    image i ON s.story_no = i.story_no
+    JOIN
+    member m ON s.email = m.email
+    JOIN
+    tag_post tp ON s.story_no = tp.story_no
+    JOIN
+    tag t ON tp.tag_no = t.tag_no
+    JOIN
+    job j ON s.category_no = j.category_no
+    
+    WHERE
+    i.image_no = (SELECT MIN(image_no) FROM image WHERE story_no = s.story_no)
+    <!-- Additional conditions for searchList -->
+    <if test='searchKeyWord != null and searchKeyWord != "null"'>
+        AND t.tag_name=#{searchKeyword}
+    </if>
+    <!-- Additional conditions for storyList -->
+    <if test='selectedJob != null and selectedJob != "null"'>
+        AND j.category_name=#{selectedJob}
+    </if>
+    GROUP BY s.story_no
+    <choose>
+        <!-- Sort by 'thank' -->
+        <when test="sort == 'thank'">
+            ORDER BY s.thank DESC
+        </when>
+        <!-- Sort by 'recent' -->
+        <when test="sort == 'recent'">
+            ORDER BY s.reg_date DESC
+        </when>
+    </choose>
+   	LIMIT #{offset}, #{limit}
+</select>
+
+<!-- ajax 스토리 리스트 출력을 위한 ResultMap -->
+<resultMap id="StoryResultMapPaged" type="Story">
 		<id property="storyNo" column="story_no" />
 		<result property="title" column="title" />
 		<result property="content1" column="content1" />
@@ -67,37 +126,7 @@
 			<result property="tagName" column="tag_name" />
 		</collection>
 	</resultMap>
-	
-	<!-- 게시물 리스트 가져오기 (+페이징) -->
-	<select id="getStoryListPaged" resultMap="StoryResultMap">
-        SELECT
-			s.story_no,
-			s.title,
-			s.content1,
-			s.content2,
-			s.content3,
-			s.content4,
-			s.email,
-			s.reg_date,
-			s.category_no,
-			s.read_count,
-			s.thank,
-			s.nickname,
-			i.file_name,
-			m.picture,
-			t.tag_name,
-			j.category_name		
-		FROM story s		
-		LEFT JOIN image i ON s.story_no = i.story_no
-		LEFT JOIN member m ON s.email = m.email
-		LEFT JOIN tag_post tp ON s.story_no = tp.story_no
-		LEFT JOIN tag t ON tp.tag_no = t.tag_no
-		LEFT JOIN job j ON s.category_no = j.category_no	
-		WHERE i.image_no = (SELECT MIN(image_no) FROM image WHERE story_no = s.story_no)
-		GROUP BY s.story_no
-		ORDER BY s.reg_date DESC
-        LIMIT #{limit} OFFSET #{offset}
-    </select>
+    
 
 	<!-- 스토리 게시글 작성 쿼리 -->
 	<insert id="postWrite" parameterType="story">
