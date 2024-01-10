@@ -78,37 +78,6 @@
 		 	<img src="resources/images/icon/topbar.png" id="goToTopBtnIcon" style="width: 35px;">
 		 </a>
 		
-		
-		
-		
-		
-		
-		
-		
-		
-
-
-
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		<!-- 캐러셀 시작 -->
 		<div class="row">
 			<div class="col">
@@ -136,6 +105,10 @@
 			</div>
 		</div>
 		<!-- 캐러셀 끝 -->
+
+
+
+
 
 
 		<!-- 카테고리 캐러셀 시작 -->
@@ -177,6 +150,12 @@
 		    </div>
 		</div>
 		<!-- 카테고리 캐러셀 끝 -->
+
+
+
+
+
+
 
 		<!-- 검색창 -->
 		<div class="row">

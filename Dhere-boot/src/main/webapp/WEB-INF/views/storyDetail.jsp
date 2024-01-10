@@ -203,14 +203,14 @@
 					                                </div>
 					                            </div>
 					                            <div style="width: 100%; height: 2px; color: black"></div>
-					                            <div class="row bg-info">
+					                            <div class="row mb-2">
 					                                <div class="col-10 offset-1 mt-2" style="overflow: hidden; font-size: 23px">
 					                                    <b>`+productName+`</b>
 					                                </div>
 				                                </div>
-				                                <div class="row bg-danger">
+				                                <div class="row">
 				                                	<div class="col text-end  mb-5">
-				                                		<a style="cursor: pointer;"  onclick="location.href='productDetail?productNo=`+productNo+`'" ">바로가기</a>
+				                                		<a style="cursor: pointer;"  onclick="location.href='productDetail?productNo=`+productNo+`'" ">상세보기</a>
 				                                	</div>
 					                            </div>
 					                        </div>

@@ -60,3 +60,68 @@ div{
 /* #marker-container{
     	position:relative;
     } */
+    
+    
+ /* ---------------------------------------------------- */
+
+.jobs {
+    width: 130px;
+    height: 45px;
+    border: 3px solid #4370FF;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 10px; 
+}
+
+.job-categories-container {
+    display: flex;
+}
+
+/* 추가 */
+.jobs.selected {
+    background-color: #4370FF;
+}
+
+.close-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+
+/* 게시글 타이틀, 필터, 정렬 */
+/* 셀렉트박스 */
+.selectBox {
+	width: 130px;
+	border: none;
+}
+
+.close-btn {
+	color: white;
+}
+
+#previous, #next  {
+	background-color: #4370FF;
+	width: 50px; 
+}
+
+
+input[type="radio"].btn-check {
+    margin-right: 10px;
+}
+
+
+label.btn.btn-outline-primary {
+    margin-right: 30px;
+    cursor: pointer;
+}
+
+.category-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}

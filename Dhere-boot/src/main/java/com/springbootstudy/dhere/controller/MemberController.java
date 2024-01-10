@@ -3,10 +3,12 @@ package com.springbootstudy.dhere.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,8 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.springbootstudy.dhere.domain.Image;
+import com.springbootstudy.dhere.domain.Job;
 import com.springbootstudy.dhere.domain.Member;
 import com.springbootstudy.dhere.service.MemberService;
+import com.springbootstudy.dhere.service.StoryService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,6 +33,9 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private StoryService storyService;
 	
 	private static final String DEFAULT_PATH = "src/main/resources/static/resources/images/profile/";
 
@@ -79,7 +86,7 @@ public class MemberController {
 		return "redirect:/main";
 	}
 
-	// 회원가입
+	// 회원가입하기
 	@PostMapping(value = "/joinResult")
     public String joinResult(HttpServletRequest request,
     		Member m, 
@@ -143,6 +150,16 @@ public class MemberController {
         return "redirect:main";
     }
 	
-	
+//	// 회원가입 시 직무 리스트 가져오기
+//	@GetMapping("/joinForm")
+//	public String getJobList(Model model, 
+//			@RequestParam("categoryNo") int categoryNo,
+//			@RequestParam("categoryName") String categoryName) {
+//		
+//		List<Job> jList = storyService.getJobList();
+//		model.addAttribute("jList", jList);
+//		
+//		return "redirect:/main";
+//	}
 
 }
