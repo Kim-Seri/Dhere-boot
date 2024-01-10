@@ -34,9 +34,6 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
-	@Autowired
-	private StoryService storyService;
-	
 	private static final String DEFAULT_PATH = "src/main/resources/static/resources/images/profile/";
 
 	// 로그인
@@ -86,7 +83,7 @@ public class MemberController {
 		return "redirect:/main";
 	}
 
-	// 회원가입하기
+	// 회원가입
 	@PostMapping(value = "/joinResult")
     public String joinResult(HttpServletRequest request,
     		Member m, 
@@ -150,6 +147,8 @@ public class MemberController {
         return "redirect:main";
     }
 	
+	
+
 //	// 회원가입 시 직무 리스트 가져오기
 //	@GetMapping("/joinForm")
 //	public String getJobList(Model model, 
