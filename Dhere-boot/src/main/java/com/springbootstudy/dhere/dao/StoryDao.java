@@ -15,8 +15,11 @@ public interface StoryDao {
     public abstract Map<String, List<Story>> getStoryList();
     
     // 게시물 리스트 가져오기 (+페이징)
-    public abstract List<Story> getStoryListPaged(int offset, int limit);
-
+    public abstract List<Story> getStoryListPaged(int offset, int limit, String selectedJob, String searchKeyword, String sort);
+    
+    // 태그 리스트 가져오기 
+    public abstract List<Tag> getTagList(int storyNo);
+    
     // 게시물 디테일 가져오기(syj)
     public abstract Story getStoryDetail(int storyNo);
     
@@ -65,14 +68,15 @@ public interface StoryDao {
 	//내 게시 글
 	public abstract List<Story> sList(String email);
 
+	
 	// 직종별 게시물 리스트 출력
 	public abstract List<Story> storyList(String selectedJob);
-	
+	/*
 	// 검색 결과 리스트 출력
 	public abstract List<Story> searchList(String searchKeyword);
 	
 	// 정렬 리스트 출력
 	public abstract List<Story> sortList(String sort);
-
+*/
 	
 }

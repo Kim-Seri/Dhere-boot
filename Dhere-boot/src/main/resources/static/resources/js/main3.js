@@ -1,3 +1,5 @@
+// 01/10 오전 11시 45분 백
+
 document.addEventListener("DOMContentLoaded", function () {
     // 글쓰기 버튼 스크롤
     let button = document.querySelector(".fixed-write-button");

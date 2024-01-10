@@ -39,7 +39,7 @@ public class WebConfig implements WebMvcConfigurer {
 		public void addInterceptors(InterceptorRegistry registry) {
 			registry.addInterceptor(new LoginCheckInterceptor())
 						// 인터셉터 호출에서 제외
-						.excludePathPatterns("/resources/**", "/", "/main", "/login*","/join*","/categoryList","/productList");
+						.excludePathPatterns("/resources/**", "/", "/main", "/login*","/join*","/categoryList","/productList","/storyList");
 						// 인터셉터 호출에 추가
 						//.addPathPatterns("/mypage*", "/post*");
 		}

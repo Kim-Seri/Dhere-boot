@@ -37,11 +37,18 @@ public class StoryServiceImpl implements StoryService {
 		return storyDao.getStoryList();
 	}
 	
-	// 게시물 리스트 가져오기 (+페이징)
 	@Override
-	public List<Story> getStoryListPaged(int offset, int limit) {
-		return storyDao.getStoryListPaged(offset, limit);
+	public List<Story> getStoryListPaged(int offset, int limit, String selectedJob, String searchKeyword, String sort) {
+		return storyDao.getStoryListPaged(offset, limit, selectedJob, searchKeyword, sort);
 	}
+
+	
+	
+	// 게시물 리스트 가져오기 (+페이징)
+//	@Override
+//	public List<Story> getStoryListPaged(int offset, int limit) {
+//		return storyDao.getStoryListPaged(offset, limit);
+//	}
 	
 
 	//게시글 작성하기(story)
@@ -132,13 +139,14 @@ public class StoryServiceImpl implements StoryService {
 	public void insertTagPost(Tag tag) {
 		storyDao.insertTagPost(tag);
 	}
-
+	
+	
 	// 직종별 게시물 리스트 출력
 	@Override
 	public List<Story> storyList(String selectedJob) {
 		return storyDao.storyList(selectedJob);
 	}
-
+	/*
 	// 검색 결과 리스트 출력
 	@Override
 	public List<Story> searchList(String searchKeyword) {
@@ -150,6 +158,7 @@ public class StoryServiceImpl implements StoryService {
 	public List<Story> sortList(String sort) {
 		return storyDao.sortList(sort);
 	}
+	*/
 
 	
 

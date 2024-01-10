@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,36 +23,52 @@ public class StoryListAjax {
 	@Autowired
 	private StoryService storyService;
 	
-	@PostMapping("/storyList")
+	@RequestMapping("/storyList")
 	@ResponseBody
 	public Map<String, List<Story>> storyList(
 			@RequestParam(value="selectedJob", required = false) String selectedJob,
 			@RequestParam(value="searchKeyword", required = false) String searchKeyword,
-			@RequestParam(value="sortList", required = false) String sortList) {
+			@RequestParam(value="sort", required = false) String sort,
+			@RequestParam(value="offset", required = false) Integer offset,
+			@RequestParam(value="limit", required = false) Integer limit) {
+		
+		System.out.println("selectedJob : " + selectedJob);
+		System.out.println("searchKeyword : " + searchKeyword);
+		System.out.println("sort : " + sort);
+		System.out.println("offset : " + offset);
+		System.out.println("limit : " + limit);
 		
 		Map<String, List<Story>> map = new HashMap<>();
-		List<Story> resultList = new ArrayList<>();
+		//List<Story> resultList = new ArrayList<>();
+		
+		/*
+	    if (offset != null && limit != null && offset >= 0 && limit > 0) {
+	    	// 페이징 리스트 출력
+	    	List<Story> pagingList = storyService.getStoryListPaged(offset, limit, selectedJob, searchKeyword, sort);
+	    	resultList.addAll(pagingList);
+	    }
 		
 		if (selectedJob != null) {
 	        // 직무 카테고리 별 리스트 출력
-	        List<Story> categoryList = storyService.storyList(selectedJob);
+	        List<Story> categoryList = storyService.getStoryListPaged(offset, limit, selectedJob, searchKeyword, sort);
 	        resultList.addAll(categoryList);
 	    }
 
 	    if (searchKeyword != null) {
 	        // 태그 검색 결과 리스트 출력
-	        List<Story> searchList = storyService.searchList(searchKeyword);
+	        List<Story> searchList = storyService.getStoryListPaged(offset, limit, selectedJob, searchKeyword, sort);
 	        resultList.addAll(searchList);
 	    }
 
-	    if (sortList != null) {
+	    if (sort != null) {
 	        // 최신순/인기순 정렬 리스트 출력
-	        List<Story> sortingList = storyService.sortList(sortList);
+	        List<Story> sortingList = storyService.getStoryListPaged(offset, limit, selectedJob, searchKeyword, sort);
 	        resultList.addAll(sortingList);
 	    }
+		*/
 
 	    // 중복을 허용한 리스트를 전달
-	    map.put("resultList", resultList);
+	    map.put("resultList", storyService.getStoryListPaged(offset, limit, selectedJob, searchKeyword, sort));
 
 
 		return map;

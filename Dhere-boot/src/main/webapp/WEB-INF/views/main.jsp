@@ -108,8 +108,8 @@
 			<div class="job-categories-container justify-content-center">
 			    <c:forEach var="jList" items="${jList}" varStatus="status">
 			        <div class="jobs" data-category="${jList.categoryName}" style="cursor: pointer; position:relative; background-color: white;">		        	
-			        	<span class="cName">${jList.categoryName}</span>
-			            <span class="close-btn" onclick="clearSelection(${status.index})"></span>
+			        	<span>${jList.categoryName}</span>
+			         <span class="close-btn" onclick="clearSelection(${status.index})"></span>
 			        </div>			    
 			    </c:forEach>		    
 			</div>
