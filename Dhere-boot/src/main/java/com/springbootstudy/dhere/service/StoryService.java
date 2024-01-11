@@ -89,9 +89,7 @@ public interface StoryService {
 	// 마커 리스트에 담기(syj)
 	public abstract List<Marker> markerList(int storyNo);
 
-	//이미지 삭제
-	public abstract void deleteImage(int storyNo);
-
-	//태그 삭제
-	public abstract void deleteMarker(int storyNo);
+	//마커 , 사진 삭제(트랙잭션)
+	public abstract void markerAndImgageDelete(int storyNo);
+	
 }

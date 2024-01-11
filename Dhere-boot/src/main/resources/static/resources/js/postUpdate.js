@@ -387,6 +387,8 @@ $(function() {
 
 	//이미지 삭제하기 버튼 눌렸을 때
 	$("#imageContainer").on("click", ".deleteBtn", function() {
+		$(this).parent().parent().parent().parent().parent().prev().remove();
+		$(this).parent().parent().parent().parent().parent().remove();
 		$(this).parent().parent().parent().parent().prev().remove();
 		$(this).parent().parent().parent().parent().remove();
 
