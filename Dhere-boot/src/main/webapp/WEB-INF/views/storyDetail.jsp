@@ -277,11 +277,6 @@
 							<div class="row" id="A-text">
 								<div class="col">
 									${ storyDetail.content1 }
-									<br>
-									<br>
-									${ storyDetail.content1 }
-									${ storyDetail.content1 }
-									${ storyDetail.content1 }
 								</div>
 							</div>
 							
@@ -299,11 +294,6 @@
 							</div>
 							<div class="row" id="A-text">
 								<div class="col">
-									${ storyDetail.content2 }
-									${ storyDetail.content2 }
-									<br>
-									<br>
-									${ storyDetail.content2 }
 									${ storyDetail.content2 }
 								</div>
 							</div>
