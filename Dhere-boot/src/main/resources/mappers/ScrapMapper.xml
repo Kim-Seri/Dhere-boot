@@ -44,6 +44,46 @@
 			
 	</select>
 	
+	<select id="scList" resultType="Scrap">
+	    SELECT
+	    sc.scrap_no,
+	    s.story_no,
+	    s.title,
+	    s.content1,
+	    s.content2,
+	    s.content3,
+	    s.content4,
+	    s.email,
+	    s.reg_date,
+	    s.category_no,
+	    s.read_count,
+	    s.thank,
+	    s.nickname,
+	    i.file_name,
+	    m.picture,
+	    t.tag_name,
+	    j.category_name
+	    FROM
+	    story s
+	    JOIN scrap sc
+	    ON s.story_no = sc.story_no
+	    JOIN
+	    image i ON s.story_no = i.story_no
+	    JOIN
+	    member m ON s.email = m.email
+	    JOIN
+	    tag_post tp ON s.story_no = tp.story_no
+	    JOIN
+	    tag t ON tp.tag_no = t.tag_no
+	    JOIN
+	    job j ON s.category_no = j.category_no
+	    WHERE
+	    i.image_no = (SELECT MIN(image_no) FROM image WHERE story_no = s.story_no)
+	    AND sc.email = #{email}
+	    GROUP BY sc.scrap_no
+	    ORDER BY sc.scrap_no DESC
+	</select>
+	
 	<select id="scrapList" resultType="Scrap">
 	    SELECT
 	        email,
@@ -51,7 +91,7 @@
 	        scrap_date AS scrapDate
 	    FROM scrap
 	    <where>
-	        <if test="email != null">
+	        <if test='email != null and email != "null"'>
 	            AND email = #{email}
 	        </if>
 	    </where>
@@ -63,7 +103,7 @@
 	
 	<insert id="insertScrap" parameterType="Scrap">
         INSERT INTO scrap (email, story_no, scrap_date)
-        VALUES (#{email}, #{story_no}, SYSDATE())
+        VALUES (#{email}, #{storyNo}, SYSDATE())
     </insert>
 	
 	

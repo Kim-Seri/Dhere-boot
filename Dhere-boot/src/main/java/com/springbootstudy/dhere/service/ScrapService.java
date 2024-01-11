@@ -8,6 +8,8 @@ public interface ScrapService {
 	
 	public abstract List<Scrap> scrapList(String email);
 	
+	public abstract List<Scrap> scList(String email);
+	
 	public abstract void insertScrap(Scrap scrap);
 	
 	// 회원 로그인을 처리하는 메서드

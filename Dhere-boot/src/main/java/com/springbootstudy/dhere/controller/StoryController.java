@@ -180,8 +180,8 @@ public class StoryController {
 	    if (member != null) {
 	        Scrap scrap = new Scrap();
 	        scrap.setEmail(member.getEmail());
-	        scrap.setStory_no(storyNo);
-	        scrap.setScrap_date(Timestamp.valueOf(LocalDateTime.now()));
+	        scrap.setStoryNo(storyNo);
+	        scrap.setScrapDate(Timestamp.valueOf(LocalDateTime.now()));
 
 	        scrapService.insertScrap(scrap);
 

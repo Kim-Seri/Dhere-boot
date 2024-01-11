@@ -41,6 +41,10 @@ public class ScrapDaoImpl implements ScrapDao {
 		return sqlSession.selectList(NAME_SPACE + ".scrapList", email);
 	}
 	
+	public List<Scrap> scList(String email) {
+		return sqlSession.selectList(NAME_SPACE + ".scList", email);
+	}
+	
 	public void insertScrap(Scrap scrap) {
 		sqlSession.insert(NAME_SPACE + ".insertScrap", scrap);
 	}

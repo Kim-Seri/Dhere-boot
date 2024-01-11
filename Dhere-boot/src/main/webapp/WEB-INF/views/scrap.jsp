@@ -106,9 +106,9 @@
 	<div class="row mt-5">
 	<div class="col">
 		<ul class="nav nav-underline offset-1" id="myPostsBtn" >
-		  <li class="nav-item text-center" data-tab="myPosts" style="width: 170px">
+		  <li class="nav-item text-center listbtn" id="listbtn" data-tab="myPosts" style="width: 170px">
 		    <a class="nav-link active" aria-current="page" 
-		    style="font-size: 25px; color: rgb(56, 96, 255); cursor: pointer" data-bs-toggle="pill" onclick="showInfo(0)">나의 게시물</a>
+		    style="font-size: 25px; color: rgb(56, 96, 255); cursor: pointer" data-bs-toggle="pill">나의 게시물</a>
 		  </li>
 		  <li class="nav-item text-center scrapbtn" data-tab="myScraps" style="width: 170px">
 		    <a class="nav-link " aria-current="page" 

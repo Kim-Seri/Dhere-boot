@@ -26,6 +26,11 @@ public class ScrapServiceImpl implements ScrapService {
 	}
 	
 	@Override
+	public List<Scrap> scList(String email) {
+		return scrapDao.scList(email);
+	}
+	
+	@Override
 	public void insertScrap(Scrap scrap) {
 		scrapDao.insertScrap(scrap);
 	}
