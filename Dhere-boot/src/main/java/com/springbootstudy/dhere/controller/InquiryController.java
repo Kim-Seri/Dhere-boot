@@ -67,7 +67,7 @@ public class InquiryController {
     }
 	
 	
-	@GetMapping("/iList")
+	@GetMapping("/dd")
 	public String iList(Model model, HttpSession session) {
 	    Member member = (Member) session.getAttribute("member");
 

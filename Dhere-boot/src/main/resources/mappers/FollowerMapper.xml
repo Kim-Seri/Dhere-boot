@@ -5,8 +5,8 @@
 <mapper namespace="com.springstudy.dhere.mappers.FollowerMapper">
 
     <insert id="insertFollow" parameterType="com.springbootstudy.dhere.domain.Follower">
-        INSERT INTO follower (follower_email, following_email)
-        VALUES (#{follower_email}, #{following_email})
+        INSERT INTO follower (follower_email, followingEmail)
+        VALUES (#{follower_email}, #{followingEmail})
     </insert>
     
     <delete id="deleteFollow" parameterType="map">
@@ -21,31 +21,15 @@
 	    WHERE follower_email = #{followerEmail}
 	    AND following_email = #{followingEmail}
 	</select>
-
-
-<!-- 
-<select id="followerList"  resultMap="followerResultMap">
-		SELECT
-			f.follower_email AS followerEmail,
-			f.following_email AS followingEmail,
-			m.email,
-			m.picture,
-			m.nickname,
-			m.job
-		FROM follower f
-			JOIN member m ON f.following_email = m.email
-		WHERE f.follower_email = #{followerEmail}
-	</select>
 	
-	<resultMap id="followerResultMap" type="Follower">
-		<id property="email" column="email" />
-		<result property="followerEmail" column="followerEmail" />
-		<result property="followingEmail" column="followingEmail" />
-		<result property="picture" column="picture" />
-		<result property="nickname" column="nickname" />
-		<result property="job" column="job" />
-	</resultMap>
-
- -->
+	<select id="followList" parameterType="String" resultType="com.springbootstudy.dhere.domain.Follower">
+	    SELECT		m.email AS following_email,
+        				m.nickname,
+        				m.picture
+	    FROM		follower f
+	    JOIN			member m ON f.following_email = m.email
+	    WHERE		f.follower_email = #{followerEmail}
+	</select>
 
 </mapper>
+
