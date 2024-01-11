@@ -27,8 +27,8 @@
 				<div class="col m-3 rounded-4">	
 					<div class="row mt-5 mb-2">
 						<div class="col-md-6 offset-md-3 text-center">
-							<img id="preview" class="img-fluid"  alt="프로필 사진" style="color:white; max-width: 300px; max-height: 300px; object-fit: cover;"
-							src="resources/images/profile/${sessionScope.member.picture}">
+							<img id="preview" class="img-fluid"  alt="프로필 사진" 
+							src="resources/images/profile/${sessionScope.member.picture}" alt="150*150" style="color:white; max-width:150px; max-height:150px; object-fit: cover; border-radius: 70%; border: 3px solid white">
 						</div>
 					</div>
 					<div class="row mb-3 justify-content-center">
