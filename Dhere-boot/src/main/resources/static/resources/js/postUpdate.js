@@ -250,6 +250,42 @@ $(function() {
 		$("#markers").val(JSON.stringify(markers));
 
 		// 아래에 유효성 검사 코드가 필요함
+		
+		if ($("input[name=categoryNo]:radio:checked").length < 1) {
+			alert("직종을 선택하세요");
+			return false;
+		}
+
+		if ($("#postTitle").val() <= 0) {
+			alert("제목을 입력해주세요");
+
+			return false;
+		}
+		if ($("#imageContainer").html().trim() === '') {
+			alert("데스크 사진을 추가해주세요");
+
+			return false;
+		}
+		if ($("#floatingTextarea1").val() <= 0) {
+			alert("데스크 셋업 구성을 적어주세요");
+
+			return false;
+		}
+		if ($("#floatingTextarea2").val() <= 0) {
+			alert("기기를 추천해주세요");
+
+			return false;
+		}
+		if ($("#floatingTextarea3").val() <= 0) {
+			alert("업무용 툴이나 프로그램을 추천해주세요");
+
+			return false;
+		}
+		if ($("#floatingTextarea4").val() <= 0) {
+			alert("보완하고 싶은 부분을 적어주세요");
+
+			return false;
+		}
 	});
 
 
@@ -335,7 +371,7 @@ $(function() {
 		imageDivNum++;
 		console.log(deleteBtnNum);
 		var imageInput = $(
-			"<input type='file' class='form-control' name='additionalImages' style='display:none'>"
+			"<input type='file' class='form-control'  name='additionalImages' style='display:none' multiple>"
 		);
 		$("#imageContainer").append(imageInput);
 		imageInput.click();
