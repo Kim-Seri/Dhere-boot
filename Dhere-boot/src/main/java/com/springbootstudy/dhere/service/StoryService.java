@@ -17,7 +17,12 @@ public interface StoryService {
 	//public abstract List<Story> getStoryList();
 	public abstract Map<String, List<Story>> getStoryList();
 	
-	public abstract List<Story> getStoryListPaged(int offset, int limit, String selectedJob, String searchKeyword, String sort);
+	
+	public abstract List<Story> getResultStoryList(int offset, int limit, String selectedJob, String searchKeyword, String sort);
+	
+	/* 1/11 백업!!!!
+	public abstract List<Story> getResultStoryList(int offset, int limit, String selectedJob, String searchKeyword, String sort);
+	*/
 	
 	// 게시물 리스트 가져오기 (+페이징)
 	// public abstract List<Story> getStoryListPaged(int offset, int limit);

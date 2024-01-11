@@ -40,7 +40,7 @@ public class StoryDaoImpl implements StoryDao {
 	
 	// 게시물 리스트 가져오기 (+페이징)
 	@Override
-	public List<Story> getStoryListPaged(int offset, int limit, String selectedJob, String searchKeyword, String sort) {
+	public List<Story> getResultStoryList(int offset, int limit, String selectedJob, String searchKeyword, String sort) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("offset", offset);
 		params.put("limit", limit);
@@ -49,6 +49,20 @@ public class StoryDaoImpl implements StoryDao {
         params.put("sort", sort);
 		return sqlSession.selectList(NAME_SPACE + ".getStoryListPaged", params);
 	}
+	
+	/* 1/11 백업!!!
+	// 게시물 리스트 가져오기 (+페이징)
+	@Override
+	public List<Story> getResultStoryList(int offset, int limit, String selectedJob, String searchKeyword, String sort) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("offset", offset);
+		params.put("limit", limit);
+		params.put("selectedJob", selectedJob);
+        params.put("searchKeyword", searchKeyword);
+        params.put("sort", sort);
+		return sqlSession.selectList(NAME_SPACE + ".getStoryListPaged", params);
+	}
+	 */
 	
 	// 태그 리스트 가져오기
 	@Override

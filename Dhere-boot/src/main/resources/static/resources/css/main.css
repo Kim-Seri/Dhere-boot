@@ -109,3 +109,11 @@ input[type="checkbox"] {
 	width: 50px; 
 }
 
+#addProductBtn {
+	width: 150px;
+	height: 30px;
+	border: 1px solid blue;
+	background-color: #4370FF;
+	color: white;
+	border-radius: 10px;
+}

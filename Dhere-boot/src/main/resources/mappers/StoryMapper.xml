@@ -45,7 +45,7 @@
 	<result property="categoryName" column="category_name" />
 </resultMap>
 
-
+<!-- ajax 스토리 리스트 출력 -->
 <select id="getStoryListPaged" resultType="Story" resultMap="StoryResultMapPaged" parameterType="hashmap">
     SELECT
     s.story_no,
@@ -126,6 +126,91 @@
 			<result property="tagName" column="tag_name" />
 		</collection>
 	</resultMap>
+	
+	<!-- 
+	1/11 백업!!!!!
+<select id="getStoryListPaged" resultType="Story" resultMap="StoryResultMapPaged" parameterType="hashmap">
+    SELECT
+    s.story_no,
+    s.title,
+    s.content1,
+    s.content2,
+    s.content3,
+    s.content4,
+    s.email,
+    s.reg_date,
+    s.category_no,
+    s.read_count,
+    s.thank,
+    s.nickname,
+    i.file_name,
+    m.picture,
+    t.tag_name,
+    j.category_name
+    
+    FROM
+    story s
+    
+    JOIN
+    image i ON s.story_no = i.story_no
+    JOIN
+    member m ON s.email = m.email
+    JOIN
+    tag_post tp ON s.story_no = tp.story_no
+    JOIN
+    tag t ON tp.tag_no = t.tag_no
+    JOIN
+    job j ON s.category_no = j.category_no
+    
+    WHERE
+    i.image_no = (SELECT MIN(image_no) FROM image WHERE story_no = s.story_no)
+
+    <if test='searchKeyWord != null and searchKeyWord != "null"'>
+        AND t.tag_name=#{searchKeyword}
+    </if>
+
+    <if test='selectedJob != null and selectedJob != "null"'>
+        AND j.category_name=#{selectedJob}
+    </if>
+    GROUP BY s.story_no
+    <choose>
+
+        <when test="sort == 'thank'">
+            ORDER BY s.thank DESC
+        </when>
+
+        <when test="sort == 'recent'">
+            ORDER BY s.reg_date DESC
+        </when>
+    </choose>
+   	LIMIT #{offset}, #{limit}
+</select>
+
+
+<resultMap id="StoryResultMapPaged" type="Story">
+		<id property="storyNo" column="story_no" />
+		<result property="title" column="title" />
+		<result property="content1" column="content1" />
+		<result property="content2" column="content2" />
+		<result property="content3" column="content3" />
+		<result property="content4" column="content4" />
+		<result property="email" column="email" />
+		<result property="regDate" column="reg_date" />
+		<result property="categoryNo" column="category_no" />
+		<result property="readCount" column="read_count" />
+		<result property="thank" column="thank" />
+		<result property="nickname" column="nickname" />
+		<result property="fileName" column="file_name" />
+		<result property="picture" column="picture" />
+		<result property="categoryName" column="category_name" />
+	    
+		<collection property="tags" ofType="Tag">
+			<id property="tagNo" column="tag_no" />
+			<result property="tagName" column="tag_name" />
+		</collection>
+	</resultMap>
+	
+	 -->
     
 
 	<!-- 스토리 게시글 작성 쿼리 -->

@@ -49,18 +49,18 @@ public class StoryServiceImpl implements StoryService {
 	}
 	
 	@Override
-	public List<Story> getStoryListPaged(int offset, int limit, String selectedJob, String searchKeyword, String sort) {
-		return storyDao.getStoryListPaged(offset, limit, selectedJob, searchKeyword, sort);
+	public List<Story> getResultStoryList(int offset, int limit, String selectedJob, String searchKeyword, String sort) {
+		return storyDao.getResultStoryList(offset, limit, selectedJob, searchKeyword, sort);
 	}
 
-	
-	
+	/*
+	 * 1/11 백업!!!
 	// 게시물 리스트 가져오기 (+페이징)
-//	@Override
-//	public List<Story> getStoryListPaged(int offset, int limit) {
-//		return storyDao.getStoryListPaged(offset, limit);
-//	}
-	
+	@Override
+	public List<Story> getResultStoryList(int offset, int limit, String selectedJob, String searchKeyword, String sort) {
+		return storyDao.getResultStoryList(offset, limit, selectedJob, searchKeyword, sort);
+	}
+	*/
 
 	//게시글 작성하기(story)
 	@Override

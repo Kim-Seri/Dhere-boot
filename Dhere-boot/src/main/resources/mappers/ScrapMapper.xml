@@ -51,7 +51,7 @@
 	        scrap_date AS scrapDate
 	    FROM scrap
 	    <where>
-	        <if test="email != null">
+	        <if test='email != null and email != "null"'>
 	            AND email = #{email}
 	        </if>
 	    </where>

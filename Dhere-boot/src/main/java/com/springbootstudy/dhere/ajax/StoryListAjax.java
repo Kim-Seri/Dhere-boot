@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.springbootstudy.dhere.domain.Story;
 import com.springbootstudy.dhere.service.StoryService;
-//세리 
+
 @RestController
 public class StoryListAjax {
 	
@@ -42,10 +42,37 @@ public class StoryListAjax {
 		Map<String, List<Story>> map = new HashMap<>();
 
 	    // 중복을 허용한 리스트를 전달
-	    map.put("resultList", storyService.getStoryListPaged(offset, limit, selectedJob, searchKeyword, sort));
+	    map.put("resultList", storyService.getResultStoryList(offset, limit, selectedJob, searchKeyword, sort));
 
 		return map;		
 	}
+	
+	/*
+	1/11 백업!!!!!
+	@PostMapping("/storyList")	
+	public Map<String, List<Story>> storyList(
+			@RequestParam(value="selectedJob", required = false, defaultValue="null") String selectedJob,
+			@RequestParam(value="searchKeyword", required = false, defaultValue="null") String searchKeyword,
+			@RequestParam(value="sort", required = false, defaultValue="recent") String sort,
+			@RequestParam(value="offset", required = false, defaultValue="0") Integer offset,
+			@RequestParam(value="limit", required = false, defaultValue="6") Integer limit) {
+		
+		System.out.println("selectedJob : " + selectedJob);
+		System.out.println("searchKeyword : " + searchKeyword);
+		System.out.println("sort : " + sort);
+		System.out.println("offset : " + offset);
+		System.out.println("limit : " + limit);
+		
+		Map<String, List<Story>> map = new HashMap<>();
+
+	    // 중복을 허용한 리스트를 전달
+	    map.put("resultList", storyService.getResultStoryList(offset, limit, selectedJob, searchKeyword, sort));
+
+		return map;		
+	}
+	
+	
+	 */
 	
 	
 	/*	
