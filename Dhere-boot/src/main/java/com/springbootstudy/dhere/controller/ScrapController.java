@@ -84,7 +84,10 @@ public class ScrapController {
 
 	     List<Follower> fList = followerService.followList(member.getEmail());
 	     model.addAttribute("fList", fList);
-
+	     
+	     List<Scrap> scList = scrapService.scList(member.getEmail());
+	     model.addAttribute("scList", scList);
+	     
 	     return "scrap";
 	 }
 	

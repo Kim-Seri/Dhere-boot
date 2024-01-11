@@ -23,6 +23,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
 <div class="container">
 	<div class="row">
 		<div class="col">
@@ -113,7 +122,7 @@
 						<li class="nav-item text-center">
 							<h3>
 							<b>
-							<a class="nav-link scrapbtn" aria-current="page"  style="font-size: 25px; color: rgb(56, 96, 255); cursor: pointer" data-bs-toggle="pill">나의 스크랩</a>
+							<a class="nav-link" id="scrap_li2">나의스크랩</a>
 							</b>
 							</h3>
 						</li>
@@ -220,21 +229,116 @@
 						</c:forEach>
 					</div>
 		 		 </div>
-		 		 <!-- 1번 버튼 누르면 -->
-		 		 
-		 		 
-
+		 		 <!-- 1번 버튼 누르면 끝 -->
 				</div>
 			</div>
-			
-			
-			
+			<!-- 2번 버튼을 누르면 -->
 			<div id="myScrapsContent" class="content-section">
-			    <!-- 나의 스크랩 내용 -->
+   		    		<div class="row d-flex justify-content-center" id="jobSelectedCategory">
+						<c:forEach var="sc" items="${scList}" varStatus="counter">
+							<c:if test="${empty scList}">
+								<div class="row">
+									<div class="col text-center">
+									 	게시물이 존재하지 않습니다.
+									</div>
+								</div>
+							</c:if>
+							<c:if test="${not empty scList}">
+								<div class="col-3 m-4 rounded-4" style="background: #F3F3F3; width: 29%;">
+								<!-- 데스크셋업 썸네일 -->
+									<a href="storyDetail?storyNo=${sc.storyNo}">
+									<div class="row rounded-top-4" 
+											style="height: 200px; background-size: cover; background-position: center; 
+														background-image: url('resources/images/desk/${sc.fileName}');">
+										<div class="col">				
+										</div>
+									</div>
+									</a>
+									<!-- 프로필, 닉네임, 날짜 -->
+									<div class="row">
+										<div class="col" style="color: #636363; margin-left: 2%; margin-top: 5%; font-weight: 700;">
+											<img src="resources/images/profile/${sc.picture}" 
+													id="main_picture"
+													tabindex="0" 
+													data-bs-html="true" 
+													data-bs-placement="bottom" 
+													data-bs-toggle="popover" 
+													data-bs-trigger="focus"
+													data-bs-title="${sc.nickname}"
+													data-bs-content="
+																<a href='otherScrap?email=${sc.email}
+																				&nickname=${sc.nickname}
+																				&picture=${sc.picture}
+																				&categoryName=${sc.categoryName}
+																				&categoryName=${sc.categoryName}'
+																		class='text-decoration-none text-dark'>프로필 보러가기</a>
+																<br>
+															    <br>
+															    <a href='scrap' class='text-decoration-none text-dark'>쪽지 보내기</a>
+																<br>
+															    <br>
+															    <a href='scrap' class='text-decoration-none text-dark'>1:1 대화</a>
+																<br>
+															    <br>
+															    <a href='scrap' class='text-decoration-none text-dark'>신고하기</a>">
+											&nbsp;
+											${sc.nickname}
+										</div>
+										<div class="col text-end" style="color: #5E5E5E; margin-top: 2%;">
+										<fmt:formatDate value="${sc.regDate}" pattern="yyyy-MM-dd" var="formattedDate"/>
+											${formattedDate}
+										</div>
+									</div>
+									<!-- 제목 --> 
+									<div class="row">
+										<div class="col" style="font-weight: bold; margin-left: 2%; margin-top: 11%; font-size: 21px; font-weight: 800;
+																			white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+											<a href="storyDetail?storyNo=${sc.storyNo }" class="link-dark link-underline-opacity-0">${sc.title}</a>
+										</div>
+									</div>
+									<div class="row" style="width: 99%; border-bottom: 2px solid #bfbfbf; margin-left: 1%; margin-top: 20px;">
+										<div class="col justify-content-center">
+											
+										</div>
+									</div>
+									<!-- 태그 -->
+									<div class="row">
+										<div class="col mt-3 mb-4" style="color:#5E5E5E; margin-left: 2%;">
+								            ${sc.tagName} 
+										</div>
+									</div>
+									<!-- 조회수, 좋아요 -->
+									<div class="row">
+										<div class="col py-3" id="main_story_category_area">
+											&nbsp;<img src="resources/images/icon/name_tag_full.png" id="main_story_category_btn">&nbsp;${sc.categoryName}
+										</div>
+										<div class="col text-end py-3" style="color:#5E5E5E; font-size: smaller;">
+											<img src="resources/images/icon/eye_eyes_view_count.png" id="icon_count" style="width: 20px;">${sc.readCount}&nbsp;&nbsp;
+											<img src="resources/images/icon/heart.png" id="icon_heart" style="width: 20px;">${sc.thank}
+										</div>
+									</div>
+								</div>
+							</c:if>
+						</c:forEach>
+					</div>
 			</div>
+			<!-- 3번 버튼을 누르면 -->
 			<div id="followListContent" class="content-section">
-			    <!-- 팔로우 목록 내용 -->
-			</div>
+			     <div class="row mt-5">
+                        <div class="col">
+                            <div class="row">
+                               	<c:forEach items="${fList}" var="f">
+	                                <div class="col">
+	                                    <img src="resources/images/profile/${f.picture}" id="scrap_follower_picture">
+	                                </div>
+	                                <div class="col" id="scrap_follower_nickname">
+	                                    ${f.nickname}
+	                                </div>
+                                </c:forEach>
+                            </div>
+                        </div>
+                    </div>
+				</div>
 
 	<!-- ----------------------------------------------------------------------------------------------------- -->		
 

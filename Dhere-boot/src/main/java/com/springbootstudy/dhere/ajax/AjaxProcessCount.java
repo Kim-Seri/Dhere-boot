@@ -67,23 +67,6 @@ public class AjaxProcessCount {
 		return map;
 	}
 	
-	/*
-	 * @PostMapping("/getMemberInfo") public ResponseEntity<Member>
-	 * getMemberInfo(@RequestParam String email) { // email을 사용하여 Member 정보를 조회하는
-	 * 메서드를 MemberService에서 작성해야 합니다. Member member =
-	 * memberService.getMember(email); if (member != null) { return new
-	 * ResponseEntity<>(member, HttpStatus.OK); } else { return new
-	 * ResponseEntity<>(HttpStatus.NOT_FOUND); } }
-	 */
-	
-	/*
-	 * @PostMapping("/getMyPosts") public Map<String, List<Story>> getMyPosts(Model
-	 * model, HttpSession session) { Member member = (Member)
-	 * session.getAttribute("member"); Map<String, List<Story>> map=new HashMap<>();
-	 * map.put("scrapList",storyService.sList(member.getEmail())); return map; }
-	 */
-
-	
 	
 	 @PostMapping("/myScraps")
 	 public Map<String, List<Scrap>> scList(HttpSession session, Model model) {
@@ -92,34 +75,10 @@ public class AjaxProcessCount {
 	 
 		 Map<String, List<Scrap>> map=new HashMap<>();
 		 map.put("scList",scrapService.scList(member.getEmail()));
-		 
-			
-			/*
-			 * List<Story> sList = storyService.sList(member.getEmail());
-			 * 
-			 * model.addAttribute("sList", sList);
-			 */
 			 
-		 
 		 return map; 
 	 }
 	 
-	
-	// 회원 정보 수정하는 ajax 요청을 처리하는 컨트롤러
-//	@GetMapping("/passCheck.ajax")
-//	@ResponseBody
-//	public Map<String, Boolean> memberPassCheck(
-//			@RequestParam("email") String email, 
-//			@RequestParam("pass") String pass) {
-//		
-//		
-//		//boolean result = memberService.memberPassCheck(email, pass);
-//		//Map<String, Boolean> map = new HashMap<String, Boolean>();
-//		//map.put("result", result);
-//		
-//		//return map;
-//	}
-	
 	@PostMapping("/imageListajax")
 	@ResponseBody
 	public List<Image> storyImageList(
@@ -148,8 +107,6 @@ public class AjaxProcessCount {
 		
 		return product;
 	}
-	
-	
 	
 	
 }
