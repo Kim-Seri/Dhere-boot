@@ -108,7 +108,44 @@ $(function() {
 		// 폼이 sumbit 될 때 마커 정보를 직렬화하여 markers라는 이름을 가진 hidden 필드에 추가된다.
 		$("#markers").val(JSON.stringify(markers));
 
+
 		// 아래에 유효성 검사 코드가 필요함
+
+		if ($("input[name=categoryNo]:radio:checked").length < 1) {
+			alert("직종을 선택하세요");
+			return false;
+		}
+
+		if ($("#postTitle").val() <= 0) {
+			alert("제목을 입력해주세요");
+
+			return false;
+		}
+		if ($("#imageContainer").html().trim() === '') {
+			alert("데스크 사진을 추가해주세요");
+
+			return false;
+		}
+		if ($("#floatingTextarea1").val() <= 0) {
+			alert("데스크 셋업 구성을 적어주세요");
+
+			return false;
+		}
+		if ($("#floatingTextarea2").val() <= 0) {
+			alert("기기를 추천해주세요");
+
+			return false;
+		}
+		if ($("#floatingTextarea3").val() <= 0) {
+			alert("업무용 툴이나 프로그램을 추천해주세요");
+
+			return false;
+		}
+		if ($("#floatingTextarea4").val() <= 0) {
+			alert("보완하고 싶은 부분을 적어주세요");
+
+			return false;
+		}
 	});
 
 
@@ -147,12 +184,6 @@ $(function() {
 		// 이미지의 크기
 		const imageWidth = $('#div1').width();
 		const bodyHeight = $("#div1").height();
-
-
-		// 스크롤 위치
-
-
-
 
 
 		// 마커의 위치 조절
@@ -262,18 +293,24 @@ $(function() {
 		deleteBtnNum++;
 		imageDivNum++;
 		console.log(deleteBtnNum);
-		var imageInput = $(
+		let imageInput = $(
 			"<input type='file' class='form-control' name='additionalImages' style='display:none'>"
 		);
 		$("#imageContainer").append(imageInput);
 		imageInput.click();
+		
 
 		// 이미지 업로드 인풋이 변경됐을 때의 이벤트 핸들러
 		imageInput.on("change", function() {
+			console.log("onchange");
 			if (!this.files.length) {
+				// 파일이 선택되지 않았을 때, 즉 취소 버튼을 눌렀을 때
+				// input type=file을 제거합니다.
+				console.log("onchange");
+				imageInput.remove();
 				return;
 			}
-
+	
 			// 이미지 미리보기 업데이트
 			var imagePreview = $(`<img class='img-thumbnail postImg' id='postImg${imageDivNum}'/>`);
 			var div1 = $(`<div class='div1' id='div${imageDivNum}'></div>`);
@@ -302,16 +339,6 @@ $(function() {
 				div1.append(markerButton);
 			}
 
-			$(".deleteBtn").css({
-
-			});
-
-			$("#addMarkerButton").css({
-
-			});
-
-
-
 			imageDivCol.append(imageDivRow3);
 			imageDivRow3.append(imageDivCol3);
 			//      imageDivCol3.append(changeButton);
@@ -325,7 +352,7 @@ $(function() {
 
 	//이미지 삭제하기 버튼 눌렸을 때
 	$("#imageContainer").on("click", ".deleteBtn", function() {
-		
+
 		$(this).parent().parent().parent().parent().parent().prev().remove();
 		$(this).parent().parent().parent().parent().parent().remove();
 		$(this).parent().parent().parent().parent().prev().remove();
@@ -370,7 +397,7 @@ $(function() {
 		$(this).parent().prev().remove();
 		$(this).parent().remove();
 		console.log(Number($(this).next().children('#topMarkerResult').val()));
-		let topMarkerResult=Number($(this).next().children('#topMarkerResult').val());
+		let topMarkerResult = Number($(this).next().children('#topMarkerResult').val());
 
 		let topIndex = markers.findIndex((v, i) => {
 			console.log(v.top1);
@@ -382,8 +409,8 @@ $(function() {
 		});
 
 		console.log(topIndex);
-		 markers.splice(topIndex, 1);
-		 console.log(markers);
+		markers.splice(topIndex, 1);
+		console.log(markers);
 	});
 
 
