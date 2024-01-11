@@ -171,10 +171,15 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
-    
-    
 
     // 태그 검색
+    $("#TagSearchBtn").on("click", function() {
+		
+		if(event.type === "keypress" && enter.key !== "Enter" ) {
+			
+		}
+		
+	});
 
     // 정렬
 });
