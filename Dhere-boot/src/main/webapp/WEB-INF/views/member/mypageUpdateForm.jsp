@@ -18,7 +18,7 @@
 	<div class="offset-3 col-6">
 		<form action="mypageUpdateResult" name="mypageUpdateResult" id="mypageUpdateResult" method="post" enctype="multipart/form-data">
 		<div class="row m-3">
-			<div class="col fs-1 text-center text-white" style="font-weight: bold">
+			<div class="col fs-1 text-center text-white" style="font-weight: bold" >
 				update
 			</div>
 		</div>
@@ -27,13 +27,20 @@
 				<div class="col m-3 rounded-4">	
 					<div class="row mt-5 mb-2">
 						<div class="col-md-6 offset-md-3 text-center">
+							<c:if test="${ empty sessionScope.member.picture }">
+	                   			 <img src="resources/images/icon/86683729.png" id="scrap_picture" style="color:white; max-width:150px; max-height:150px; object-fit: cover; border-radius: 70%; border: 3px solid white">
+	                		</c:if>
+							<c:if test="${ not empty sessionScope.member.picture }">						
 							<img id="preview" class="img-fluid"  alt="프로필 사진" 
-							src="resources/images/profile/${sessionScope.member.picture}" alt="150*150" style="color:white; max-width:150px; max-height:150px; object-fit: cover; border-radius: 70%; border: 3px solid white">
+							src="resources/images/profile/${sessionScope.member.picture}" style="color:white; max-width:150px; max-height:150px; object-fit: cover; border-radius: 70%; border: 3px solid white">
+							</c:if>
 						</div>
 					</div>
 					<div class="row mb-3 justify-content-center">
-						<div class="col-4">
-							<input type="file" class="form-control form-control-sm border border-1" id="picture" name="picture1" onchange="readURL(this);">
+						<div class="col-4 mt-3">
+						<input type="button" class="btn border-white" value="프로필 사진 변경" id="profilePhoto" onclick="document.getElementById('input-file').click();" 
+						style="width: 110%; height: 45px; color: white; border-radius: 10px;"/>
+							<input type="file" id="input-file" onchange="readURL(this);" style="display:none" />
 						</div>
 					</div>
 					<div class="row my-4">
@@ -50,20 +57,21 @@
 					</div>
 					<div class="row my-4">
 						<div class="col-6 offset-2">
-							<label for="pass" class="form-label" style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;비밀번호 </label>
-							<input type="password" class="form-control border border-white border-3" name="pass1" id="pass1" style="width: 97%; background: white; border-radius: 10px; color: black;">
+							<label for="pass" class="form-label" 
+							style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;새 비밀번호 </label>
+							<input type="password" class="form-control border border-white border-3" name="newPass1" id="newPass1" style="width: 97%; background: white; border-radius: 10px; color: black;">
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-8 offset-2">
-							<label for="pass2" class="form-label" style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;비밀번호 확인 </label>
+							<label for="pass2" class="form-label" style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;새 비밀번호 확인</label>
 							<div class="row">
 								<div class="col-8">
-									<input type="password" class="form-control border border-white border-3" name="pass2" id="pass2" style="width: 110%; background: white; border-radius: 10px; color: black;">
-									<label id="label2"></label>
+									<input type="password" class="form-control border border-white border-3" name="newPass2" id="newPass2" style="width: 110%; background: white; border-radius: 10px; color: black;">
+									<label id="newPassLabel"></label>
 								</div>
 								<div class="col-4 text-end">
-									<input type="button" class="btn border-white" id="btnOverlapPass" value="확인" style="width: 65%; height: 45px; color: white; border-radius: 10px;">
+									<input type="button" class="btn border-white" id="newPassBtn" value="확인" style="width: 75%; height: 45px; color: white; border-radius: 10px;">
 								</div>
 							</div>
 						</div>
@@ -72,7 +80,7 @@
 						<div class="col-8 offset-2">
 							<label for="name" class="form-label" style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;이름 </label>
 							<input type="text" class="form-control border border-white border-3" name="name" id="name" 
-							style="background: white; border-radius: 10px; color: black;" value="${sessionScope.member.name}" readonly>
+							style="background: white; border-radius: 10px; color: black;" value="${sessionScope.member.name}">
 						</div>
 					</div>
 					<div class="row my-4">
@@ -116,7 +124,17 @@
 							<label for="job" class="form-label" style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;직업 </label>
 							<div class="row">
 								<div class="col">
-									<input type="text" class="form-control border border-white border-3" name="job" id="job" placeholder="개발자" style="background: white; border-radius: 10px; color: black;">
+								<select name="job" class="form-select">
+									<option value="developer" selected="selected">직업을 선택하세요</option>
+									<option value="developer">개발자</option>
+									<option value="marketer">마케터</option>
+									<option value="designer">디자이너</option>
+									<option value="producer">PD</option>
+									<option value="writer">작가</option>
+									<option value="researcher">연구원</option>
+									<option value="teacher">선생님</option>
+									<option value="accountant">회계사</option>
+								</select>
 								</div>
 							</div>
 						</div>
@@ -137,7 +155,7 @@
 							<input type="submit" value="update" class="btn border border-white border-3" style="background: white; width: 100px; height: 55px; border-radius: 15px;">&nbsp;&nbsp;
 						</div>
 						<div class="col-4 text-end"> 
-							<input type="button" value="Back" class="btn border border-3" style="border-radius: 15px; width: 100px; height: 55px; color: white" onclick="location.href='main'">
+							<input type="button" value="Back" class="btn border border-3" style="border-radius: 15px; width: 100px; height: 55px; color: white" onclick="location.href='scrap'">
 						</div>
 					</div>
 				</div>
