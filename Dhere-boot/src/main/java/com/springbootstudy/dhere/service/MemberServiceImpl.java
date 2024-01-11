@@ -84,9 +84,10 @@ public class MemberServiceImpl implements MemberService {
 		//회원정보를 DAO를 이용해 회원테이블에서 수정하는 메서드
 		public void updateMember(Member member) {
 			
-			member.setPass(passwordEncoder.encode(member.getPass()));
-			System.out.println(member.getPass());
-			
+			if(member.getPass() != null) {
+				member.setPass(passwordEncoder.encode(member.getPass()));
+				System.out.println(member.getPass());				
+			}
 			memberDao.updateMember(member);
 		}
 

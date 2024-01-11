@@ -28,7 +28,7 @@
 					<div class="row mt-5 mb-2">
 						<div class="col-md-6 offset-md-3 text-center">
 							<img id="preview" class="img-fluid"  alt="프로필 사진" style="color:white; max-width: 300px; max-height: 300px; object-fit: cover;"
-							value="${sessionScope.member.picture}">
+							src="resources/images/profile/${sessionScope.member.picture}">
 						</div>
 					</div>
 					<div class="row mb-3 justify-content-center">
