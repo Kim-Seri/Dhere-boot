@@ -19,8 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
         let selectedJob = $(this).children().eq(0).text();
         let jobVal = $(this).attr("value");
 
-        console.log(selectedJob);
-        console.log(jobVal);
+        //console.log(selectedJob);
+        //console.log(jobVal);
         
         $("#hiddenJob").val(selectedJob);
         $("#addBtn").attr("data-page", "1");
@@ -95,8 +95,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 type: "POST",
                 dataType: "json",
                 success: function (res) {
-                    console.log(res.resultList);
-                    console.log("res.resultList.length : " + res.resultList.length);
+                    //console.log(res.resultList);
+                    //console.log("res.resultList.length : " + res.resultList.length);
 
                     if (res.resultList.length > 0) {
                         $("#jobSelectedCategory").empty();
@@ -172,8 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // 태그 검색
+    // 태그 검색 (검색 버튼)
        $("#TagSearchBtn").on("click", function(){
 		
 		if(event.type ==="keypress" && event.key != "Enter") {
@@ -239,11 +238,48 @@ document.addEventListener("DOMContentLoaded", function () {
                 dataType: "json",
                 success: function (res) {
 					
-					console.log("일단 통신했음!");
-					
-                    console.log(res.resultList);
-                    console.log(res.resultList.tagName);
-                    console.log(res.resultList[0].tags[0].tagName);
+					console.log(res.resultList);
+
+	            // 클라이언트 측에서 검색어 필터링
+	            let filteredList = res.resultList.filter(function (story) {
+	                if (story.tags) {
+	                    return story.tags.some(function (tag) {
+	                        return tag.tagName.includes(searchKeyword);
+	                    });
+	                }
+	                return false;
+	            });
+	
+	            if (filteredList.length > 0) {
+	                $("#jobSelectedCategory").empty();
+	                storyList(filteredList);
+	
+	                // 만약 가져온 데이터의 개수가 6개 미만이라면 더보기 버튼을 숨김
+	                if (filteredList.length < 6) {
+	                    $('#addBtn').hide();
+	                }
+	            }
+	            
+	             if (filteredList.length == 0) {
+	                $("#jobSelectedCategory").empty();
+	                
+	                $("#jobSelectedCategory").append(`
+							<div class="row m-5">
+							<div class="col text-center">
+								`+searchKeyword+` 키워드에 해당하는 게시물이 없습니다.
+							</div>
+							</div>
+					`);
+
+                            $('#addBtn').hide(); // 더 이상 불러올 데이터가 없으면 버튼 숨기기
+	                
+	                //console.log("그런 데이터 없음");
+	                //console.log(searchKeyword);
+	             }
+	            
+				
+				$("#TagSearchBox").val("");
+				
 
 
                 },
@@ -251,19 +287,172 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.log("AJAX Error: " + status + " - " + error);
                     console.log(xhr.responseText);
                 }
+                	
             });
-			
-			
-			
+
+		}
+	});
+	
+	 // 태그 검색 (엔터)
+	$("#TagSearchBox").on("keypress", function(){
+		
+		if(event.type ==="keypress" && event.key != "Enter") {
+			return;
 		}
 		
+		let searchKeyword = $("#TagSearchBox").val();
 		
+        // 키워드를 입력하지 않는다면, 전체 리스트 출력
+        if(searchKeyword.length <= 0) {
+			console.log("키워드 없음!");
+			
+			$.ajax({
+                url: "storyList",
+                data: $("#categorySearchForm").serialize(),
+                type: "POST",
+                dataType: "json",
+                success: function (res) {
+                    console.log(res.resultList);
+                    console.log("res.resultList.length : " + res.resultList.length);
+
+                    if (res.resultList.length > 0) {
+                        $("#jobSelectedCategory").empty();
+                        storyList(res.resultList);                        
+
+                        // 만약 가져온 데이터의 개수가 6개 미만이라면 더보기 버튼을 숨김
+                        if (res.resultList.length < 6) {
+                            $('#addBtn').hide();
+                        }
+                    } else {
+
+                        $("#jobSelectedCategory").empty();
+                        if (res.resultList.length === 0) {
+
+                            $("#jobSelectedCategory").append("<div class=\"row m-5\">\r\n" +
+                                "		<div class=\"col text-center\">\r\n" +
+                                "			게시물이 없습니다.\r\n" +
+                                "		</div>\r\n" +
+                                "		</div>");
+
+                            $('#addBtn').hide(); // 더 이상 불러올 데이터가 없으면 버튼 숨기기
+                        }
+                    };
+                },
+                error: function (xhr, status, error) {
+                    console.log("AJAX Error: " + status + " - " + error);
+                    console.log(xhr.responseText);
+                }
+            });
+			
+		} else {
+			// 키워드가 존재한다면, 키워드가 포함된 게시물 출력
+			$("#hiddenKeyword").val(searchKeyword);
+	       	$("#addBtn").attr("data-page", "1");
+	        $("#hiddenOffset").val(0);
+	        console.log("여기!!!!!!");
+	        console.log($("#categorySearchForm").serialize());
+        	
+        	$.ajax({
+                url: "storyList",
+                data: $("#categorySearchForm").serialize(),
+                type: "POST",
+                dataType: "json",
+                success: function (res) {
+					
+					console.log(res.resultList);
+
+	            // 클라이언트 측에서 검색어 필터링
+	            let filteredList = res.resultList.filter(function (story) {
+	                if (story.tags) {
+	                    return story.tags.some(function (tag) {
+	                        return tag.tagName.includes(searchKeyword);
+	                    });
+	                }
+	                return false;
+	            });
+	
+	            if (filteredList.length > 0) {
+	                $("#jobSelectedCategory").empty();
+	                storyList(filteredList);
+	
+	                // 만약 가져온 데이터의 개수가 6개 미만이라면 더보기 버튼을 숨김
+	                if (filteredList.length < 6) {
+	                    $('#addBtn').hide();
+	                }
+	            }
+	            
+	             if (filteredList.length == 0) {
+	                $("#jobSelectedCategory").empty();
+	                
+	                $("#jobSelectedCategory").append(`
+							<div class="row m-5">
+							<div class="col text-center">
+								`+searchKeyword+` 키워드에 해당하는 게시물이 없습니다.
+							</div>
+							</div>
+					`);
+
+                            $('#addBtn').hide(); // 더 이상 불러올 데이터가 없으면 버튼 숨기기
+	                
+	                //console.log("그런 데이터 없음");
+	                //console.log(searchKeyword);
+	             }
+	            
+				
+				$("#TagSearchBox").val("");
+				
+
+
+                },
+                error: function (xhr, status, error) {
+                    console.log("AJAX Error: " + status + " - " + error);
+                    console.log(xhr.responseText);
+                }
+                	
+            });
+
+		}
 		
 	});
     
+    // 정렬
+    $("#selectBox").on("change", function() {
+		
+			let sort = $("#selectBox").val();
+			$("#hiddenSort").val(sort);
+	       	$("#addBtn").attr("data-page", "1");
+	        $("#hiddenOffset").val(0);
+			console.log(sort);
+			
+			$.ajax({
+				url: "storyList",
+				data: $("#categorySearchForm").serialize(),
+				type: "POST",
+				dataType: "json",
+				success: function(res) {
+					
+					if(res.resultList.length > 0) {
+						
+						$("#jobSelectedCategory").empty();
+						 storyList(res.resultList);    
+						 
+						 if(res.resultList.length <6) {
+							  $('#addBtn').hide();
+						 }
+						
+					}
+					
+					        
+					
+				}, error: function(xhr, status, error) {
+					console.log("AJAX Error: " + status + " - " + error);
+                    console.log(xhr.responseText);
+				}	
+			});
+			
+	});
     
 
-    // 정렬
 });
 
 
