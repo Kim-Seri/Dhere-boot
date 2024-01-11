@@ -18,7 +18,7 @@
 	<script src="resources/js/jquery-3.2.1.min.js"></script>
 	<script src="resources/js/formcheck.js"></script>
 	<script src="resources/js/scrap.js"></script>
-</head>
+</head> 
 <body>
 
 
