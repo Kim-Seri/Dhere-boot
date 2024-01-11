@@ -50,7 +50,13 @@ public class StoryServiceImpl implements StoryService {
 	
 	@Override
 	public List<Story> getStoryListPaged(int offset, int limit, String selectedJob, String searchKeyword, String sort) {
-		return storyDao.getStoryListPaged(offset, limit, selectedJob, searchKeyword, sort);
+		List<Story> sList=storyDao.getStoryListPaged(offset, limit, selectedJob, searchKeyword, sort);
+		for (Story story : sList) {
+	        List<Tag> tags = storyDao.getStoryDetailTag(story.getStoryNo());
+	        story.setTags(tags);
+	    }
+		
+		return sList;
 	}
 
 	
@@ -106,7 +112,7 @@ public class StoryServiceImpl implements StoryService {
 		storyDao.deleteReplyByStoryNo(storyNo);
 		storyDao.deleteMarkerByStoryNo(storyNo);
 		storyDao.deleteTagPostByStoryNo(storyNo);
-		storyDao.deleteTagByStoryNo(storyNo);
+//		storyDao.deleteTagByStoryNo(storyNo);
 		storyDao.deleteImageByStoryNo(storyNo);
 
 		// 마지막으로 story 삭제하자

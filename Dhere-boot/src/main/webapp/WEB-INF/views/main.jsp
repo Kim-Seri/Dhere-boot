@@ -298,7 +298,7 @@
 			
 			<div class="row">
 			<div class="col text-center">
-				<button id="addBtn"><span>더보기</span></button>
+				<button id="addBtn" data-page="1"><span>더보기</span></button>
 			</div>
 			</div>
 			
