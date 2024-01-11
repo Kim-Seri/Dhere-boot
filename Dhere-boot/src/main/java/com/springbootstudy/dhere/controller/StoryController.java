@@ -175,11 +175,11 @@ public class StoryController {
 	public String handleScrapRequest(@RequestParam("storyNo") int storyNo, HttpSession session) {
 		Member member = (Member) session.getAttribute("member");
 
-		if (member != null) {
-			Scrap scrap = new Scrap();
-			scrap.setEmail(member.getEmail());
-			scrap.setStory_no(storyNo);
-			scrap.setScrap_date(Timestamp.valueOf(LocalDateTime.now()));
+	    if (member != null) {
+	        Scrap scrap = new Scrap();
+	        scrap.setEmail(member.getEmail());
+	        scrap.setStoryNo(storyNo);
+	        scrap.setScrapDate(Timestamp.valueOf(LocalDateTime.now()));
 
 			scrapService.insertScrap(scrap);
 

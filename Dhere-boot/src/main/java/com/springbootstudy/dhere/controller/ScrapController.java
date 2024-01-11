@@ -103,6 +103,19 @@ public class ScrapController {
 		return "scrap";
 	}
 	
+	@PostMapping("/insertScrap")
+	public String insertScrap(Scrap s, HttpSession session) {
+	    Member member = (Member) session.getAttribute("member");
+
+	    // Member 객체에서 이메일을 추출하여 Scrap 객체에 설정
+	    if (member != null) {
+	        s.setEmail(member.getEmail());
+	        scrapService.insertScrap(s);
+	    }
+
+	    return "redirect:/";
+	}
+	
 	   @GetMapping("/mypageUpdateProcess")
 	    public String mypageUpdateProcess() {
 	        return "member/mypageUpdateProcess";

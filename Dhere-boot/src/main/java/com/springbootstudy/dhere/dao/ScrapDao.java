@@ -9,6 +9,8 @@ public interface ScrapDao {
 	
 	public abstract List<Scrap> scrapList(String email);
 	
+	public abstract List<Scrap> scList(String email);
+	
 	public abstract void insertScrap(Scrap scrap);
 	
 	// 프로필 가져오기

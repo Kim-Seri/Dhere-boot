@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -65,20 +67,39 @@ public class AjaxProcessCount {
 		return map;
 	}
 	
+	/*
+	 * @PostMapping("/getMemberInfo") public ResponseEntity<Member>
+	 * getMemberInfo(@RequestParam String email) { // email을 사용하여 Member 정보를 조회하는
+	 * 메서드를 MemberService에서 작성해야 합니다. Member member =
+	 * memberService.getMember(email); if (member != null) { return new
+	 * ResponseEntity<>(member, HttpStatus.OK); } else { return new
+	 * ResponseEntity<>(HttpStatus.NOT_FOUND); } }
+	 */
 	
+	/*
+	 * @PostMapping("/getMyPosts") public Map<String, List<Story>> getMyPosts(Model
+	 * model, HttpSession session) { Member member = (Member)
+	 * session.getAttribute("member"); Map<String, List<Story>> map=new HashMap<>();
+	 * map.put("scrapList",storyService.sList(member.getEmail())); return map; }
+	 */
+
 	
 	
 	 @PostMapping("/myScraps")
-	 public Map<String, List<Scrap>> scrapList(HttpSession session, Model model) {
+	 public Map<String, List<Scrap>> scList(HttpSession session, Model model) {
 		 
 		 Member member = (Member) session.getAttribute("member");
 	 
 		 Map<String, List<Scrap>> map=new HashMap<>();
-		 map.put("scrapList",scrapService.scrapList(member.getEmail()));
+		 map.put("scList",scrapService.scList(member.getEmail()));
 		 
-		 List<Story> sList = storyService.sList(member.getEmail());
-	        
-         model.addAttribute("sList", sList);
+			
+			/*
+			 * List<Story> sList = storyService.sList(member.getEmail());
+			 * 
+			 * model.addAttribute("sList", sList);
+			 */
+			 
 		 
 		 return map; 
 	 }
