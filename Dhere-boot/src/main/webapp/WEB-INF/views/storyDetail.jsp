@@ -139,9 +139,12 @@
 				                        </form>
 				                    </c:otherwise>
 				                </c:choose>
-				                <button type="button" class="btn btn-outline-primary fs-5" id="scrapBtn">
-				                    스크랩
-				                </button>
+				                <form name="scrapForm" id="scrapForm" action="insertScrap" method="post">
+					                <input type="hidden" name="storyNo" value="${storyDetail.storyNo}" />
+					                <button type="submit" class="btn btn-outline-primary fs-5" id="scrapBtn">
+					                    스크랩
+					                </button>
+					            </form>
 				            </c:otherwise>
 				        </c:choose>
 				    </div>

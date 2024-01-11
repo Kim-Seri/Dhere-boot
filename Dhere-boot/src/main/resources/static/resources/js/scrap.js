@@ -66,7 +66,7 @@ $(function() {
     	});
 	});
 ////////////////////////////////////////////////////////////////////////////		
-	$("#scrap_li2").on("click", function(){
+	/*$("#scrap_li2").on("click", function(){
 		$.ajax({
         url: '/api/scrap', 
         type: 'GET',
@@ -97,7 +97,7 @@ $(function() {
             console.error("Error: " + error);
         }
     	});
-	});
+	});*/
 ////////////////////////////////////////////////////////////////////////////		
 	$("#scrap_li3").on("click", function(){
 		$.ajax({

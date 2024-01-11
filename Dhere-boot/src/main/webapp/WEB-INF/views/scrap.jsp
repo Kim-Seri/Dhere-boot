@@ -113,7 +113,7 @@
 						<li class="nav-item text-center">
 							<h3>
 							<b>
-							<a class="nav-link" id="scrap_li2">나의 스크랩</a>
+							<a class="nav-link scrapbtn" aria-current="page"  style="font-size: 25px; color: rgb(56, 96, 255); cursor: pointer" data-bs-toggle="pill">나의 스크랩</a>
 							</b>
 							</h3>
 						</li>
