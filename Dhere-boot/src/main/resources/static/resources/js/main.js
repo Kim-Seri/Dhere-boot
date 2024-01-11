@@ -172,14 +172,96 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // 태그 검색
-    $("#TagSearchBtn").on("click", function() {
+       $("#TagSearchBtn").on("click", function(){
 		
-		if(event.type === "keypress" && enter.key !== "Enter" ) {
+		if(event.type ==="keypress" && event.key != "Enter") {
+			return;
+		}
+		
+		let searchKeyword = $("#TagSearchBox").val();
+		
+        // 키워드를 입력하지 않는다면, 전체 리스트 출력
+        if(searchKeyword.length <= 0) {
+			console.log("키워드 없음!");
+			
+			$.ajax({
+                url: "storyList",
+                data: $("#categorySearchForm").serialize(),
+                type: "POST",
+                dataType: "json",
+                success: function (res) {
+                    console.log(res.resultList);
+                    console.log("res.resultList.length : " + res.resultList.length);
+
+                    if (res.resultList.length > 0) {
+                        $("#jobSelectedCategory").empty();
+                        storyList(res.resultList);                        
+
+                        // 만약 가져온 데이터의 개수가 6개 미만이라면 더보기 버튼을 숨김
+                        if (res.resultList.length < 6) {
+                            $('#addBtn').hide();
+                        }
+                    } else {
+
+                        $("#jobSelectedCategory").empty();
+                        if (res.resultList.length === 0) {
+
+                            $("#jobSelectedCategory").append("<div class=\"row m-5\">\r\n" +
+                                "		<div class=\"col text-center\">\r\n" +
+                                "			게시물이 없습니다.\r\n" +
+                                "		</div>\r\n" +
+                                "		</div>");
+
+                            $('#addBtn').hide(); // 더 이상 불러올 데이터가 없으면 버튼 숨기기
+                        }
+                    };
+                },
+                error: function (xhr, status, error) {
+                    console.log("AJAX Error: " + status + " - " + error);
+                    console.log(xhr.responseText);
+                }
+            });
+			
+		} else {
+			// 키워드가 존재한다면, 키워드가 포함된 게시물 출력
+			$("#hiddenKeyword").val(searchKeyword);
+	       	$("#addBtn").attr("data-page", "1");
+	        $("#hiddenOffset").val(0);
+	        console.log("여기!!!!!!");
+	        console.log($("#categorySearchForm").serialize());
+        	
+        	$.ajax({
+                url: "storyList",
+                data: $("#categorySearchForm").serialize(),
+                type: "POST",
+                dataType: "json",
+                success: function (res) {
+					
+					console.log("일단 통신했음!");
+					
+                    console.log(res.resultList);
+                    console.log(res.resultList.tagName);
+                    console.log(res.resultList[0].tags[0].tagName);
+
+
+                },
+                error: function (xhr, status, error) {
+                    console.log("AJAX Error: " + status + " - " + error);
+                    console.log(xhr.responseText);
+                }
+            });
+			
+			
 			
 		}
 		
+		
+		
 	});
+    
+    
 
     // 정렬
 });
@@ -196,8 +278,8 @@ function storyList(res) {
                 tags += `#${tag.tagName} &nbsp;`;
             });
         }
-		//console.log("최종태그");
-		console.log(i.tags);
+		// console.log("최종태그");
+		// console.log(i.tags);
 		
 		let date = new Date((i.regDate));						
 		let formattedDate = date.getFullYear() + "-" + ('0' + (date.getMonth() +1)).slice(-2) + "-" + ('0' + date.getDate()).slice(-2);

@@ -48,9 +48,17 @@ public class StoryServiceImpl implements StoryService {
 	    return map;
 	}
 	
+
+	
 	@Override
 	public List<Story> getResultStoryList(int offset, int limit, String selectedJob, String searchKeyword, String sort) {
-		return storyDao.getResultStoryList(offset, limit, selectedJob, searchKeyword, sort);
+		List<Story> sList=storyDao.getResultStoryList(offset, limit, selectedJob, searchKeyword, sort);
+		for (Story story : sList) {
+	        List<Tag> tags = storyDao.getStoryDetailTag(story.getStoryNo());
+	        story.setTags(tags);
+	    }
+		
+		return sList;
 	}
 
 	/*
