@@ -99,52 +99,53 @@
 					</div>
 					<!-- 팔로우, 스크랩 버튼 시작 -->
 					<div class="row text text-end mb-5">
-    <div class="col">
-        <c:choose>
-            <c:when test="${storyDetail.email eq sessionScope.member.email}">
-                <!-- 자신의 게시물에는 수정, 삭제 버튼 표시 -->
-                <button type="button" class="btn btn-outline-primary fs-5" id="updateBtn" 
-                        onclick="location.href='/updateStory?storyNo=${storyDetail.storyNo}'">
-                    수정하기
-                </button>
-                <form action="deleteStory" method="post" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
-                    <input type="hidden" name="storyNo" value="${storyDetail.storyNo}" />
-                    <button type="submit" class="btn btn-outline-primary fs-5" id="deleteBtn">
-                        삭제하기
-                    </button>
-                </form>
-            </c:when>
-            <c:otherwise>
-                <!-- 다른 사용자의 게시물에는 팔로우/언팔로우 버튼 표시 -->
-                <c:choose>
-                    <c:when test="${isFollowing}">
-                        <!-- 이미 팔로우한 경우 언팔로우 버튼 표시 -->
-                        <form action="deleteFollow" method="post">
-                            <input type="hidden" name="followingEmail" value="${storyDetail.email}" />
-                            <input type="hidden" name="storyNo" value="${storyDetail.storyNo}" />
-                            <button type="submit" class="btn btn-outline-primary fs-5" id="unfollowBtn">
-                                언팔로우
-                            </button>
-                        </form>
-                    </c:when>
-                    <c:otherwise>
-                        <!-- 팔로우하지 않은 경우 팔로우 버튼 표시 -->
-                        <form action="insertFollow" method="post" onsubmit="return confirm('팔로우 하시겠습니까?');">
-                            <input type="hidden" name="followingEmail" value="${storyDetail.email}" />
-                            <input type="hidden" name="storyNo" value="${storyDetail.storyNo}" />
-                            <button type="submit" class="btn btn-outline-primary fs-5" id="followBtn">
-                                팔로우
-                            </button>
-                        </form>
-                    </c:otherwise>
-                </c:choose>
-                <button type="button" class="btn btn-outline-primary fs-5" id="scrapBtn">
-                    스크랩
-                </button>
-            </c:otherwise>
-        </c:choose>
-    </div>
-</div>
+				    <div class="col">
+				        <c:choose>
+				            <c:when test="${storyDetail.email eq sessionScope.member.email}">
+				                <!-- 자신의 게시물에는 수정, 삭제 버튼 표시 -->
+				                <button type="button" class="btn btn-outline-primary fs-5" id="updateBtn" 
+				                        onclick="location.href='/updateStory?storyNo=${storyDetail.storyNo}'">
+				                    수정하기
+				                </button>
+				                <form action="deleteStory" method="post" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
+				                    <input type="hidden" name="storyNo" value="${storyDetail.storyNo}" />
+				                    <button type="submit" class="btn btn-outline-primary fs-5" id="deleteBtn">
+				                        삭제하기
+				                    </button>
+				                </form>
+				            </c:when>
+				            <c:otherwise>
+				                <!-- 다른 사용자의 게시물에는 팔로우/언팔로우 버튼 표시 -->
+				                <c:choose>
+				                    <c:when test="${isFollowing}">
+				                        <!-- 이미 팔로우한 경우 언팔로우 버튼 표시 -->
+				                        <form action="deleteFollow" method="post">
+				                            <input type="hidden" name="followingEmail" value="${storyDetail.email}" />
+				                            <input type="hidden" name="storyNo" value="${storyDetail.storyNo}" />
+				                            <button type="submit" class="btn btn-primary fs-5" id="unfollowBtn">
+											    팔로우
+											    <img src="resources/images/icon/check.gif" class="mb-1" style="width: 20px; height: 20px; vertical-align: middle; margin-left: 5px;" />
+											</button>
+				                        </form>
+				                    </c:when>
+				                    <c:otherwise>
+				                        <!-- 팔로우하지 않은 경우 팔로우 버튼 표시 -->
+				                        <form action="insertFollow" method="post" onsubmit="return confirm('팔로우 하시겠습니까?');">
+				                            <input type="hidden" name="followingEmail" value="${storyDetail.email}" />
+				                            <input type="hidden" name="storyNo" value="${storyDetail.storyNo}" />
+				                            <button type="submit" class="btn btn-outline-primary fs-5" id="followBtn">
+				                                팔로우
+				                            </button>
+				                        </form>
+				                    </c:otherwise>
+				                </c:choose>
+				                <button type="button" class="btn btn-outline-primary fs-5" id="scrapBtn">
+				                    스크랩
+				                </button>
+				            </c:otherwise>
+				        </c:choose>
+				    </div>
+				</div>
 					<!-- 팔로우, 스크랩 버튼 끝 -->
 	<!--################################## 사진 출력 영역 시작 ##################################-->
 			        <div id="markerPopup" class="markerPopup" style="display: none; position: absolute; z-index: 10;">
@@ -376,9 +377,33 @@
 					<div class="row">
 						<div class="col" id="storyDetaile_products_area">
 							<h1>사용 제품 목록</h1>
-							<br>
-							마커 찍은 제품 출력
-							<img src="resources/images/test/stoeryDetail_test.png">
+							<div class="row justify-content-center" id="categoryList">
+							<c:forEach var="m" items="${mList}">
+								<div class="col-3 m-3 p-1 rounded-4" style="width: 290px; height: 380px; background: #F3F3F3; cursor: pointer" onclick="location.href='productDetail?productNo=${m.productNo}'">
+									<div class="row">
+										<div class="col d-flex justify-content-center align-items-center" 
+					    						style="height: 200px; overflow: hidden;">
+											<img src="resources/images/products/${m.productImage}" id="preview" class="img-fluid rounded-top-4" style="width: 100%; height: 100%;">
+										</div>
+									</div>
+									<div class="row">
+										<div class="col p-3">
+											<div class="row">
+											    <div class="col-10 offset-1 py-3" style="font-weight: bold; border-bottom: 2px solid #bfbfbf; color: #bfbfbf">
+											        ${m.brandName}
+											    </div>
+											</div>	
+											<div style="width: 100%; height: 2px; color: black"></div>
+											<div class="row">
+											    <div class="col-10 offset-1 mt-2" style="overflow: hidden; font-size: 23px">
+											        <b>${m.productName}</b>
+											    </div>
+											</div>
+										</div>
+									</div>
+								</div>
+								</c:forEach>
+							</div>
 						</div>
 					</div>
 	<!--############################# 구분 선, products list 끝 ############################-->						
@@ -456,7 +481,7 @@
 	<!--############################# 댓글 작성 영역 시작 ############################-->		
 					<form class="row" action="replyWrite" method="post" id="storyDetail_reply_write_area">
 					<input type="hidden" name="storyNo" value="${storyDetail.storyNo}">
-						<div class="col-3">
+						<div class="col-3 d-flex justify-content-center align-items-center">
 							<div class="row">
 								<div class="col text-center" >
 									<c:choose>
@@ -468,17 +493,16 @@
 									</c:choose>
 								</div>
 							</div>
-							<div class="row">
+							<%-- <div class="row">
 								<div class="col text-center" id="nickname">
 									${sessionScope.member.nickname}
 								</div>
-							</div>
+							</div> --%>
 						</div>
-						<div class="col-7 text-center">
-						
+						<div class="col-7 d-flex justify-content-center align-items-center">
 						<c:choose>
 						    <c:when test="${not empty sessionScope.member.email}">
-								<textarea rows="4" cols="40" name="replyContent" 
+								<textarea rows="3" cols="40" name="replyContent" 
 											id="storyDetail_reply_write_content" 
 											placeholder="무분별한 욕설/비방은 제재 대상이므로 삭제 및 이용정지 대상이 될 수 있습니다."></textarea>
 							</c:when>
@@ -490,9 +514,9 @@
 						    </c:otherwise>
 						</c:choose>
 						</div>
-						<div class="col-2 text-center text-bottom">
-							<c:if test="${not empty sessionScope.member}">
-						        <input type="submit" class="btn btn-warning" value="댓글 작성">
+						<div class="col-2 d-flex justify-content-center align-items-center">
+						    <c:if test="${not empty sessionScope.member}">
+						        <input type="submit" class="btn btn-warning" value="댓글 작성" style="width: 120px; height: 80px;">
 						    </c:if>
 						</div>
 					</form>

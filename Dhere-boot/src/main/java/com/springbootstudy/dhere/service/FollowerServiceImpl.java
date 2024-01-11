@@ -32,23 +32,10 @@ public class FollowerServiceImpl implements FollowerService {
     	return followerDao.isFollowing(followerEmail, followingEmail);
     }
 
-}
-
-
-
-/*
-@Service
-public class FollowerServiceImpl implements FollowerService {
-	
-	@Autowired
-	private FollowerDao followerDao;
-
+    // 팔로우 목록 가져오기(syj)
 	@Override
-	public List<Follower> followerList(String followerEmail) {
-		return followerDao.followerList(followerEmail);
+	public List<Follower> followList(String followerEmail) {
+		return followerDao.followList(followerEmail);
 	}
 
-
-	
 }
-*/

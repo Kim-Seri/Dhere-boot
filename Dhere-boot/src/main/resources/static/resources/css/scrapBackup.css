@@ -1,0 +1,72 @@
+@charset "UTF-8";
+    	
+
+#infobox {
+	width: 600px;
+	background-color: white;
+	padding:29px;
+} 
+
+.infoTab_box{
+	display : flex;
+	align-items : center;
+    margin-bottom: -2.5px;
+}
+
+.infoTab_box .infoTab_btn{
+	color :  rgb(56, 96, 255);
+	font-size :18px;
+	font-weight:600;
+	border-color : white;
+	color:white;
+	border-radius : 12px 12px 0 0;
+	padding: 10px;
+	width : 180px;
+}
+
+.infoTab_btn:hover{
+	 background-color: rgb(56, 96, 255);
+	 transition: 0.5s;
+	 color: white;
+}
+
+.infoContent_box{
+	
+	padding: 20px;
+	border: solid rgb(56, 96, 255) 3px;
+	border-radius: 0 0 10px 10px;
+}
+
+.activeButton {
+	background-color: blue;
+	color: white;
+	}
+
+
+
+
+
+
+
+
+.infoTab_btnx {
+	border-top: solid 1px white;
+	border-left: solid 1px white;
+	border-right: solid 1px white;
+	border-bottom: solid 3px #4370FF;
+	border-radius : 12px 12px 0 0;
+	background-color: white;
+}
+.infoTab_btnx:hover {
+	border-top: solid 1px white;
+	border-left: solid 1px white;
+	border-right: solid 1px white;
+	border-bottom: solid 3px #4370FF;
+	border-radius : 12px 12px 0 0;
+	background-color: #4370FF;
+	transition: 0.5s;
+	color: white;
+}
+
+
+

@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.springbootstudy.dhere.domain.Follower;
 import com.springbootstudy.dhere.domain.Member;
 import com.springbootstudy.dhere.domain.Product;
 import com.springbootstudy.dhere.domain.Scrap;
 import com.springbootstudy.dhere.domain.Story;
+import com.springbootstudy.dhere.service.FollowerService;
 import com.springbootstudy.dhere.service.MemberService;
 import com.springbootstudy.dhere.service.ScrapService;
 import com.springbootstudy.dhere.service.StoryService;
@@ -47,6 +49,9 @@ public class ScrapController {
 	@Autowired
 	private StoryService storyService;
 	
+	@Autowired
+	private FollowerService followerService;
+	
 	 @GetMapping("/myScraps")
 	    public String showMyScraps(Model model, HttpSession session) {
 	        Member member = (Member) session.getAttribute("member");
@@ -67,17 +72,18 @@ public class ScrapController {
 	        }
 	    }
 	
-	@GetMapping("/scrap")
-    public String getMyPosts(Model model, HttpSession session) {
-		Member member = (Member) session.getAttribute("member");
-		
-        
-        List<Story> sList = storyService.sList(member.getEmail());
-        
-        model.addAttribute("sList", sList);
+	 @GetMapping("/scrap")
+	 public String getMyPosts(Model model, HttpSession session) {
+	     Member member = (Member) session.getAttribute("member");
 
-        return "scrap";
-    }
+	     List<Story> sList = storyService.sList(member.getEmail());
+	     model.addAttribute("sList", sList);
+
+	     List<Follower> fList = followerService.followList(member.getEmail());
+	     model.addAttribute("fList", fList);
+
+	     return "scrap";
+	 }
 	
 	// 회원정보 받기
 	@GetMapping(value="/mypage")

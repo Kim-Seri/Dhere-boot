@@ -42,24 +42,10 @@ public class FollowerDaoImpl implements FollowerDao {
         return count != null && count > 0;
     }
 
-}
-
-
-
-/*
-@Repository
-public class FollowerDaoImpl implements FollowerDao {
-	
-	@Autowired
-	private SqlSessionTemplate sqlSession;
-	private static final String NAME_SPACE = "com.springbootstudy.dhere.mappers.FollowerMapper";
-
+    // 팔로우 목록 가져오기(syj)
 	@Override
-	public List<Follower> followerList(String followerEmail) {
-		return sqlSession.selectList(NAME_SPACE + ".followerList", followerEmail);
+	public List<Follower> followList(String followerEmail) {
+		return sqlSession.selectList(NAME_SPACE + ".followList", followerEmail);
 	}
 
-
-		
 }
-*/

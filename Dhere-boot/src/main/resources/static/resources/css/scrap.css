@@ -1,48 +1,107 @@
 @charset "UTF-8";
     	
 
-#infobox {
-	width: 600px;
+#scrap_menu_btn_area {
+	margin-left: 15%;
+	margin-right: 15%;
+	margin-top: 15%;
+}
+
+.scrap_menu_btn {
 	background-color: white;
-	padding:29px;
-} 
-
-.infoTab_box{
-	display : flex;
-	align-items : center;
-    margin-bottom: -2.5px;
+	border-radius : 10px 10px 0 0;
+	color: #4370FF;
+	padding: 10%;
+	height: 70px;
+	cursor: pointer;
 }
 
-.infoTab_box .infoTab_btn{
-	color :  rgb(56, 96, 255);
-	font-size :18px;
-	font-weight:600;
-	border-color : white;
-	background-color : white;
-	border-radius : 12px 12px 0 0;
-	padding: 10px;
-	width : 180px;
-}
-
-.infoTab_btn:hover{
-	 background-color: rgb(56, 96, 255);
-	 transition: 0.5s;
-	 color: white;
-}
-
-.infoContent_box{
-	
-	padding: 20px;
-	border: solid rgb(56, 96, 255) 4px;
-	border-radius: 0 0 10px 10px;
-}
-
-.activeButton {
-	background-color: blue;
+.scrap_menu_btn:hover {
+	background-color: #4370FF;
+	transition: 0.5s;
 	color: white;
-	}
+}
 
+#scrap_menu_btn1 {
+	background-color: #4370FF;
+	color: white;
+}
 
+#scrap_profile_area {
+	border: 5px solid #4370FF;
+	border-radius : 10px;
+	
+	margin-top: -0.0%;
+	margin-left: 15%;
+	margin-right: 15%;
+	
+	padding-top: 100px;
+	padding-bottom: 100px;
+}
 
+#scrap_picture_area {
+	margin-right: -100px;
+}
 
+#scrap_picture {
+	width:150px; 
+	height:150px; 
+	object-fit: cover; 
+	border-radius: 70%; 
+	border: 2.5px solid #4370FF;
+}
+
+#scrap_cinkname, #scrap_email, #scrap_job, #scrap_heart {
+	color: #4370FF;
+}
+
+#scrap_cinkname {
+	
+	margin-right: -40%;
+}
+
+#scrap_job {
+	margin-top: 5%;
+}
+
+#scrap_job_icon, #scrap_heart_icon {
+	width: 25px; 
+	height: 25px;
+}
+
+#scrap_list_btn_area {
+	margin-left: 15%;
+	margin-right: 15%;
+	margin-top: 15%;
+}
+
+.parent-element {
+	display: flex;
+	justify-content: center;
+}
+ul {
+	display: flex;
+	justify-content: center;
+}
+li {
+	margin-left: 5%;
+	margin-right: 5%;
+}
+
+#scrap_li1, #scrap_li2, #scrap_li3,  {
+	cursor: pointer;
+}
+
+#scrap_follower_picture {
+	width: 50px; 
+	height: 50px; 
+	object-fit: cover; 
+	border-radius: 70%; 
+	border: 1px solid #5E5E5E; 
+	cursor: pointer;
+}
+
+#scrap_follower_nickname {
+	
+}
 
