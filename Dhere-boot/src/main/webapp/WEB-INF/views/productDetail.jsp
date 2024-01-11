@@ -29,8 +29,6 @@
 					    <img src="resources/images/share.png" class="product-icon" data-bs-toggle='modal' data-bs-target='#shareModal' style="width: 50px;cursor: pointer">&nbsp;&nbsp;&nbsp;&nbsp;
 					    <img src="resources/images/link.png" class="product-icon" style="width: 50px; cursor: pointer" onclick="location.href='${product.productLink}'">
 					</div>
-
-
 				</div>
 				
 				<div style="width: 100%; height: 3px; background-color: rgb(49, 108, 244);"></div>

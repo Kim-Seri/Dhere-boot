@@ -93,12 +93,6 @@ div{
     cursor: pointer;
 }
 
-/* 게시글 타이틀, 필터, 정렬 */
-/* 셀렉트박스 */
-.selectBox {
-	width: 130px;
-	border: none;
-}
 
 .close-btn {
 	color: white;

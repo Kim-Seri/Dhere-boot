@@ -42,12 +42,12 @@ public interface StoryDao {
     
     // 게시물 삭제하기(syj)
     public abstract void deleteStory(int storyNo);
-    void deleteScrapByStoryNo(int storyNo);
-    void deleteReplyByStoryNo(int storyNo);
-    void deleteMarkerByStoryNo(int storyNo);
-    void deleteTagPostByStoryNo(int storyNo);
-    void deleteTagByStoryNo(int storyNo);
-    void deleteImageByStoryNo(int storyNo);
+    public abstract void deleteScrapByStoryNo(int storyNo);
+    public abstract void deleteReplyByStoryNo(int storyNo);
+    public abstract void deleteMarkerByStoryNo(int storyNo);
+    public abstract void deleteTagPostByStoryNo(int storyNo);
+    public abstract void deleteTagByStoryNo(int storyNo);
+    public abstract void deleteImageByStoryNo(int storyNo);
     
     // 게시물 수정하기 읽어오기(syj)
     public abstract void updateStory(Story story);
@@ -89,9 +89,7 @@ public interface StoryDao {
 	// 마커 리스트에 담기(syj)
 	public abstract List<Marker> markerList(int storyNo);
 
-	//태그 수정
-	void updateTag(Tag tag);
-
-	//태그 포스트 수정
-	void updateTagPost(Tag tag);
+	
+	//마커 삭제하기
+	public abstract void deleteMarker(int storyNo);
 }

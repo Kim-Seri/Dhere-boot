@@ -232,7 +232,7 @@
 		VALUES (#{fileName}, #{storyNo})
 	</insert>
 
-
+	<!-- 태그 추가 -->
 	<insert id="insertTag" parameterType="Tag">
 		INSERT INTO tag (tag_name)
 		VALUES(#{tagName})
@@ -242,6 +242,7 @@
 		</selectKey>
 	</insert>
 
+	<!-- 태그 포스트 추가 -->
 	<insert id="insertTagPost" parameterType="Tag">
 		INSERT INTO tag_post (tag_no, story_no)
 		VALUES(#{tagNo},#{storyNo})
@@ -338,27 +339,27 @@
 	<delete id="deleteStory">
 		DELETE 
 		FROM 	story
-		WHERE 	story_no = #{story_no}
+		WHERE 	story_no = #{storyNo}
 	</delete>
 	<delete id="deleteScrapByStoryNo">
 		DELETE 
 		FROM 	scrap
-		WHERE 	story_no = #{story_no}
+		WHERE 	story_no = #{storyNo}
 	</delete>	
 	<delete id="deleteReplyByStoryNo">
 		DELETE 
 		FROM 	reply
-		WHERE 	story_no = #{story_no}
+		WHERE 	story_no = #{storyNo}
 	</delete>	
 	<delete id="deleteMarkerByStoryNo">
 		DELETE 
 		FROM 	marker
-		WHERE 	story_no = #{story_no}
+		WHERE 	story_no = #{storyNo}
 	</delete>	
 	<delete id="deleteTagPostByStoryNo">
 		DELETE 
 		FROM 	tag_post
-		WHERE 	story_no = #{story_no}
+		WHERE 	story_no = #{storyNo}
 	</delete>	
 	<delete id="deleteTagByStoryNo">
 		DELETE 
@@ -368,8 +369,13 @@
 	<delete id="deleteImageByStoryNo">
 		DELETE 
 		FROM 	image
-		WHERE 	story_no = #{story_no}
+		WHERE 	story_no = #{storyNo}
 	</delete>
+	<delete id="deleteMarker">
+		DELETE 
+		FROM 	marker
+		WHERE 	story_no = #{storyNo}
+	 </delete>
 		
 	<!-- storyDetail_수정 쿼리(syj) -->
 	<update id="updateStoryProcess" parameterType="Story">
@@ -383,19 +389,7 @@
 		WHERE 	story_no = #{storyNo}
 	</update>
 	
-	<!-- 태그 수정 쿼리 -->
-	<update id="updateTag" parameterType="Tag">
-	UPDATE tag
-	SET    tag_name=#{tagName}
-	WHERE  tag_no=#{tagNo}
-	</update>	
 	
-	<!-- 태그포스트 수정 쿼리 -->	
-	<update id="updateTagPost" parameterType="Tag">
-	UPDATE tag_post
-	SET    tag_no=#{tagNo}
-	WHERE  story_no=#{storyNo}
-	</update>		
 	
 	
 	<!-- 직종 조회 쿼리 -->

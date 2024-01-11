@@ -77,19 +77,39 @@ function getHashtagItem(hashtag) {
 	return item;
 }
 
-function addMarker(x, y) {
-	// 동적으로 마커를 추가하는 로직 작성
 
-	console.log(x);
-	console.log(y);
 
-	//console.log("x 좌표," + leftX);
-	//console.log("y 좌표," + topY);
+function adjustDiv1Height() {
+	// 각각의 .div1과 .postImg에 대해 반복
+	$('.div1').each(function(index) {
+		// 현재 .postImg에 대응하는 높이를 가져옴
+		var imgHeight = $('.postImg').eq(index).height();
+		// 현재 .div1의 높이를 .postImg에 대응하는 높이로 설정
+		 console.log('Image ' + (index + 1) + ' Height:', imgHeight);
+		$(this).height(imgHeight);
+	});
+}
 
-	// 마커를 추가할 부모 컨테이너
-	//const markerContainer = $("<div class='marker-container'></div>");
-	marker = $(`<div class='marker' id='marker'><button type='button' class='btn btn-primary rounded-circle' id='markerBtn'>+</button></div>`);
-	searchBox = $(`
+
+$(function() {
+
+	
+
+	
+
+	function addMarker(x, y) {
+		// 동적으로 마커를 추가하는 로직 작성
+
+		console.log(x);
+		console.log(y);
+
+		//console.log("x 좌표," + leftX);
+		//console.log("y 좌표," + topY);
+
+		// 마커를 추가할 부모 컨테이너
+		//const markerContainer = $("<div class='marker-container'></div>");
+		marker = $(`<div class='marker' id='marker'><button type='button' class='btn btn-primary rounded-circle' id='markerBtn'>+</button></div>`);
+		searchBox = $(`
     							<div class='row search-box py-3 z-3  bg-white border border-primary-subtle rounded ' id='searchBox '  >
     								<img src='resources/images/icon/cancel_red.png' class='deleteMakerBtn' id='deleteMaker'>
     								
@@ -108,67 +128,64 @@ function addMarker(x, y) {
 		    						</div>
     							</div>`);
 
-	// 이미지의 크기
-	const imageWidth = $('.div1').width();
-	const bodyHeight = $(".div1").height();
+		// 이미지의 크기
+		const imageWidth = $('#div1').width();
+		const bodyHeight = $("#div1").height();
 
-	console.log(imageWidth);
-	console.log(bodyHeight);
-
-
-	// 마커의 위치 조절
-	adjustedX = (x / imageWidth) * 100;  // 이미지의 가로 방향 상대 위치
-	adjustedY = (y / bodyHeight) * 100; // body의 세로 방향 상대 위치
-
-	console.log(adjustedX);
-	console.log(adjustedY);
+		console.log(imageWidth);
+		console.log(bodyHeight);
 
 
+		// 마커의 위치 조절
+		adjustedX = (x / imageWidth) * 100;  // 이미지의 가로 방향 상대 위치
+		adjustedY = (y / bodyHeight) * 100; // body의 세로 방향 상대 위치
 
-
-	marker.css({
-		position: "absolute",
-		top: `${adjustedY}%`, // 클릭한 위치에 상대적인 세로 위치
-		left: `${adjustedX}%`, // 클릭한 위치에 상대적인 가로 위치
-	});
-
-	searchBox.css({
-		position: "absolute",
-		top: `${adjustedY + 3}%`, // 마커 아래에 위치
-		left: `${adjustedX}%`,
-		// display: "none", // 현재는 숨김 처리
-	});
-
-	$("#div1").append(marker);
-	$("#div1").append(searchBox);
-
-	// 마커를 이미지가 아닌 별도의 컨테이너에 추가
-	//$(".div1").append(markerContainer);
+		console.log(adjustedX);
+		console.log(adjustedY);
 
 
 
 
-	// 마커 클릭 시 상자 표시
-	marker.on("click",function(){
-		if (!isMakerBtn) {
-			searchBox.show();
-			isMakerBtn = true;
-			console.log(isMakerBtn);
-		} else {
-			searchBox.hide();
-			isMakerBtn = false;
-		}
-	});
+		marker.css({
+			position: "absolute",
+			top: `${adjustedY}%`, // 클릭한 위치에 상대적인 세로 위치
+			left: `${adjustedX}%`, // 클릭한 위치에 상대적인 가로 위치
+		});
 
-	// 마커에서 마우스 나갈 시 검색 상자 숨김
-	/*marker.on("mouseout", function () {
-	 searchBox.hide();
-	});*/
-}
+		searchBox.css({
+			position: "absolute",
+			top: `${adjustedY + 3}%`, // 마커 아래에 위치
+			left: `${adjustedX}%`,
+			// display: "none", // 현재는 숨김 처리
+		});
+
+		$("#div1").append(marker);
+		$("#div1").append(searchBox);
+
+		// 마커를 이미지가 아닌 별도의 컨테이너에 추가
+		//$(".div1").append(markerContainer);
 
 
 
-$(function() {
+
+		// 마커 클릭 시 상자 표시
+		marker.on("click", function() {
+			if (!isMakerBtn) {
+				searchBox.show();
+				isMakerBtn = true;
+				console.log(isMakerBtn);
+			} else {
+				searchBox.hide();
+				isMakerBtn = false;
+			}
+		});
+
+		// 마커에서 마우스 나갈 시 검색 상자 숨김
+		/*marker.on("mouseout", function () {
+		 searchBox.hide();
+		});*/
+	}
+
 	//이미지 구분을 위한 변수
 	var deleteBtnNum = 0;
 	var imageDivNum = 0;
@@ -227,7 +244,7 @@ $(function() {
 	})
 
 	// postWriteForm 폼이 전송될 때
-	$("#postWriteForm").on("submit", function(e) {
+	$("#postUpdateForm").on("submit", function(e) {
 		//e.preventDefault();
 		// 폼이 sumbit 될 때 마커 정보를 직렬화하여 markers라는 이름을 가진 hidden 필드에 추가된다.
 		$("#markers").val(JSON.stringify(markers));
@@ -370,10 +387,12 @@ $(function() {
 
 	//이미지 삭제하기 버튼 눌렸을 때
 	$("#imageContainer").on("click", ".deleteBtn", function() {
+		$(this).parent().parent().parent().parent().parent().prev().remove();
+		$(this).parent().parent().parent().parent().parent().remove();
 		$(this).parent().parent().parent().parent().prev().remove();
 		$(this).parent().parent().parent().parent().remove();
 
-		
+
 
 		imageDivNum--;
 		deleteBtnNum--;

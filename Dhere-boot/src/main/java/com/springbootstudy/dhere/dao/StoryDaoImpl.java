@@ -196,7 +196,7 @@ public class StoryDaoImpl implements StoryDao {
 
 
 	
-@Override
+	@Override
 	public List<Story> sList(String email) {
 		return sqlSession.selectList(NAME_SPACE + ".sList", email);
 	}
@@ -213,16 +213,10 @@ public class StoryDaoImpl implements StoryDao {
 		return sqlSession.selectList(NAME_SPACE  + ".markerList", storyNo);
 	}
 	
-	//태그 수정
+	//태그 삭제
 	@Override
-	public void updateTag(Tag tag) {
-		sqlSession.update(NAME_SPACE+".updateTag",tag);
-	}
-	
-	//태그 리스트 수정
-	@Override
-	public void updateTagPost(Tag tag) {
-		sqlSession.update(NAME_SPACE+".updateTagPost",tag);
+	public void deleteMarker(int storyNo) {
+		sqlSession.delete(NAME_SPACE+".deleteMarker",storyNo);
 	}
 	
 

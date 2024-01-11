@@ -183,16 +183,14 @@ public class StoryServiceImpl implements StoryService {
 	public List<Marker> markerList(int storyNo) {
 		return storyDao.markerList(storyNo);
 	}
-
-	// 태그 수정
+	
+	//마커 , 사진 삭제(트랙잭션)
 	@Override
-	public void updateTag(Tag tag) {
-		storyDao.updateTag(tag);
+	@Transactional
+	public  void markerAndImgageDelete(int storyNo) {
+		storyDao.deleteMarker(storyNo);
+		storyDao.deleteImageByStoryNo(storyNo);
 	}
-
-	// 태그 포스트수정
-	@Override
-	public void updateTagPost(Tag tag) {
-		storyDao.updateTagPost(tag);
-	}
+	
+	
 }
