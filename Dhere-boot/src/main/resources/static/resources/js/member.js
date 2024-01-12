@@ -139,7 +139,7 @@ $(function() {
 				console.log(resData.result);
 				console.log(resData);
 				if(resData.result) {
-					$("#label1").css("color", "black").text("사용 가능한 ID 입니다.");
+					$("#label1").css("color", "white").text("사용 가능한 ID 입니다.");
 					$("#isIdCheck").val("true");
 					console.log(id);
 					
@@ -161,7 +161,7 @@ $(function() {
 		var pass1=$("#pass1").val();
 		var pass2=$("#pass2").val();
 		if(pass1 == pass2) {
-	    	$("#label2").css("color", "black").text("비밀번호가 일치합니다.");
+	    	$("#label2").css("color", "white").text("비밀번호가 일치합니다.");
 	    	return false;
 	    } else {
 	    	$("#label2").css("color", "red").text("비밀번호가 일치하지 않습니다.");

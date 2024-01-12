@@ -26,7 +26,7 @@
 				<div class="col m-3 rounded-4">	
 					<div class="row mt-5 mb-2">
 						<div class="col-md-6 offset-md-3 text-center">
-							<img id="preview" class="img-fluid" alt="프로필 사진" style="color:white; max-width: 300px; max-height: 300px; object-fit: cover;">
+							<img id="preview" class="img-fluid" style="width: 150px; height: 150px; object-fit: cover; border-radius: 70%; border: 1px solid white">
 						</div>
 					</div>
 					<div class="row mb-3 justify-content-center">
@@ -128,14 +128,14 @@
 							<label for="phone" class="form-label" style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;연락처 </label> 
 							<div class="row">
 								<div class="col">
-									<input type="text" class="form-control border border-white border-3" name="phone" id="phone" maxlength="20" placeholder="010-0000-0000" style="background: white; border-radius: 10px; color: black;">
+									<input type="text" class="form-control border border-white border-3" name="phone" id="phone" maxlength="20" placeholder='"-" 없이 숫자만 입력해 주세요' style="background: white; border-radius: 10px; color: black;" pattern="[0-9]*" title="숫자만 입력해주세요">
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="row justify-content-center" style="margin-top: 100px;">
 						<div class="col-4"> 
-							<input type="submit" value="Join" class="btn border border-white border-3" style="background: white; width: 100px; height: 55px; border-radius: 15px;">&nbsp;&nbsp;
+							<input type="submit" id="submitBtn" value="Join" class="btn border border-white border-3" style="background: white; width: 100px; height: 55px; border-radius: 15px;">&nbsp;&nbsp;
 						</div>
 						<div class="col-4 text-end"> 
 							<input type="button" value="Back" class="btn border border-3" style="border-radius: 15px; width: 100px; height: 55px; color: white" onclick="location.href='main'">

@@ -8,6 +8,13 @@
         </div>
     </div>
     <div class="row">
+     <c:choose>
+        <c:when test="${empty iList}">
+            <div class="col">
+                <p style="font-size: 20px; color: gray;">문의 내역이 없습니다.</p>
+            </div>
+        </c:when>
+        <c:otherwise>
         <c:forEach var="i" items="${iList}">
             <div class="col-3 border border-3 m-3 p-3 rounded-3 border-primary" style="width: 320px; height: 220px">
             <input type="hidden" value="${i.inquiryNo}">
@@ -39,5 +46,7 @@
                 </div>
             </div>
         </c:forEach>
+        </c:otherwise>
+    </c:choose>
     </div>
 </div>
