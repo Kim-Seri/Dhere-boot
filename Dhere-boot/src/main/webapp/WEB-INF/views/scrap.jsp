@@ -130,8 +130,6 @@
 			</div>
 			<!-- 1번 버튼 누르면 -->
 			<div id="myPostsContent" class="content-section">
-   			<div class="tabcontent">
-			<div class="tabcontent show active" id="myList">
 		    		<div class="row d-flex justify-content-center" id="jobSelectedCategory">
 						<c:forEach var="s" items="${sList}" varStatus="counter">
 							<c:if test="${empty sList}">
@@ -226,7 +224,6 @@
 			</div>
 			<!-- 2번 버튼을 누르면 -->
 			<div id="myScrapsContent" class="content-section">
-   		    		<div class="row d-flex justify-content-center" id="jobSelectedCategory">
 						<c:forEach var="sc" items="${scList}" varStatus="counter">
 							<c:if test="${empty scList}">
 								<div class="row">
@@ -351,9 +348,6 @@
 	                                 </div>
                                 </c:forEach>
                             </div>
-                        </div>
-                    </div>
-				</div>
 
 	<!-- ----------------------------------------------------------------------------------------------------- -->		
 
