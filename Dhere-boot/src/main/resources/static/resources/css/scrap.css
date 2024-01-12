@@ -88,13 +88,14 @@ li {
 	margin-right: 5%;
 }
 
-#scrap_li1, #scrap_li2, #scrap_li3,  {
+
+#scrap_li1, #scrap_li2, #scrap_li3 {
 	cursor: pointer;
 }
 
 #scrap_follower_picture {
-	width: 50px; 
-	height: 50px; 
+	width: 100px; 
+	height: 100px; 
 	object-fit: cover; 
 	border-radius: 70%; 
 	border: 1px solid #5E5E5E; 
@@ -102,6 +103,10 @@ li {
 }
 
 #scrap_follower_nickname {
-	
+	display: flex;
+	justify-content: center;
+	margin-left: 2%;
+	margin-bottom: 5%;
+	font-size: 30px;
 }
 

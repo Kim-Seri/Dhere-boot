@@ -85,7 +85,7 @@ function adjustDiv1Height() {
 		// 현재 .postImg에 대응하는 높이를 가져옴
 		var imgHeight = $('.postImg').eq(index).height();
 		// 현재 .div1의 높이를 .postImg에 대응하는 높이로 설정
-		 console.log('Image ' + (index + 1) + ' Height:', imgHeight);
+		console.log('Image ' + (index + 1) + ' Height:', imgHeight);
 		$(this).height(imgHeight);
 	});
 }
@@ -93,9 +93,9 @@ function adjustDiv1Height() {
 
 $(function() {
 
-	
 
-	
+
+
 
 	function addMarker(x, y) {
 		// 동적으로 마커를 추가하는 로직 작성
@@ -250,6 +250,42 @@ $(function() {
 		$("#markers").val(JSON.stringify(markers));
 
 		// 아래에 유효성 검사 코드가 필요함
+
+		if ($("input[name=categoryNo]:radio:checked").length < 1) {
+			alert("직종을 선택하세요");
+			return false;
+		}
+
+		if ($("#postTitle").val() <= 0) {
+			alert("제목을 입력해주세요");
+
+			return false;
+		}
+		if ($("#imageContainer").html().trim() === '') {
+			alert("데스크 사진을 추가해주세요");
+
+			return false;
+		}
+		if ($("#floatingTextarea1").val() <= 0) {
+			alert("데스크 셋업 구성을 적어주세요");
+
+			return false;
+		}
+		if ($("#floatingTextarea2").val() <= 0) {
+			alert("기기를 추천해주세요");
+
+			return false;
+		}
+		if ($("#floatingTextarea3").val() <= 0) {
+			alert("업무용 툴이나 프로그램을 추천해주세요");
+
+			return false;
+		}
+		if ($("#floatingTextarea4").val() <= 0) {
+			alert("보완하고 싶은 부분을 적어주세요");
+
+			return false;
+		}
 	});
 
 
@@ -331,17 +367,19 @@ $(function() {
 	$("#addImageButton").on("click", function() {
 		// 새로운 이미지 입력 필드를 생성하고 파일 선택 다이얼로그를 띄웁니다.
 
-		deleteBtnNum++;
-		imageDivNum++;
-		console.log(deleteBtnNum);
+
 		var imageInput = $(
-			"<input type='file' class='form-control' name='additionalImages' style='display:none'>"
+			"<input type='file' class='form-control'  name='additionalImages' style='display:none' multiple>"
 		);
 		$("#imageContainer").append(imageInput);
 		imageInput.click();
 
 		// 이미지 업로드 인풋이 변경됐을 때의 이벤트 핸들러
 		imageInput.on("change", function() {
+
+			deleteBtnNum++;
+			imageDivNum++;
+			console.log(deleteBtnNum);
 			if (!this.files.length) {
 				return;
 			}

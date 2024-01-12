@@ -4,6 +4,17 @@
 	
 <mapper namespace="com.springstudy.dhere.mappers.ScrapMapper">
 
+    <select id="scrapingCheck" parameterType="map" resultType="int">
+	    SELECT COUNT(*)
+	    FROM scrap
+	    WHERE email = #{email}
+	    AND story_no = #{storyNo}
+	</select>
+	
+	<delete id="deleteScrap" parameterType="int">
+	    DELETE FROM scrap
+	    WHERE story_no = #{storyNo}
+	</delete>
 	
 <!-- 프로필 -->
 	<select id="getScrap" resultType="Scrap">

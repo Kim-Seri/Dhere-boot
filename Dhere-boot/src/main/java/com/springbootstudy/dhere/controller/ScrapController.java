@@ -78,13 +78,20 @@ public class ScrapController {
 	 @GetMapping("/scrap")
 	 public String getMyPosts(Model model, HttpSession session) {
 	     Member member = (Member) session.getAttribute("member");
+	     String userEmail = member.getEmail();
 
 	     List<Story> sList = storyService.sList(member.getEmail());
 	     model.addAttribute("sList", sList);
 
 	     List<Follower> fList = followerService.followList(member.getEmail());
 	     model.addAttribute("fList", fList);
-
+	     
+	     List<Scrap> scList = scrapService.scList(member.getEmail());
+	     model.addAttribute("scList", scList);
+	     
+         int totalThanks = storyService.getTotalThanksByEmail(userEmail);
+         model.addAttribute("totalThanks", totalThanks);
+	     
 	     return "scrap";
 	 }
 	
@@ -146,8 +153,8 @@ public class ScrapController {
 		@PostMapping("/mypageUpdateResult")
 		public String mypageUpdageInfo(Model model, 
 				@RequestParam("email") String email,
-				@RequestParam("pass1") String pass1, 
-				@RequestParam("pass2") String pass2,
+				@RequestParam("newPass1") String pass1, 
+				@RequestParam("newPass2") String pass2,
 				@RequestParam("phone") String phone,  
 				@RequestParam("nickname") String nickname, 
 				@RequestParam("zipcode") String zipcode,
@@ -199,6 +206,15 @@ public class ScrapController {
 				session.setAttribute("member", member);
 			
 				return "redirect:scrap";
-				
+		}
+		
+		//	언스크랩 하기(syj)
+		@PostMapping("/deleteScrap")
+		public String deleteScrap(
+				@RequestParam("storyNo") int storyNo) {
+			
+		    scrapService.deleteScrap(storyNo);
+		    
+		    return "redirect:/storyDetail?storyNo=" + storyNo;
 		}
 }

@@ -114,12 +114,14 @@
 				                    </button>
 				                </form>
 				            </c:when>
+				            
+				            
 				            <c:otherwise>
 				                <!-- 다른 사용자의 게시물에는 팔로우/언팔로우 버튼 표시 -->
 				                <c:choose>
 				                    <c:when test="${isFollowing}">
 				                        <!-- 이미 팔로우한 경우 언팔로우 버튼 표시 -->
-				                        <form action="deleteFollow" method="post">
+				                        <form action="deleteFollow" method="post" onsubmit="return confirm('팔로우를 취소 하시겠습니까?');">
 				                            <input type="hidden" name="followingEmail" value="${storyDetail.email}" />
 				                            <input type="hidden" name="storyNo" value="${storyDetail.storyNo}" />
 				                            <button type="submit" class="btn btn-primary fs-5" id="unfollowBtn">
@@ -139,12 +141,39 @@
 				                        </form>
 				                    </c:otherwise>
 				                </c:choose>
-				                <form name="scrapForm" id="scrapForm" action="insertScrap" method="post">
-					                <input type="hidden" name="storyNo" value="${storyDetail.storyNo}" />
-					                <button type="submit" class="btn btn-outline-primary fs-5" id="scrapBtn">
-					                    스크랩
-					                </button>
-					            </form>
+					            <c:choose>
+				                    <c:when test="${scrapingCheck}">
+				                        <!-- 이미 스크랩한 경우 언스크랩 버튼 표시 -->
+				                        <form name="deleteScrap" action="deleteScrap" method="post" onsubmit="return confirm('이 게시물을 스크랩 취소 하시겠습니까?');">
+							               <input type="hidden" name="scrapNo" value="${storyDetail.email}" />
+							                <input type="hidden" name="storyNo" value="${storyDetail.storyNo}" />
+							                <button type="submit" class="btn btn-primary fs-5" id="">
+							                    언스크랩
+							                    <img src="resources/images/icon/check.gif" class="mb-1" style="width: 20px; height: 20px; vertical-align: middle; margin-left: 5px;" />
+							                </button>
+							            </form>
+				                    </c:when>
+				                    <c:otherwise>
+				                        <!-- 스크랩하지 않은 경우 스크랩 버튼 표시 -->
+				                        <form name="scrapForm" id="scrapForm" action="insertScrap" method="post" >
+							                <input type="hidden" name="storyNo" value="${storyDetail.storyNo}" />
+							                <button type="submit" class="btn btn-outline-primary fs-5" id="scrapBtn">
+							                    스크랩
+							                </button>
+							            </form>
+				                    </c:otherwise>
+				                </c:choose>
+					            
+					            
+					            
+					            
+					            
+					            
+					            
+					            
+					            
+					            
+					            
 				            </c:otherwise>
 				        </c:choose>
 				    </div>

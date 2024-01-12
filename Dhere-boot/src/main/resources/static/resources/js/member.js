@@ -139,7 +139,7 @@ $(function() {
 				console.log(resData.result);
 				console.log(resData);
 				if(resData.result) {
-					$("#label1").css("color", "black").text("사용 가능한 ID 입니다.");
+					$("#label1").css("color", "white").text("사용 가능한 ID 입니다.");
 					$("#isIdCheck").val("true");
 					console.log(id);
 					
@@ -161,11 +161,70 @@ $(function() {
 		var pass1=$("#pass1").val();
 		var pass2=$("#pass2").val();
 		if(pass1 == pass2) {
-	    	$("#label2").css("color", "black").text("비밀번호가 일치합니다.");
+	    	$("#label2").css("color", "white").text("비밀번호가 일치합니다.");
 	    	return false;
 	    } else {
 	    	$("#label2").css("color", "red").text("비밀번호가 일치하지 않습니다.");
 	    }
 	});
 	
+});
+
+$(function() {
+    $("#newPassBtn").click(function () {
+        var newPass1 = $("#newPass1").val();
+        var newPass2 = $("#newPass2").val();
+
+        if (newPass1.length <= 0) {
+            alert("새 비밀번호가 입력되지 않았습니다. 입력해주세요");
+            return false;
+        } else if (newPass1 == newPass2) {
+            $("#newPassLabel").css("color", "black").text("비밀번호가 일치합니다.");
+            return false;
+        } else {
+            $("#newPassLabel").css("color", "red").text("비밀번호가 일치하지 않습니다.");
+            return false;
+        }
+    });
+});
+
+//비밀번호, 이름, 닉네임, 주소, 연락
+$(function() {
+	$("#mypageUpdateResult").on("submit", function() {
+		if($("#newPass1").val().length <= 0){
+			alert("비밀번호를 입력해주세요");
+			$("#newPass1").focus();
+			return false;
+		}
+		if($("#newPass2").val().length <= 0){
+			alert("비밀번호를 입력해주세요");
+			$("#newPass2").focus();
+			return false;
+		}
+		if($("#name").val().length <= 0){
+			alert("이름을 입력해주세요");
+			$("#name").focus();
+			return false;
+		}
+		if($("#nickname").val().length <= 0){
+			alert("닉네임을 입력해주세요");
+			$("#nickname").focus();
+			return false;
+		}
+		if($("#zipcode").val().length <= 0){
+			alert("주소를 입력해주세요");
+			$("#zipcode").focus();
+			return false;
+		}
+		if($("#address2").val().length <= 0){
+			alert("주소를 입력해주세요");
+			$("#address2").focus();
+			return false;
+		}
+		if($("#phone").val().length <= 0){
+			alert("전화번호를 입력해주세요");
+			$("#phone").focus();
+			return false;
+		}
+	});
 });

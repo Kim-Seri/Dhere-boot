@@ -15,12 +15,8 @@ public interface StoryDao {
     public abstract List<Story> getStoryList();
     //public abstract Map<String, List<Story>> getStoryList();
     
-    // 게시물 리스트 가져오기 (+페이징)
+    // 게시물 리스트 가져오기 (ajax)
     public abstract List<Story> getResultStoryList(int offset, int limit, String selectedJob, String searchKeyword, String sort);
-   
-    /* 1/11 백업!!!
-    //public abstract List<Story> getStoryListPaged(int offset, int limit, String selectedJob, String searchKeyword, String sort);
-    */
     
     // 태그 리스트 가져오기 
     public abstract List<Tag> getTagList(int storyNo);
@@ -89,7 +85,10 @@ public interface StoryDao {
 	// 마커 리스트에 담기(syj)
 	public abstract List<Marker> markerList(int storyNo);
 
-	
 	//마커 삭제하기
 	public abstract void deleteMarker(int storyNo);
+	
+	//	좋아요 합산(syj)
+	public abstract int getTotalThanksByEmail(String email);
+	
 }

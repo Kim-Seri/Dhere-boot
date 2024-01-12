@@ -5,8 +5,8 @@
 <mapper namespace="com.springstudy.dhere.mappers.FollowerMapper">
 
     <insert id="insertFollow" parameterType="com.springbootstudy.dhere.domain.Follower">
-        INSERT INTO follower (follower_email, followingEmail)
-        VALUES (#{follower_email}, #{followingEmail})
+        INSERT INTO follower (follower_email, following_email)
+        VALUES (#{followerEmail}, #{followingEmail})
     </insert>
     
     <delete id="deleteFollow" parameterType="map">
