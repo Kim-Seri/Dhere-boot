@@ -63,7 +63,10 @@ function removeHashtag(hashtag) {
 
 //해시태그 추가
 function addHashtag() {
-	let hashtag = $("#hashtag").val();
+	 let hashtag = $("#hashtag").val().trim(); // 입력 값에서 공백을 제거
+    if (hashtag.length === 0) {
+        return; // 빈 문자열이라면 추가하지 않음
+    }
 	let item = getHashtagItem(hashtag);
 	$("#hashtagList").append(item);
 	$("#hashtag").val("");
@@ -290,20 +293,24 @@ $(function() {
 	$("#addImageButton").on("click", function() {
 		// 새로운 이미지 입력 필드를 생성하고 파일 선택 다이얼로그를 띄웁니다.
 
-		deleteBtnNum++;
-		imageDivNum++;
-		console.log(deleteBtnNum);
+		
+		
 		let imageInput = $(
 			"<input type='file' class='form-control' name='additionalImages' style='display:none'>"
 		);
 		$("#imageContainer").append(imageInput);
 		imageInput.click();
+		
 
 		// 이미지 업로드 인풋이 변경됐을 때의 이벤트 핸들러
 		imageInput.on("change", function() {
+			
+			deleteBtnNum++;
+			imageDivNum++;
+			console.log(deleteBtnNum);
+			
 			console.log("onchange");
-			console.log("this.")
-			if (this.files.length == 0) {
+			if (!this.files.length) {
 				// 파일이 선택되지 않았을 때, 즉 취소 버튼을 눌렀을 때
 				// input type=file을 제거합니다.
 				console.log("onchange");

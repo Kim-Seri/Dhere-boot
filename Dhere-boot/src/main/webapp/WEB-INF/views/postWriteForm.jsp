@@ -134,7 +134,7 @@
 					<div class="row">
 						<div class="col text-center fw-bold">
 							<textarea class="form-control fs-4 " placeholder="내용을 입력하세요"
-								name="content1" id="floatingTextarea2" style="height: 400px"></textarea>
+								name="content1" id="floatingTextarea1" style="height: 400px"></textarea>
 						</div>
 					</div>
 				</div>
@@ -164,7 +164,7 @@
 					<div class="row">
 						<div class="col text-center ">
 							<textarea class="form-control fs-4 " placeholder="내용을 입력하세요"
-								name="content3" id="floatingTextarea2" style="height: 200px"></textarea>
+								name="content3" id="floatingTextarea3" style="height: 200px"></textarea>
 						</div>
 					</div>
 				</div>
@@ -180,7 +180,7 @@
 					<div class="row">
 						<div class="col text-center ">
 							<textarea class="form-control fs-4 " placeholder="내용을 입력하세요"
-								name="content4" id="floatingTextarea2" style="height: 200px"></textarea>
+								name="content4" id="floatingTextarea4" style="height: 200px"></textarea>
 						</div>
 					</div>
 				</div>

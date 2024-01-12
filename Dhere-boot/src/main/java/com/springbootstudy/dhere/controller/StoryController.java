@@ -213,7 +213,8 @@ public class StoryController {
 	// 게시물 삭제(syj)
 	@PostMapping("/deleteStory")
 	public String deleteStory(HttpServletResponse response, @RequestParam("storyNo") int storyNo) {
-
+		
+		storyService.markerAndImgageDelete(storyNo);
 		storyService.deleteStory(storyNo);
 
 		return "redirect:main";
@@ -294,28 +295,35 @@ public class StoryController {
 
 				// UUID만 사용
 				// 원본 파일에서 확장자만 추출
+
 				log.info("원본 파일 명 : " + imageFile.getOriginalFilename());
 				String extension = StringUtils.getFilenameExtension(imageFile.getOriginalFilename());
-				String saveName = uid.toString() + "." + extension;
-				File file = new File(parent.getAbsolutePath(), saveName);
-				log.info("file abs path : " + file.getAbsolutePath());
-				log.info("file path : " + file.getPath());
 
-				// 업로드 되는 파일을 upload 폴더로 저장한다.
-				imageFile.transferTo(file);
-				image.setFileName(file.getName());
-				image.setStoryNo(story.getStoryNo());
-				storyService.insertImage(image);
+				log.info("확장자명 : " + extension);
+				System.out.println(extension);
 
-				// #################################################
-				// #################################################
-				// 여기서 mList에 들어있는 모든 마커에 imageNo를 설정해야함
-				// 그런데 문제가 생김 - 하나의 이미지에는 여러 개의 마커가 존재하는데 imageNo는
-				// 마커를 생성할 때 알 수 있는 것이 아니라 서버에서 DB 테이블에 INSERT 될 때 자동 생성되므로
-				if (isFirstLoop) {
-					imageNo = image.getImageNo();
+				if (extension != null) {
+					String saveName = uid.toString() + "." + extension;
+					File file = new File(parent.getAbsolutePath(), saveName);
+					log.info("file abs path : " + file.getAbsolutePath());
+					log.info("file path : " + file.getPath());
 
-					isFirstLoop = false;
+					// 업로드 되는 파일을 upload 폴더로 저장한다.
+					imageFile.transferTo(file);
+					image.setFileName(file.getName());
+					image.setStoryNo(story.getStoryNo());
+					storyService.insertImage(image);
+
+					// #################################################
+					// #################################################
+					// 여기서 mList에 들어있는 모든 마커에 imageNo를 설정해야함
+					// 그런데 문제가 생김 - 하나의 이미지에는 여러 개의 마커가 존재하는데 imageNo는
+					// 마커를 생성할 때 알 수 있는 것이 아니라 서버에서 DB 테이블에 INSERT 될 때 자동 생성되므로
+					if (isFirstLoop) {
+						imageNo = image.getImageNo();
+
+						isFirstLoop = false;
+					}
 				}
 				// 폼에서 전송될 때 현재 마커가 어떤 이미지의 마커인지 설정해서 보내야 함
 				// #################################################
@@ -328,20 +336,21 @@ public class StoryController {
 		}
 		if (mList != null && !mList.isEmpty()) {
 			for (Marker marker : mList) {
+				if (imageNo != 0) {
+					Marker m = new Marker();
+					m.setStoryNo(story.getStoryNo());
+					m.setTop1(marker.getTop1());
+					m.setLeft1(marker.getLeft1());
+					m.setProductNo(marker.getProductNo());
+					m.setImageNo(imageNo);
+					System.out.println("마커 이미지 번호 :" + m.getImageNo());
+					System.out.println("마커 스토리 번호 : " + m.getStoryNo());
+					System.out.println("상품 번호 : " + m.getProductNo());
+					System.out.println("마커 x  : " + m.getTop1());
+					System.out.println("마커 y  : " + m.getLeft1());
 
-				Marker m = new Marker();
-				m.setStoryNo(story.getStoryNo());
-				m.setTop1(marker.getTop1());
-				m.setLeft1(marker.getLeft1());
-				m.setProductNo(marker.getProductNo());
-				m.setImageNo(imageNo);
-				System.out.println("마커 이미지 번호 :" + m.getImageNo());
-				System.out.println("마커 스토리 번호 : " + m.getStoryNo());
-				System.out.println("상품 번호 : " + m.getProductNo());
-				System.out.println("마커 x  : " + m.getTop1());
-				System.out.println("마커 y  : " + m.getLeft1());
-
-				storyService.insertMarker(m);
+					storyService.insertMarker(m);
+				}
 			}
 
 		}
@@ -466,27 +475,32 @@ public class StoryController {
 				// UUID만 사용
 				// 원본 파일에서 확장자만 추출
 				log.info("원본 파일 명 : " + imageFile.getOriginalFilename());
+
 				String extension = StringUtils.getFilenameExtension(imageFile.getOriginalFilename());
-				String saveName = uid.toString() + "." + extension;
-				File file = new File(parent.getAbsolutePath(), saveName);
-				log.info("file abs path : " + file.getAbsolutePath());
-				log.info("file path : " + file.getPath());
+				log.info("확장자명 : " + extension);
+				System.out.println(extension);
+				if (extension != null) {
+					String saveName = uid.toString() + "." + extension;
+					File file = new File(parent.getAbsolutePath(), saveName);
+					log.info("file abs path : " + file.getAbsolutePath());
+					log.info("file path : " + file.getPath());
 
-				// 업로드 되는 파일을 upload 폴더로 저장한다.
-				imageFile.transferTo(file);
-				image.setFileName(file.getName());
-				image.setStoryNo(story.getStoryNo());
-				storyService.insertImage(image);
+					// 업로드 되는 파일을 upload 폴더로 저장한다.
+					imageFile.transferTo(file);
+					image.setFileName(file.getName());
+					image.setStoryNo(story.getStoryNo());
+					storyService.insertImage(image);
 
-				// #################################################
-				// #################################################
-				// 여기서 mList에 들어있는 모든 마커에 imageNo를 설정해야함
-				// 그런데 문제가 생김 - 하나의 이미지에는 여러 개의 마커가 존재하는데 imageNo는
-				// 마커를 생성할 때 알 수 있는 것이 아니라 서버에서 DB 테이블에 INSERT 될 때 자동 생성되므로
-				if (isFirstLoop) {
-					imageNo = image.getImageNo();
+					// #################################################
+					// #################################################
+					// 여기서 mList에 들어있는 모든 마커에 imageNo를 설정해야함
+					// 그런데 문제가 생김 - 하나의 이미지에는 여러 개의 마커가 존재하는데 imageNo는
+					// 마커를 생성할 때 알 수 있는 것이 아니라 서버에서 DB 테이블에 INSERT 될 때 자동 생성되므로
+					if (isFirstLoop) {
+						imageNo = image.getImageNo();
 
-					isFirstLoop = false;
+						isFirstLoop = false;
+					}
 				}
 				// 폼에서 전송될 때 현재 마커가 어떤 이미지의 마커인지 설정해서 보내야 함
 				// #################################################
@@ -499,20 +513,21 @@ public class StoryController {
 		}
 		if (mList != null && !mList.isEmpty()) {
 			for (Marker marker : mList) {
+				if (imageNo != 0) {
+					Marker m = new Marker();
+					m.setStoryNo(story.getStoryNo());
+					m.setTop1(marker.getTop1());
+					m.setLeft1(marker.getLeft1());
+					m.setProductNo(marker.getProductNo());
+					m.setImageNo(imageNo);
+					System.out.println("마커 이미지 번호 :" + m.getImageNo());
+					System.out.println("마커 스토리 번호 : " + m.getStoryNo());
+					System.out.println("상품 번호 : " + m.getProductNo());
+					System.out.println("마커 x  : " + m.getTop1());
+					System.out.println("마커 y  : " + m.getLeft1());
 
-				Marker m = new Marker();
-				m.setStoryNo(story.getStoryNo());
-				m.setTop1(marker.getTop1());
-				m.setLeft1(marker.getLeft1());
-				m.setProductNo(marker.getProductNo());
-				m.setImageNo(imageNo);
-				System.out.println("마커 이미지 번호 :" + m.getImageNo());
-				System.out.println("마커 스토리 번호 : " + m.getStoryNo());
-				System.out.println("상품 번호 : " + m.getProductNo());
-				System.out.println("마커 x  : " + m.getTop1());
-				System.out.println("마커 y  : " + m.getLeft1());
-
-				storyService.insertMarker(m);
+					storyService.insertMarker(m);
+				}
 			}
 		}
 		return "redirect:main";

@@ -55,15 +55,6 @@ public class StoryServiceImpl implements StoryService {
 		return sList;
 	}
 
-	/*
-	 * 1/11 백업!!!
-	// 게시물 리스트 가져오기 (+페이징)
-	@Override
-	public List<Story> getResultStoryList(int offset, int limit, String selectedJob, String searchKeyword, String sort) {
-		return storyDao.getResultStoryList(offset, limit, selectedJob, searchKeyword, sort);
-	}
-	*/
-
 	//게시글 작성하기(story)
 	@Override
 	public void postWrite(Story story) {
@@ -108,7 +99,7 @@ public class StoryServiceImpl implements StoryService {
 		storyDao.deleteReplyByStoryNo(storyNo);
 		storyDao.deleteMarkerByStoryNo(storyNo);
 		storyDao.deleteTagPostByStoryNo(storyNo);
-		storyDao.deleteTagByStoryNo(storyNo);
+//		storyDao.deleteTagByStoryNo(storyNo);
 		storyDao.deleteImageByStoryNo(storyNo);
 
 		// 마지막으로 story 삭제하자
@@ -159,21 +150,7 @@ public class StoryServiceImpl implements StoryService {
 	public List<Story> storyList(String selectedJob) {
 		return storyDao.storyList(selectedJob);
 	}
-	/*
-	// 검색 결과 리스트 출력
-	@Override
-	public List<Story> searchList(String searchKeyword) {
-		return storyDao.searchList(searchKeyword);
-	}
 
-	// 정렬 리스트 출력
-	@Override
-	public List<Story> sortList(String sort) {
-		return storyDao.sortList(sort);
-	}
-
-	// 마커관련정보 추가
-	*/
 	//마커관련정보 추가
 	@Override
 	public void insertMarker(Marker marker) {

@@ -173,7 +173,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // 태그 검색 (검색 버튼)
-       $("#TagSearchBtn").on("click", function(){
+    $("#TagSearchBtn").on("click", function(){
 		
 		if(event.type ==="keypress" && event.key != "Enter") {
 			return;
