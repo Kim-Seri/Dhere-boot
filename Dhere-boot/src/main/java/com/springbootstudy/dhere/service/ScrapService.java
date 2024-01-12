@@ -31,5 +31,9 @@ public interface ScrapService {
 	// 스크랩한 게시물을 읽어보는 메서드
 //	public abstract Scrap getScrapPost(String email);
 	
-	// 
+	// 스크랩 여부 확인하기(syj)
+	public abstract boolean scrapingCheck(String email,int storyNo);
+	
+	// 언스크랩 하기(syj)
+	public abstract void deleteScrap(int scrapNo);
 }

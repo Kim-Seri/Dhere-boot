@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -166,7 +167,15 @@ public class StoryController {
 			isFollowing = followerService.isFollowing(member.getEmail(), storyDetail.getEmail());
 		}
 		model.addAttribute("isFollowing", isFollowing);
-
+		
+		// 로그인한 사용자가 게시물을 스크랩하고있는지 확인
+		boolean scrapingCheck = false;
+		if (member != null && storyDetail.getEmail() != null) {
+			scrapingCheck = scrapService.scrapingCheck(member.getEmail(), storyDetail.getStoryNo());
+		}
+		model.addAttribute("scrapingCheck", scrapingCheck);
+		
+		
 		return "storyDetail";
 	}
 
@@ -549,5 +558,6 @@ public class StoryController {
 
 		return "th/thViewTest";
 	}
+	
 
 }

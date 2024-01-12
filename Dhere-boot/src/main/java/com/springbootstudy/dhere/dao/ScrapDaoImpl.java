@@ -2,7 +2,9 @@ package com.springbootstudy.dhere.dao;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,14 +50,21 @@ public class ScrapDaoImpl implements ScrapDao {
 	public void insertScrap(Scrap scrap) {
 		sqlSession.insert(NAME_SPACE + ".insertScrap", scrap);
 	}
-	
-	// 스크랩한 데이터 처리할 DAO
-	
-	
-//	// 회원 정보 DAO를 이용해 회원 테이블에서 수정하는 메서드
-//	public void updateMember(Member member) {
-//		sqlSession.update(NAME_SPACE + ".updateMember", member);
-//	}
 
+	// 스크랩 여부 확인하기(syj)
+    @Override
+    public boolean scrapingCheck(String email, int storyNo) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("email", email);
+        params.put("storyNo", storyNo);
+        Integer count = sqlSession.selectOne(NAME_SPACE + ".scrapingCheck", params);
+        return count != null && count > 0;
+    }
+
+    // 언스크랩 하기(syj)
+	@Override
+	public void deleteScrap(int scrapNo) {
+		sqlSession.delete(NAME_SPACE + ".deleteScrap", scrapNo);
+	}
 
 }

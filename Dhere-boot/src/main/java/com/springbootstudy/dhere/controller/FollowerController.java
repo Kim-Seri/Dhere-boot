@@ -30,8 +30,7 @@ import com.springbootstudy.dhere.service.InquiryService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-@RestController
-@RequestMapping("/api")
+@Controller
 public class FollowerController {
     
     @Autowired
