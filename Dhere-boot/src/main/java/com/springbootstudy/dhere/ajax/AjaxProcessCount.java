@@ -31,7 +31,7 @@ import com.springbootstudy.dhere.service.StoryService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
-@RestController
+@Controller
 @Slf4j
 public class AjaxProcessCount {
 	
@@ -48,6 +48,7 @@ public class AjaxProcessCount {
 	private ScrapService scrapService;
 	
 	@PostMapping("/joinCheck")
+	@ResponseBody
 	public Map<String, Boolean> overIdCheck(@RequestParam("id") String id){
 		
 		boolean result=memberService.overEmailCheck(id);
@@ -58,6 +59,7 @@ public class AjaxProcessCount {
 	
 	// 카테고리 별 제품 리스트 출력
 	@PostMapping("/categoryList")
+	@ResponseBody
 	public Map<String, List<Product>> productList(
 			@RequestParam("productCategory") String productCategory) {
 		
@@ -69,6 +71,7 @@ public class AjaxProcessCount {
 	
 	
 	 @PostMapping("/myScraps")
+	 @ResponseBody
 	 public Map<String, List<Scrap>> scList(HttpSession session, Model model) {
 		 
 		 Member member = (Member) session.getAttribute("member");
@@ -101,6 +104,7 @@ public class AjaxProcessCount {
 	
 	//제품정보 전체 데이터 가져오기 (마커 검색 비교용)
 	@GetMapping("/productList")
+	@ResponseBody
 	public List<Product> productListAll(){
 		List<Product> product =productService.productListAll();
 		log.info(product.get(0).getBrandName());
