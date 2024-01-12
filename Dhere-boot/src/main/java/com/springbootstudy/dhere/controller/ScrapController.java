@@ -149,8 +149,8 @@ public class ScrapController {
 		@PostMapping("/mypageUpdateResult")
 		public String mypageUpdageInfo(Model model, 
 				@RequestParam("email") String email,
-				@RequestParam("pass1") String pass1, 
-				@RequestParam("pass2") String pass2,
+				@RequestParam("newPass1") String pass1, 
+				@RequestParam("newPass2") String pass2,
 				@RequestParam("phone") String phone,  
 				@RequestParam("nickname") String nickname, 
 				@RequestParam("zipcode") String zipcode,
