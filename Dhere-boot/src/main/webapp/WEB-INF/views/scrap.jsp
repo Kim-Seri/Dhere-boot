@@ -22,16 +22,6 @@
 <body>
 
 
-
-
-
-
-
-
-
-
-
-
 <div class="container">
 	<div class="row">
 		<div class="col">
@@ -103,7 +93,7 @@
 						<div class="col" id="scrap_heart">
 							<h4>
 							<img src="resources/images/icon/heart.png"  
-										id="scrap_heart_icon">&nbsp;&nbsp;320
+										id="scrap_heart_icon">&nbsp;&nbsp;${totalThanks}
 							</h4>
 						</div>
 					</div>
@@ -328,12 +318,35 @@
                         <div class="col">
                             <div class="row">
                                	<c:forEach items="${fList}" var="f">
-	                                <div class="col">
-	                                    <img src="resources/images/profile/${f.picture}" id="scrap_follower_picture">
+	                                <div class="col  text-center">
+	                                    <img src="resources/images/profile/${f.picture}" 
+													id="scrap_follower_picture"
+													tabindex="0" 
+													data-bs-html="true" 
+													data-bs-placement="bottom" 
+													data-bs-toggle="popover" 
+													data-bs-trigger="focus"
+													data-bs-title="${f.nickname}"
+													data-bs-content="
+																<a href='
+																				&nickname=${f.nickname}
+																				&picture=${f.picture}'
+																		class='text-decoration-none text-dark'>프로필 보러가기</a>
+																<br>
+															    <br>
+															    <a href='scrap' class='text-decoration-none text-dark'>쪽지 보내기</a>
+																<br>
+															    <br>
+															    <a href='scrap' class='text-decoration-none text-dark'>1:1 대화</a>
+																<br>
+															    <br>
+															    <a href='scrap' class='text-decoration-none text-dark'>신고하기</a>">
 	                                </div>
-	                                <div class="col" id="scrap_follower_nickname">
-	                                    ${f.nickname}
-	                                </div>
+	                                <div class="row">
+		                                <div class="col text-center" id="scrap_follower_nickname">
+		                                    ${f.nickname}
+		                                </div>
+	                                 </div>
                                 </c:forEach>
                             </div>
                         </div>

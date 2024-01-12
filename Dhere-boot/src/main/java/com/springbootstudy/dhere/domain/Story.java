@@ -23,6 +23,7 @@ public class Story {
 	private String fileName;
 	private String tagName;
 	private String categoryName;
+	private int scrapNo;
 	
 	public Story() {}
 	
@@ -174,5 +175,15 @@ public class Story {
 
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+	}
+
+
+	public int getScrapNo() {
+		return scrapNo;
+	}
+
+
+	public void setScrapNo(int scrapNo) {
+		this.scrapNo = scrapNo;
 	}
 }

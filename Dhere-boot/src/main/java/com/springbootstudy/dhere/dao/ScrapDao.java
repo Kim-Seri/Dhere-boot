@@ -36,4 +36,11 @@ public interface ScrapDao {
 	// 스크랩 수정삭제
 	
 	// 회원탈퇴
+	
+
+	// 스크랩 여부 확인하기(syj)
+	public abstract boolean scrapingCheck(String email,int storyNo);
+	
+	// 언스크랩 하기(syj)
+	public abstract void deleteScrap(int scrapNo);
 }

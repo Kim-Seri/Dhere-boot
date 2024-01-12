@@ -48,6 +48,7 @@ public class FollowerControllerAjax {
 		 Member member = (Member) session.getAttribute("member");
 	 
 		 Map<String, List<Scrap>> map=new HashMap<>();
+		 
 		 map.put("scList",scrapService.scList(member.getEmail()));
 			 
 		 return map; 

@@ -200,5 +200,11 @@ public class StoryDaoImpl implements StoryDao {
 		sqlSession.delete(NAME_SPACE+".deleteMarker",storyNo);
 	}
 	
+	// 좋아요 합산(syj)
+    @Override
+    public int getTotalThanksByEmail(String email) {
+        return sqlSession.selectOne("getTotalThanksByEmail", email);
+    }
+	
 
 }

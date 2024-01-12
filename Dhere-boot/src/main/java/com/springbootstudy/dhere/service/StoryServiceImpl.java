@@ -171,5 +171,11 @@ public class StoryServiceImpl implements StoryService {
 		storyDao.deleteImageByStoryNo(storyNo);
 	}
 	
+	// 좋아요 합산(syj)
+    @Override
+    public int getTotalThanksByEmail(String email) {
+        return storyDao.getTotalThanksByEmail(email);
+    }
+	
 	
 }

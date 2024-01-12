@@ -3,6 +3,9 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.springbootstudy.dhere.mappers.StoryMapper">
 
+
+	
+	
 <!-- 초기 스토리 리스트 출력 -->
 <select id="getStoryList" resultMap="StoryResultMap">
 		SELECT
@@ -500,6 +503,12 @@
 		</select>
 
 
+		<!-- 좋아요 합산(syj) -->
+	    <select id="getTotalThanksByEmail" parameterType="String" resultType="int">
+	        SELECT SUM(thank)
+	        FROM story
+	        WHERE email = #{email}
+	    </select>
 
 
 </mapper>

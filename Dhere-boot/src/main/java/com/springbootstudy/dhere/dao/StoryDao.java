@@ -85,7 +85,10 @@ public interface StoryDao {
 	// 마커 리스트에 담기(syj)
 	public abstract List<Marker> markerList(int storyNo);
 
-	
 	//마커 삭제하기
 	public abstract void deleteMarker(int storyNo);
+	
+	//	좋아요 합산(syj)
+	public abstract int getTotalThanksByEmail(String email);
+	
 }

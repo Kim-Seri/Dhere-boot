@@ -58,5 +58,18 @@ public class ScrapServiceImpl implements ScrapService {
 //		return scrapDao.getScrapList();
 //	}
 
-
+	 // 스크랩 여부 확인하기(syj)
+	@Override
+	public boolean scrapingCheck(String email, int storyNo) {
+		return scrapDao.scrapingCheck(email, storyNo);
+	}
+	
+	// 언스크랩 하기(syj)
+	@Override
+	public void deleteScrap(int scrapNo) {
+		scrapDao.deleteScrap(scrapNo);
+	}
+	
+	
+	
 }

@@ -82,4 +82,7 @@ public interface StoryService {
 	//마커 , 사진 삭제(트랙잭션)
 	public abstract void markerAndImgageDelete(int storyNo);
 	
+	//	좋아요 합산(syj)
+	public abstract int getTotalThanksByEmail(String email);
+	
 }

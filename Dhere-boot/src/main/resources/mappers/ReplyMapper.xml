@@ -37,7 +37,7 @@
 	    <result property="picture" column="picture" />
 	</resultMap>
     
-    <!-- storyDetail_삭제 쿼리 추가(syj) -->
+   
 	<delete id="deleteReply">
 		DELETE 
 		FROM 	reply
