@@ -17,26 +17,11 @@ public interface StoryService {
 	//public abstract List<Story> getStoryList();
 	public abstract Map<String, List<Story>> getStoryList();
 	
-	
+	// 게시물 리스트 가져오기 (ajax)
 	public abstract List<Story> getResultStoryList(int offset, int limit, String selectedJob, String searchKeyword, String sort);
-	
-	/* 1/11 백업!!!!
-	public abstract List<Story> getResultStoryList(int offset, int limit, String selectedJob, String searchKeyword, String sort);
-	*/
-	
-	// 게시물 리스트 가져오기 (+페이징)
-	// public abstract List<Story> getStoryListPaged(int offset, int limit);
 	
 	// 직종별 게시물 리스트 출력
 	public abstract List<Story> storyList(String selectedJob);
-	
-	/*
-	// 검색 결과 리스트 출력
-	public abstract List<Story> searchList(String searchKeyword);
-	
-	// 정렬 리스트 출력
-	public abstract List<Story> sortList(String sort);
-	*/
 	
     // 게시물 쓰기
 	public abstract void postWrite(Story story);

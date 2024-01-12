@@ -26,13 +26,8 @@ public class StoryServiceImpl implements StoryService {
 	public List<Story> sList(String email) {
 		return storyDao.sList(email);
 	}
-
+	
 	// 게시물 리스트 가져오기
-//	@Override
-//	public List<Story> getStoryList() {
-//		return storyDao.getStoryList();
-//	}
-
 	@Override
 	public Map<String, List<Story>> getStoryList() {
 		Map<String, List<Story>> map = new HashMap<>();
@@ -47,10 +42,17 @@ public class StoryServiceImpl implements StoryService {
 	    map.put("sList", sList);
 	    return map;
 	}
-	
+
+	// 게시물 리스트 가져오기 (ajax)
 	@Override
 	public List<Story> getResultStoryList(int offset, int limit, String selectedJob, String searchKeyword, String sort) {
-		return storyDao.getResultStoryList(offset, limit, selectedJob, searchKeyword, sort);
+		List<Story> sList=storyDao.getResultStoryList(offset, limit, selectedJob, searchKeyword, sort);
+		for (Story story : sList) {
+	        List<Tag> tags = storyDao.getStoryDetailTag(story.getStoryNo());
+	        story.setTags(tags);
+	    }
+		
+		return sList;
 	}
 
 	/*

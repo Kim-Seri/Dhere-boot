@@ -298,12 +298,12 @@ $(function() {
 		);
 		$("#imageContainer").append(imageInput);
 		imageInput.click();
-		
 
 		// 이미지 업로드 인풋이 변경됐을 때의 이벤트 핸들러
 		imageInput.on("change", function() {
 			console.log("onchange");
-			if (!this.files.length) {
+			console.log("this.")
+			if (this.files.length == 0) {
 				// 파일이 선택되지 않았을 때, 즉 취소 버튼을 눌렀을 때
 				// input type=file을 제거합니다.
 				console.log("onchange");
