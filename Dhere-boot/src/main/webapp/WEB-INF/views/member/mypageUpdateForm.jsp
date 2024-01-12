@@ -28,11 +28,11 @@
 					<div class="row mt-5 mb-2">
 						<div class="col-md-6 offset-md-3 text-center">
 							<c:if test="${ empty sessionScope.member.picture }">
-	                   			 <img src="resources/images/icon/86683729.png" id="scrap_picture" style="color:white; max-width:150px; max-height:150px; object-fit: cover; border-radius: 70%; border: 3px solid white">
+	                   			 <img src="resources/images/icon/86683729.png" id="scrap_picture" style="color:white; width:150px; height:150px; object-fit: cover; border-radius: 70%; border: 3px solid white">
 	                		</c:if>
 							<c:if test="${ not empty sessionScope.member.picture }">						
 							<img id="preview" class="img-fluid"  alt="프로필 사진" 
-							src="resources/images/profile/${sessionScope.member.picture}" style="color:white; max-width:150px; max-height:150px; object-fit: cover; border-radius: 70%; border: 3px solid white">
+							src="resources/images/profile/${sessionScope.member.picture}" style="color:white; width:150px; height:150px; object-fit: cover; border-radius: 70%; border: 3px solid white">
 							</c:if>
 						</div>
 					</div>
