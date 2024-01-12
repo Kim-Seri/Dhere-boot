@@ -50,7 +50,7 @@
 					</div>
 						<div class="col">
 							<div class="scrap_menu_btn" id="scrap_menu_btn4"
-									onclick="location.href='/iList'">
+									onclick="location.href='iList'">
 								<h3>문의 목록</h3>
 							</div>
 						</div>

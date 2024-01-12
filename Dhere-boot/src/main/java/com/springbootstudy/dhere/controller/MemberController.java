@@ -87,68 +87,41 @@ public class MemberController {
 	}
 
 	// 회원가입
-	@PostMapping(value = "/joinResult")
-    public String joinResult(HttpServletRequest request,
-    		Member m, 
-    		@RequestParam(value="picture1", required=false) MultipartFile multipartFile) throws IOException {
-		
-        System.out.println("email : " + m.getEmail());
-        System.out.println("pass : " + m.getPass());
-        System.out.println("name : " + m.getName());
-        System.out.println("nickname : " + m.getNickname());
-        System.out.println("zipcod : " + m.getZipcode());
-        System.out.println("a1 : " + m.getAddress1());
-        System.out.println("a2 : " + m.getAddress2());
-        System.out.println("job : " + m.getJob());
-        System.out.println("phone : " + m.getPhone());
-        System.out.println("role : " + m.getRole());
-        
-        if (multipartFile != null && !multipartFile.isEmpty()) {
-        	
-        	Image image = new Image();
-        	
-        	File parent = new File(DEFAULT_PATH);
-			log.info("parent abs path : " + parent.getAbsolutePath());
-			log.info("parent path : " + parent.getPath());
-			log.info("exist : " + parent.exists() + ", dir : " + parent.isDirectory());
+	   @PostMapping(value = "/joinResult")
+	    public String joinResult(HttpServletRequest request,
+	          Member m, 
+	          @RequestParam(value="picture1", required=false) MultipartFile multipartFile) throws IOException {
+	        
+	        if (multipartFile != null && !multipartFile.isEmpty()) {
+	           
+	           Image image = new Image();
+	           
+	           File parent = new File(DEFAULT_PATH);
+	         log.info("parent abs path : " + parent.getAbsolutePath());
+	         log.info("parent path : " + parent.getPath());
+	         log.info("exist : " + parent.exists() + ", dir : " + parent.isDirectory());
 
-			// 존재하지 않으면 filePath의 경로에 있는 모든 폴더를 생성한다.
-			if (!parent.exists()) {
-				parent.mkdirs();
-			}
+	         // 존재하지 않으면 filePath의 경로에 있는 모든 폴더를 생성한다.
+	         if (!parent.exists()) {
+	            parent.mkdirs();
+	         }
 
-			UUID uid = UUID.randomUUID();
-			
-			String extension = StringUtils.getFilenameExtension(multipartFile.getOriginalFilename());
-			String saveName = uid.toString() + "." + extension;
-			File file = new File(parent.getAbsolutePath(), saveName);
-			log.info("file abs path : " + file.getAbsolutePath());
-			log.info("file path : " + file.getPath());
-			multipartFile.transferTo(file);
-			m.setPicture(saveName);
-        	
-        	
-            
-//            // Request 객체를 이용해 파일이 저장될 실제 경로를 구한다.
-//            String filePath = request.getServletContext().getRealPath(DEFAULT_PATH);
-//            
-//            UUID uid = UUID.randomUUID();
-//            String saveName = uid.toString() + "_" + multipartFile.getOriginalFilename();
-//            
-//            File file = new File(filePath, saveName);         
-//            
-//            // 업로드 되는 파일을 upload 폴더로 저장한다.
-//            multipartFile.transferTo(file);
-//            m.setPicture(saveName);
-//            
-//            System.out.println("picture : " + m.getPicture());
-        } else {
-            // Handle the case when no file is uploaded
-            System.out.println("No file uploaded");
-        }
-        memberService.addMember(m);
-        return "redirect:main";
-    }
+	         UUID uid = UUID.randomUUID();
+	         
+	         String extension = StringUtils.getFilenameExtension(multipartFile.getOriginalFilename());
+	         String saveName = uid.toString() + "." + extension;
+	         File file = new File(parent.getAbsolutePath(), saveName);
+	         log.info("file abs path : " + file.getAbsolutePath());
+	         log.info("file path : " + file.getPath());
+	         multipartFile.transferTo(file);
+	         m.setPicture(saveName);
+	        } else {
+	           String defaultImageName = "DefaultProfile.png";
+	            m.setPicture(defaultImageName);
+	        }
+	        memberService.addMember(m);
+	        return "redirect:main";
+	    }
 	
 	// 회원가입 시 직무 리스트 출력하기(syj)
 	@GetMapping("/joinForm")
