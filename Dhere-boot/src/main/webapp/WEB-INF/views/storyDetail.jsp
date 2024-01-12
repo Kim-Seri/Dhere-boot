@@ -145,7 +145,7 @@
 				                    <c:when test="${scrapingCheck}">
 				                        <!-- 이미 스크랩한 경우 언스크랩 버튼 표시 -->
 				                        <form name="deleteScrap" action="deleteScrap" method="post" onsubmit="return confirm('이 게시물을 스크랩 취소 하시겠습니까?');">
-							               
+							               <input type="hidden" name="scrapNo" value="${storyDetail.email}" />
 							                <input type="hidden" name="storyNo" value="${storyDetail.storyNo}" />
 							                <button type="submit" class="btn btn-primary fs-5" id="">
 							                    언스크랩
