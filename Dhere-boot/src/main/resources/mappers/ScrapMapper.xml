@@ -11,10 +11,9 @@
 	    AND story_no = #{storyNo}
 	</select>
 	
-	<delete id="deleteScrap">
-		DELETE 
-		FROM scrap
-		WHERE 	scrap_no = #{scrapNo}
+	<delete id="deleteScrap" parameterType="int">
+	    DELETE FROM scrap
+	    WHERE story_no = #{storyNo}
 	</delete>
 	
 <!-- 프로필 -->
