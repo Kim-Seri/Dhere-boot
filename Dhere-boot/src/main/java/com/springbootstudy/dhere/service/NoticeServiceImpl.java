@@ -43,7 +43,7 @@ public class NoticeServiceImpl implements NoticeService {
 
 	// 공지사항 목록 가져오기(syj)
 	@Override
-	public List<Notice> getNoticeList(int noticeNo) {
-		return noticeDao.getNoticeList(noticeNo);
+	public List<Notice> getNoticeList() {
+		return noticeDao.getNoticeList();
 	}
 }

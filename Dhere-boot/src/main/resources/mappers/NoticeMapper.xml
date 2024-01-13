@@ -4,9 +4,40 @@
 
 <mapper namespace="com.springbootstudy.dhere.mappers.NoticeMapper">
 
- 	<insert id="noticeWrite" parameterType="Notice">
+	<select id="getNoticeList" resultType="notice" resultMap="noticeResultMap">
+		SELECT * FROM notice
+		ORDER BY notice_no DESC
+	</select>
+
+	<select id="noticeDetail" resultType="notice" resultMap="noticeResultMap">
+		SELECT * FROM notice
+		WHERE notice_no = #{noticeNo}
+	</select> 
+
+ 	<insert id="noticeWrite" parameterType="notice">
 		INSERT INTO notice(title, content, reg_date, email, file, picture)
 		VALUES(#{title}, #{content}, SYSDATE(), #{email}, #{file}, #{picture})
 	</insert>
+	
+	<update id="noticeUpdate" parameterType="notice">
+		UPDATE notice
+			SET title=#{title}, content=#{content}, reg_date = SYSDATE()
+		WHERE notice_no=#{noticeNo}
+	</update>
+	
+	<delete id="noticeDelete">
+		DELETE FROM notice
+		WHERE noticeNo=#{noticeNo}
+	</delete>
+	
+	<resultMap id="noticeResultMap" type="notice">
+		<id property="noticeNo" column="notice_no" />
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+		<result property="regDate" column="reg_date" />
+		<result property="email" column="email" />
+		<result property="file" column="file" />
+		<result property="picture" column="picture" />
+	</resultMap>
 
 </mapper>

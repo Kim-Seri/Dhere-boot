@@ -21,5 +21,6 @@ public interface NoticeService {
 	public abstract void noticeDelete(int noticeNo);
 	
     // 공지사항 목록 가져오기(syj)
-    public abstract List<Notice> getNoticeList(int noticeNo);
+    public abstract List<Notice> getNoticeList();
+
 }
