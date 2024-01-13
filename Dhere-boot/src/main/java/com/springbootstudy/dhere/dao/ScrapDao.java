@@ -42,5 +42,5 @@ public interface ScrapDao {
 	public abstract boolean scrapingCheck(String email,int storyNo);
 	
 	// 언스크랩 하기(syj)
-	public abstract void deleteScrap(int scrapNo);
+	public abstract void deleteScrap(int storyNo);
 }

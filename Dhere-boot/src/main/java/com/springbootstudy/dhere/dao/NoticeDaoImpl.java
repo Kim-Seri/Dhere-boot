@@ -47,5 +47,11 @@ public class NoticeDaoImpl implements NoticeDao {
 	    return sqlSession.selectList(NAME_SPACE + ".getNoticeList");
 	}
 	
+	 // 페이지 로드 시 최근 공지사항 목록 가져오기(syj)
+    @Override
+    public Notice getLatestNotice() {
+        return sqlSession.selectOne(NAME_SPACE + ".getLatestNotice");
+    }
+	
 	
 }
