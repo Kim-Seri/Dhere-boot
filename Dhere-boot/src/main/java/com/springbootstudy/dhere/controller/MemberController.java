@@ -120,7 +120,7 @@ public class MemberController {
 	            m.setPicture(defaultImageName);
 	        }
 	        memberService.addMember(m);
-	        return "redirect:main";
+	        return "redirect:loginForm";
 	    }
 	
 	// 회원가입 시 직무 리스트 출력하기(syj)
