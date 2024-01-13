@@ -126,7 +126,7 @@
 							<div class="row">
 								<div class="col">
 								<select name="job" class="form-select">
-									<option value="developer" selected="selected">직업을 선택하세요</option>
+									<option value="" selected="selected">직업을 선택하세요</option>
 									<option value="developer">개발자</option>
 									<option value="marketer">마케터</option>
 									<option value="designer">디자이너</option>

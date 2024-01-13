@@ -37,7 +37,7 @@ public class NoticeDaoImpl implements NoticeDao {
 	
 	//	공지사항 삭제(syj)
 	@Override
-	public  void noticeDelete(int noticeNo) {
+	public void noticeDelete(int noticeNo) {
 			sqlSession.delete(NAME_SPACE + ".noticeDelete", noticeNo);
 	}
 	

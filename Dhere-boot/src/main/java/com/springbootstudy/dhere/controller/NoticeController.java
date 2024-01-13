@@ -32,7 +32,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class NoticeController {
 	
-	private static final String DEFAULT_PATH = "/resources/images/inquiry/";
+	private static final String DEFAULT_PATH = "/resources/images/";
 	
 	@Autowired
 	private NoticeService noticeService;
@@ -68,24 +68,18 @@ public class NoticeController {
 		return "redirect:notice";
 	}
 	
-	@GetMapping("/noticeUpdate")
-	public String noticeUpdate(Model model, 
-			@RequestParam("noticeNo") int noticeNo) {
-	    Notice notice = noticeService.noticeDetail(noticeNo);
-	    return "noticeUpdate";
+	@PostMapping("/notice")
+	public String NoticeAction(@RequestParam String action, @RequestParam int noticeNo) {
+	    if ("noticeUpdate".equals(action)) {
+	        Notice n = noticeService.noticeDetail(noticeNo);
+			noticeService.noticeUpdate(n);
+	    } else if ("noticeDelete".equals(action)) {
+	    	noticeService.noticeDelete(noticeNo);
+	    }
+	    return "redirect:notice";
 	}
-	   
-   @GetMapping("/updateNoticeForm")
-    public String updateNoticeForm() {
-        return "notice";
-    }
-	
-	@PostMapping("/noticeDelete")
-	public String deleteNotice(PrintWriter out, int noticeNo) {
-		noticeService.noticeDelete(noticeNo);
-		return "redirect:notice";
-	}
-	
+
+
 	//	공지사항 작성하기(syj)
 	@PostMapping("/noticeWrite")
 	public String noticeWrite(Model model, HttpServletRequest request, HttpSession session,
