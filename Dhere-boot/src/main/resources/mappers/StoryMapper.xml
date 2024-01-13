@@ -505,7 +505,7 @@
 
 		<!-- 좋아요 합산(syj) -->
 	    <select id="getTotalThanksByEmail" parameterType="String" resultType="int">
-	        SELECT SUM(thank)
+	        SELECT COALESCE(SUM(thank))
 	        FROM story
 	        WHERE email = #{email}
 	    </select>

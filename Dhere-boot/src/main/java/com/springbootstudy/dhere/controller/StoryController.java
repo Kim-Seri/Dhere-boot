@@ -365,7 +365,7 @@ public class StoryController {
 		}
 		storyService.updateStoryProcess(story);
 
-		return "redirect:main";
+		return "redirect:/storyDetail?storyNo=" + story.getStoryNo();
 	}
 
 	// 게시글 쓰기 - 마커 정보 추가해야 함 -
@@ -539,7 +539,7 @@ public class StoryController {
 				}
 			}
 		}
-		return "redirect:main";
+		return "redirect:/storyDetail?storyNo=" + story.getStoryNo();
 	}
 
 	@GetMapping(value = "/postWriteForm")

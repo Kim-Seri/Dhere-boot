@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="resources/css/joinForm.css">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="resources/js/member.js"></script>
+
 <style>
 	body {
 		background-image: url('resources/images/join_background.png');
@@ -40,7 +41,7 @@
 						<div class="col-4 mt-3">
 						<input type="button" class="btn border-white" value="프로필 사진 변경" id="profilePhoto" onclick="document.getElementById('input-file').click();" 
 						style="width: 110%; height: 45px; color: white; border-radius: 10px;"/>
-							<input type="file" id="input-file" onchange="readURL(this);" style="display:none" />
+							<input type="file" id="input-file" name="picture1" onchange="readURL(this);" style="display:none" />
 						</div>
 					</div>
 					<div class="row my-4">

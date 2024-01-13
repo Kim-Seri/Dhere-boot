@@ -201,10 +201,15 @@ public class StoryDaoImpl implements StoryDao {
 	}
 	
 	// 좋아요 합산(syj)
-    @Override
-    public int getTotalThanksByEmail(String email) {
-        return sqlSession.selectOne("getTotalThanksByEmail", email);
-    }
+	@Override
+	public int getTotalThanksByEmail(String email) {
+	    Integer totalThanks = sqlSession.selectOne("getTotalThanksByEmail", email);
+	    return totalThanks != null ? totalThanks : 0;
+	}
 	
-
+    
+    
+    
+    
+    
 }

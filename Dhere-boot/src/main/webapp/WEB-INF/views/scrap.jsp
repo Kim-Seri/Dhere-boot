@@ -75,6 +75,8 @@
 	                    	</b>
 	                    	</h1>
 						</div>
+					</div>
+					<div class="row">
 						<div class="col text-start" id="scrap_email">
 							<h1>
 							(${sessionScope.member.email})
