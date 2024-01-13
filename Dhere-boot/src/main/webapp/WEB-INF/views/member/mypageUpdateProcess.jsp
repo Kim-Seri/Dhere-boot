@@ -37,11 +37,11 @@
 				<div class="row">
 				<div class="col mt-2 text-center" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Tooltip on top">
                     <c:if test="${ empty sessionScope.member.picture }"><!-- 귀여운그림 -->
-                    <img src="resources/images/icon/86683729.png" alt="150*150" style="width:150px; height:150px; object-fit: cover; border-radius: 70%; border: 3px solid blue" />
+                    <img src="resources/images/icon/86683729.png" style="width:150px; height:150px; object-fit: cover; border-radius: 70%; border: 3px solid blue" />
                     </c:if>
                     <c:if test="${ not empty sessionScope.member.picture }">
                         <div class="col center">
-                        <img src="resources/images/profile/${sessionScope.member.picture}" alt="150*150 크기 이미지" 
+                        <img src="resources/images/profile/${sessionScope.member.picture}" 
                         style="width: 150px; height: 150px; object-fit: cover; border-radius: 70%; border: 3px solid blue"></div>
                     </c:if>           
                 </div>

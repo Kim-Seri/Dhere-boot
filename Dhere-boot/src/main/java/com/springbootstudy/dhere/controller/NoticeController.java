@@ -2,6 +2,7 @@ package com.springbootstudy.dhere.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,6 +36,55 @@ public class NoticeController {
 	
 	@Autowired
 	private NoticeService noticeService;
+	
+	public void setNoticeService(NoticeService noticeService) {
+		this.noticeService = noticeService;
+	}
+	
+	@GetMapping("/notice")
+	public String getNoticeList(Model model) {
+	    List<Notice> noticeList = noticeService.getNoticeList();
+	    model.addAttribute("noticeList", noticeList);
+	    return "notice";
+	}
+	
+	@GetMapping("/noticeDetail")
+	public String noticeDetail(Model model, int noticeNo) {
+		
+		Notice notice = noticeService.noticeDetail(noticeNo);
+		model.addAttribute("notice", notice);
+		return "notice";
+	}
+	
+	@GetMapping("/noticeWrite")
+	public String noticeDetail() {
+		return "noticeWrite";
+	}
+	
+	
+	@PostMapping("/noticeWriteProcess")
+	public String noticeWrite(Notice notice) {
+		noticeService.noticeWrite(notice);
+		return "redirect:notice";
+	}
+	
+	@GetMapping("/noticeUpdate")
+	public String noticeUpdate(Model model, 
+			@RequestParam("noticeNo") int noticeNo) {
+	    Notice notice = noticeService.noticeDetail(noticeNo);
+	    return "noticeUpdate";
+	}
+	   
+   @GetMapping("/updateNoticeForm")
+    public String updateNoticeForm() {
+        return "notice";
+    }
+	
+	@PostMapping("/noticeDelete")
+	public String deleteNotice(PrintWriter out, int noticeNo) {
+		noticeService.noticeDelete(noticeNo);
+		return "redirect:notice";
+	}
 	
 	//	공지사항 작성하기(syj)
 	@PostMapping("/noticeWrite")

@@ -43,8 +43,8 @@ public class NoticeDaoImpl implements NoticeDao {
 	
 	// 공지사항 목록 가져오기(syj)
 	@Override
-	public List<Notice> getNoticeList(int noticeNo) {
-		return sqlSession.selectList(NAME_SPACE + ".NoticetList", noticeNo);
+	public List<Notice> getNoticeList() {
+	    return sqlSession.selectList(NAME_SPACE + ".getNoticeList");
 	}
 	
 	
