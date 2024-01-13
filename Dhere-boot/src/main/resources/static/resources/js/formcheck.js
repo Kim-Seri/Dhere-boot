@@ -113,16 +113,7 @@ function goBack() {
 window.history.back();
 }
 
-document.getElementById("submitBtn").addEventListener("click", function (e) {
-        var phoneNumber = document.getElementById("phone").value;
-        
-        var numericRegex = /^[0-9]+$/;
-        
-        if (!numericRegex.test(phoneNumber)) {
-            alert("연락처에는 숫자만 입력해주세요.");
-            e.preventDefault();
-        }
-    });
+
 
 // 링크 복사 버튼
 function copyToClipboard() {
