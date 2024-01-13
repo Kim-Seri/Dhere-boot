@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="resources/css/joinForm.css">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="resources/js/member.js"></script>
+<script src="resources/js/formcheck.js"></script>
 <style>
 	body {
 		background-image: url('resources/images/join_background.png');

@@ -46,7 +46,7 @@
 					<a href="joinForm" class="text-decoration-underline text-body-secondary fw-bold">Join Us</a>
 				</div>
 				<div class="col-2  text-end">
-					<a href="main" class="text-decoration-underline text-body-secondary fw-bold">Forget ID or Password?</a>
+					<a href="findIdPass" class="text-decoration-underline text-body-secondary fw-bold">Forget ID or Password?</a>
 				</div>
 			</div>
 			<div class="row my-5">
