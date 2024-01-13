@@ -18,7 +18,7 @@
 
     <div class="col justify-content-end d-flex align-items-center">
         <a href="mainAbout" class="text-decoration-none text-white" id="header_menu">About</a>
-        <a href="notice" class="text-decoration-none text-white" id="header_menu">Notice</a>
+        <a href="notice" class="text-decoration-none text-white" id="header_menu" onclick="location.href='notice'">Notice</a>
         
         
  
@@ -27,7 +27,7 @@
 			            resources/images/profile/${sessionScope.member.picture}
 			        </c:when>
 			        <c:otherwise>
-			            resources/images/icon/profile_white.png
+			            resources/images/icon/86683729.png
 			        </c:otherwise>
 			    </c:choose>"
 			id="login_menu" 

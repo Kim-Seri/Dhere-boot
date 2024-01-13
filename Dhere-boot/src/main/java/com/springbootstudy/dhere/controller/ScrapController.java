@@ -149,72 +149,61 @@ public class ScrapController {
 			return map;
 		}
 		
-		//회원수정 폼에서 들어오는 요청을 처리하는 메서드
-		@PostMapping("/mypageUpdateResult")
-		public String mypageUpdageInfo(Model model, 
-				@RequestParam("email") String email,
-				@RequestParam("newPass1") String pass1, 
-				@RequestParam("newPass2") String pass2,
-				@RequestParam("phone") String phone,  
-				@RequestParam("nickname") String nickname, 
-				@RequestParam("zipcode") String zipcode,
-				@RequestParam("address1") String address1, 
-				@RequestParam("address2")String address2, 
-				@RequestParam("job") String job,
-				@RequestParam(value="picture1", required=false) MultipartFile multipartFile, 
-				HttpSession session, HttpServletRequest request) throws IOException {
-			
-				 
-				
-			
-				Member member = new Member();
-				member.setEmail(email);
-				member.setPass(pass1);
-				member.setPhone(phone);
-				member.setNickname(nickname);
-				member.setZipcode(zipcode);
-				member.setAddress1(address1);
-				member.setAddress2(address2);
-				member.setJob(job);
-				
-				
-			
-			if (multipartFile != null && !multipartFile.isEmpty()) {
+		  //회원수정 폼에서 들어오는 요청을 처리하는 메서드
+	      @PostMapping("/mypageUpdateResult")
+	      public String mypageUpdageInfo(Model model,
+	            @RequestParam("email") String email,
+	            @RequestParam("newPass1") String pass1, 
+	            @RequestParam("newPass2") String pass2,
+	            @RequestParam("phone") String phone,  
+	            @RequestParam("nickname") String nickname, 
+	            @RequestParam("zipcode") String zipcode,
+	            @RequestParam("address1") String address1, 
+	            @RequestParam("address2")String address2, 
+	            @RequestParam("job") String job,
+	            @RequestParam(value="picture1", required=false) MultipartFile multipartFile, 
+	            HttpSession session, HttpServletRequest request) throws IOException {
 	            
-	            // Request 객체를 이용해 파일이 저장될 실제 경로를 구한다.
-	            String filePath = request.getServletContext().getRealPath(DEFAULT_PATH);
-	            
-	            UUID uid = UUID.randomUUID();
-	            String saveName = uid.toString() + "_" + multipartFile.getOriginalFilename();
-	            
-	            File file = new File(filePath, saveName);         
-	            
-	            // 업로드 되는 파일을 upload 폴더로 저장한다.
-	            multipartFile.transferTo(file);
-	            member.setPicture(saveName);
-	            
-	        } else {
-	            // Handle the case when no file is uploaded
-	            System.out.println("No file uploaded");
-	            
-	        }
-			
-			memberService.updateMember(member);
-			System.out.println("memberUpdateResult : " + member.getEmail());
-				
-				
-				session.setAttribute("member", member);
-			
-				return "redirect:scrap";
-		}
-		
-		//	언스크랩 하기(syj)
-		@PostMapping("/deleteScrap")
-		public String deleteScrap(
-				@RequestParam("storyNo") int storyNo) {
-			
-		    scrapService.deleteScrap(storyNo);
-		    
-		    return "redirect:/storyDetail?storyNo=" + storyNo;
-		}
+	            // 로그인 할 때 세션에 저장된 회원정보를 읽어와서
+	            Member member = (Member) session.getAttribute("member");            
+	            member.setEmail(email);
+	            member.setPass(pass1);
+	            member.setPhone(phone);
+	            member.setNickname(nickname);
+	            member.setZipcode(zipcode);
+	            member.setAddress1(address1);
+	            member.setAddress2(address2);
+	            member.setJob(job);
+	         
+	         if (multipartFile != null && !multipartFile.isEmpty()) {
+	               
+	               // Request 객체를 이용해 파일이 저장될 실제 경로를 구한다.
+	               String filePath = request.getServletContext().getRealPath(DEFAULT_PATH);
+	               
+	               UUID uid = UUID.randomUUID();
+	               String saveName = uid.toString() + "_" + multipartFile.getOriginalFilename();
+	               
+	               File file = new File(filePath, saveName);         
+	               
+	               // 업로드 되는 파일을 upload 폴더로 저장한다.
+	               multipartFile.transferTo(file);
+	               member.setPicture(saveName);
+	               
+	           } else {
+	               // Handle the case when no file is uploaded
+	               System.out.println("No file uploaded");
+	               
+	           }
+	         
+	         // DB에 회원 정보를 업데이트 하기
+	         memberService.updateMember(member);
+	         System.out.println("memberUpdateResult : " + member.getEmail());
+	         System.out.println("memberUpdateResult : " + member.getJob());
+	         
+	         
+	         // 업데이트된 회원정보를 다시 읽어와 세션에 저장한다. - 이미 세션에서 가져왔기 때문에 세션을 업데이트 할 필요 없음
+	         //session.setAttribute("member", member);
+	         
+	         return "redirect:scrap";
+	      }
 }
