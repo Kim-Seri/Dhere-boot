@@ -138,18 +138,7 @@ public class ScrapController {
 	    
 	    return "redirect:/storyDetail?storyNo=" + storyNo;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
    @GetMapping("/mypageUpdateProcess")
@@ -244,13 +233,6 @@ public class ScrapController {
 	   		return "redirect:scrap";
 	   	}	
 	   	
-	   	//	언스크랩 하기(syj)
-	   	@PostMapping("/deleteScrap")
-	   	public String deleteScrap(
-	   			@RequestParam("storyNo") int storyNo) {
-	   		
-	   	    scrapService.deleteScrap(storyNo);
-	   	    
-	   	    return "redirect:/storyDetail?storyNo=" + storyNo;
-	   	}
+
+	   	
 	   }

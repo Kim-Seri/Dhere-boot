@@ -47,10 +47,10 @@ public class NoticeDaoImpl implements NoticeDao {
 	    return sqlSession.selectList(NAME_SPACE + ".getNoticeList");
 	}
 
-	@Override
-	public Notice getNotice(int noticeNo) {
-		return sqlSession.selectOne(NAME_SPACE + ".getNotice", noticeNo);
-	}
+//	@Override
+//	public Notice getNotice(int noticeNo) {
+//		return sqlSession.selectOne(NAME_SPACE + ".getNotice", noticeNo);
+//	}
 	
 	 // 페이지 로드 시 최근 공지사항 목록 가져오기(syj)
     @Override
