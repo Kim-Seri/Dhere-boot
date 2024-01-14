@@ -125,17 +125,23 @@
 							<label for="job" class="form-label" style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;직업 </label>
 							<div class="row">
 								<div class="col">
-								<select name="job" class="form-select">
-									<option value="developer" selected="selected">직업을 선택하세요</option>
-									<option value="developer">개발자</option>
-									<option value="marketer">마케터</option>
-									<option value="designer">디자이너</option>
-									<option value="producer">PD</option>
-									<option value="writer">작가</option>
-									<option value="researcher">연구원</option>
-									<option value="teacher">선생님</option>
-									<option value="accountant">회계사</option>
-								</select>
+							<select name="job" class="form-select"> 
+									<option value="${ sessionScope.member.job }">직업을 선택하세요</option>
+									<option value="관리자" ${sessionScope.member.job == "CEO" ? "selected" : ""}>관리자</option>
+									<option value="개발자" ${sessionScope.member.job == "programmer" ? "selected" : ""}>개발자</option>
+									<option value="PM" ${sessionScope.member.job == "PM" ? "selected" : ""}>PM</option>
+									<option value="디자이너" ${sessionScope.member.job == "designer" ? "selected" : ""}>디자이너</option>
+									<option value="보안전문가" ${sessionScope.member.job == "security_specialist" ? "selected" : ""}>보안전문가</option>
+									<option value="연구원" ${sessionScope.member.job == "researcher" ? "selected" : ""}>연구원</option>
+									<option value="금융전문가" ${sessionScope.member.job == "financial_specialist" ? "selected" : ""}>금융전문가</option>
+									<option value="작가" ${sessionScope.member.job == "writer" ? "selected" : ""}>작가</option>
+									<option value="회계사" ${sessionScope.member.job == "accounter" ? "selected" : ""}>회계사</option>
+									<option value="데이터분석가" ${sessionScope.member.job == "dataResearcher" ? "selected" : ""}>데이터분석가</option>
+									<option value="마케터" ${sessionScope.member.job == "marketer" ? "selected" : "" }>마케터</option>
+									<option value="건축가" ${sessionScope.member.job == "architect" ? "selected" : "" }>건축가</option>
+									<option value="교육자" ${sessionScope.member.job == "teacher" ? "selected" : "" }>교육자</option>
+									<option value="프로듀서" ${sessionScope.member.job == "PD" ? "selected" : "" }>프로듀서</option>
+							</select>
 								</div>
 							</div>
 						</div>

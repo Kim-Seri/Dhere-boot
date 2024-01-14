@@ -36,7 +36,7 @@ public class FollowerController {
     @Autowired
     private FollowerService followerService;
     
-    // 팔로우하기
+    // 팔로우하기(syj)
     @PostMapping("/insertFollow")
     public String insertFollow(HttpSession session, 
     		@RequestParam("followingEmail") String followingEmail,
@@ -60,7 +60,7 @@ public class FollowerController {
         return "redirect:/storyDetail?storyNo=" + storyNo;
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////    
-	 // 언팔로우하기
+	 // 언팔로우하기(syj)
     @PostMapping("/deleteFollow")
     public String deleteFollow(HttpSession session, 
                                @RequestParam("followingEmail") String followingEmail,

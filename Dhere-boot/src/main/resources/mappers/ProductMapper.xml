@@ -26,6 +26,36 @@
 		ORDER BY product_no
 	</select>
 	
+	<!-- ajax 통신 맵퍼 -->
+	<select id="getProductListPaged" parameterType="hashmap" resultType="com.springbootstudy.dhere.domain.Product">
+    SELECT 
+    product_no as productNo,
+    product_name as productName,
+    brand_name as brandName,
+    product_content as productContent,
+    product_category as productCategory,
+    product_link as productLink,
+    product_image as productImage 
+    FROM product 
+    <where>
+        <if test='productCategory != null and productCategory != "null"'>
+            <choose>
+                <when test="productCategory == 'Others' and productCategory != 'All'">
+                    not (product_category ='Lap-top' or product_category ='Monitor' or product_category ='Mouse' or product_category ='Keyboard')
+                </when>
+                <otherwise>
+                    <if test="productCategory != 'Others' and productCategory != 'All'">
+                        and product_category = #{productCategory}
+                    </if>
+                </otherwise>
+            </choose>
+        </if>
+    </where>
+    ORDER BY product_no
+    LIMIT #{pOffset}, #{productLimit}
+</select>
+
+	
 	<select id="productDetail" resultType="Product" >
 		SELECT 
 		product_no as productNo,
@@ -59,13 +89,6 @@
 		<result property="productLink" column="product_link" />
 		<result property="productImage" column="product_image" />
 	</resultMap>
-	
-	
-	<select id="getProductListPaged" parameterType="Map" resultType="com.springbootstudy.dhere.domain.Product">
-       SELECT * FROM product
-        ORDER BY product_no
-        LIMIT #{limit} OFFSET #{offset}
-    </select>
     
     <select id="getFilteredProductList" parameterType="Map" resultType="Product">
 	    SELECT * FROM product

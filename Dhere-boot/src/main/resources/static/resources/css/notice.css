@@ -1,0 +1,131 @@
+@charset "UTF-8";
+    	
+    	
+#notice_mainBox1 {
+	padding: 2%;	
+	margin-top: 10%;
+	margin-bottom: 10%;
+	
+	border: 3px solid #4370FF;
+	border-radius: 20px;
+}
+
+#notice_mainBox2 {
+	margin-top: 5%;
+	margin-bottom: 5%;
+	margin-right: 5%;
+}
+
+#notice_btnBox {
+	/* border-right: 3px solid #4370FF; */
+    overflow-y: auto;
+}
+
+.noticeBtn {
+	width: 90%; 
+	height: 15%;
+	border: 1px solid white;
+	background-color: white;
+	border-radius: 20px;
+	margin-top: 5%;
+	margin-bottom: 5%;
+	
+	
+	white-space: nowrap; 
+	overflow: hidden; 
+	text-overflow: ellipsis;
+	
+	transition: background-color 0.5s ease, color 0.1s ease;
+}
+
+.noticeBtn:hover {
+	transition: 0.2s;
+	width: 90%; 
+	height: 15%;
+	border: 1px solid white;
+	background-color: rgba(67, 112, 255, 0.7);
+	border-radius: 20px;
+	margin-top: 5%;
+	margin-bottom: 5%;
+	color: white;
+	
+	white-space: nowrap; 
+	overflow: hidden; 
+	text-overflow: ellipsis;
+}
+
+.noticeBtn:active {
+    background-color: #4370FF;
+    color: white;
+    
+    transition: background-color 0.5s ease, color 0.1s ease;
+}
+
+.noticeBtn.active {
+    background-color: #4370FF;
+    color: white;
+}
+
+.noticeBtn.active .noticeBtn_regDate {
+    color: white;
+}
+
+.noticeBtn_regDate {
+    color: gray;
+}
+
+.noticeBtn_regDate {
+    color: gray;
+}
+
+.noticeBtn:hover .noticeBtn_regDate {
+    color: white;
+    transition: 0.5s;
+}
+
+#noticeBtn_content {
+	font-size: 120%;
+	font-weight: bold;
+	
+	overflow: hidden; 
+	text-overflow: ellipsis; 
+	white-space: nowrap;
+}
+
+#notice_detail_title {
+    font-size: 30px;
+    font-weight: bold;
+    transition: opacity 0.2s ease;
+}
+
+#notice_detail_regDate {
+	text-align: end;
+	transition: opacity 0.2s ease;
+}
+
+#notice_detail_content {
+	margin-top: 15%;
+	font-size: 130%;
+	white-space: pre-wrap;
+	transition: opacity 0.2s ease;
+}
+
+#notice_btnBox::-webkit-scrollbar-track {
+    background: transparent; /* 스크롤바 트랙 배경 투명 처리 */
+}
+
+#notice_btnBox::-webkit-scrollbar {
+    width: 8px; /* 스크롤바 너비 */
+}
+
+#notice_btnBox::-webkit-scrollbar-thumb {
+    background: rgba(67, 112, 255, 0.7); /* 스크롤바 색상 */
+    border-radius: 5px; /* 스크롤바 둥글게 */
+}
+
+
+
+
+
+
+

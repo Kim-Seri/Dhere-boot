@@ -8,12 +8,14 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.springbootstudy.dhere.domain.Answer;
+import com.springbootstudy.dhere.domain.Image;
 import com.springbootstudy.dhere.domain.Inquiry;
 import com.springbootstudy.dhere.domain.Member;
 import com.springbootstudy.dhere.service.AnswerService;
@@ -46,25 +48,31 @@ public class InquiryController {
 		Member member = (Member)session.getAttribute("member");
 		i.setInquiryEmail(member.getEmail());
 		
-        if (multipartFile != null && !multipartFile.isEmpty()) {
-            
-            // Request 객체를 이용해 파일이 저장될 실제 경로를 구한다.
-            String filePath = request.getServletContext().getRealPath(DEFAULT_PATH);
-            
-            UUID uid = UUID.randomUUID();
-            String saveName = uid.toString() + "_" + multipartFile.getOriginalFilename();
-            
-            File file = new File(filePath, saveName);         
-            
-            // 업로드 되는 파일을 upload 폴더로 저장한다.
-            multipartFile.transferTo(file);
-            i.setInquiryFile(saveName);
-        } else {
-            System.out.println("No file uploaded");
-        }
-        service.insertInquiry(i);
-        return "redirect:main";
-    }
+		if (multipartFile != null && !multipartFile.isEmpty()) {
+	           
+	           Image image = new Image();
+	           
+	           File parent = new File(DEFAULT_PATH);
+
+	         // 존재하지 않으면 filePath의 경로에 있는 모든 폴더를 생성한다.
+	         if (!parent.exists()) {
+	            parent.mkdirs();
+	         }
+
+	         UUID uid = UUID.randomUUID();
+	         
+	         String extension = StringUtils.getFilenameExtension(multipartFile.getOriginalFilename());
+	         String saveName = uid.toString() + "." + extension;
+	         File file = new File(parent.getAbsolutePath(), saveName);
+	         multipartFile.transferTo(file);
+	         i.setInquiryFile(saveName);
+	        } else {
+	           String defaultImageName = "DefaultProfile.png";
+	            i.setInquiryFile(defaultImageName);
+	        }
+			service.insertInquiry(i);
+	        return "redirect:iList";
+	    }
 	
 	
 	@GetMapping("/iList")
@@ -94,7 +102,7 @@ public class InquiryController {
 		 
 		 service.deleteInquiry(inquiryNo);
 		 
-		 return "redirect:/"; 
+		 return "redirect:adminInquiry"; 
 	 }
 	 
 	 

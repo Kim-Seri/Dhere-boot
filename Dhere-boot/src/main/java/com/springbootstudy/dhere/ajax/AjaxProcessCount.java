@@ -3,6 +3,7 @@ package com.springbootstudy.dhere.ajax;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,7 +32,7 @@ import com.springbootstudy.dhere.service.StoryService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
-@RestController
+@Controller
 @Slf4j
 public class AjaxProcessCount {
 	
@@ -48,6 +49,7 @@ public class AjaxProcessCount {
 	private ScrapService scrapService;
 	
 	@PostMapping("/joinCheck")
+	@ResponseBody
 	public Map<String, Boolean> overIdCheck(@RequestParam("id") String id){
 		
 		boolean result=memberService.overEmailCheck(id);
@@ -58,6 +60,7 @@ public class AjaxProcessCount {
 	
 	// 카테고리 별 제품 리스트 출력
 	@PostMapping("/categoryList")
+	@ResponseBody
 	public Map<String, List<Product>> productList(
 			@RequestParam("productCategory") String productCategory) {
 		
@@ -69,6 +72,7 @@ public class AjaxProcessCount {
 	
 	
 	 @PostMapping("/myScraps")
+	 @ResponseBody
 	 public Map<String, List<Scrap>> scList(HttpSession session, Model model) {
 		 
 		 Member member = (Member) session.getAttribute("member");
@@ -101,11 +105,39 @@ public class AjaxProcessCount {
 	
 	//제품정보 전체 데이터 가져오기 (마커 검색 비교용)
 	@GetMapping("/productList")
+	@ResponseBody
 	public List<Product> productListAll(){
 		List<Product> product =productService.productListAll();
 		log.info(product.get(0).getBrandName());
 		
 		return product;
+	}
+	
+	//휴대폰 인증
+	@PostMapping("/authenNumCheck")
+	@ResponseBody
+	public String sendSMS (@RequestParam("phoneNum") String phoneNum) {
+		Random rand  = new Random(); //랜덤숫자 생성하기 !!
+		String numStr="";
+		for(int i=0; i<5; i++) {
+			String ran=Integer.toString(rand.nextInt(10));
+			numStr+=ran;
+		}
+		memberService.certifiedPhoneNumber(phoneNum, numStr);
+		
+		return numStr;
+		
+	}
+	
+	//닉네임 중복확인
+	@PostMapping("/nicknameCheck")
+	@ResponseBody
+	public Map<String, Boolean> overNickNameCheck(@RequestParam("nickname") String nickname){
+		
+		boolean result=memberService.overNickNameCheck(nickname);
+		Map<String,Boolean> map=new HashMap<>();
+		map.put("result", result);
+		return map;
 	}
 	
 	

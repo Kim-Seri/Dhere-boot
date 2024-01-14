@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.springbootstudy.dhere.domain.Follower;
+import com.springbootstudy.dhere.domain.Image;
 import com.springbootstudy.dhere.domain.Member;
 import com.springbootstudy.dhere.domain.Product;
 import com.springbootstudy.dhere.domain.Scrap;
@@ -33,11 +35,13 @@ import com.springbootstudy.dhere.service.StoryService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 public class ScrapController {
 	
-	private static final String DEFAULT_PATH = "/resources/images/profile";
+	private static final String DEFAULT_PATH = "src/main/resources/static/resources/images/profile/";
 	
 	@Autowired
 	private ScrapService scrapService;
@@ -110,8 +114,10 @@ public class ScrapController {
 		return "scrap";
 	}
 	
+	//	스크랩하기(syj)
 	@PostMapping("/insertScrap")
-	public String insertScrap(Scrap s, HttpSession session) {
+	public String insertScrap(Scrap s, HttpSession session,
+			@RequestParam("storyNo") String storyNo) {
 	    Member member = (Member) session.getAttribute("member");
 
 	    // Member 객체에서 이메일을 추출하여 Scrap 객체에 설정
@@ -120,18 +126,30 @@ public class ScrapController {
 	        scrapService.insertScrap(s);
 	    }
 
-	    return "redirect:/";
+	    return "redirect:/storyDetail?storyNo=" + storyNo;
 	}
 	
-	   @GetMapping("/mypageUpdateProcess")
-	    public String mypageUpdateProcess() {
-	        return "member/mypageUpdateProcess";
-	    }
-	  
-	   @GetMapping("/mypageUpdateForm")
-	   public String updateForm(Model model, HttpSession session) {
-		   return "member/mypageUpdateForm"; 
-	   }
+	// 언스크랩 하기(syj)
+	@PostMapping("/deleteScrap")
+	public String deleteScrap(
+			@RequestParam("storyNo") int storyNo) {
+		
+	    scrapService.deleteScrap(storyNo);
+	    
+	    return "redirect:/storyDetail?storyNo=" + storyNo;
+	}
+
+	
+	
+   @GetMapping("/mypageUpdateProcess")
+    public String mypageUpdateProcess() {
+        return "member/mypageUpdateProcess";
+    }
+  
+   @GetMapping("/mypageUpdateForm")
+   public String updateForm(Model model, HttpSession session) {
+	   return "member/mypageUpdateForm"; 
+   }
 
 		// 회원 정보 수정하는 ajax 요청을 처리하는 컨트롤러
 		@PostMapping("/passCheck.ajax")
@@ -177,33 +195,44 @@ public class ScrapController {
 	         
 	         if (multipartFile != null && !multipartFile.isEmpty()) {
 	               
-	               // Request 객체를 이용해 파일이 저장될 실제 경로를 구한다.
-	               String filePath = request.getServletContext().getRealPath(DEFAULT_PATH);
+	        	 	File parent = new File(DEFAULT_PATH);
+	        	 	log.info("parent abs path : " + parent.getAbsolutePath());
+	            	log.info("parent path : " + parent.getPath());
+	            	log.info("exist : " + parent.exists() + ", dir : " + parent.isDirectory());
+	               
+	            	// Request 객체를 이용해 파일이 저장될 실제 경로를 구한다.
+	            	if (!parent.exists()) {
+	            		parent.mkdirs();
+	            	}
 	               
 	               UUID uid = UUID.randomUUID();
-	               String saveName = uid.toString() + "_" + multipartFile.getOriginalFilename();
-	               
-	               File file = new File(filePath, saveName);         
-	               
-	               // 업로드 되는 파일을 upload 폴더로 저장한다.
-	               multipartFile.transferTo(file);
-	               member.setPicture(saveName);
-	               
+	               String extension = StringUtils.getFilenameExtension(multipartFile.getOriginalFilename());
+	           	String saveName = uid.toString() + "." + extension;
+	           	File file = new File(parent.getAbsolutePath(), saveName);
+	           	log.info("file abs path : " + file.getAbsolutePath());
+	           	log.info("file path : " + file.getPath());
+	           	
+	           	multipartFile.transferTo(file);
+	           	
+	           	// 업로드된 이미지를 프로필 이미지로 설정 한다.
+	           	member.setPicture(saveName);
+	           	
 	           } else {
-	               // Handle the case when no file is uploaded
-	               System.out.println("No file uploaded");
-	               
+	           	// 프로필 이미지가 업로드 되지 않으면 이전 프로필 이미지를 그대로 사용하도록 아무 값도 설정 하지 않는다.
+	           	System.out.println("No file uploaded - 프로필 정보 수정하지 않음");
+	           	
 	           }
-	         
-	         // DB에 회원 정보를 업데이트 하기
-	         memberService.updateMember(member);
-	         System.out.println("memberUpdateResult : " + member.getEmail());
-	         System.out.println("memberUpdateResult : " + member.getJob());
-	         
-	         
-	         // 업데이트된 회원정보를 다시 읽어와 세션에 저장한다. - 이미 세션에서 가져왔기 때문에 세션을 업데이트 할 필요 없음
-	         //session.setAttribute("member", member);
-	         
-	         return "redirect:scrap";
-	      }
-}
+	   		
+	   		// DB에 회원 정보를 업데이트 하기
+	   		memberService.updateMember(member);
+	   		System.out.println("mypageUpdateResult : " + member.getEmail());
+	   		
+	   		// 업데이트된 회원정보를 다시 읽어와 세션에 저장한다. - 이미 세션에서 가져왔기 때문에 세션을 업데이트 할 필요 없음
+	   		//session.setAttribute("member", member);
+	   		log.info("회원정보 수정 후 : " + member.getPicture());
+	   		return "redirect:scrap";
+	   	}	
+	   	
+
+	   	
+	   }

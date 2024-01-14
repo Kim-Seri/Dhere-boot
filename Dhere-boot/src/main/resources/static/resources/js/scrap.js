@@ -1,3 +1,12 @@
+$(document).ready(function() {
+    // 페이지 로드 시에 나의 게시물 섹션을 보이도록 설정
+    $("#myPostsContent").show();
+    $("#myScrapsContent, #followListContent").hide();
+    
+    // 그 외의 버튼에 대한 클릭 이벤트 처리 코드...
+});
+
+
 $(function() {
 	
 	$(function(){

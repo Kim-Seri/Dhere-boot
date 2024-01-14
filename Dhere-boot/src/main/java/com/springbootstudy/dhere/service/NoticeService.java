@@ -22,5 +22,8 @@ public interface NoticeService {
 	
     // 공지사항 목록 가져오기(syj)
     public abstract List<Notice> getNoticeList();
+    
+    // 페이지 로드 시 최근 공지사항 목록 가져오기(syj)
+    public abstract Notice getLatestNotice();
 
 }

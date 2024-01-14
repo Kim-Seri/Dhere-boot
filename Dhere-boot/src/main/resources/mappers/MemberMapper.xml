@@ -45,4 +45,9 @@
 		WHERE email=#{email}
 	</update> 
 	
+	<!-- 회원 정보 가져오기 쿼리 -->
+	<select id="getMemberNickName" resultType="Member">
+			SELECT * FROM member WHERE nickname=#{nickname}
+	</select>
+	
 	</mapper>

@@ -38,7 +38,7 @@
 			data-bs-trigger="focus" 
 			data-bs-title="<c:choose>
 							        <c:when test='${not empty sessionScope.member}'>
-							            ${sessionScope.member.email}
+							            ${sessionScope.member.nickname}
 							        </c:when>
 							        <c:otherwise>
 							            로그인이
@@ -54,6 +54,12 @@
 								            <br>
 								            <a href='joinForm' class='text-decoration-none text-dark'>회원가입</a>
 								        </c:when>
+								        <c:when test="${sessionScope.member.role eq 'admin'}">
+								            <a href='adminInquiry' class='text-decoration-none text-dark'>전체 문의내역</a>
+								            <br>
+									    	<br>
+								            <a href='logoutResult' class='text-decoration-none text-dark'>로그아웃</a>
+								        </c:when>
 								        <c:otherwise>
 								            <!-- 로그인 성공한 경우 -->
 								            <a href='scrap' class='text-decoration-none text-dark'>마이페이지</a>
@@ -62,11 +68,6 @@
 								            <a href='logoutResult' class='text-decoration-none text-dark'>로그아웃</a>
 								        </c:otherwise>
 								    </c:choose>
-								    	<c:if test="${sessionScope.member.role eq 'admin'}">
-									    	<br>
-									    	<br>
-								            <a href='adminInquiry' class='text-decoration-none text-dark'>전체 문의내역</a>
-								        </c:if>
 	    	">
     </div>
 </div>

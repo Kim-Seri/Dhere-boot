@@ -63,8 +63,8 @@ public class ScrapDaoImpl implements ScrapDao {
 
     // 언스크랩 하기(syj)
 	@Override
-	public void deleteScrap(int scrapNo) {
-		sqlSession.delete(NAME_SPACE + ".deleteScrap", scrapNo);
+	public void deleteScrap(int storyNo) {
+		sqlSession.delete(NAME_SPACE + ".deleteScrap", storyNo);
 	}
 
 }

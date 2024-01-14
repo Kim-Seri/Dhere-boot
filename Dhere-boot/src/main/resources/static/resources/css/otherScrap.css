@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+#addStoryBtn {
+	width: 150px;
+	height: 30px;
+	border: 1px solid blue;
+	background-color: #4370FF;
+	color: white;
+	border-radius: 10px;
+}

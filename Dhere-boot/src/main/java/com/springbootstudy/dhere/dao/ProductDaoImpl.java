@@ -38,10 +38,11 @@ public class ProductDaoImpl implements ProductDao {
 	
 	//	페이징 처리를 위한 제품 리스트 가져오기(syj)
 	@Override
-	public List<Product> getProductListPaged(int offset, int limit) {
+	public List<Product> getProductListPaged(String productCategory, int pOffset, int productLimit) {
 		Map<String, Object> params = new HashMap<>();
-        params.put("offset", offset);
-        params.put("limit", limit);
+		params.put("productCategory", productCategory);
+        params.put("pOffset", pOffset);
+        params.put("productLimit", productLimit);
         return sqlSession.selectList(NAME_SPACE + ".getProductListPaged", params);
     }
 	

@@ -75,22 +75,6 @@ public class StoryController {
 	// ##### JSP 뷰 시작
 	// #######################################################
 
-	// 메인페이지서의 제품 페이징 처리를 위한 메서드(syj)
-	@GetMapping("/getProductList")
-	public ResponseEntity<List<Product>> getProductListPaged(
-			@RequestParam(value = "category", required = false) String category, @RequestParam("offset") int offset,
-			@RequestParam("limit") int limit) {
-
-		List<Product> productList;
-		if (category == null || category.isEmpty() || category.equals("All")) {
-			productList = productService.getProductListPaged(offset, limit);
-		} else {
-			productList = productService.getFilteredProductListPaged(category, offset, limit);
-		}
-
-		return ResponseEntity.ok(productList);
-	}
-
 	// 데스크 셋업 리스트 출력 (메인)
 	// 카테고리 별 제품 리스트 출력
 	@GetMapping(value = { "/", "/main" })
@@ -118,15 +102,6 @@ public class StoryController {
 		return "main";
 	}
 
-//	// 게시물 리스트 출력 (+페이징)
-//    @GetMapping("/getStoryList")
-//    public ResponseEntity<List<Story>> getPartialList(
-//            @RequestParam("offset") int offset,
-//            @RequestParam("limit") int limit) {
-//    	
-//        List<Story> items = storyService.getStoryListPaged(offset, limit);
-//        return ResponseEntity.ok(items);
-//    }
 
 	// 게시물 디테일(syj)
 	@GetMapping("/storyDetail")
@@ -167,15 +142,14 @@ public class StoryController {
 			isFollowing = followerService.isFollowing(member.getEmail(), storyDetail.getEmail());
 		}
 		model.addAttribute("isFollowing", isFollowing);
-		
+
 		// 로그인한 사용자가 게시물을 스크랩하고있는지 확인
 		boolean scrapingCheck = false;
 		if (member != null && storyDetail.getEmail() != null) {
 			scrapingCheck = scrapService.scrapingCheck(member.getEmail(), storyDetail.getStoryNo());
 		}
 		model.addAttribute("scrapingCheck", scrapingCheck);
-		
-		
+
 		return "storyDetail";
 	}
 
@@ -184,11 +158,11 @@ public class StoryController {
 	public String handleScrapRequest(@RequestParam("storyNo") int storyNo, HttpSession session) {
 		Member member = (Member) session.getAttribute("member");
 
-	    if (member != null) {
-	        Scrap scrap = new Scrap();
-	        scrap.setEmail(member.getEmail());
-	        scrap.setStoryNo(storyNo);
-	        scrap.setScrapDate(Timestamp.valueOf(LocalDateTime.now()));
+		if (member != null) {
+			Scrap scrap = new Scrap();
+			scrap.setEmail(member.getEmail());
+			scrap.setStoryNo(storyNo);
+			scrap.setScrapDate(Timestamp.valueOf(LocalDateTime.now()));
 
 			scrapService.insertScrap(scrap);
 
@@ -222,7 +196,7 @@ public class StoryController {
 	// 게시물 삭제(syj)
 	@PostMapping("/deleteStory")
 	public String deleteStory(HttpServletResponse response, @RequestParam("storyNo") int storyNo) {
-		
+
 		storyService.markerAndImgageDelete(storyNo);
 		storyService.deleteStory(storyNo);
 
@@ -573,6 +547,5 @@ public class StoryController {
 
 		return "th/thViewTest";
 	}
-	
 
 }

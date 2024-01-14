@@ -33,7 +33,11 @@ public class WebConfig implements WebMvcConfigurer {
 		registry.addViewController("/inquiryWrite").setViewName("inquiryWrite");
 		registry.addViewController("/answerWrite").setViewName("answerWrite");			
 		registry.addViewController("/noticeWriteForm").setViewName("noticeWriteForm");			
+		registry.addViewController("/noticeUpdateForm").setViewName("noticeUpdateForm");			
 		registry.addViewController("/notice").setViewName("notice");					
+		registry.addViewController("/findIdPass").setViewName("findIdPass");					
+		registry.addViewController("/findId").setViewName("findId");					
+		registry.addViewController("/findPass").setViewName("findPass");					
 	}
 	
 	// Interceptor 등록
@@ -41,7 +45,7 @@ public class WebConfig implements WebMvcConfigurer {
 		public void addInterceptors(InterceptorRegistry registry) {
 			registry.addInterceptor(new LoginCheckInterceptor())
 						// 인터셉터 호출에서 제외
-						.excludePathPatterns("/resources/**", "/", "/main", "/login*","/join*","/categoryList","/productList","/storyDetail", "/storyList");
+						.excludePathPatterns("/resources/**", "/", "/main", "/login*","/join*","/categoryList","/productList","/storyDetail", "/storyList","/authenNumCheck","/nicknameCheck", "/find*");
 						// 인터셉터 호출에 추가
 						//.addPathPatterns("/mypage*", "/post*");
 		}
