@@ -23,6 +23,9 @@
 			</div>
 		</div>
 			<input type="hidden" name="isIdCheck" id="isIdCheck" value="false">
+			<input type="hidden" name="isPassCheck" id="isPassCheck" value="false">
+			<input type="hidden" name="authenNumCheck" id="authenNumCheck" value="false">
+			<input type="hidden" name="nicknameCheck" id="nicknameCheck" value="false">
 			<div class="row">
 				<div class="col m-3 rounded-4">	
 					<div class="row mt-5 mb-2">
@@ -42,7 +45,7 @@
 							<label for="email" class="form-label" style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;이메일</label>
 							<div class="row">
 								<div class="col-8">
-									<input type="text" class="form-control border border-white border-3" name="email" id="email" placeholder="example@example.com" style="width: 110%; background: white; border-radius: 10px; color: black;">
+									<input type="text" class="form-control border border-white border-3" name="email" id="email" placeholder="example@example.com" oninput="emailCheck()" style="width: 110%; background: white; border-radius: 10px; color: black;">
 									<label id="label1"></label>
 								</div>
 								<div class="col-4 text-end">
@@ -54,7 +57,7 @@
 					<div class="row my-4">
 						<div class="col-6 offset-2">
 							<label for="pass" class="form-label" style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;비밀번호 </label>
-							<input type="password" class="form-control border border-white border-3" name="pass" id="pass1" style="width: 97%; background: white; border-radius: 10px; color: black;">
+							<input type="password" class="form-control border border-white border-3" name="pass" id="pass1" oninput="passCheck()"  style="width: 97%; background: white; border-radius: 10px; color: black;">
 						</div>
 					</div>
 					<div class="row">
@@ -80,7 +83,15 @@
 					<div class="row my-4">
 						<div class="col-8 offset-2">
 							<label for="nickname" class="form-label" style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;닉네임 </label>
-							<input type="text" class="form-control border border-white border-3" name="nickname" id="nickname" style="background: white; border-radius: 10px; color: black;">
+							<div class="row">
+								<div class="col-8">
+									<input type="text" class="form-control border border-white border-3" name="nickname" id="nickname" oninput="nickNameCheck()"  style="background: white; border-radius: 10px; color: black;">
+									<label id="label4"></label>
+								</div>
+								<div class="col-4 text-end">
+									<input type="button" class="btn border-white" id="btnOverlapNickName" value="확인" style="width: 65%; height: 45px; color: white; border-radius: 10px;">
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="row mt-4">
@@ -128,8 +139,26 @@
 						<div class="col-8 offset-2">
 							<label for="phone" class="form-label" style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;연락처 </label> 
 							<div class="row">
-								<div class="col">
-									<input type="text" class="form-control border border-white border-3" name="phone" id="phone" maxlength="20" placeholder='"-" 없이 11자리 숫자만 입력해 주세요' style="background: white; border-radius: 10px; color: black;" pattern="[0-9]*" title="숫자만 입력해주세요">
+								<div class="col-6 ">
+									<input type="text" class="form-control border border-white border-3" name="phone" id="phone" maxlength="20" placeholder='"-" 없이 숫자만 입력' style="background: white; border-radius: 10px; color: black; width:140%; " pattern="[0-9]*" title="숫자만 입력해주세요">
+									<label id="label3"></label>
+								</div>
+								<div class="col-6 text-end">
+									<input type="button" class="btn border-white" id="btnSendPhone" value="인증번호 전송" style="width: 65%; height: 45px; color: white; border-radius: 10px;">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row ">
+						<div class="col-8 offset-2">
+							 
+							<div class="row" id="authenCheck" style="display:none;">
+								<div class="col-6 ">
+									<input type="text" class="form-control border border-white border-3" name="authenNum" id="authenNum" maxlength="20" placeholder='인증번호 입력' style="background: white; border-radius: 10px; color: black;  " pattern="[0-9]*" title="숫자만 입력해주세요">
+									<label id="label4"></label>
+								</div>
+								<div class="col-6 text-start">
+									<input type="button" class="btn border-white" id="authenNumBtn" value="확인" style="width: 65%; height: 45px; color: white; border-radius: 10px;">
 								</div>
 							</div>
 						</div>

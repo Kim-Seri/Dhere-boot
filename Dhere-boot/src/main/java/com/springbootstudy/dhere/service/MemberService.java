@@ -25,6 +25,12 @@ public interface MemberService {
 	
 	// 회원 정보를 DAO를 이용해 회원테이블에서 수정하는 메서드
 	public void updateMember(Member member);
+	
+	//핸드폰 인증번호
+	public abstract void certifiedPhoneNumber(String phoneNum, String numStr);
+	
+	//닉네임 중복검사
+	public abstract boolean overNickNameCheck(String nickname);
 
 	
 	

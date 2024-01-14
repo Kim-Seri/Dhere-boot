@@ -102,6 +102,7 @@ public class StoryController {
 		return "main";
 	}
 
+
 	// 게시물 디테일(syj)
 	@GetMapping("/storyDetail")
 	public String storyDetail(Model model, HttpSession session, @RequestParam("storyNo") int storyNo,
@@ -141,15 +142,14 @@ public class StoryController {
 			isFollowing = followerService.isFollowing(member.getEmail(), storyDetail.getEmail());
 		}
 		model.addAttribute("isFollowing", isFollowing);
-		
+
 		// 로그인한 사용자가 게시물을 스크랩하고있는지 확인
 		boolean scrapingCheck = false;
 		if (member != null && storyDetail.getEmail() != null) {
 			scrapingCheck = scrapService.scrapingCheck(member.getEmail(), storyDetail.getStoryNo());
 		}
 		model.addAttribute("scrapingCheck", scrapingCheck);
-		
-		
+
 		return "storyDetail";
 	}
 
@@ -158,11 +158,11 @@ public class StoryController {
 	public String handleScrapRequest(@RequestParam("storyNo") int storyNo, HttpSession session) {
 		Member member = (Member) session.getAttribute("member");
 
-	    if (member != null) {
-	        Scrap scrap = new Scrap();
-	        scrap.setEmail(member.getEmail());
-	        scrap.setStoryNo(storyNo);
-	        scrap.setScrapDate(Timestamp.valueOf(LocalDateTime.now()));
+		if (member != null) {
+			Scrap scrap = new Scrap();
+			scrap.setEmail(member.getEmail());
+			scrap.setStoryNo(storyNo);
+			scrap.setScrapDate(Timestamp.valueOf(LocalDateTime.now()));
 
 			scrapService.insertScrap(scrap);
 
@@ -196,7 +196,7 @@ public class StoryController {
 	// 게시물 삭제(syj)
 	@PostMapping("/deleteStory")
 	public String deleteStory(HttpServletResponse response, @RequestParam("storyNo") int storyNo) {
-		
+
 		storyService.markerAndImgageDelete(storyNo);
 		storyService.deleteStory(storyNo);
 
@@ -547,6 +547,5 @@ public class StoryController {
 
 		return "th/thViewTest";
 	}
-	
 
 }

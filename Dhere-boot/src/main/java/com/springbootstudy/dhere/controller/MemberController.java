@@ -106,22 +106,22 @@ public class MemberController {
             parent.mkdirs();
          }
 
-         UUID uid = UUID.randomUUID();
-         
-         String extension = StringUtils.getFilenameExtension(multipartFile.getOriginalFilename());
-         String saveName = uid.toString() + "." + extension;
-         File file = new File(parent.getAbsolutePath(), saveName);
-         log.info("file abs path : " + file.getAbsolutePath());
-         log.info("file path : " + file.getPath());
-         multipartFile.transferTo(file);
-         m.setPicture(saveName);
-        } else {
-           String defaultImageName = "DefaultProfile.png";
-            m.setPicture(defaultImageName);
-        }
-        memberService.addMember(m);
-        return "redirect:main";
-    }
+	         UUID uid = UUID.randomUUID();
+	         
+	         String extension = StringUtils.getFilenameExtension(multipartFile.getOriginalFilename());
+	         String saveName = uid.toString() + "." + extension;
+	         File file = new File(parent.getAbsolutePath(), saveName);
+	         log.info("file abs path : " + file.getAbsolutePath());
+	         log.info("file path : " + file.getPath());
+	         multipartFile.transferTo(file);
+	         m.setPicture(saveName);
+	        } else {
+	        	String defaultImageName = "DefaultProfile.png";
+	            m.setPicture(defaultImageName);
+	        }
+	        memberService.addMember(m);
+	        return "redirect:loginForm";
+	    }
 	
 	// 회원가입 시 직무 리스트 출력하기(syj)
 	@GetMapping("/joinForm")

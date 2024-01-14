@@ -3,6 +3,7 @@ package com.springbootstudy.dhere.ajax;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -110,6 +111,33 @@ public class AjaxProcessCount {
 		log.info(product.get(0).getBrandName());
 		
 		return product;
+	}
+	
+	//휴대폰 인증
+	@PostMapping("/authenNumCheck")
+	@ResponseBody
+	public String sendSMS (@RequestParam("phoneNum") String phoneNum) {
+		Random rand  = new Random(); //랜덤숫자 생성하기 !!
+		String numStr="";
+		for(int i=0; i<5; i++) {
+			String ran=Integer.toString(rand.nextInt(10));
+			numStr+=ran;
+		}
+		memberService.certifiedPhoneNumber(phoneNum, numStr);
+		
+		return numStr;
+		
+	}
+	
+	//닉네임 중복확인
+	@PostMapping("/nicknameCheck")
+	@ResponseBody
+	public Map<String, Boolean> overNickNameCheck(@RequestParam("nickname") String nickname){
+		
+		boolean result=memberService.overNickNameCheck(nickname);
+		Map<String,Boolean> map=new HashMap<>();
+		map.put("result", result);
+		return map;
 	}
 	
 	
