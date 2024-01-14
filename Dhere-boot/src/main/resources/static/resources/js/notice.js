@@ -11,5 +11,12 @@ $(function(){
 			return false;
 		}
 	});
+//	$("#noticeUpdate").on("click", function() {
+//	$("#noticeDetailForm").attr("action", "noticeUpdate");
+//	$("#noticeDetailForm").submit();
+	
 });
+	
+});
+
 

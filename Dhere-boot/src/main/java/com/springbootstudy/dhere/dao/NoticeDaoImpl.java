@@ -37,7 +37,7 @@ public class NoticeDaoImpl implements NoticeDao {
 	
 	//	공지사항 삭제(syj)
 	@Override
-	public  void noticeDelete(int noticeNo) {
+	public void noticeDelete(int noticeNo) {
 			sqlSession.delete(NAME_SPACE + ".noticeDelete", noticeNo);
 	}
 	
@@ -45,6 +45,11 @@ public class NoticeDaoImpl implements NoticeDao {
 	@Override
 	public List<Notice> getNoticeList() {
 	    return sqlSession.selectList(NAME_SPACE + ".getNoticeList");
+	}
+
+	@Override
+	public Notice getNotice(int noticeNo) {
+		return sqlSession.selectOne(NAME_SPACE + ".getNotice", noticeNo);
 	}
 	
 	

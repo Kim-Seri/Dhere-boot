@@ -14,9 +14,9 @@
 		WHERE notice_no = #{noticeNo}
 	</select> 
 
- 	<insert id="noticeWrite" parameterType="notice">
-		INSERT INTO notice(title, content, reg_date, email, file, picture)
-		VALUES(#{title}, #{content}, SYSDATE(), #{email}, #{file}, #{picture})
+ 	<insert id="noticeWrite" parameterType="notice" useGeneratedKeys="true" keyProperty="no">
+		INSERT INTO notice(title, content, reg_date, file, picture, email)
+		VALUES(#{title}, #{content}, SYSDATE(), #{file}, #{picture}, #{email})
 	</insert>
 	
 	<update id="noticeUpdate" parameterType="notice">
@@ -27,7 +27,7 @@
 	
 	<delete id="noticeDelete">
 		DELETE FROM notice
-		WHERE noticeNo=#{noticeNo}
+		WHERE notice_no=#{noticeNo}
 	</delete>
 	
 	<resultMap id="noticeResultMap" type="notice">

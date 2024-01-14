@@ -5,7 +5,7 @@
 
 <div class="row">
 	<div class="col">
-		<form name="noticeWriteForm" action="noticeWriteProcess" id="noticeWriteForm" method="post">
+		<form name="noticeWrite" action="noticeWrite" id="noticeWrite" method="post">
 			<label for="title" class="form-label">제목</label>
 				<input type="text" class="form-control" name="title" id="title" >
 			<label for="content" class="form-label">내용</label>

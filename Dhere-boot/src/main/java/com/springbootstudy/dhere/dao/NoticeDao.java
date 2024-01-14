@@ -21,5 +21,8 @@ public interface NoticeDao {
 	
     // 공지사항 목록 가져오기(syj)
     public abstract List<Notice> getNoticeList();
+    
+    //게시글 상세보기 할 때 호출되는 메서드
+    public abstract Notice getNotice(int noticeNo);
 }
 

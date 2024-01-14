@@ -32,7 +32,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class NoticeController {
 	
-	private static final String DEFAULT_PATH = "/resources/images/inquiry/";
+	private static final String DEFAULT_PATH = "/resources/images/";
 	
 	@Autowired
 	private NoticeService noticeService;
@@ -41,6 +41,7 @@ public class NoticeController {
 		this.noticeService = noticeService;
 	}
 	
+	//리스트업
 	@GetMapping("/notice")
 	public String getNoticeList(Model model) {
 	    List<Notice> noticeList = noticeService.getNoticeList();
@@ -48,6 +49,7 @@ public class NoticeController {
 	    return "notice";
 	}
 	
+	// 게시물 보기
 	@GetMapping("/noticeDetail")
 	public String noticeDetail(Model model, int noticeNo) {
 		
@@ -56,36 +58,36 @@ public class NoticeController {
 		return "notice";
 	}
 	
-	@GetMapping("/noticeWrite")
-	public String noticeDetail() {
-		return "noticeWrite";
-	}
+//	@GetMapping("/noticeWrite")
+//	public String noticeDetail() {
+//		return "noticeWrite";
+//	}
 	
 	
-	@PostMapping("/noticeWriteProcess")
-	public String noticeWrite(Notice notice) {
-		noticeService.noticeWrite(notice);
-		return "redirect:notice";
-	}
+//	@PostMapping("/noticeWrite")
+//	public String noticeWrite(Notice notice) {
+//		noticeService.noticeWrite(notice);
+//		return "redirect:notice";
+//	}
 	
 	@GetMapping("/noticeUpdate")
-	public String noticeUpdate(Model model, 
-			@RequestParam("noticeNo") int noticeNo) {
-	    Notice notice = noticeService.noticeDetail(noticeNo);
-	    return "noticeUpdate";
-	}
-	   
-   @GetMapping("/updateNoticeForm")
-    public String updateNoticeForm() {
-        return "notice";
-    }
-	
-	@PostMapping("/noticeDelete")
-	public String deleteNotice(PrintWriter out, int noticeNo) {
-		noticeService.noticeDelete(noticeNo);
-		return "redirect:notice";
+	public String getNoticeUpdat(Model model, HttpSession session, int noticeNo) {
+		
+		Member member = (Member) session.getAttribute("member");
+		Notice notice = noticeService.getNotice(noticeNo);
+		
+		model.addAttribute("notice", notice);
+		
+		return "notice";
 	}
 	
+	@PostMapping("/noticeUpdate")
+	public String noticeUpdate(int noticeNo) {
+		noticeService.getNotice(noticeNo);
+		return "noticeUpdate";
+	}
+
+
 	//	공지사항 작성하기(syj)
 	@PostMapping("/noticeWrite")
 	public String noticeWrite(Model model, HttpServletRequest request, HttpSession session,
