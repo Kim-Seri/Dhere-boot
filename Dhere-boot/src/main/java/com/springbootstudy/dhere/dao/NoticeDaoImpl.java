@@ -46,6 +46,11 @@ public class NoticeDaoImpl implements NoticeDao {
 	public List<Notice> getNoticeList() {
 	    return sqlSession.selectList(NAME_SPACE + ".getNoticeList");
 	}
+
+	@Override
+	public Notice getNotice(int noticeNo) {
+		return sqlSession.selectOne(NAME_SPACE + ".getNotice", noticeNo);
+	}
 	
 	
 }

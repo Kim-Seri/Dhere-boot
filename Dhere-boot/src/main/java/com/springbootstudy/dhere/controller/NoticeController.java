@@ -41,6 +41,7 @@ public class NoticeController {
 		this.noticeService = noticeService;
 	}
 	
+	//리스트업
 	@GetMapping("/notice")
 	public String getNoticeList(Model model) {
 	    List<Notice> noticeList = noticeService.getNoticeList();
@@ -48,6 +49,7 @@ public class NoticeController {
 	    return "notice";
 	}
 	
+	// 게시물 보기
 	@GetMapping("/noticeDetail")
 	public String noticeDetail(Model model, int noticeNo) {
 		
@@ -56,27 +58,33 @@ public class NoticeController {
 		return "notice";
 	}
 	
-	@GetMapping("/noticeWrite")
-	public String noticeDetail() {
-		return "noticeWrite";
+//	@GetMapping("/noticeWrite")
+//	public String noticeDetail() {
+//		return "noticeWrite";
+//	}
+	
+	
+//	@PostMapping("/noticeWrite")
+//	public String noticeWrite(Notice notice) {
+//		noticeService.noticeWrite(notice);
+//		return "redirect:notice";
+//	}
+	
+	@GetMapping("/noticeUpdate")
+	public String getNoticeUpdat(Model model, HttpSession session, int noticeNo) {
+		
+		Member member = (Member) session.getAttribute("member");
+		Notice notice = noticeService.getNotice(noticeNo);
+		
+		model.addAttribute("notice", notice);
+		
+		return "notice";
 	}
 	
-	
-	@PostMapping("/noticeWriteProcess")
-	public String noticeWrite(Notice notice) {
-		noticeService.noticeWrite(notice);
-		return "redirect:notice";
-	}
-	
-	@PostMapping("/notice")
-	public String NoticeAction(@RequestParam String action, @RequestParam int noticeNo) {
-	    if ("noticeUpdate".equals(action)) {
-	        Notice n = noticeService.noticeDetail(noticeNo);
-			noticeService.noticeUpdate(n);
-	    } else if ("noticeDelete".equals(action)) {
-	    	noticeService.noticeDelete(noticeNo);
-	    }
-	    return "redirect:notice";
+	@PostMapping("/noticeUpdate")
+	public String noticeUpdate(int noticeNo) {
+		noticeService.getNotice(noticeNo);
+		return "noticeUpdate";
 	}
 
 

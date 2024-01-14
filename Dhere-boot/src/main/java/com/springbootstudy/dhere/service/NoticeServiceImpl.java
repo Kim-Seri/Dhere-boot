@@ -46,4 +46,10 @@ public class NoticeServiceImpl implements NoticeService {
 	public List<Notice> getNoticeList() {
 		return noticeDao.getNoticeList();
 	}
+	
+	@Override
+	public Notice getNotice(int noticeNo) {
+		return noticeDao.getNotice(noticeNo);
+	}
+	
 }

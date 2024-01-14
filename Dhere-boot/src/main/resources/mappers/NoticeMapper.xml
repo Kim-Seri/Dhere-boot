@@ -14,7 +14,7 @@
 		WHERE notice_no = #{noticeNo}
 	</select> 
 
- 	<insert id="noticeWrite" parameterType="notice">
+ 	<insert id="noticeWrite" parameterType="notice" useGeneratedKeys="true" keyProperty="no">
 		INSERT INTO notice(title, content, reg_date, file, picture, email)
 		VALUES(#{title}, #{content}, SYSDATE(), #{file}, #{picture}, #{email})
 	</insert>

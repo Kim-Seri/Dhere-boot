@@ -22,5 +22,8 @@ public interface NoticeService {
 	
     // 공지사항 목록 가져오기(syj)
     public abstract List<Notice> getNoticeList();
+    
+    //no에 해당하는 게시글을 읽어와 반환하는 메서드
+    public abstract Notice getNotice(int noticeNo);
 
 }
