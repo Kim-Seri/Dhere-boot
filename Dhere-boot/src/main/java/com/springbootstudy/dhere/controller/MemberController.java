@@ -87,41 +87,41 @@ public class MemberController {
 	}
 
 	// 회원가입
-	   @PostMapping(value = "/joinResult")
-	    public String joinResult(HttpServletRequest request,
-	          Member m, 
-	          @RequestParam(value="picture1", required=false) MultipartFile multipartFile) throws IOException {
-	        
-	        if (multipartFile != null && !multipartFile.isEmpty()) {
-	           
-	           Image image = new Image();
-	           
-	           File parent = new File(DEFAULT_PATH);
-	         log.info("parent abs path : " + parent.getAbsolutePath());
-	         log.info("parent path : " + parent.getPath());
-	         log.info("exist : " + parent.exists() + ", dir : " + parent.isDirectory());
+   @PostMapping(value = "/joinResult")
+    public String joinResult(HttpServletRequest request,
+          Member m, 
+          @RequestParam(value="picture1", required=false) MultipartFile multipartFile) throws IOException {
+        
+        if (multipartFile != null && !multipartFile.isEmpty()) {
+           
+           Image image = new Image();
+           
+           File parent = new File(DEFAULT_PATH);
+         log.info("parent abs path : " + parent.getAbsolutePath());
+         log.info("parent path : " + parent.getPath());
+         log.info("exist : " + parent.exists() + ", dir : " + parent.isDirectory());
 
-	         // 존재하지 않으면 filePath의 경로에 있는 모든 폴더를 생성한다.
-	         if (!parent.exists()) {
-	            parent.mkdirs();
-	         }
+         // 존재하지 않으면 filePath의 경로에 있는 모든 폴더를 생성한다.
+         if (!parent.exists()) {
+            parent.mkdirs();
+         }
 
-	         UUID uid = UUID.randomUUID();
-	         
-	         String extension = StringUtils.getFilenameExtension(multipartFile.getOriginalFilename());
-	         String saveName = uid.toString() + "." + extension;
-	         File file = new File(parent.getAbsolutePath(), saveName);
-	         log.info("file abs path : " + file.getAbsolutePath());
-	         log.info("file path : " + file.getPath());
-	         multipartFile.transferTo(file);
-	         m.setPicture(saveName);
-	        } else {
-	           String defaultImageName = "DefaultProfile.png";
-	            m.setPicture(defaultImageName);
-	        }
-	        memberService.addMember(m);
-	        return "redirect:loginForm";
-	    }
+         UUID uid = UUID.randomUUID();
+         
+         String extension = StringUtils.getFilenameExtension(multipartFile.getOriginalFilename());
+         String saveName = uid.toString() + "." + extension;
+         File file = new File(parent.getAbsolutePath(), saveName);
+         log.info("file abs path : " + file.getAbsolutePath());
+         log.info("file path : " + file.getPath());
+         multipartFile.transferTo(file);
+         m.setPicture(saveName);
+        } else {
+           String defaultImageName = "DefaultProfile.png";
+            m.setPicture(defaultImageName);
+        }
+        memberService.addMember(m);
+        return "redirect:main";
+    }
 	
 	// 회원가입 시 직무 리스트 출력하기(syj)
 	@GetMapping("/joinForm")

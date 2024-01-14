@@ -29,7 +29,7 @@
 						<c:when test="${not empty answerList}">
 							<c:forEach var="answer" items="${answerList}">
 								<div class="col-10 offset-1 border border-3 rounded-3 my-5">
-								    <input type="text" value="${answer.answerContent}" style="height: 150px; border: none; outline: none" readonly>
+									<textarea style="height: 150px; border: none; outline: none; resize: none;" readonly>${answer.answerContent}</textarea>
 								</div>
 							</c:forEach>
 						</c:when>

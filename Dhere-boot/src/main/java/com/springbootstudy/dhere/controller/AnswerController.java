@@ -21,7 +21,7 @@ public class AnswerController {
 		
 		answerService.insertAnswer(a);
 		
-		return "main";
+		return "redirect:adminInquiry";
 	}
 	
 	@GetMapping("/answerWrite")

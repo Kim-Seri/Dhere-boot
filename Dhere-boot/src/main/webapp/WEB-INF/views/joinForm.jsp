@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="resources/css/joinForm.css">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="resources/js/member.js"></script>
+<script src="resources/js/formcheck.js"></script>
 <style>
 	body {
 		background-image: url('resources/images/join_background.png');
@@ -128,7 +129,7 @@
 							<label for="phone" class="form-label" style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;연락처 </label> 
 							<div class="row">
 								<div class="col">
-									<input type="text" class="form-control border border-white border-3" name="phone" id="phone" maxlength="20" placeholder='"-" 없이 숫자만 입력해 주세요' style="background: white; border-radius: 10px; color: black;" pattern="[0-9]*" title="숫자만 입력해주세요">
+									<input type="text" class="form-control border border-white border-3" name="phone" id="phone" maxlength="20" placeholder='"-" 없이 11자리 숫자만 입력해 주세요' style="background: white; border-radius: 10px; color: black;" pattern="[0-9]*" title="숫자만 입력해주세요">
 								</div>
 							</div>
 						</div>
