@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" href="resources/css/storyDetail.css">
+<link rel="stylesheet" href="resources/css/main.css">
 <%@ page session="true" %>
 <%@ page import="com.springbootstudy.dhere.domain.Member"%>
 <script src="resources/js/storyDetail.js"></script>
