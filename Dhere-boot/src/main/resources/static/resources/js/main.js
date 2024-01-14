@@ -10,9 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
             button.style.display = "none";
         }
     });
-    
-   	
-    
+
     // 직무 카테고리 선택
     $('.jobs').on("click", function () {
 
@@ -130,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-
+	// 더보기 버튼 페이징
     $("#addBtn").on("click", function() {
 		
 		let page = $(this).attr("data-page");
@@ -451,11 +449,170 @@ document.addEventListener("DOMContentLoaded", function () {
 			});
 			
 	});
+	
+	// 제품리스트 출력
+	$(".categoryBtn1 li").on("click", function() {
+		
+	    let productCategory = $(this).find("a").text();
+	    // console.log(productCategory);
+	    $("#hiddenProductCategory").val(productCategory);
+    	 $("#addProductBtn").attr("p-data-page", "1");
+        $("#hiddenProductOffset").val(0);
+        console.log($("#ajaxProductForm").serialize());
+        
+        $.ajax({
+            url: "getProductList",
+            type: "POST",
+            data: $("#ajaxProductForm").serialize(),
+            dataType: "json",
+            success: function(res) {
+				
+				$("#categoryList").empty();
+				
+	            console.log("Product List Length:", res.productList.length);
+	            console.log("productCategory in response:", res.productCategory);
+	            console.log("pOffset in response:", res.pOffset);
+				console.log(res.productList);
+				
+				 if (res.productList.length > 0) {
+                    productList(res.productList);                    
+                    
+                    // 만약 가져온 데이터의 개수가 6개 미만이라면 더보기 버튼을 숨김
+                    if (res.productList.length < 8) {
+                        $('#addProductBtn').hide();
+                    }
+                    
+                } else {
+                    $("#categoryList").empty();
+                    if (res.productList.length === 0) {
+
+                        $("#categoryList").append("<div class=\"row m-5\">\r\n" +
+                            "		<div class=\"col text-center\">\r\n" +
+                            "			제품이 없습니다.\r\n" +
+                            "		</div>\r\n" +
+                            "		</div>");
+
+                        $('#addProductBtn').hide(); // 더 이상 불러올 데이터가 없으면 버튼 숨기기
+                    }
+                }
+                
+            },
+            error: function (xhr, status, error) {
+                console.log("AJAX Error: " + status + " - " + error);
+                console.log(xhr.responseText);
+            }
+        });
+    	
+   		
+});
+	
+	
+	
+    $("#addProductBtn").on("click", function() {
+
+		let pPage = $(this).attr("p-data-page");
+		let pOffset = Number(pPage) * 8;
+		$("#hiddenProductOffset").val(pOffset);
+		//$("#hiddenProductCategory").val(selectedJob);
+        //$("#addProductBtn").attr("p-data-page", "1");
+        
+        console.log($("#ajaxProductForm").serialize());
+		
+		console.log(pPage);
+		console.log(pOffset);
+		
+        $.ajax({
+            url: "getProductList",
+            type: "POST",
+            data: $("#ajaxProductForm").serialize(),
+            dataType: "json",
+            success: function(res) {
+				
+				console.log("Success:", res);
+            console.log("Product List Length:", res.productList.length);
+            console.log("pOffset in response:", res.productList.pOffset);
+				
+				//console.log("Success:", res);
+       			//console.log("Product List Length:", res.productList.length);
+				//console.log("진입성공!!");
+				console.log(res.productList);
+				
+				 if (res.productList.length > 0) {
+                    productList(res.productList);                    
+                    
+                    // 만약 가져온 데이터의 개수가 6개 미만이라면 더보기 버튼을 숨김
+                    if (res.productList.length < 8) {
+                        $('#addProductBtn').hide();
+                    }
+                    
+                } else {
+                    $("#categoryList").empty();
+                    if (res.productList.length === 0) {
+
+                        $("#categoryList").append("<div class=\"row m-5\">\r\n" +
+                            "		<div class=\"col text-center\">\r\n" +
+                            "			제품이 없습니다.\r\n" +
+                            "		</div>\r\n" +
+                            "		</div>");
+
+                        $('#addProductBtn').hide(); // 더 이상 불러올 데이터가 없으면 버튼 숨기기
+                    }
+                }
+                
+            },
+            error: function (xhr, status, error) {
+                console.log("AJAX Error: " + status + " - " + error);
+                console.log(xhr.responseText);
+            }
+        });
+    });
+    
     
 
 });
 
+// 제품 리스트 출력 메소드
+function productList(res) {
+	
+	res.forEach(function(productList) {
+                        $('#categoryList').append(`
+							<div class="col-3 m-3 p-1 rounded-4" style="width: 290px; height: 380px; background: #F3F3F3; cursor: pointer" onclick="location.href='productDetail?productNo=${productList.productNo}'">
+								<div class="row">
+									    <div class="col d-flex justify-content-center align-items-center" style="height: 200px; overflow: hidden;">
+									        <img src="resources/images/products/${productList.productImage}" id="preview" class="img-fluid rounded-top-4" alt="${productList.productImage}" style="width: 100%; height: 100%;">
+									    </div>
+									</div>
+									<div class="row">
+										<div class="col p-3">
+											<div class="row">
+											    <div class="col-10 offset-1 py-3" style="font-weight: bold; border-bottom: 2px solid #bfbfbf; color: #bfbfbf">
+											        ${productList.brandName}
+											    </div>
+											</div>	
+											<div style="width: 100%; height: 2px; color: black"></div>
+											<div class="row">
+											    <div class="col-10 offset-1 mt-2" style="overflow: hidden; font-size: 23px">
+											        <b>${productList.productName}</b>
+											    </div>
+											</div>
+										</div>
+									</div>
+								</div>
+                        `);
+                    });
+                    
+                    	let page = $("#hiddenProductOffset").val() == 0 ? 1 :  $("#hiddenProductOffset").val() / 8 + 1;
+					$("#addProductBtn").attr("p-data-page", page);	
+					if(! $("#addProductBtn").is(":visible")) {
+						$("#addProductBtn").css("display", "inline-block");
+					}
+	
+}
 
+
+
+
+// 게시물 리스트 출력 메소드
 function storyList(res) {
 	
 	$(res).each(function(v, i) {

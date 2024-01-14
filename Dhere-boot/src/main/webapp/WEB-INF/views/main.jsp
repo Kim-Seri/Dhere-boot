@@ -282,7 +282,7 @@
 				<h1 style="font-weight: bold">장비 리스트</h1>
 			</div>
 		</div>
-		<ul class="nav nav-underline offset-1">
+		<ul class="nav nav-underline offset-1 categoryBtn1">
 			<li class="nav-item text-center" style="width: 170px">
 			  <a class="nav-link active categoryBtn" aria-current="page" style="font-size: 25px; color: black; cursor: pointer" data-bs-toggle="pill">All</a>
 			</li>
@@ -302,6 +302,13 @@
 			  <a class="nav-link categoryBtn"  style="font-size: 25px; color: black; cursor: pointer" data-bs-toggle="pill">Others</a>
 			</li>
 		</ul>
+		
+		<form id="ajaxProductForm">
+			<input type="hidden" name="productCategory" id="hiddenProductCategory">
+			<input type="hidden" name="pOffset" value="0" id="hiddenProductOffset">
+			<input type="hidden" name="productLimit" value="8" id="hiddenProductLimit">
+		</form>
+		
 		<div class="row justify-content-center" id="categoryList">
 			<c:forEach var="p" items="${pList}" begin="0" end="7">
 			<div class="col-3 m-3 p-1 rounded-4" style="width: 290px; height: 380px; background: #F3F3F3; cursor: pointer" onclick="location.href='productDetail?productNo=${p.productNo}'">
@@ -328,14 +335,12 @@
 			</div>
 			</c:forEach>
 		</div>
-		
-<!-- dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd -->		
+			
 		<div class="row">
 			    <div class="col text-center">
-			        <button id="addProductBtn">더보기</button>
+			        <button id="addProductBtn" p-data-page="1">더보기</button>
 			    </div>
-			</div>
-<!-- dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd -->				
+			</div>			
 
 	</div>
 </div>

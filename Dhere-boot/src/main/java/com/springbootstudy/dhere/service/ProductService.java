@@ -15,7 +15,7 @@ public interface ProductService {
 	public abstract List<Product> productListAll();
 
 	 //	페이징 처리를 위한 제품 리스트 가져오기(syj)
-    public abstract List<Product> getProductListPaged(int offset, int limit);
+    public abstract List<Product> getProductListPaged( String productCategory,int pOffset, int productLimit);
     
     //	필터링 된 페이징 처리를 위한 제품 리스트 가져오기(syj)
     public abstract List<Product> getFilteredProductListPaged(String category, int offset, int limit);

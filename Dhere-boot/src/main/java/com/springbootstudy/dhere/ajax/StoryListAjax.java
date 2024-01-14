@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springbootstudy.dhere.domain.Product;
 import com.springbootstudy.dhere.domain.Story;
+import com.springbootstudy.dhere.service.ProductService;
 import com.springbootstudy.dhere.service.StoryService;
 
 @RestController
@@ -25,6 +27,10 @@ public class StoryListAjax {
 	@Autowired
 	private StoryService storyService;
 	
+	@Autowired
+	private ProductService productService;
+	
+	// 게시물 리스트 ajax
 	@PostMapping("/storyList")	
 	public Map<String, List<Story>> storyList(
 			@RequestParam(value="selectedJob", required = false, defaultValue="null") String selectedJob,
@@ -46,6 +52,26 @@ public class StoryListAjax {
 
 		return map;		
 	}
+	
+	// 제품 리스트 ajax
+		@PostMapping("/getProductList")
+		@ResponseBody
+		public Map<String, List<Product>> getProductListPaged( 
+				@RequestParam(value = "productCategory", required = false, defaultValue="null") String productCategory, 
+				@RequestParam(value="pOffset", required = false, defaultValue="0") Integer pOffset,
+				@RequestParam(value="productLimit", required = false, defaultValue="8") Integer productLimit) {
+			
+			System.out.println("productCategory : " + productCategory);
+			System.out.println("pOffset : " + pOffset);
+			System.out.println("limit : " + productLimit);
+			
+			Map<String, List<Product>> map = new HashMap<>();
+			map.put("productList", productService.getProductListPaged(productCategory, pOffset, productLimit));
+
+			return map;		
+			
+			
+		}
 	
 }
 

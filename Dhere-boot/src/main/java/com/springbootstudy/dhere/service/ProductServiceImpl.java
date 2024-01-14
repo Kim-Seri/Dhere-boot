@@ -35,8 +35,8 @@ public class ProductServiceImpl implements ProductService {
 	
 	//	페이징 처리를 위한 게시물 리스트 가져오기(syj)
 	@Override
-	public List<Product> getProductListPaged(int offset, int limit) {
-		return productDao.getProductListPaged(offset, limit);
+	public List<Product> getProductListPaged( String productCategory, int pOffset, int productLimit) {
+		return productDao.getProductListPaged(productCategory, pOffset, productLimit);
 	}
 	
 	//	필터링 된 페이징 처리를 위한 게시물 리스트 가져오기(syj)
