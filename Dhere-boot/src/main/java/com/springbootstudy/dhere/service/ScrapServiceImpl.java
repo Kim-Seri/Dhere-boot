@@ -66,8 +66,8 @@ public class ScrapServiceImpl implements ScrapService {
 	
 	// 언스크랩 하기(syj)
 	@Override
-	public void deleteScrap(int scrapNo) {
-		scrapDao.deleteScrap(scrapNo);
+	public void deleteScrap(int storyNo) {
+		scrapDao.deleteScrap(storyNo);
 	}
 	
 	

@@ -114,8 +114,10 @@ public class ScrapController {
 		return "scrap";
 	}
 	
+	//	스크랩하기(syj)
 	@PostMapping("/insertScrap")
-	public String insertScrap(Scrap s, HttpSession session) {
+	public String insertScrap(Scrap s, HttpSession session,
+			@RequestParam("storyNo") String storyNo) {
 	    Member member = (Member) session.getAttribute("member");
 
 	    // Member 객체에서 이메일을 추출하여 Scrap 객체에 설정
@@ -124,18 +126,41 @@ public class ScrapController {
 	        scrapService.insertScrap(s);
 	    }
 
-	    return "redirect:/";
+	    return "redirect:/storyDetail?storyNo=" + storyNo;
 	}
 	
-	   @GetMapping("/mypageUpdateProcess")
-	    public String mypageUpdateProcess() {
-	        return "member/mypageUpdateProcess";
-	    }
-	  
-	   @GetMapping("/mypageUpdateForm")
-	   public String updateForm(Model model, HttpSession session) {
-		   return "member/mypageUpdateForm"; 
-	   }
+	// 언스크랩 하기(syj)
+	@PostMapping("/deleteScrap")
+	public String deleteScrap(
+			@RequestParam("storyNo") int storyNo) {
+		
+	    scrapService.deleteScrap(storyNo);
+	    
+	    return "redirect:/storyDetail?storyNo=" + storyNo;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+   @GetMapping("/mypageUpdateProcess")
+    public String mypageUpdateProcess() {
+        return "member/mypageUpdateProcess";
+    }
+  
+   @GetMapping("/mypageUpdateForm")
+   public String updateForm(Model model, HttpSession session) {
+	   return "member/mypageUpdateForm"; 
+   }
 
 		// 회원 정보 수정하는 ajax 요청을 처리하는 컨트롤러
 		@PostMapping("/passCheck.ajax")

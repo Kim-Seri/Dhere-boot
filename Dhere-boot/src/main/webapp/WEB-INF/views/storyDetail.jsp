@@ -2,7 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" href="resources/css/storyDetail.css">
-<link rel="stylesheet" href="resources/css/main.css">
 <%@ page session="true" %>
 <%@ page import="com.springbootstudy.dhere.domain.Member"%>
 <script src="resources/js/storyDetail.js"></script>
@@ -144,11 +143,10 @@
 					            <c:choose>
 				                    <c:when test="${scrapingCheck}">
 				                        <!-- 이미 스크랩한 경우 언스크랩 버튼 표시 -->
-				                        <form name="deleteScrap" action="deleteScrap" method="post" onsubmit="return confirm('이 게시물을 스크랩 취소 하시겠습니까?');">
-							               <input type="hidden" name="scrapNo" value="${storyDetail.email}" />
+				                        <form name="deleteScrap" id="deleteScrap" action="deleteScrap" method="post" onsubmit="return confirm('이 게시물을 스크랩 취소 하시겠습니까?');">
 							                <input type="hidden" name="storyNo" value="${storyDetail.storyNo}" />
-							                <button type="submit" class="btn btn-primary fs-5" id="">
-							                    언스크랩
+							                <button type="submit" class="btn btn-primary fs-5" id="unScrapBtn">
+							                    스크랩
 							                    <img src="resources/images/icon/check.gif" class="mb-1" style="width: 20px; height: 20px; vertical-align: middle; margin-left: 5px;" />
 							                </button>
 							            </form>

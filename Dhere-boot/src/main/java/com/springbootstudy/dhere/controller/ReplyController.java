@@ -82,9 +82,9 @@ public class ReplyController {
 		// 댓글 삭제(syj)
 		@PostMapping("/deleteReply")
 		public String deleteReply(
-				@RequestParam("replyNo") int replyNo) {
+				@RequestParam("storyNo") int storyNo) {
 			
-		    replyService.deleteReply(replyNo);
+		    replyService.deleteReply(storyNo);
 		    
 		    return "redirect:/main"; // 또는 적절한 주소로 리다이렉트
 		}

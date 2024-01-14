@@ -25,9 +25,9 @@
 		WHERE notice_no=#{noticeNo}
 	</update>
 	
-	<delete id="noticeDelete">
-		DELETE FROM notice
-		WHERE notice_no=#{noticeNo}
+	<delete id="noticeDelete" parameterType="int">
+	    DELETE FROM notice
+	    WHERE notice_no=#{noticeNo}
 	</delete>
 	
 	<resultMap id="noticeResultMap" type="notice">
@@ -39,5 +39,13 @@
 		<result property="file" column="file" />
 		<result property="picture" column="picture" />
 	</resultMap>
+	
+	
+    <!-- 가장 최신 공지사항 가져오기 -->
+    <select id="getLatestNotice" resultType="notice" resultMap="noticeResultMap">
+        SELECT * FROM notice
+        ORDER BY notice_no DESC
+        LIMIT 1
+    </select>
 
 </mapper>
