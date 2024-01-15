@@ -64,13 +64,7 @@
 							<a href='otherScrap?email=${storyDetail.email}&nickname=${storyDetail.nickname}&picture=${storyDetail.picture}&job=${storyDetail.categoryName}'class='text-decoration-none text-dark'>프로필 보러가기</a>
 							<br>
 						    <br>
-						    <a href='scrap' class='text-decoration-none text-dark'>쪽지 보내기</a>
-							<br>
-						    <br>
-						    <a href='scrap' class='text-decoration-none text-dark'>1:1 대화</a>
-							<br>
-						    <br>
-						    <a href='scrap' class='text-decoration-none text-dark'>신고하기</a>
+						    <a href='inquiryWrite' class='text-decoration-none text-dark'>신고하기</a>
 						    " >
 						</div>
 						<!-- 프로필 사진 끝 -->
@@ -109,7 +103,7 @@
 				                </button>
 				                <form action="deleteStory" method="post" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
 				                    <input type="hidden" name="storyNo" value="${storyDetail.storyNo}" />
-				                    <button type="submit" class="btn btn-outline-primary fs-5" id="deleteBtn">
+				                    <button type="submit" class="btn btn-outline-danger fs-5 mt-3" id="deleteBtn">
 				                        삭제하기
 				                    </button>
 				                </form>
@@ -252,7 +246,7 @@
 					                            </div>
 					                            <div style="width: 100%; height: 2px; color: black"></div>
 					                            <div class="row mb-2">
-					                                <div class="col-10 offset-1 mt-2" style="overflow: hidden; font-size: 23px">
+					                                <div class="col-10 offset-1 mt-2" style="overflow: hidden; font-size: 18px">
 					                                    <b>`+productName+`</b>
 					                                </div>
 				                                </div>
@@ -462,7 +456,7 @@
 									<div class="col-1">
 									<c:choose>
 									    <c:when test="${sessionScope.member.email eq 'admin' or r.email eq sessionScope.member.email}">
-											<img src="resources/images/icon/cancel_red.png" id="storyDetail_reply_delete"
+											<img src="resources/images/icon/cancel.png" id="storyDetail_reply_delete"
 														onclick="deleteReply(${r.replyNo})" style="cursor: pointer;">
 										</c:when>
 								    	<c:otherwise>

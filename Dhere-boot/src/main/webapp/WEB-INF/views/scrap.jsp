@@ -39,7 +39,7 @@
 					<div class="col">
 			        	<div class="scrap_menu_btn" id="scrap_menu_btn2"  
 			        			onclick="location.href='/mypageUpdateProcess'">
-			          		<h3>회원정보 수정</h3>
+			          		<h3>정보 수정</h3>
 		        		</div>
 					</div>
 			      	<div class="col">
