@@ -315,8 +315,20 @@ $(function () {
   });
 });
 
+let passCheck1=false;
+
+function passCheck() {
+  let updatePass = $("#newPass1").val();
+  passCheck1=false;
+  
+  $("#newPassLabel").css("color", "red").text("비밀번호가 일치하지 않습니다.");
+}
+
+//비밀번호, 이름, 닉네임, 주소, 연락
 $(function () {
-  $("#newPassBtn").click(function () {
+	
+	
+	 $("#newPassBtn").click(function () {
     var newPass1 = $("#newPass1").val();
     var newPass2 = $("#newPass2").val();
 
@@ -325,7 +337,7 @@ $(function () {
       return false;
     } else if (newPass1 == newPass2) {
       $("#newPassLabel").css("color", "black").text("비밀번호가 일치합니다.");
-      return false;
+      passCheck1=true;
     } else {
       $("#newPassLabel")
         .css("color", "red")
@@ -333,10 +345,7 @@ $(function () {
       return false;
     }
   });
-});
-
-//비밀번호, 이름, 닉네임, 주소, 연락
-$(function () {
+	
   $("#mypageUpdateResult").on("submit", function () {
     if ($("#newPass1").val().length <= 0) {
       alert("비밀번호를 입력해주세요");
@@ -373,7 +382,14 @@ $(function () {
       $("#phone").focus();
       return false;
     }
+    
+    if(!passCheck1){
+		alert("비밀번호가 일치한지 확인해주세요.");
+		return false;
+	}
+    
   });
+  
 });
 
 

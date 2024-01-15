@@ -60,7 +60,7 @@
 						<div class="col-6 offset-2">
 							<label for="pass" class="form-label" 
 							style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;새 비밀번호 </label>
-							<input type="password" class="form-control border border-white border-3" name="newPass1" id="newPass1" style="width: 97%; background: white; border-radius: 10px; color: black;">
+							<input type="password" class="form-control border border-white border-3" name="newPass1" id="newPass1" oninput=passCheck() style="width: 97%; background: white; border-radius: 10px; color: black;">
 						</div>
 					</div>
 					<div class="row">
