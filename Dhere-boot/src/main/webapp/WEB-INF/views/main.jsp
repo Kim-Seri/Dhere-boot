@@ -34,7 +34,7 @@
 		 
 		 <!-- 상단바 이동 버튼 -->
 		 <a href="#" class="goToTopBtn">
-		 	<img src="resources/images/icon/topbar.png" id="goToTopBtnIcon" style="width: 35px;">
+		 	<img src="resources/images/icon/topbar.png" id="goToTopBtnIcon" style="width: 50px;">
 		 </a>
 		
 		<!-- 캐러셀 시작 -->

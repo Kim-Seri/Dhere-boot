@@ -11,11 +11,7 @@ $(function(){
 			return false;
 		}
 	});
-//	$("#noticeUpdate").on("click", function() {
-//	$("#noticeDetailForm").attr("action", "noticeUpdate");
-//	$("#noticeDetailForm").submit();
-	
 });
-	
 
-
+let date = new Date((n.regDate));						
+let formattedDate = date.getFullYear() + "-" + ('0' + (date.getMonth() +1)).slice(-2) + "-" + ('0' + date.getDate()).slice(-2);

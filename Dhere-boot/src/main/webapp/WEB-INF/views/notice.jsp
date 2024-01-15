@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>  
 <link rel="stylesheet" href="resources/css/notice.css">
 
 <!-- 테스트 출력 -->
@@ -19,7 +20,7 @@
         
         <div class="row" id="notice_mainBox1">
             <div class="col">
-                
+                <input type="hidden" id="formattedDateInput" value="${formattedDate}" />
                     <div class="row" id="notice_mainBox2">
                         <div class="col-3 text-center" id="notice_btnBox">
                         <c:forEach var="n" items="${noticeList}">
@@ -33,7 +34,8 @@
                                     <div class="col-4 text-start">
                                     </div>
                                     <div class="col-8 text-end noticeBtn_regDate">
-									    ${n.regDate}
+									    <fmt:formatDate value="${n.regDate}" pattern="yyyy-MM-dd" var="formattedDate"/>
+										${formattedDate}
 									</div>
                                 </div>
                             </button>
