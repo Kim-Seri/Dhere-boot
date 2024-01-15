@@ -72,11 +72,12 @@ function emailCheck() {
   }
 }
 
-function passCheck() {
+function passCheckjoin() {
   let pass = $("#pass1").val();
   $("#isPassCheck").val("false");
   console.log($("#isPassCheck").val());
   $("#label2").css("color", "red").text("비밀번호 중복확인을  실시해 주세요.");
+  $("#btnOverlapPass").attr("disabled", false);
 }
 
 function nickNameCheck() {
@@ -202,6 +203,7 @@ $(function () {
       $("#isPassCheck").val("true");
       console.log($("#isPassCheck").val());
       password = $("#pass1").val();
+      $("#btnOverlapPass").attr("disabled", true);
 
       return false;
     } else {

@@ -64,7 +64,7 @@
 									<label for="pass" class="form-label"
 										style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;비밀번호 </label>
 									<input type="password" class="form-control border border-white border-3" name="pass" id="pass1"
-										oninput="passCheck()" style="width: 97%; background: white; border-radius: 10px; color: black;">
+										oninput="passCheckjoin()" style="width: 97%; background: white; border-radius: 10px; color: black;">
 								</div>
 							</div>
 							<div class="row">
