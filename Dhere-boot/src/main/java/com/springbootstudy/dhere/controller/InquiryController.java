@@ -67,8 +67,10 @@ public class InquiryController {
 	         multipartFile.transferTo(file);
 	         i.setInquiryFile(saveName);
 	        } else {
-	           String defaultImageName = "DefaultProfile.png";
-	            i.setInquiryFile(defaultImageName);
+				/*
+				 * String defaultImageName = "DefaultProfile.png";
+				 * i.setInquiryFile(defaultImageName);
+				 */
 	        }
 			service.insertInquiry(i);
 	        return "redirect:iList";

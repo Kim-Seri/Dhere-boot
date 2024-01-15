@@ -61,16 +61,8 @@
 							data-bs-trigger="focus"
 							data-bs-title="${storyDetail.nickname}"
 							data-bs-content="
-							<a href='otherScrap?email=${storyDetail.email}&nickname=${storyDetail.nickname}&picture=${storyDetail.picture}&job=${storyDetail.categoryName}'class='text-decoration-none text-dark'>프로필 보러가기</a>
-							<br>
-						    <br>
-						    <a href='scrap' class='text-decoration-none text-dark'>쪽지 보내기</a>
-							<br>
-						    <br>
-						    <a href='scrap' class='text-decoration-none text-dark'>1:1 대화</a>
-							<br>
-						    <br>
-						    <a href='scrap' class='text-decoration-none text-dark'>신고하기</a>
+							<a href='otherScrap?email=${storyDetail.email}&nickname=${storyDetail.nickname}&picture=${storyDetail.picture}&job=${storyDetail.categoryName}'
+							class='text-decoration-none text-dark'>프로필 보러가기</a>
 						    " >
 						</div>
 						<!-- 프로필 사진 끝 -->

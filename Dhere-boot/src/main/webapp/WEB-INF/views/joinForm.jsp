@@ -34,10 +34,16 @@
 								</div>
 							</div>
 							<div class="row mb-3 justify-content-center">
-								<div class="col-4">
+								<!-- <div class="col-4">
 									<input type="file" class="form-control form-control-sm border border-1" id="picture" name="picture1"
 										onchange="readURL(this);">
+								</div> -->
+								
+								<div class="filebox text-center">
+								  <label for="picture">업로드</label>
+								  <input type="file" class="form-control" id="picture" name="picture1" onchange="readURL(this);"> 
 								</div>
+								
 							</div>
 
 
@@ -54,7 +60,7 @@
 										</div>
 										<div class="col-4 text-end">
 											<input type="button" class="btn border-white" id="btnOverlapEmail" value="확인"
-												style="width: 65%; height: 45px; color: white; border-radius: 10px;">
+												style="width: 65%; height: 45px; color: rgb(56, 96, 255); font-weight: bold; background: white; border-radius: 10px;">
 										</div>
 									</div>
 								</div>
@@ -79,7 +85,7 @@
 										</div>
 										<div class="col-4 text-end">
 											<input type="button" class="btn border-white" id="btnOverlapPass" value="확인"
-												style="width: 65%; height: 45px; color: white; border-radius: 10px;">
+												style="width: 65%; height: 45px; color: rgb(56, 96, 255); font-weight: bold; background: white; border-radius: 10px;">
 										</div>
 									</div>
 								</div>
@@ -104,7 +110,7 @@
 										</div>
 										<div class="col-4 text-end">
 											<input type="button" class="btn border-white" id="btnOverlapNickName" value="확인"
-												style="width: 65%; height: 45px; color: white; border-radius: 10px;">
+												style="width: 65%; height: 45px; color: rgb(56, 96, 255); font-weight: bold; background: white; border-radius: 10px;">
 										</div>
 									</div>
 								</div>
@@ -120,7 +126,7 @@
 										</div>
 										<div class="col-3">
 											<input type="button" class="btn border-white" id="btnZipcode" value="우편번호 검색"
-												style="width: 220%; height: 45px; color: white; border-radius: 10px;">
+												style="width: 220%; height: 45px; color: rgb(56, 96, 255); font-weight: bold; background: white; border-radius: 10px;">
 										</div>
 									</div>
 								</div>
@@ -170,7 +176,7 @@
 										</div>
 										<div class="col-6 text-end">
 											<input type="button" class="btn border-white" id="btnSendPhone" value="인증번호 전송"
-												style="width: 65%; height: 45px; color: white; border-radius: 10px;">
+												style="width: 65%; height: 45px; color: rgb(56, 96, 255); font-weight: bold; background: white; border-radius: 10px;">
 										</div>
 									</div>
 								</div>
