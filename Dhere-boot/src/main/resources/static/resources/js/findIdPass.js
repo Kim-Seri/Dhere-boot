@@ -83,6 +83,7 @@ $(function() {
 		if ($("#findIdChekch").val() == code2) {
 			// 위에서 저장한값을 ㅣ교함
 			alert(`인증에 성공하였습니다 회원님의 이메일은 ${member.email} 입니다.`);
+			
 		} else {
 			alert(`인증에 실패하였습니다.`);
 		}
