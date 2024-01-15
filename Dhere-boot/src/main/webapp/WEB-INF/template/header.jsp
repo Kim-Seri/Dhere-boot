@@ -27,7 +27,7 @@
 			            resources/images/profile/${sessionScope.member.picture}
 			        </c:when>
 			        <c:otherwise>
-								resources/images/profile/DefaultProfile.png
+								resources/images/profile/profile_white.png
 			        </c:otherwise>
 			    </c:choose>"
 			id="login_menu" 
