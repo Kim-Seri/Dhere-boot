@@ -40,7 +40,6 @@
     WHERE
     i.image_no = (SELECT MIN(image_no) FROM image WHERE story_no = s.story_no)
 	AND  s.email = #{email}
-   	LIMIT #{otherOffset}, #{otherLimit}
 </select>
 
 <!-- ajax 스토리 리스트 출력을 위한 ResultMap -->

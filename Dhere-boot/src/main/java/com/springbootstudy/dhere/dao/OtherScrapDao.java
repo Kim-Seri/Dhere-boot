@@ -13,7 +13,7 @@ import com.springbootstudy.dhere.domain.Tag;
 public interface OtherScrapDao {
 	
 	// 다른 유저의 스토리 게시물 가져오기
-	public abstract List<Story> getUserStories(String email, Integer otherOffset, Integer otherLimit);
+	public abstract List<Story> getUserStories(String email);
     
 	
 }
