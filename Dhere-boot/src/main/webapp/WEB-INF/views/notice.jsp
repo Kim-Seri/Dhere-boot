@@ -1,217 +1,198 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-      <link rel="stylesheet" href="resources/css/joinForm.css">
-      <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-      <script src="resources/js/member.js"></script>
-      <style>
-         body {
-            background-image: url('resources/images/join_background.png');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-         }
-      </style>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<link rel="stylesheet" href="resources/css/notice.css">
+
+<!-- 테스트 출력 -->
+<%-- <c:forEach var="n" items="${noticeList}">
+    제목 : ${n.noticeNo}<br>
+    제목 : ${n.title}<br>
+    내용 : ${n.content}<br>
+    작성일자 : ${n.regDate}<br>
+    <br><br><br><br>
+</c:forEach> --%>
+<!-- 테스트 출력 -->
+
+<div class="row">
+    <div class="col">
+        
+        
+        <div class="row" id="notice_mainBox1">
+            <div class="col">
+                
+                    <div class="row" id="notice_mainBox2">
+                        <div class="col-3 text-center" id="notice_btnBox">
+                        <c:forEach var="n" items="${noticeList}">
+                            <button class="noticeBtn ps-3 pe-3" data-notice-no="${n.noticeNo}">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="text-start" id="noticeBtn_content">${n.title}</div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 text-start">
+                                    </div>
+                                    <div class="col-8 text-end noticeBtn_regDate">
+									    ${n.regDate}
+									</div>
+                                </div>
+                            </button>
+                            </c:forEach>
+                        </div>
+                        <div class="col-8 ms-5" style="overflow-y: auto;">
+                            <div class="row">
+                                <div class="col-8 noticeTitle" id="notice_detail_title">
+                                </div>
+                                <div class="col-4 noticeRegDate" id="notice_detail_regDate">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-10 noticeContent" id="notice_detail_content">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col text-end">
+                            <c:choose>
+							    <c:when test="${sessionScope.member.email eq 'admin'}">
+									<button class="btn btn-outline-primary" onclick="location.href='noticeWriteForm'">작성하기</button>
+									<button class="btn btn-outline-primary" id="noticeUpdateBtn">수정하기</button>
+									<input type="button" id="deleteButton" class="btn btn-outline-primary" data-notice-no="" value="삭제하기">
+		                            <button class="btn btn-outline-primary" onclick="location.href='main'">돌아가기</button>
+								</c:when>
+						    	<c:otherwise>
+						    		<button class="btn btn-outline-primary" onclick="location.href='main'">돌아가기</button>
+							    </c:otherwise>
+							</c:choose>
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+    
+
+    </div>
+</div>
 
 
-      <div class="row my-4 container" id="global-content">
-         <div class="offset-3 col-6">
-            <form action="joinResult" name="joinForm" id="joinForm" method="post" enctype="multipart/form-data">
-               <div class="row m-3">
-                  <div class="col fs-1 text-center text-white" style="font-weight: bold">
-                     Join
-                  </div>
-               </div>
-               <input type="hidden" name="isIdCheck" id="isIdCheck" value="false">
-               <input type="hidden" name="isPassCheck" id="isPassCheck" value="false">
-               <input type="hidden" name="authenNumCheck" id="authenNumCheck" value="false">
-               <input type="hidden" name="nicknameCheck" id="nicknameCheck" value="false">
-               <div class="row">
-                  <div class="col m-3 rounded-4">
-                     <div class="row mt-5 mb-2">
-                        <div class="col-md-6 offset-md-3 text-center">
-                           <img id="preview" class="img-fluid"
-                              style="width: 150px; height: 150px; object-fit: cover; border-radius: 70%; border: 1px solid white">
-                        </div>
-                     </div>
-                     <div class="row mb-3 justify-content-center">
-                        <!-- <div class="col-4">
-                           <input type="file" class="form-control form-control-sm border border-1" id="picture" name="picture1"
-                              onchange="readURL(this);">
-                        </div> -->
-                        
-                        <div class="filebox text-center">
-                          <label for="picture">업로드</label>
-                          <input type="file" class="form-control" id="picture" name="picture1" onchange="readURL(this);"> 
-                        </div>
-                        
-                     </div>
+
+									
 
 
-                     <div class="row my-4">
-                        <div class="col-8 offset-2">
-                           <label for="email" class="form-label"
-                              style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;이메일</label>
-                           <div class="row">
-                              <div class="col-8">
-                                 <input type="text" class="form-control border border-white border-3" name="email" id="email"
-                                    placeholder="example@example.com" oninput="emailCheck()"
-                                    style="width: 110%; background: white; border-radius: 10px; color: black;">
-                                 <label id="label1"></label>
-                              </div>
-                              <div class="col-4 text-end">
-                                 <input type="button" class="btn border-white" id="btnOverlapEmail" value="확인"
-                                    style="width: 65%; height: 45px; color: rgb(56, 96, 255); font-weight: bold; background: white; border-radius: 10px;">
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="row my-4">
-                        <div class="col-6 offset-2">
-                           <label for="pass" class="form-label"
-                              style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;비밀번호 </label>
-                           <input type="password" class="form-control border border-white border-3" name="pass" id="pass1"
-                              oninput="passCheck()" style="width: 97%; background: white; border-radius: 10px; color: black;">
-                        </div>
-                     </div>
-                     <div class="row">
-                        <div class="col-8 offset-2">
-                           <label for="pass2" class="form-label"
-                              style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;비밀번호 확인 </label>
-                           <div class="row">
-                              <div class="col-8">
-                                 <input type="password" class="form-control border border-white border-3" name="pass2" id="pass2"
-                                    style="width: 110%; background: white; border-radius: 10px; color: black;">
-                                 <label id="label2"></label>
-                              </div>
-                              <div class="col-4 text-end">
-                                 <input type="button" class="btn border-white" id="btnOverlapPass" value="확인"
-                                    style="width: 65%; height: 45px; color: rgb(56, 96, 255); font-weight: bold; background: white; border-radius: 10px;">
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="row my-4">
-                        <div class="col-8 offset-2">
-                           <label for="name" class="form-label"
-                              style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;이름 </label>
-                           <input type="text" class="form-control border border-white border-3" name="name" id="name"
-                              style="background: white; border-radius: 10px; color: black;">
-                        </div>
-                     </div>
-                     <div class="row my-4">
-                        <div class="col-8 offset-2">
-                           <label for="nickname" class="form-label"
-                              style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;닉네임 </label>
-                           <div class="row">
-                              <div class="col-8">
-                                 <input type="text" class="form-control border border-white border-3" name="nickname" id="nickname"
-                                    oninput="nickNameCheck()" style="background: white; border-radius: 10px; color: black;">
-                                 <label id="label5"></label>
-                              </div>
-                              <div class="col-4 text-end">
-                                 <input type="button" class="btn border-white" id="btnOverlapNickName" value="확인"
-                                    style="width: 65%; height: 45px; color: rgb(56, 96, 255); font-weight: bold; background: white; border-radius: 10px;">
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="row mt-4">
-                        <div class="col-7 offset-2">
-                           <label for="zipcode" class="form-label"
-                              style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;주소 </label>
-                           <div class="row">
-                              <div class="col-8">
-                                 <input type="text" class="form-control border border-white border-3" name="zipcode" id="zipcode"
-                                    maxlength="5" style="background: white; border-radius: 10px; color: black;" readonly>
-                              </div>
-                              <div class="col-3">
-                                 <input type="button" class="btn border-white" id="btnZipcode" value="우편번호 검색"
-                                    style="width: 220%; height: 45px; color: rgb(56, 96, 255); font-weight: bold; background: white; border-radius: 10px;">
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="row my-2">
-                        <div class="col-8 offset-2">
-                           <!-- <label for="address1" class="form-label">Address </label> -->
-                           <input type="text" class="form-control border border-white border-3" name="address1" id="address1"
-                              style="background: white; border-radius: 10px; color: black;" readonly>
-                        </div>
-                     </div>
-                     <div class="row my-2">
-                        <div class="col-8 offset-2">
-                           <!-- <label for="address2" class="form-label">Detail Address </label> -->
-                           <input type="text" class="form-control border border-white border-3" name="address2" id="address2"
-                              style="background: white; border-radius: 10px; color: black;">
-                        </div>
-                     </div>
-                     <div class="row my-4">
-                        <div class="col-8 offset-2">
-                           <label for="job" class="form-label"
-                              style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;직업 </label>
-                           <div class="row">
-                              <div class="col">
-                                 <select class="form-control border border-white border-3" name="job" id="job"
-                                    style="background: white; border-radius: 10px; color: black;">
-                                    <option selected disabled>직업을 선택해주세요</option>
-                                    <c:forEach var="jList" items="${jList}">
-                                       <option>${jList.categoryName}</option>
-                                    </c:forEach>
-                                 </select>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="row my-4">
-                        <div class="col-8 offset-2">
-                           <label for="phone" class="form-label"
-                              style="color: white; font-size: 25px; font-weight: bold">&nbsp;&nbsp;연락처 </label>
-                           <div class="row">
-                              <div class="col-6 ">
-                                 <input type="text" class="form-control border border-white border-3" name="phone" id="phone"
-                                    maxlength="20" placeholder='"-" 없이 숫자만 입력'
-                                    style="background: white; border-radius: 10px; color: black; width:140%; " pattern="[0-9]*"
-                                    title="숫자만 입력해주세요">
-                                 <label id="label3"></label>
-                              </div>
-                              <div class="col-6 text-end">
-                                 <input type="button" class="btn border-white" id="btnSendPhone" value="인증번호 전송"
-                                    style="width: 65%; height: 45px; color: rgb(56, 96, 255); font-weight: bold; background: white; border-radius: 10px;">
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="row ">
-                        <div class="col-8 offset-2">
 
-                           <div class="row" id="authenCheck" style="display:none;">
-                              <div class="col-6 ">
-                                 <input type="text" class="form-control border border-white border-3" name="authenNum"
-                                    id="authenNum" maxlength="20" placeholder='인증번호 입력'
-                                    style="background: white; border-radius: 10px; color: black;  " pattern="[0-9]*"
-                                    title="숫자만 입력해주세요">
-                                 <label id="label4"></label>
-                              </div>
-                              <div class="col-6 text-start">
-                                 <input type="button" class="btn border-white" id="authenNumBtn" value="확인"
-                                    style="width: 65%; height: 45px; color: white; border-radius: 10px;">
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="row justify-content-center" style="margin-top: 100px;">
-                        <div class="col-4">
-                           <input type="submit" id="submitBtn" value="Join" class="btn border border-white border-3"
-                              style="background: white; width: 100px; height: 55px; border-radius: 15px;">&nbsp;&nbsp;
-                        </div>
-                        <div class="col-4 text-end">
-                           <input type="button" value="Back" class="btn border border-3"
-                              style="border-radius: 15px; width: 100px; height: 55px; color: white"
-                              onclick="location.href='main'">
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </form>
-         </div>
-      </div>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    loadLatestNotice();
+    addClickEventsToButtons();
+});
+
+function loadLatestNotice() {
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            var notice = JSON.parse(xhr.responseText);
+            displayNotice(notice);
+            setActiveButton(notice.noticeNo);
+        } else {
+            console.error('Failed to load the latest notice');
+        }
+    };
+    xhr.open('GET', '/notice/latest', true);
+    xhr.send();
+}
+
+function setActiveButton(noticeNo) {
+    var buttons = document.querySelectorAll('.noticeBtn');
+    buttons.forEach(function(btn) {
+        btn.classList.remove('active');
+        if (btn.getAttribute('data-notice-no') === noticeNo.toString()) {
+            btn.classList.add('active');
+        }
+    });
+}
+
+
+function displayNotice(notice) {
+    var titleElement = document.querySelector('.noticeTitle');
+    var contentElement = document.querySelector('.noticeContent');
+    var dateElement = document.querySelector('.noticeRegDate');
+    
+    // 요소들의 투명도를 0으로 설정하여 숨김
+    titleElement.style.opacity = 0;
+    contentElement.style.opacity = 0;
+    dateElement.style.opacity = 0;
+
+    // 내용 업데이트
+    setTimeout(function() {
+        titleElement.innerHTML = '<img src="resources/images/icon/megaphone.png" style="width: 40px; height: 40px; margin-right: 20px;">' + notice.title;
+        contentElement.textContent = notice.content;
+        dateElement.textContent = notice.regDate;
+
+        // 투명도를 1로 설정하여 서서히 나타나게 함
+        titleElement.style.opacity = 1;
+        contentElement.style.opacity = 1;
+        dateElement.style.opacity = 1;
+        
+        // "수정하기" 버튼에 이벤트 지정
+        var updateBtn = document.getElementById('noticeUpdateBtn');
+        updateBtn.onclick = function() {
+            location.href = 'noticeUpdateForm?noticeNo=' + notice.noticeNo;
+        };
+
+        // "삭제하기" 버튼에 이벤트 지정
+        var deleteButton = document.getElementById('deleteButton');
+        deleteButton.setAttribute('data-notice-no', notice.noticeNo);
+        deleteButton.onclick = function() {
+            deleteNotice(notice.noticeNo);
+        };
+    }, 200);
+}
+
+
+function addClickEventsToButtons() {
+    document.querySelectorAll('.noticeBtn').forEach(function(button) {
+        button.addEventListener('click', function() {
+            var noticeNo = this.getAttribute('data-notice-no');
+            fetchNotice(noticeNo);
+            setActiveButton(noticeNo);
+        });
+    });
+}
+
+function fetchNotice(noticeNo) {
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            displayNotice(JSON.parse(xhr.responseText));
+        }
+    };
+    xhr.open('GET', '/notice/' + noticeNo, true);
+    xhr.send();
+}
+
+function deleteNotice(noticeNo) {
+    if (confirm('해당 공지를 삭제하시겠습니까?')) {
+        var xhr = new XMLHttpRequest();
+        xhr.onload = function() {
+            if (xhr.status === 200 || xhr.status === 204) {
+                alert('공지가 삭제되었습니다.');
+                window.location.reload();
+            } else {
+                console.error('Failed to delete notice: ' + xhr.status);
+                alert('공지 삭제에 실패했습니다.');
+            }
+        };
+        xhr.open('POST', '/noticeDelete', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send('noticeNo=' + encodeURIComponent(noticeNo));
+    }
+}
+</script>
+
+
+
+
