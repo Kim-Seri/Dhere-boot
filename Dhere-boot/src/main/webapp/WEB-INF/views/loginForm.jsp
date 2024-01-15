@@ -55,11 +55,11 @@
 					<input type="button" class="btn btn-outline-light fw-bold" value="back" onclick="location.href='main'">
 				</div>
 			</div>
-			  <div class="row text-center" >
+			 <%--  <div class="row text-center" >
 			  	<div class="col">
 			  		<a href="<%=apiURL%>"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
 			  	</div>
-			  </div>
+			  </div> --%>
 		</form>
 	</div>
 </div>

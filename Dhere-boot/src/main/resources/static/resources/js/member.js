@@ -376,13 +376,4 @@ $(function () {
   });
 });
 
-document.getElementById("submitBtn").addEventListener("click", function (e) {
-  var phoneNumber = document.getElementById("phone").value;
 
-  var numericRegex = /^[0-9]{11}/;
-
-  if (!numericRegex.test(phoneNumber)) {
-    alert("연락처에는 숫자만 입력해주세요.");
-    e.preventDefault();
-  }
-});
