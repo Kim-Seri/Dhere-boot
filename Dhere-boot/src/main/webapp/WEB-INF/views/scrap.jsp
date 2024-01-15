@@ -169,16 +169,7 @@
 																				&picture=${s.picture}
 																				&categoryName=${s.categoryName}
 																				&categoryName=${s.categoryName}'
-																		class='text-decoration-none text-dark'>프로필 보러가기</a>
-																<br>
-															    <br>
-															    <a href='scrap' class='text-decoration-none text-dark'>쪽지 보내기</a>
-																<br>
-															    <br>
-															    <a href='scrap' class='text-decoration-none text-dark'>1:1 대화</a>
-																<br>
-															    <br>
-															    <a href='scrap' class='text-decoration-none text-dark'>신고하기</a>">
+																		class='text-decoration-none text-dark'>프로필 보러가기</a>">
 											&nbsp;
 											${s.nickname}
 										</div>

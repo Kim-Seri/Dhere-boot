@@ -5,6 +5,13 @@
 <head>
 <script src="resources/js/allAreas.js"></script>
 </head>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" href="resources/css/header.css">
+<head>
+<script src="resources/js/allAreas.js"></script>
+</head>
 
 <div class="row p-5" id="header">
     <div class="col">
