@@ -45,9 +45,14 @@
 		WHERE email=#{email}
 	</update> 
 	
-	<!-- 회원 정보 가져오기 쿼리 -->
+	<!-- 닉네임으로 회원 정보 가져오기 쿼리 -->
 	<select id="getMemberNickName" resultType="Member">
 			SELECT * FROM member WHERE nickname=#{nickname}
 	</select>
 	
+	<!-- 아이디/비번찾기 회원 정보 가져오기 쿼리 -->
+	
+	<select id="getMemberFind" resultType="Member" parameterType="Hashmap">
+			SELECT * FROM member WHERE name=#{name} AND phone=#{phone}
+	</select>
 	</mapper>

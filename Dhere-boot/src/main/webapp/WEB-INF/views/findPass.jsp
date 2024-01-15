@@ -21,7 +21,7 @@
 						<label for="name" class="form-label" style="font-size: 20px; font-weight: bold">이름</label>
 					</div>
 					<div class="col">
-						<input type="text" class="form-control rounded-3" name="name" id="name" style="border: 5px solid rgb(56, 96, 255); width: 250px">
+						<input type="text" class="form-control rounded-3" name="findPassName" id="findPassName" style="border: 5px solid rgb(56, 96, 255); width: 250px">
 					</div>
 				</div>
 				<div class="row">
@@ -29,10 +29,10 @@
 						<label for="phone" class="form-label" style="font-size: 20px; font-weight: bold">휴대폰번호</label>
 					</div>
 					<div class="col">
-						<input type="text" class="form-control rounded-3" name="phone" id="phone" style="border: 5px solid rgb(56, 96, 255); width: 250px">
+						<input type="text" class="form-control rounded-3" name="findPassPhone" id="findPassPhone" style="border: 5px solid rgb(56, 96, 255); width: 250px">
 					</div>
 					<div class="col">
-						<input type="button" class="btn rounded-3" id="" value="인증번호 발송" 
+						<input type="button" class="btn rounded-3" id="findPassSendBtn" value="인증번호 발송" 
 						style="border: 3px solid rgb(56, 96, 255); color: white; font-weight: bold; background: rgb(56, 96, 255)">
 					</div>
 				</div>
@@ -41,10 +41,10 @@
 						<label for="phone" class="form-label" style="font-size: 20px; font-weight: bold">인증번호</label>
 					</div>
 					<div class="col">
-						<input type="text" class="form-control rounded-3" name="phone" id="phone" style="border: 5px solid rgb(56, 96, 255); width: 250px">
+						<input type="text" class="form-control rounded-3" name="findPassCheck" id="findPassCheck" style="border: 5px solid rgb(56, 96, 255); width: 250px">
 					</div>
 					<div class="col">
-						<input type="button" class="btn rounded-3" id="" value="확인" 
+						<input type="button" class="btn rounded-3" id="findPassBtnCheck" value="확인" 
 						style="border: 3px solid rgb(56, 96, 255); color: white; font-weight: bold; background: rgb(56, 96, 255); width: 90%">
 					</div>
 				</div>

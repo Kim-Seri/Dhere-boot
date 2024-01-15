@@ -229,7 +229,7 @@ public class StoryController {
 	}
 
 	///////////////////////////////////////////////////////////////////
-	// 게시물 수정하기(syj)
+	// 게시물 수정하기
 	@PostMapping("updateStoryProcess")
 	public String updateStoryProcess(HttpServletResponse response, PrintWriter out, @ModelAttribute Story story,
 			@RequestParam(value = "hashtag", required = false) List<String> tagList,

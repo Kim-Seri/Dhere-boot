@@ -106,7 +106,7 @@ public class MemberServiceImpl implements MemberService {
 		Message message = new Message();
 		message.setFrom("01098443163");
 		message.setTo(phoneNumber);
-		message.setText("Dhere 회원가입 인증번호는 [" + numStr + "] 입니다. ");
+		message.setText("Dhere 인증번호는 [" + numStr + "] 입니다. ");
 
 		try {
 			// send 메소드로 ArrayList<Message> 객체를 넣어도 동작합니다!
@@ -120,16 +120,21 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 	}
-	
-	// 닉네임 중복확인 메서드
-		@Override
-		public boolean overNickNameCheck(String nickname) {
-			boolean result = false;
-			Member m = memberDao.getMemberNickName(nickname);
-			if (m == null) {
-				result = true;
-			}
-			return result;
-		}
 
+	// 닉네임 중복확인 메서드
+	@Override
+	public boolean overNickNameCheck(String nickname) {
+		boolean result = false;
+		Member m = memberDao.getMemberNickName(nickname);
+		if (m == null) {
+			result = true;
+		}
+		return result;
+	}
+	
+	//아이디 비밀번호 찾기 회원정보 가져오기
+	@Override
+	public Member getMemberFind(String name,String phone) {
+		return memberDao.getMemberFind(name,phone);
+	}
 }

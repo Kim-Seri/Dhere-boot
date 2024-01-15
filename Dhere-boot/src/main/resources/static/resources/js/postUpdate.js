@@ -318,14 +318,6 @@ $(function() {
 			console.log(products)
 			console.log(products[0].productName);
 			window.productList = products;
-
-			// ###################################
-			/* 여기 map 함수는 필요하지 않음
-			var result = products.map(function(object, index) {				
-				window.productList = products;
-			});
-			*/
-			// ###################################
 		},
 		error: function(error) {
 			console.log("제품명 데이터를 가져오는 중 오류 발생", error);

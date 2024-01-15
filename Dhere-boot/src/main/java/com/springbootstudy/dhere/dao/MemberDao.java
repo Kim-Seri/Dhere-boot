@@ -22,6 +22,11 @@ public interface MemberDao {
 	
 	//회원정보(닉네임) 가져오기
 	public abstract Member getMemberNickName(String nickname);
+
+	//아이디 비번찾기 회원정보 가져오기
+	public abstract Member getMemberFind(String name,String phone);
+
+	
 	
 	
 

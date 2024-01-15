@@ -1,6 +1,8 @@
 package com.springbootstudy.dhere.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +44,15 @@ public class MemberDaoImpl implements MemberDao {
 	public Member getMemberNickName(String nickname) {
 		return sqlSession.selectOne(NAME_SPACE + ".getMemberNickName", nickname);
 	}
+	
+	//아이디 비밀번호 찾기 회원정보 가져오기
+	@Override
+	public Member getMemberFind(String name,String phone) {
+		Map<String,Object> param=new HashMap<>();
+		param.put("name", name);
+		param.put("phone", phone);
+		return sqlSession.selectOne(NAME_SPACE+".getMemberFind",param);
+	}
+	
 
 }

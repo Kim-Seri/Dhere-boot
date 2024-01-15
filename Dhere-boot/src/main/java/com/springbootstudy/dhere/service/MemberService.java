@@ -32,6 +32,9 @@ public interface MemberService {
 	//닉네임 중복검사
 	public abstract boolean overNickNameCheck(String nickname);
 
+	//아이디 비밀번호 찾기 회원정보 가져오기
+	public abstract Member getMemberFind(String name,String phone);
+
 	
 	
 
