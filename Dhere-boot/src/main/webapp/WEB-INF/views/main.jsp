@@ -340,7 +340,7 @@
 			    <div class="col text-center">
 			        <button id="addProductBtn" p-data-page="1">더보기</button>
 			    </div>
-			</div>			
+		</div>			
 
 	</div>
 </div>

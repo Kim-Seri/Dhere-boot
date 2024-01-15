@@ -106,7 +106,7 @@ public class MemberServiceImpl implements MemberService {
 		Message message = new Message();
 		message.setFrom("01098443163");
 		message.setTo(phoneNumber);
-		message.setText("Dhere 회원가입 인증번호는 [" + numStr + "] 입니다. ");
+		message.setText("Dhere  인증번호는 [" + numStr + "] 입니다. ");
 
 		try {
 			// send 메소드로 ArrayList<Message> 객체를 넣어도 동작합니다!

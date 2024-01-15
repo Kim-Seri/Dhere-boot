@@ -11,14 +11,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // 직무 카테고리 선택
+   // 직무 카테고리 선택
     $('.jobs').on("click", function () {
 
         let selectedJob = $(this).children().eq(0).text();
         let jobVal = $(this).attr("value");
 
-        //console.log(selectedJob);
-        //console.log(jobVal);
+        console.log(selectedJob);
+        console.log(jobVal);
         
         $("#hiddenJob").val(selectedJob);
         $("#addBtn").attr("data-page", "1");
@@ -93,8 +93,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 type: "POST",
                 dataType: "json",
                 success: function (res) {
-                    //console.log(res.resultList);
-                    //console.log("res.resultList.length : " + res.resultList.length);
+                    console.log(res.resultList);
+                    console.log("res.resultList.length : " + res.resultList.length);
 
                     if (res.resultList.length > 0) {
                         $("#jobSelectedCategory").empty();
@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-	// 더보기 버튼 페이징
+
     $("#addBtn").on("click", function() {
 		
 		let page = $(this).attr("data-page");
@@ -624,8 +624,8 @@ function storyList(res) {
                 tags += `#${tag.tagName} &nbsp;`;
             });
         }
-		// console.log("최종태그");
-		// console.log(i.tags);
+		//console.log("최종태그");
+		console.log(i.tags);
 		
 		let date = new Date((i.regDate));						
 		let formattedDate = date.getFullYear() + "-" + ('0' + (date.getMonth() +1)).slice(-2) + "-" + ('0' + date.getDate()).slice(-2);
