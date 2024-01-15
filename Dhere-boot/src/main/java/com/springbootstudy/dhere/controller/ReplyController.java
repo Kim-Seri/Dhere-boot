@@ -20,6 +20,8 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,39 +54,42 @@ public class ReplyController {
 	
 	//	댓글 쓰기(syj)
 	@PostMapping("/replyWrite")
-	public String replyWrite(HttpServletRequest request, HttpServletResponse response, Model model,
-	                         @RequestParam("storyNo") int storyNo,
-	                         @RequestParam(value = "replyNo", required = false) Integer replyNo,
-	                         @RequestParam("replyContent") String replyContent,
-	                         HttpSession session) {
-	    // 세션에서 이메일을 가져오기
+	public ResponseEntity<Map<String, Object>> replyWrite(HttpServletRequest request, HttpServletResponse response, Model model,
+	                                                     @RequestParam("storyNo") int storyNo,
+	                                                     @RequestParam(value = "replyNo", required = false) Integer replyNo,
+	                                                     @RequestParam("replyContent") String replyContent,
+	                                                     HttpSession session) {
 	    String email = (session.getAttribute("member") != null) ? ((Member)session.getAttribute("member")).getEmail() : null;
 
-	    // 이메일이 null이면 사용자가 로그인하지 않은 것으로 간주하고 처리
 	    if(email == null) {
-	        // 로그인 페이지로 리다이렉트하거나 에러 메시지
-	        return "redirect:login";
+	        // 로그인 페이지로 리다이렉트하는 대신, 에러 코드를 반환
+	        Map<String, Object> responseBody = new HashMap<>();
+	        responseBody.put("error", "로그인이 필요합니다.");
+	        return new ResponseEntity<>(responseBody, HttpStatus.UNAUTHORIZED);  // 401 상태 코드 (Unauthorized)
 	    }
 
 	    Reply reply = new Reply();
 	    
 	    reply.setStoryNo(storyNo);
-	    reply.setReplyNo(replyNo != null ? replyNo : 0); // replyNo가 null이면 기본값으로 설정
+	    reply.setReplyNo(replyNo != null ? replyNo : 0);
 	    reply.setReplyContent(replyContent);
 	    reply.setEmail(email);
 	    
 	    replyService.replyWrite(reply);
-	    
-	    return "redirect:/storyDetail?storyNo=" + storyNo + "#bottomOfPage";
+
+	    Map<String, Object> responseBody = new HashMap<>();
+	    responseBody.put("message", "댓글 작성이 성공적으로 이루어졌습니다.");
+
+	    return new ResponseEntity<>(responseBody, HttpStatus.OK);  // 200 상태 코드 (OK)
 	}
 	
 ////////////////////////////////////////////////////////////////////////////
 		// 댓글 삭제(syj)
 		@PostMapping("/deleteReply")
 		public String deleteReply(
-				@RequestParam("storyNo") int storyNo) {
+				@RequestParam("replyNo") int replyNo) {
 			
-		    replyService.deleteReply(storyNo);
+		    replyService.deleteReply(replyNo);
 		    
 		    return "redirect:/main"; // 또는 적절한 주소로 리다이렉트
 		}

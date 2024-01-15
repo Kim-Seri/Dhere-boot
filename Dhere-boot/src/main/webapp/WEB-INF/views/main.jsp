@@ -13,8 +13,6 @@
 <%@ page import="java.io.InputStreamReader" %>
 
 
-
-
 <link rel="stylesheet" href="resources/css/main.css">
  <script src="resources/js/main.js"></script>
 <%@ page session="true" %>
@@ -24,9 +22,10 @@
 	<title>Home</title>
 </head>
 <body>
-<div class="container">
+
 <div class="row">
 	<div class="col">
+	
 	
 		 <!-- 글쓰기 버튼 -->
 		 <input type="button" id="main_writeBtn" class="btn btn-primary fixed-write-button" value="글쓰기" 
@@ -38,7 +37,7 @@
 		 </a>
 		
 		<!-- 캐러셀 시작 -->
-		<div class="row">
+		<!-- <div class="row">
 			<div class="col">
 				<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
 					<div class="carousel-inner">
@@ -62,7 +61,7 @@
 					</button>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<!-- 캐러셀 끝 -->
 
 		<form id="categorySearchForm">
@@ -346,7 +345,7 @@
 </div>
 	
 
-</div>
+
 
 
 </body>

@@ -33,10 +33,10 @@ public class MemberServiceImpl implements MemberService {
 
 		int result = -1;
 		Member m = memberDao.getMember(email);
-		System.out.println(email);
-		System.out.println(pass);
-		System.out.println(m.getEmail());
-		System.out.println(m.getPass());
+//		System.out.println(email);
+//		System.out.println(pass);
+//		System.out.println(m.getEmail());
+//		System.out.println(m.getPass());
 
 		// 회원이 없을 때
 		if (m == null) {
