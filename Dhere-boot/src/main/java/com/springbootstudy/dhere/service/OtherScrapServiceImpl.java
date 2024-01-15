@@ -28,8 +28,8 @@ public class OtherScrapServiceImpl implements OtherScrapService {
 
 	// 다른 유저의 스토리 게시물 가져오기
 	@Override
-	public List<Story> getUserStories(String email, Integer otherOffset, Integer otherLimit) {
-		List<Story> sList=otherScrapDao.getUserStories(email, otherOffset, otherLimit);
+	public List<Story> getUserStories(String email) {
+		List<Story> sList=otherScrapDao.getUserStories(email);
 		for (Story story : sList) {
 	        List<Tag> tags = storyDao.getStoryDetailTag(story.getStoryNo());
 	        story.setTags(tags);
