@@ -40,10 +40,10 @@ public class InquiryController {
     		@RequestParam(value="imgFile", required=false) MultipartFile multipartFile,
     		HttpSession session) throws IOException {
         
-		System.out.println("email : " + session.getAttribute("member"));
-		System.out.println("email : " + i.getInquiryTitle());
-		System.out.println("email : " + i.getInquiryContent());
-		System.out.println("email : " + i.getInquiryFile());
+//		System.out.println("email : " + session.getAttribute("member"));
+//		System.out.println("email : " + i.getInquiryTitle());
+//		System.out.println("email : " + i.getInquiryContent());
+//		System.out.println("email : " + i.getInquiryFile());
 		
 		Member member = (Member)session.getAttribute("member");
 		i.setInquiryEmail(member.getEmail());

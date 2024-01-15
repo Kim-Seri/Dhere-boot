@@ -31,13 +31,14 @@ public class WebConfig implements WebMvcConfigurer {
 		registry.addViewController("/joinForm").setViewName("joinForm");
 		registry.addViewController("/scrap").setViewName("scrap");
 		registry.addViewController("/inquiryWrite").setViewName("inquiryWrite");
-		registry.addViewController("/answerWrite").setViewName("answerWrite");			
-		registry.addViewController("/noticeWriteForm").setViewName("noticeWriteForm");			
-		registry.addViewController("/noticeUpdateForm").setViewName("noticeUpdateForm");			
-		registry.addViewController("/notice").setViewName("notice");					
-		registry.addViewController("/findIdPass").setViewName("findIdPass");					
-		registry.addViewController("/findId").setViewName("findId");					
-		registry.addViewController("/findPass").setViewName("findPass");					
+		registry.addViewController("/answerWrite").setViewName("answerWrite");
+		registry.addViewController("/noticeWriteForm").setViewName("noticeWriteForm");
+		registry.addViewController("/noticeUpdateForm").setViewName("noticeUpdateForm");
+		registry.addViewController("/notice").setViewName("notice");
+		registry.addViewController("/findIdPass").setViewName("findIdPass");
+		registry.addViewController("/findId").setViewName("findId");
+		registry.addViewController("/findPass").setViewName("findPass");
+		registry.addViewController("/mainAbout").setViewName("mainAbout");
 	}
 	
 	// Interceptor 등록

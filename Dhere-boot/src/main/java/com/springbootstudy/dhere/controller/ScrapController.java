@@ -158,8 +158,8 @@ public class ScrapController {
 				@RequestParam("email") String email, 
 				@RequestParam("pass") String pass) {
 			
-			System.out.println("passcheckk" + email);
-			System.out.println(pass);
+//			System.out.println("passcheckk" + email);
+//			System.out.println(pass);
 			boolean result = memberService.memberPassCheck(email, pass);
 			Map<String, Boolean> map = new HashMap<String, Boolean>();
 			map.put("result", result);
