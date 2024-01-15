@@ -40,10 +40,10 @@ public class InquiryController {
     		@RequestParam(value="imgFile", required=false) MultipartFile multipartFile,
     		HttpSession session) throws IOException {
         
-		System.out.println("email : " + session.getAttribute("member"));
-		System.out.println("email : " + i.getInquiryTitle());
-		System.out.println("email : " + i.getInquiryContent());
-		System.out.println("email : " + i.getInquiryFile());
+//		System.out.println("email : " + session.getAttribute("member"));
+//		System.out.println("email : " + i.getInquiryTitle());
+//		System.out.println("email : " + i.getInquiryContent());
+//		System.out.println("email : " + i.getInquiryFile());
 		
 		Member member = (Member)session.getAttribute("member");
 		i.setInquiryEmail(member.getEmail());
@@ -67,8 +67,10 @@ public class InquiryController {
 	         multipartFile.transferTo(file);
 	         i.setInquiryFile(saveName);
 	        } else {
-	           String defaultImageName = "DefaultProfile.png";
-	            i.setInquiryFile(defaultImageName);
+				/*
+				 * String defaultImageName = "DefaultProfile.png";
+				 * i.setInquiryFile(defaultImageName);
+				 */
 	        }
 			service.insertInquiry(i);
 	        return "redirect:iList";
@@ -104,10 +106,6 @@ public class InquiryController {
 		 
 		 return "redirect:adminInquiry"; 
 	 }
-	 
-	 
-	 
-
 	
 	@GetMapping("/inquiryDetail")
 	public String inquiryDetail(Model model, @RequestParam("inquiryNo") int inquiryNo) {

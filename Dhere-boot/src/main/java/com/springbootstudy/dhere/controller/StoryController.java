@@ -229,7 +229,7 @@ public class StoryController {
 	}
 
 	///////////////////////////////////////////////////////////////////
-	// 게시물 수정하기(syj)
+	// 게시물 수정하기
 	@PostMapping("updateStoryProcess")
 	public String updateStoryProcess(HttpServletResponse response, PrintWriter out, @ModelAttribute Story story,
 			@RequestParam(value = "hashtag", required = false) List<String> tagList,
@@ -326,11 +326,11 @@ public class StoryController {
 					m.setLeft1(marker.getLeft1());
 					m.setProductNo(marker.getProductNo());
 					m.setImageNo(imageNo);
-					System.out.println("마커 이미지 번호 :" + m.getImageNo());
-					System.out.println("마커 스토리 번호 : " + m.getStoryNo());
-					System.out.println("상품 번호 : " + m.getProductNo());
-					System.out.println("마커 x  : " + m.getTop1());
-					System.out.println("마커 y  : " + m.getLeft1());
+//					System.out.println("마커 이미지 번호 :" + m.getImageNo());
+//					System.out.println("마커 스토리 번호 : " + m.getStoryNo());
+//					System.out.println("상품 번호 : " + m.getProductNo());
+//					System.out.println("마커 x  : " + m.getTop1());
+//					System.out.println("마커 y  : " + m.getLeft1());
 
 					storyService.insertMarker(m);
 				}
@@ -503,11 +503,11 @@ public class StoryController {
 					m.setLeft1(marker.getLeft1());
 					m.setProductNo(marker.getProductNo());
 					m.setImageNo(imageNo);
-					System.out.println("마커 이미지 번호 :" + m.getImageNo());
-					System.out.println("마커 스토리 번호 : " + m.getStoryNo());
-					System.out.println("상품 번호 : " + m.getProductNo());
-					System.out.println("마커 x  : " + m.getTop1());
-					System.out.println("마커 y  : " + m.getLeft1());
+//					System.out.println("마커 이미지 번호 :" + m.getImageNo());
+//					System.out.println("마커 스토리 번호 : " + m.getStoryNo());
+//					System.out.println("상품 번호 : " + m.getProductNo());
+//					System.out.println("마커 x  : " + m.getTop1());
+//					System.out.println("마커 y  : " + m.getLeft1());
 
 					storyService.insertMarker(m);
 				}

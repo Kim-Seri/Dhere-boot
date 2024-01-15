@@ -69,8 +69,6 @@ public class OtherScrapController {
                                     @RequestParam(value="nickname", required = false) String nickname,
                                     @RequestParam(value="picture", required = false) String picture,
                                     @RequestParam(value="categoryName", required = false) String categoryName,
-                                    @RequestParam(value="oOffset", required = false, defaultValue="0") Integer oOffset,
-                                    @RequestParam(value="oLimit", required = false, defaultValue="6") Integer oLimit,
                                     Model model) {
        
         model.addAttribute("email", email);
@@ -78,7 +76,7 @@ public class OtherScrapController {
         model.addAttribute("picture", picture);
         model.addAttribute("categoryName", categoryName);
         
-        List<Story> userStories = otherScrapService.getUserStories(email, oOffset, oLimit);
+        List<Story> userStories = otherScrapService.getUserStories(email);
         model.addAttribute("userStories", userStories);
 
         return new ModelAndView("otherScrap", model.asMap());

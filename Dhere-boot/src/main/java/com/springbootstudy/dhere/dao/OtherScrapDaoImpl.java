@@ -24,11 +24,9 @@ public class OtherScrapDaoImpl implements OtherScrapDao {
 	
 	// 다른 유저의 스토리 게시물 가져오기
 	@Override
-	public List<Story> getUserStories(String email, Integer otherOffset, Integer otherLimit) {
+	public List<Story> getUserStories(String email) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("email", email);
-		params.put("otherOffset", otherOffset);
-		params.put("otherLimit", otherLimit);
 
 		return sqlSession.selectList(NAME_SPACE + ".getOtherStoryListPaged", params);
 	}

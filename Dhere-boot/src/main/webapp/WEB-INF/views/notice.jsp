@@ -56,10 +56,10 @@
                         <div class="col text-end">
                             <c:choose>
 							    <c:when test="${sessionScope.member.email eq 'admin'}">
-									<button class="btn btn-outline-primary" onclick="location.href='noticeWriteForm'">작성하기</button>
-									<button class="btn btn-outline-primary" id="noticeUpdateBtn">수정하기</button>
-									<input type="button" id="deleteButton" class="btn btn-outline-primary" data-notice-no="" value="삭제하기">
-		                            <button class="btn btn-outline-primary" onclick="location.href='main'">돌아가기</button>
+									<button class="btn btn-primary" onclick="location.href='noticeWriteForm'">작성하기</button>
+									<button class="btn btn-success" id="noticeUpdateBtn">수정하기</button>
+									<input type="button" id="deleteButton" class="btn btn-danger" data-notice-no="" value="삭제하기">
+		                            <button class="btn btn-warning" onclick="location.href='main'">돌아가기</button>
 								</c:when>
 						    	<c:otherwise>
 						    		<button class="btn btn-outline-primary" onclick="location.href='main'">돌아가기</button>

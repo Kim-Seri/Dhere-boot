@@ -64,13 +64,7 @@
 							<a href='otherScrap?email=${storyDetail.email}&nickname=${storyDetail.nickname}&picture=${storyDetail.picture}&job=${storyDetail.categoryName}'class='text-decoration-none text-dark'>프로필 보러가기</a>
 							<br>
 						    <br>
-						    <a href='scrap' class='text-decoration-none text-dark'>쪽지 보내기</a>
-							<br>
-						    <br>
-						    <a href='scrap' class='text-decoration-none text-dark'>1:1 대화</a>
-							<br>
-						    <br>
-						    <a href='scrap' class='text-decoration-none text-dark'>신고하기</a>
+						    <a href='inquiryWrite' class='text-decoration-none text-dark'>신고하기</a>
 						    " >
 						</div>
 						<!-- 프로필 사진 끝 -->
@@ -109,7 +103,7 @@
 				                </button>
 				                <form action="deleteStory" method="post" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
 				                    <input type="hidden" name="storyNo" value="${storyDetail.storyNo}" />
-				                    <button type="submit" class="btn btn-outline-primary fs-5" id="deleteBtn">
+				                    <button type="submit" class="btn btn-outline-danger fs-5 mt-3" id="deleteBtn">
 				                        삭제하기
 				                    </button>
 				                </form>
@@ -252,7 +246,7 @@
 					                            </div>
 					                            <div style="width: 100%; height: 2px; color: black"></div>
 					                            <div class="row mb-2">
-					                                <div class="col-10 offset-1 mt-2" style="overflow: hidden; font-size: 23px">
+					                                <div class="col-10 offset-1 mt-2" style="overflow: hidden; font-size: 18px">
 					                                    <b>`+productName+`</b>
 					                                </div>
 				                                </div>
@@ -369,9 +363,9 @@
 	<!--############################# 공유, 하트, 신고 버튼 영역 시작 ############################-->
 					<div class="row" id="share_heart_siren_btn">
 						<div class="col text text-center">
-							<button type="button" class="btn btn-outline-primary" id="icon_siren_btn2">
-								<img src="resources/images/icon/shara_export.png" id="icon_share_btn">
-							</button>
+							<!-- <button type="button" class="btn btn-outline-primary" id="">
+								<img src="resources/images/share.png" class="product-icon" id="icon_share_btn" data-bs-toggle='modal' data-bs-target='#shareModal' style="cursor: pointer">	
+							</button> -->
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<button type="button" class="btn btn-outline-primary fs-4 increaseThankBtn" data-story-id="${storyDetail.storyNo}">
 							    +<img src="resources/images/icon/heart.png" id="icon_heart_btn">
@@ -438,26 +432,7 @@
 									<div class="col-3">
 										<div class="row">
 											<div class="col text-center">
-												<img src="resources/images/profile/${r.picture}" 
-												id="replyOtherUserPicture"
-												tabindex="0" 
-												data-bs-html="true" 
-												data-bs-placement="left" 
-												data-bs-toggle="popover" 
-												data-bs-trigger="focus"
-												data-bs-title="${r.nickname}"
-												data-bs-content="
-												<a href='otherScrap?email=${r.email}&nickname=${r.nickname}&picture=${r.picture}&categoryName=${storyDetail.categoryName}'class='text-decoration-none text-dark'>프로필 보러가기</a>
-												<br>
-											    <br>
-											    <a href='scrap' class='text-decoration-none text-dark'>쪽지 보내기</a>
-												<br>
-											    <br>
-											    <a href='scrap' class='text-decoration-none text-dark'>1:1 대화</a>
-												<br>
-											    <br>
-											    <a href='scrap' class='text-decoration-none text-dark'>신고하기</a>
-											    " >
+												<img src="resources/images/profile/${r.picture}" id="replyOtherUserPicture">
 											</div>
 										</div>
 										<div class="row">
@@ -481,7 +456,7 @@
 									<div class="col-1">
 									<c:choose>
 									    <c:when test="${sessionScope.member.email eq 'admin' or r.email eq sessionScope.member.email}">
-											<img src="resources/images/icon/cancel_red.png" id="storyDetail_reply_delete"
+											<img src="resources/images/icon/cancel.png" id="storyDetail_reply_delete"
 														onclick="deleteReply(${r.replyNo})" style="cursor: pointer;">
 										</c:when>
 								    	<c:otherwise>
@@ -537,7 +512,7 @@
 						</div>
 						<div class="col-2 d-flex justify-content-center align-items-center">
 						    <c:if test="${not empty sessionScope.member}">
-						        <input type="submit" class="btn btn-warning" value="댓글 작성" style="width: 120px; height: 80px;">
+						        <input type="submit" class="btn btn-warning" id="replyWriteBtn777" value="댓글 작성" style="width: 120px; height: 80px;">
 						    </c:if>
 						</div>
 					</form>
@@ -602,6 +577,7 @@ function deleteReply(replyNo) {
         }
     });
 }
+
 </script>
 <script>
     // 로그인 상태를 JavaScript 변수로 설정
@@ -631,6 +607,36 @@ function deleteReply(replyNo) {
             }
         });
     });
+    
+    
+    
+    
+    $(document).ready(function() {
+        $("#replyWriteBtn777").click(function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/replyWrite',
+                type: 'POST',
+                data: $('#storyDetail_reply_write_area').serialize(),
+                success: function(response) {
+                    if (response.error) {
+                        // 서버에서 에러 메시지가 반환되었을 때 처리
+                        alert(response.error);
+                        window.location.href = '/loginForm';
+                    } else {
+                       /*  // 성공 메시지를 사용자에게 알림
+                        alert(response.message); */
+                        location.reload();
+                    }
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    alert('댓글 작성에 실패했습니다. 다시 시도해 주세요.');
+                }
+            });
+        });
+    });
+    
+    
 </script>
 
 

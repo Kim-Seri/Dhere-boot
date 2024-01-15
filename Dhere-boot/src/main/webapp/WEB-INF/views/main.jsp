@@ -13,9 +13,8 @@
 <%@ page import="java.io.InputStreamReader" %>
 
 
-
-
 <link rel="stylesheet" href="resources/css/main.css">
+
  <script src="resources/js/main.js"></script>
 <%@ page session="true" %>
 
@@ -24,9 +23,10 @@
 	<title>Home</title>
 </head>
 <body>
-<div class="container">
+
 <div class="row">
 	<div class="col">
+	
 	
 		 <!-- 글쓰기 버튼 -->
 		 <input type="button" id="main_writeBtn" class="btn btn-primary fixed-write-button" value="글쓰기" 
@@ -38,7 +38,7 @@
 		 </a>
 		
 		<!-- 캐러셀 시작 -->
-		<div class="row">
+		<!-- <div class="row">
 			<div class="col">
 				<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
 					<div class="carousel-inner">
@@ -62,7 +62,7 @@
 					</button>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<!-- 캐러셀 끝 -->
 
 		<form id="categorySearchForm">
@@ -121,26 +121,23 @@
 
 		<!-- 검색창 -->
 		<div class="row">
-		<div class="col d-flex justify-content-center">
-			
-			<div class="row mt-4">
-			<div class="col mt-5 mb-5 pt-1">
-				<input type="text" placeholder=" &nbsp;#데스크셋업" class="border border-primary border-3 rounded-4" id="TagSearchBox"> 
+			<div class="col d-flex justify-content-center">
+				<div class="row mt-4">
+					<div class="col mt-5 mb-5 pt-1">
+						<input type="text" placeholder=" &nbsp;#데스크셋업" class="border border-primary border-3 rounded-4" id="TagSearchBox"> 
+					</div>
+					<div class="col mt-5 mb-5">
+						<img src="resources/images/icon/search.png" style="width: 40px;" id="TagSearchBtn">
+					</div>
+				</div>
 			</div>
-			<div class="col mt-5 mb-5">
-				<img src="resources/images/icon/search.png" style="width: 40px;" id="TagSearchBtn">
-			</div>
-			</div>
-
-
-		</div>
 		</div>
 		
 		<!-- 게시글 타이틀, 정렬 -->
 		<div class="row align-items-center">
-		<div class="col-2" style="font-weight: bold; font-size: 2.0em;">
-			 ⎸ 전체 게시글
-		</div>
+			<div class="col-6" style="font-weight: bold; font-size: 2.0em;">
+				 ⎸ 전체 게시글
+			</div>
 		<div class="col text-end">
 			<select id="selectBox">
 				<option value="recent">최신순 정렬</option>
@@ -197,13 +194,7 @@
 												class='text-decoration-none text-dark'>프로필 보러가기</a>
 										<br>
 									    <br>
-									    <a href='scrap' class='text-decoration-none text-dark'>쪽지 보내기</a>
-										<br>
-									    <br>
-									    <a href='scrap' class='text-decoration-none text-dark'>1:1 대화</a>
-										<br>
-									    <br>
-									    <a href='scrap' class='text-decoration-none text-dark'>신고하기</a>
+									    <a href='inquiryWrite' class='text-decoration-none text-dark'>신고하기</a>
 							">
 					&nbsp;
 					${s.nickname}
@@ -346,7 +337,7 @@
 </div>
 	
 
-</div>
+
 
 
 </body>

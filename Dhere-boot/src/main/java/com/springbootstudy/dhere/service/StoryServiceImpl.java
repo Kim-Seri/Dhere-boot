@@ -122,7 +122,7 @@ public class StoryServiceImpl implements StoryService {
 	@Override
 	public List<Job> getJobList() {
 		List<Job> jList = storyDao.getJobList();
-		System.out.println(jList);
+//		System.out.println(jList);
 		return storyDao.getJobList();
 	}
 

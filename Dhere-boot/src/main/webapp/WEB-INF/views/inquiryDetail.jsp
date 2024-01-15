@@ -22,9 +22,20 @@
 				  <div class="col-10 offset-1 my-5">
 				  	<input type="text" class="form-control" name="inquiryContent" id="inquiryContent" value="${inquiry.inquiryContent}" style="border: none; border-radius: 0; border-bottom: 2px solid rgb(49, 108, 244); outline: none" readonly> 
 				  </div>
-				  <div class="col-3">
-					<img src="resources/images/inquiry/${inquiry.inquiryFile}" style="max-width: 200%; height: auto;">
-				  </div>
+				  <c:if test="${not empty inquiry.inquiryFile}">
+					  <div class="row">
+						  <div class="col text-center">
+							<img src="resources/images/inquiry/${inquiry.inquiryFile}" style="max-width: 200%; height: auto;">
+						  </div>
+					  </div>
+				  </c:if>
+				  <c:if test="${empty inquiry.inquiryFile}">
+					  <div class="row">
+						  <div class="col text-center">
+						  	 <p style="font-size: 20px; color: gray;">첨부파일 없음</p>
+						  </div>
+					  </div>
+				  </c:if>
 					<c:choose>
 						<c:when test="${not empty answerList}">
 							<c:forEach var="answer" items="${answerList}">

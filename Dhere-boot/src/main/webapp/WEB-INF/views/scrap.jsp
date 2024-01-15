@@ -39,7 +39,7 @@
 					<div class="col">
 			        	<div class="scrap_menu_btn" id="scrap_menu_btn2"  
 			        			onclick="location.href='/mypageUpdateProcess'">
-			          		<h3>회원정보 수정</h3>
+			          		<h3>정보 수정</h3>
 		        		</div>
 					</div>
 			      	<div class="col">
@@ -169,16 +169,7 @@
 																				&picture=${s.picture}
 																				&categoryName=${s.categoryName}
 																				&categoryName=${s.categoryName}'
-																		class='text-decoration-none text-dark'>프로필 보러가기</a>
-																<br>
-															    <br>
-															    <a href='scrap' class='text-decoration-none text-dark'>쪽지 보내기</a>
-																<br>
-															    <br>
-															    <a href='scrap' class='text-decoration-none text-dark'>1:1 대화</a>
-																<br>
-															    <br>
-															    <a href='scrap' class='text-decoration-none text-dark'>신고하기</a>">
+																		class='text-decoration-none text-dark'>프로필 보러가기</a>">
 											&nbsp;
 											${s.nickname}
 										</div>

@@ -72,11 +72,12 @@ function emailCheck() {
   }
 }
 
-function passCheck() {
+function passCheckjoin() {
   let pass = $("#pass1").val();
   $("#isPassCheck").val("false");
   console.log($("#isPassCheck").val());
   $("#label2").css("color", "red").text("비밀번호 중복확인을  실시해 주세요.");
+  $("#btnOverlapPass").attr("disabled", false);
 }
 
 function nickNameCheck() {
@@ -202,6 +203,7 @@ $(function () {
       $("#isPassCheck").val("true");
       console.log($("#isPassCheck").val());
       password = $("#pass1").val();
+      $("#btnOverlapPass").attr("disabled", true);
 
       return false;
     } else {
@@ -315,8 +317,20 @@ $(function () {
   });
 });
 
+let passCheck1=false;
+
+function passCheck() {
+  let updatePass = $("#newPass1").val();
+  passCheck1=false;
+  
+  $("#newPassLabel").css("color", "red").text("비밀번호가 일치하지 않습니다.");
+}
+
+//비밀번호, 이름, 닉네임, 주소, 연락
 $(function () {
-  $("#newPassBtn").click(function () {
+	
+	
+	 $("#newPassBtn").click(function () {
     var newPass1 = $("#newPass1").val();
     var newPass2 = $("#newPass2").val();
 
@@ -325,7 +339,7 @@ $(function () {
       return false;
     } else if (newPass1 == newPass2) {
       $("#newPassLabel").css("color", "black").text("비밀번호가 일치합니다.");
-      return false;
+      passCheck1=true;
     } else {
       $("#newPassLabel")
         .css("color", "red")
@@ -333,10 +347,7 @@ $(function () {
       return false;
     }
   });
-});
-
-//비밀번호, 이름, 닉네임, 주소, 연락
-$(function () {
+	
   $("#mypageUpdateResult").on("submit", function () {
     if ($("#newPass1").val().length <= 0) {
       alert("비밀번호를 입력해주세요");
@@ -373,16 +384,14 @@ $(function () {
       $("#phone").focus();
       return false;
     }
+    
+    if(!passCheck1){
+		alert("비밀번호가 일치한지 확인해주세요.");
+		return false;
+	}
+    
   });
+  
 });
 
-document.getElementById("submitBtn").addEventListener("click", function (e) {
-  var phoneNumber = document.getElementById("phone").value;
 
-  var numericRegex = /^[0-9]{11}/;
-
-  if (!numericRegex.test(phoneNumber)) {
-    alert("연락처에는 숫자만 입력해주세요.");
-    e.preventDefault();
-  }
-});

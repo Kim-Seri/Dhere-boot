@@ -31,13 +31,14 @@ public class WebConfig implements WebMvcConfigurer {
 		registry.addViewController("/joinForm").setViewName("joinForm");
 		registry.addViewController("/scrap").setViewName("scrap");
 		registry.addViewController("/inquiryWrite").setViewName("inquiryWrite");
-		registry.addViewController("/answerWrite").setViewName("answerWrite");			
-		registry.addViewController("/noticeWriteForm").setViewName("noticeWriteForm");			
-		registry.addViewController("/noticeUpdateForm").setViewName("noticeUpdateForm");			
-		registry.addViewController("/notice").setViewName("notice");					
-		registry.addViewController("/findIdPass").setViewName("findIdPass");					
-		registry.addViewController("/findId").setViewName("findId");					
-		registry.addViewController("/findPass").setViewName("findPass");					
+		registry.addViewController("/answerWrite").setViewName("answerWrite");
+		registry.addViewController("/noticeWriteForm").setViewName("noticeWriteForm");
+		registry.addViewController("/noticeUpdateForm").setViewName("noticeUpdateForm");
+		registry.addViewController("/notice").setViewName("notice");
+		registry.addViewController("/findIdPass").setViewName("findIdPass");
+		registry.addViewController("/findId").setViewName("findId");
+		registry.addViewController("/findPass").setViewName("findPass");
+		registry.addViewController("/mainAbout").setViewName("mainAbout");
 	}
 	
 	// Interceptor 등록
@@ -45,7 +46,8 @@ public class WebConfig implements WebMvcConfigurer {
 		public void addInterceptors(InterceptorRegistry registry) {
 			registry.addInterceptor(new LoginCheckInterceptor())
 						// 인터셉터 호출에서 제외
-						.excludePathPatterns("/resources/**", "/", "/main", "/login*","/join*","/categoryList","/productList","/storyDetail", "/storyList","/authenNumCheck","/nicknameCheck", "/find*");
+						.excludePathPatterns("/resources/**", "/", "/main", "/login*","/join*","/categoryList","/productList","/storyDetail", "/storyList","/authenNumCheck","/nicknameCheck", "/find*",
+								"/findCheckId","/notice", "/notice/*", "/mainAbout", "/getProductList");
 						// 인터셉터 호출에 추가
 						//.addPathPatterns("/mypage*", "/post*");
 		}

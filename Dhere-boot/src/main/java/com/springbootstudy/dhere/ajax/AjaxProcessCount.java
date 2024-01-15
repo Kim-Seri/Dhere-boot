@@ -35,111 +35,123 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 public class AjaxProcessCount {
-	
+
 	@Autowired
 	private MemberService memberService;
-	
+
 	@Autowired
 	private StoryService storyService;
-	
+
 	@Autowired
 	private ProductService productService;
-	
+
 	@Autowired
 	private ScrapService scrapService;
-	
+
 	@PostMapping("/joinCheck")
 	@ResponseBody
-	public Map<String, Boolean> overIdCheck(@RequestParam("id") String id){
-		
-		boolean result=memberService.overEmailCheck(id);
-		Map<String,Boolean> map=new HashMap<>();
+	public Map<String, Boolean> overIdCheck(@RequestParam("id") String id) {
+
+		boolean result = memberService.overEmailCheck(id);
+		Map<String, Boolean> map = new HashMap<>();
 		map.put("result", result);
 		return map;
 	}
-	
+
 	// 카테고리 별 제품 리스트 출력
 	@PostMapping("/categoryList")
 	@ResponseBody
-	public Map<String, List<Product>> productList(
-			@RequestParam("productCategory") String productCategory) {
-		
-		Map<String, List<Product>> map= new HashMap<>();
+	public Map<String, List<Product>> productList(@RequestParam("productCategory") String productCategory) {
+
+		Map<String, List<Product>> map = new HashMap<>();
 		map.put("category", productService.productList(productCategory));
-		
+
 		return map;
 	}
-	
-	
-	 @PostMapping("/myScraps")
-	 @ResponseBody
-	 public Map<String, List<Scrap>> scList(HttpSession session, Model model) {
-		 
-		 Member member = (Member) session.getAttribute("member");
-	 
-		 Map<String, List<Scrap>> map=new HashMap<>();
-		 map.put("scList",scrapService.scList(member.getEmail()));
-			 
-		 return map; 
-	 }
-	 
+
+	@PostMapping("/myScraps")
+	@ResponseBody
+	public Map<String, List<Scrap>> scList(HttpSession session, Model model) {
+
+		Member member = (Member) session.getAttribute("member");
+
+		Map<String, List<Scrap>> map = new HashMap<>();
+		map.put("scList", scrapService.scList(member.getEmail()));
+
+		return map;
+	}
+
 	@PostMapping("/imageListajax")
 	@ResponseBody
-	public List<Image> storyImageList(
-			@RequestParam("storyNo") int storyNo){
-		
+	public List<Image> storyImageList(@RequestParam("storyNo") int storyNo) {
+
 		List<Image> iList = storyService.getStoryDetailImage(storyNo);
 		return iList;
-		
+
 	}
-	
+
 	@PostMapping("/markerData")
 	@ResponseBody
-	public List<Marker> markerList(
-			@RequestParam("storyNo") int storyNo){
-		
+	public List<Marker> markerList(@RequestParam("storyNo") int storyNo) {
+
 		List<Marker> mList = storyService.markerList(storyNo);
 		return mList;
-		
+
 	}
-	
-	//제품정보 전체 데이터 가져오기 (마커 검색 비교용)
+
+	// 제품정보 전체 데이터 가져오기 (마커 검색 비교용)
 	@GetMapping("/productList")
 	@ResponseBody
-	public List<Product> productListAll(){
-		List<Product> product =productService.productListAll();
+	public List<Product> productListAll() {
+		List<Product> product = productService.productListAll();
 		log.info(product.get(0).getBrandName());
-		
+
 		return product;
 	}
-	
-	//휴대폰 인증
+
+	// 휴대폰 인증
 	@PostMapping("/authenNumCheck")
 	@ResponseBody
-	public String sendSMS (@RequestParam("phoneNum") String phoneNum) {
-		Random rand  = new Random(); //랜덤숫자 생성하기 !!
-		String numStr="";
-		for(int i=0; i<5; i++) {
-			String ran=Integer.toString(rand.nextInt(10));
-			numStr+=ran;
+	public String sendSMS(@RequestParam("phoneNum") String phoneNum) {
+		Random rand = new Random(); // 랜덤숫자 생성하기 !!
+		String numStr = "";
+		for (int i = 0; i < 5; i++) {
+			String ran = Integer.toString(rand.nextInt(10));
+			numStr += ran;
 		}
 		memberService.certifiedPhoneNumber(phoneNum, numStr);
-		
+
 		return numStr;
-		
+
 	}
-	
-	//닉네임 중복확인
+
+	// 닉네임 중복확인
 	@PostMapping("/nicknameCheck")
 	@ResponseBody
-	public Map<String, Boolean> overNickNameCheck(@RequestParam("nickname") String nickname){
-		
-		boolean result=memberService.overNickNameCheck(nickname);
-		Map<String,Boolean> map=new HashMap<>();
+	public Map<String, Boolean> overNickNameCheck(@RequestParam("nickname") String nickname) {
+
+		boolean result = memberService.overNickNameCheck(nickname);
+		Map<String, Boolean> map = new HashMap<>();
 		map.put("result", result);
 		return map;
 	}
-	
-	
-}
 
+	// 아이디 찾기 회원정보 가져오기
+	@PostMapping("/findCheckId")
+	@ResponseBody
+	public Member findCheckId(@RequestParam("findIdName") String findIdName,
+							@RequestParam("findIdPhone") String findIdPhone) {
+		Member m=memberService.getMemberFind(findIdName,findIdPhone);
+		return m;
+	}
+
+	// 비밀번호 찾기 회원정보 가져오기
+	@PostMapping("/findCheckPass")
+	@ResponseBody
+	public Member findCheckPass(@RequestParam("findPassName") String findPassName,
+								@RequestParam("findPassPhone") String findPassPhone) {
+		Member m=memberService.getMemberFind(findPassName,findPassPhone);
+		return m;
+	}
+
+}

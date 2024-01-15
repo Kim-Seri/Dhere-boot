@@ -70,9 +70,9 @@ public class MemberController {
 		session.setAttribute("member", member);
 		session.setAttribute("nickname", member.getNickname());
 
-		System.out.println(email);
-		System.out.println(pass);
-		System.out.println(result);
+//		System.out.println(email);
+//		System.out.println(pass);
+//		System.out.println(result);
 
 		return "redirect:main";
 

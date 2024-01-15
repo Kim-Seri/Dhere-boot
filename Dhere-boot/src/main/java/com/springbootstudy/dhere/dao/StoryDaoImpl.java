@@ -143,18 +143,18 @@ public class StoryDaoImpl implements StoryDao {
 	@Override
 	public void updateStoryProcess(Story story) {
  		sqlSession.update(NAME_SPACE + ".updateStoryProcess", story);
- 		System.out.println(story.getTitle());
- 		System.out.println(story.getContent1());
- 		System.out.println(story.getContent2());
- 		System.out.println(story.getContent3());
- 		System.out.println(story.getContent4());
+// 		System.out.println(story.getTitle());
+// 		System.out.println(story.getContent1());
+// 		System.out.println(story.getContent2());
+// 		System.out.println(story.getContent3());
+// 		System.out.println(story.getContent4());
 	}
 	
 	 // 직종 리스트 가져오기
 	@Override
 	public List<Job> getJobList(){
 		List<Job> jList=sqlSession.selectList(NAME_SPACE+".getJobList");
-		System.out.println(jList);
+//		System.out.println(jList);
 		return sqlSession.selectList(NAME_SPACE+".getJobList");
 	}
 	

@@ -5,7 +5,3 @@ document.addEventListener('DOMContentLoaded', function () {
         return new bootstrap.Popover(popoverTriggerEl);
     });
 });
-
-
-
-
