@@ -106,10 +106,6 @@ public class InquiryController {
 		 
 		 return "redirect:adminInquiry"; 
 	 }
-	 
-	 
-	 
-
 	
 	@GetMapping("/inquiryDetail")
 	public String inquiryDetail(Model model, @RequestParam("inquiryNo") int inquiryNo) {

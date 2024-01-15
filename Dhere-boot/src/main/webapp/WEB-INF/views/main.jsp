@@ -14,6 +14,7 @@
 
 
 <link rel="stylesheet" href="resources/css/main.css">
+
  <script src="resources/js/main.js"></script>
 <%@ page session="true" %>
 
