@@ -40,6 +40,7 @@ body {
 }
 
 h1, h2 {
+	color: #4370FF;
     font-size: 2em;
     opacity: 0;
     transition: opacity 2s;
@@ -96,6 +97,8 @@ h1, h2 {
 
 #greeting1, #greeting2, #greeting3 {
 	font-size: 30px;
+	font-weight: 900;
+	color: #4370FF;
 }
 
 
@@ -124,6 +127,7 @@ h1, h2 {
 
 <div class="row">
     <div class="col-4">
+    	<img src="resources/images/carousel/3d-casual-life-collegues-working-at-the-desk.png" class="mt-5 ms-5 d-block w-100" alt="...">
     </div>
     <div class="col-8" id="contentBox">
         <p id="greeting1" class="content-hidden">
@@ -141,7 +145,10 @@ h1, h2 {
 
 <div class="row"  id="mainContentBox">
 	<div class="col text-center">
+		<br>
+		<br>
 		우리의 삶은 우리가 보낸 시간과 공간에 의해 구성됩니다. 
+		<br>
 		<br>
 		그 중에서도 우리가 일을 하는 곳, 즉 데스크는 우리의 삶을 크게 좌우합니다. 
 		<br>
@@ -154,7 +161,10 @@ h1, h2 {
 		여러분이 Dhere에서 새로운 영감을 얻고, 자신만의 완벽한 작업 공간을 찾아가는 과정을 돕고자 합니다.
 		<br>
 		<br>
-		Dhere에서 시작하여, 여러분의 일상을 더욱 특별하게 만들어보세요. 우리는 여러분의 여정을 기대하고 있습니다.
+		Dhere에서 시작하여, 여러분의 일상을 더욱 특별하게 만들어보세요. 
+		<br>
+		<br>
+		우리는 여러분의 여정을 기대하고 있습니다.
 		<br>
 		<br>
 		감사합니다.
@@ -163,6 +173,13 @@ h1, h2 {
 		<br>
 		<br>
 		<b class="fs-3">Dhere Team 일동</b>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<img src="resources/images/carousel/carousel02.png" class="d-block w-100" alt="...">
 	</div>
 </div>
 

@@ -48,22 +48,22 @@
 			<div class="col-3">
 				<div class="row">
 					<div class="col" id="footer_category_title">
-						Learn More
+						Introduction
 					</div>
 				</div>
 				<div class="row">
 					<div class="col" id="footer_category_link_area">
-						<a href="footerMenu" target="_blank" id="footer_category_link">Webinars</a>
+						<a href="mainAbout" target="_blank" id="footer_category_link">About</a>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col" id="footer_category_link_area">
-						<a href="footerMenu" target="_blank" id="footer_category_link">Demos</a>
+						<a href="notice" target="_blank" id="footer_category_link">Notice</a>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col" id="footer_category_link_area">
-						<a href="footerMenu" target="_blank" id="footer_category_link">Guides</a>
+						<a href="footerMenu" target="_blank" id="footer_category_link"></a>
 					</div>
 				</div>
 			</div>
@@ -72,22 +72,22 @@
 			<div class="col-3">
 				<div class="row">
 					<div class="col" id="footer_category_title">
-						Company
+						Social
 					</div>
 				</div>
 				<div class="row">
 					<div class="col" id="footer_category_link_area">
-						<a href="footerMenu" target="_blank" id="footer_category_link">About</a>
+						<a href="https://www.instagram.com" target="_blank" id="footer_category_link">instargram</a>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col" id="footer_category_link_area">
-						<a href="footerMenu" target="_blank" id="footer_category_link">Careers</a>
+						<a href="https://twitter.com" target="_blank" id="footer_category_link">X</a>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col" id="footer_category_link_area">
-						<a href="footerMenu" target="_blank" id="footer_category_link">Status</a>
+						<a href="https://www.youtube.com" target="_blank" id="footer_category_link">Youtube</a>
 					</div>
 				</div>
 			</div>
@@ -101,7 +101,9 @@
 				</div>
 				<div class="row">
 					<div class="col" id="footer_subscribe_content">
-						새로운 소식을 가장 빠르게 받아보세요!	
+						새로운 소식을 가장
+						<br>
+						빠르게 받아보세요!	
 					</div>
 				</div>
 				<form>

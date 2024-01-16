@@ -65,10 +65,10 @@
 				 	 		<input type="button" class="btn btn-primary" value="답변하기" style="width: 90px; height: 45px" onclick="location.href='answerWrite?no=${inquiry.inquiryNo}'">
 				 	 	</div>
 				 	 	<div class="col">
-				 	 		<input type="button" class="btn border-3 border-primary" style="width: 90px; height: 45px; font-weight: bold; color:rgb(49, 108, 244)" value="삭제하기" id="deleteInquiry">
+				 	 		<input type="button" class="btn btn-danger" style="width: 90px; height: 45px; font-weight: bold;" value="삭제하기" id="deleteInquiry">
 				 	 	</div>
 				 	 	<div class="col">
-				 	 		<input type="button" class="btn border-3 border-primary" style="width: 90px; height: 45px; font-weight: bold; color:rgb(49, 108, 244)" value="돌아가기" onclick="goBack()">
+				 	 		<input type="button" class="btn btn-outline-primary" style="width: 90px; height: 45px; font-weight: bold; " value="돌아가기" onclick="goBack()">
 				 	 	</div>
 				 	 </div>
 				  </c:if>
